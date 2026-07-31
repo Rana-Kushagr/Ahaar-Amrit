@@ -46,48 +46,58 @@ const features = [
 function Index() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#f7f1df] px-6 pt-24 pb-20">
-      {/* Load Comfortaa font (will render in body but fine for dev) */}
+      {/* Load Comfortaa font */}
       <link
         href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&display=swap"
         rel="stylesheet"
       />
-
       <style>{` .font-comfortaa{ font-family: 'Comfortaa', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; } `}</style>
 
-      {/* Decorative SVG artwork (CSS/SVG approximations of the reference) */}
-      <svg
-        className="pointer-events-none absolute -left-24 -top-12 h-[520px] w-[520px] opacity-90"
-        viewBox="0 0 520 520"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden
-      >
-        <defs>
-          <radialGradient id="r1" cx="30%" cy="30%" r="60%">
-            <stop offset="0%" stopColor="#fff7ed" stopOpacity="0.9" />
-            <stop offset="100%" stopColor="#f7f1df" stopOpacity="0" />
-          </radialGradient>
-        </defs>
-        <circle cx="120" cy="120" r="140" fill="#FDE68A" opacity="0.08" />
-        <g transform="translate(60,260) scale(0.9)">
-          <path d="M10 200 C 80 120, 220 120, 290 200 C 220 260, 80 260, 10 200 Z" fill="#E6F4EA" />
-          <path d="M40 180 C 100 120, 200 120, 260 180 C 200 220, 100 220, 40 180 Z" fill="#D1F0D9" opacity="0.95" />
-        </g>
-        <path d="M420 80 C 380 40, 320 40, 300 80 C 320 100, 380 100, 420 80 Z" fill="#D1FAE5" opacity="0.95" />
-        <path d="M460 120 C 430 80, 380 80, 360 120 C 380 140, 430 140, 460 120 Z" fill="#FEF3C7" opacity="0.9" />
-      </svg>
+      {/* Enhanced decorative background made from layered gradients and SVG shapes */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        {/* large warm radial for sky/glow */}
+        <div
+          aria-hidden
+          className="absolute -left-40 -top-40 h-[900px] w-[900px] rounded-full bg-[radial-gradient(circle_at_20%_20%,_#fde68a_8%,_transparent_35%)] opacity-90 blur-[60px] transform-gpu"
+        />
 
-      <svg
-        className="pointer-events-none absolute -right-24 -bottom-12 h-[520px] w-[520px] opacity-95"
-        viewBox="0 0 520 520"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden
-      >
-        <ellipse cx="260" cy="420" rx="240" ry="80" fill="#FCEFD8" />
-        <path d="M40 360 C 120 300, 400 300, 480 360 L480 420 L40 420 Z" fill="#FFF7ED" />
-        <g transform="translate(180,310)">
-          <circle cx="40" cy="-10" r="60" fill="#FDE68A" opacity="0.12" />
-        </g>
-      </svg>
+        {/* subtle green blob */}
+        <div
+          aria-hidden
+          className="absolute -right-48 bottom-[-10%] h-[720px] w-[720px] rounded-full bg-[radial-gradient(circle_at_80%_80%,_#d1fae5_8%,_transparent_40%)] opacity-85 blur-[80px] transform-gpu"
+        />
+
+        {/* gentle landscape band */}
+        <svg className="absolute left-0 right-0 bottom-0 h-[40vh] w-full" viewBox="0 0 1440 320" preserveAspectRatio="none" aria-hidden>
+          <defs>
+            <linearGradient id="land1" x1="0" x2="1">
+              <stop offset="0%" stopColor="#fff7ed" stopOpacity="1" />
+              <stop offset="100%" stopColor="#f7f1df" stopOpacity="0.95" />
+            </linearGradient>
+          </defs>
+          <path d="M0,160 C220,220 380,80 720,160 C1060,240 1220,120 1440,160 L1440 320 L0 320 Z" fill="url(#land1)" />
+        </svg>
+
+        {/* leaf cluster svg on right */}
+        <svg className="absolute right-6 top-28 h-[340px] w-[340px] opacity-95" viewBox="0 0 400 400" aria-hidden>
+          <g transform="translate(20,20)">
+            <path d="M300 40 C260 0, 200 0, 180 40 C200 60, 260 60, 300 40 Z" fill="#D1FAE5" />
+            <path d="M320 90 C280 50, 220 50, 200 90 C220 110, 280 110, 320 90 Z" fill="#FEF3C7" />
+            <ellipse cx="260" cy="220" rx="120" ry="70" fill="#FFF4E6" />
+            <circle cx="320" cy="30" r="30" fill="#FDE68A" opacity="0.12" />
+          </g>
+        </svg>
+
+        {/* subtle noise texture using SVG filter for organic feel */}
+        <svg className="absolute inset-0 w-full h-full" aria-hidden>
+          <filter id="n" x="0" y="0" width="100%" height="100%">
+            <feTurbulence baseFrequency="0.8" numOctaves="2" stitchTiles="stitch" result="t" />
+            <feColorMatrix type="saturate" values="0" />
+            <feBlend in="SourceGraphic" in2="t" mode="overlay" />
+          </filter>
+          <rect width="100%" height="100%" fill="#ffffff" opacity="0.02" filter="url(#n)" />
+        </svg>
+      </div>
 
       {/* Floating rounded navbar (recreated) */}
       <nav className="absolute left-1/2 top-6 z-30 w-[min(1100px,calc(100%-3rem))] -translate-x-1/2 rounded-full bg-white/95 px-6 py-3 shadow-lg flex items-center justify-between">
@@ -127,7 +137,9 @@ function Index() {
           {/* Heading */}
           <h1 className="mt-6 font-display font-comfortaa text-5xl font-bold leading-tight sm:text-6xl md:text-7xl">
             आहार
-            <span className="ml-3 inline-block text-amber-700">अमृत</span>
+            <span className="ml-3 inline-block bg-clip-text text-transparent" style={{ backgroundImage: 'linear-gradient(90deg,#c2410c,#f59e0b)' }}>
+              अमृत
+            </span>
           </h1>
 
           {/* Subheading / description */}

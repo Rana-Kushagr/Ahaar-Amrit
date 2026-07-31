@@ -28,18 +28,9 @@ const questions: Question[] = [
   {
     question: "How would you describe your natural body build?",
     options: [
-      {
-        text: "Light, slim, or naturally lean",
-        dosha: "Vata",
-      },
-      {
-        text: "Medium build with a balanced physique",
-        dosha: "Pitta",
-      },
-      {
-        text: "Solid, sturdy, or naturally strong",
-        dosha: "Kapha",
-      },
+      { text: "Light, slim, or naturally lean", dosha: "Vata" },
+      { text: "Medium build with a balanced physique", dosha: "Pitta" },
+      { text: "Solid, sturdy, or naturally strong", dosha: "Kapha" },
     ],
   },
   {
@@ -239,9 +230,11 @@ function calculateDosha(answers: Dosha[]): Dosha {
     Kapha: 0,
   };
 
-  answers.forEach((answer) => {
-    scores[answer] += 1;
-  });
+  for (const answer of answers) {
+    if (answer) {
+      scores[answer] += 1;
+    }
+  }
 
   return (Object.keys(scores) as Dosha[]).reduce(
     (winner, dosha) =>
@@ -252,20 +245,31 @@ function calculateDosha(answers: Dosha[]): Dosha {
 
 function DoshaQuiz() {
   const navigate = useNavigate();
-
-  // Connect the Dosha quiz to the existing Ahaar profile.
   const { update } = useAhaarProfile();
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Dosha[]>([]);
   const [showResult, setShowResult] = useState(false);
 
-  const progress =
-    ((currentQuestion + 1) / questions.length) * 100;
-
   const result = useMemo(() => {
     return calculateDosha(answers);
   }, [answers]);
+
+  const progress = Math.min(
+    ((currentQuestion + 1) / questions.length) * 100,
+    100
+  );
+
+  const finishQuiz = (finalAnswers: Dosha[]) => {
+    const finalResult = calculateDosha(finalAnswers);
+
+    // Save the final Dosha into the Ahaar profile.
+    update({
+      dosha: finalResult,
+    });
+
+    setShowResult(true);
+  };
 
   const handleAnswer = (dosha: Dosha) => {
     const newAnswers = [...answers];
@@ -274,28 +278,14 @@ function DoshaQuiz() {
 
     setAnswers(newAnswers);
 
-    // If this is the final question, calculate and save
-    // the result using the newest answer.
+    // LAST QUESTION
     if (currentQuestion === questions.length - 1) {
-      const finalResult = calculateDosha(newAnswers);
-
-      // Save the Dosha into the existing Ahaar Profile.
-      // nutrition-plan.tsx already reads profile.dosha.
-      update({
-        dosha: finalResult,
-      });
-
-      setTimeout(() => {
-        setShowResult(true);
-      }, 180);
-
+      finishQuiz(newAnswers);
       return;
     }
 
-    // Move to the next question.
-    setTimeout(() => {
-      setCurrentQuestion((previous) => previous + 1);
-    }, 180);
+    // Move to next question.
+    setCurrentQuestion((previous) => previous + 1);
   };
 
   const restartQuiz = () => {
@@ -305,9 +295,9 @@ function DoshaQuiz() {
   };
 
   /*
-   * ================================
+   * =====================================================
    * RESULT SCREEN
-   * ================================
+   * =====================================================
    */
 
   if (showResult) {
@@ -315,22 +305,19 @@ function DoshaQuiz() {
 
     return (
       <main className="relative min-h-screen overflow-hidden bg-background">
-        {/* Decorative background */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <div className="animate-pulse-glow absolute -left-32 top-20 h-96 w-96 rounded-full bg-orange-300/20 blur-3xl" />
 
           <div className="animate-float-slow absolute -right-32 top-40 h-96 w-96 rounded-full bg-green-400/20 blur-3xl" />
         </div>
 
-        <section className="relative mx-auto flex min-h-[calc(100vh-5rem)] max-w-4xl items-center justify-center px-6 py-16">
+        <section className="relative mx-auto flex min-h-screen max-w-4xl items-center justify-center px-6 py-16">
           <div className="glass w-full rounded-[2rem] p-8 text-center shadow-warm sm:p-12">
 
-            {/* Dosha emoji */}
             <div className="mx-auto flex h-24 w-24 animate-float items-center justify-center rounded-full bg-white/70 text-5xl shadow-xl">
               {resultData.emoji}
             </div>
 
-            {/* Hindi result */}
             <p className="mt-8 font-hindi text-xl font-semibold text-primary">
               आपका प्रमुख दोष — {resultData.hindi}
             </p>
@@ -339,7 +326,6 @@ function DoshaQuiz() {
               Your Ayurvedic Pattern
             </p>
 
-            {/* Result */}
             <h1 className="mt-4 font-display text-5xl font-bold text-foreground sm:text-6xl">
               {result}
             </h1>
@@ -352,12 +338,10 @@ function DoshaQuiz() {
               {resultData.subtitle}
             </p>
 
-            {/* Description */}
             <p className="mx-auto mt-8 max-w-2xl text-base leading-8 text-muted-foreground">
               {resultData.description}
             </p>
 
-            {/* Advice */}
             <div className="mx-auto mt-8 max-w-2xl rounded-2xl bg-primary/10 p-6 text-left">
               <h3 className="font-display text-xl font-bold text-foreground">
                 A gentle starting point
@@ -368,11 +352,7 @@ function DoshaQuiz() {
               </p>
             </div>
 
-            {/* Actions */}
             <div className="mt-10 flex flex-wrap justify-center gap-3">
-
-              {/* This now leads to the nutrition plan
-                  with the Dosha already saved in profile.dosha */}
               <Button
                 onClick={() =>
                   navigate({
@@ -397,7 +377,6 @@ function DoshaQuiz() {
               </Button>
             </div>
 
-            {/* Home */}
             <Link
               to="/"
               className="mt-8 inline-block text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
@@ -405,7 +384,6 @@ function DoshaQuiz() {
               Return to Ahaar Amrit
             </Link>
 
-            {/* Disclaimer */}
             <p className="mx-auto mt-8 max-w-xl text-xs leading-5 text-muted-foreground/70">
               This quiz is an educational wellness experience based on
               traditional Ayurvedic concepts. It does not provide a medical
@@ -419,10 +397,40 @@ function DoshaQuiz() {
   }
 
   /*
-   * ================================
+   * =====================================================
    * QUIZ SCREEN
-   * ================================
+   * =====================================================
    */
+
+  // Safety guard:
+  // If the question index somehow becomes invalid,
+  // immediately show the result instead of crashing.
+  if (currentQuestion >= questions.length) {
+    const safeResult = calculateDosha(answers);
+
+    update({
+      dosha: safeResult,
+    });
+
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-background">
+        <div className="text-center">
+          <Sparkles className="mx-auto h-10 w-10 animate-pulse text-primary" />
+
+          <p className="mt-4 text-muted-foreground">
+            Calculating your Dosha...
+          </p>
+
+          <Button
+            className="mt-6 rounded-full"
+            onClick={() => setShowResult(true)}
+          >
+            View My Result
+          </Button>
+        </div>
+      </main>
+    );
+  }
 
   const question = questions[currentQuestion];
   const selectedAnswer = answers[currentQuestion];
@@ -430,7 +438,6 @@ function DoshaQuiz() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-background">
 
-      {/* Decorative background */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="animate-pulse-glow absolute -left-32 top-20 h-80 w-80 rounded-full bg-orange-300/20 blur-3xl" />
 
@@ -439,9 +446,7 @@ function DoshaQuiz() {
 
       <section className="relative mx-auto max-w-4xl px-6 py-12 sm:py-20">
 
-        {/* Top navigation */}
         <div className="mb-10 flex items-center justify-between">
-
           <Button
             variant="ghost"
             onClick={() => {
@@ -467,9 +472,7 @@ function DoshaQuiz() {
           </div>
         </div>
 
-        {/* Progress */}
         <div className="mb-8">
-
           <div className="mb-3 flex items-center justify-between text-sm">
             <span className="font-medium text-primary">
               Question {currentQuestion + 1} of{" "}
@@ -491,11 +494,9 @@ function DoshaQuiz() {
           </div>
         </div>
 
-        {/* Question Card */}
         <div className="glass rounded-[2rem] p-6 shadow-warm sm:p-10">
 
           <div className="text-center">
-
             <p className="font-hindi text-lg text-secondary">
               अपने बारे में बताएं
             </p>
@@ -509,9 +510,7 @@ function DoshaQuiz() {
             </p>
           </div>
 
-          {/* Answer options */}
           <div className="mx-auto mt-10 grid max-w-2xl gap-4">
-
             {question.options.map((option) => {
               const isSelected =
                 selectedAnswer === option.dosha;
@@ -546,31 +545,13 @@ function DoshaQuiz() {
             })}
           </div>
 
-          {/* Moving message */}
           {selectedAnswer &&
-            currentQuestion <
-              questions.length - 1 && (
-              <div className="mt-8 text-center text-xs text-muted-foreground">
-                Moving to the next question...
-              </div>
-            )}
-
-          {/* Final question button */}
-          {selectedAnswer &&
-            currentQuestion ===
-              questions.length - 1 && (
+            currentQuestion === questions.length - 1 && (
               <div className="mt-8 text-center">
                 <Button
-                  onClick={() => {
-                    const finalResult =
-                      calculateDosha(answers);
-
-                    update({
-                      dosha: finalResult,
-                    });
-
-                    setShowResult(true);
-                  }}
+                  onClick={() =>
+                    finishQuiz(answers)
+                  }
                   className="rounded-full"
                 >
                   See My Result

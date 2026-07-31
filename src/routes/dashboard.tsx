@@ -70,6 +70,19 @@ const fallbackFoods = [
   { name: "Seasonal Fruit", hindi: "मौसमी फल", note: "Natural sugars & fibre" },
 ];
 
+const healthyPicks = {
+  adolescent: {
+    name: "Ragi",
+    hindi: "रागी",
+    benefits: ["High in Calcium", "Rich in Iron", "Good for growing adolescents"],
+  },
+  general: {
+    name: "Moong Dal",
+    hindi: "मूंग दाल",
+    benefits: ["Good source of Plant Protein", "Rich in Fibre", "Easy to include in Indian meals"],
+  },
+};
+
 function Dashboard() {
   const { profile, hydrated } = useAhaarProfile();
 

@@ -62,7 +62,9 @@ className="
 relative
 min-h-screen
 overflow-hidden
-bg-[#f7f1df]
+bg-[url('/ayurveda-hero.png')]
+bg-cover
+bg-center
 px-6
 pt-28
 pb-20
@@ -100,7 +102,6 @@ blur-3xl
 animate-float-slow
 "
 />
-
 
 
 
@@ -195,7 +196,6 @@ and optional Ayurvedic wellness.
 
 
 
-
 <div
 className="
 mt-8
@@ -250,15 +250,13 @@ Explore Ayurveda
 
 
 
-{/* RIGHT IMAGE */}
+{/* RIGHT IMAGE (phone mockup kept as-is, card removed) */}
 
 
 <div
 className="
 relative
 overflow-hidden
-rounded-[3rem]
-shadow-2xl
 "
 >
 
@@ -274,95 +272,11 @@ object-cover
 />
 
 
-
-<div
-className="
-absolute
-inset-0
-bg-gradient-to-t
-from-black/30
-to-transparent
-"
-/>
-
-
-
-
-
-{/* FLOATING CARD */}
-
-<div
-className="
-absolute
-bottom-6
-left-6
-right-6
-rounded-3xl
-bg-white/40
-p-5
-backdrop-blur-xl
-border
-border-white/40
-"
->
-
-
-<div
-className="
-grid
-grid-cols-3
-gap-3
-"
->
-
-
-{
-["Energy","Balance","Health"].map((item)=>(
-
-<div
-key={item}
-className="
-rounded-2xl
-bg-white/60
-p-4
-text-center
-"
->
-
-<p className="font-semibold">
-{item}
-</p>
-
-
-<p
-className="
-text-xs
-text-muted-foreground
-"
->
-AI Plan
-</p>
-
-
-</div>
-
-))
-}
-
-
-</div>
-
-
-</div>
-
-
-
 </div>
 
 
 
 </section>
-
 
 
 

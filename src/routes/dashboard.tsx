@@ -209,6 +209,15 @@ function Dashboard() {
           <p className="mt-2 text-center text-muted-foreground">
             Your personalized nutrition journey begins here.
           </p>
+
+          <div className="mt-6 flex justify-center">
+            <Button variant="hero" size="lg" asChild>
+              <Link to="/nutrition-plan">
+                View My Nutrition Plan
+                <span className="font-hindi ml-2 text-sm">मेरा पोषण प्लान देखें</span>
+              </Link>
+            </Button>
+          </div>
         </section>
 
         {/* Profile */}

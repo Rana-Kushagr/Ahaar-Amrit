@@ -75,12 +75,13 @@ pb-20
 className="
 absolute
 inset-0
--z-20
+z-0
 bg-cover
 bg-center
+bg-no-repeat
 "
 style={{
-backgroundImage:"url('/ayurveda-hero.png')"
+backgroundImage: "url('/ayurveda-hero.png')",
 }}
 />
 
@@ -374,6 +375,7 @@ AI Plan
 
 
 </section>
+
 
 
 

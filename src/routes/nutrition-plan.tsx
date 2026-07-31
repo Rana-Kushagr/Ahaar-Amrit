@@ -1,22 +1,27 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Leaf, Sparkles, Utensils, Pencil } from "lucide-react";
+import { ArrowLeft, Leaf, Sparkles, Utensils, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAhaarProfile } from "@/hooks/use-ahaar-profile";
 import { doshaProfiles } from "@/lib/dosha";
 import {
   ageGroupOptions,
-  allergyOptions,
   dietOptions,
   goalOptions,
   labelFor,
   regionOptions,
 } from "@/lib/profile";
+import {
+  ALLERGY_NOTE,
+  AYURVEDA_DISCLAIMER,
+  buildNutritionPlan,
+  planFocusNotes,
+} from "@/lib/nutrition-plan";
 
-const title = "My Ahaar Profile — Ahaar Amrit";
+const title = "My Nutrition Plan — Ahaar Amrit";
 const description =
-  "Your saved Ahaar Profile: age group, region, food preference, allergies, goals, and optional Ayurvedic dosha.";
+  "A personalized one-day Indian meal plan built from your Ahaar Profile: region, food preference, goals and optional Ayurvedic insight.";
 
-export const Route = createFileRoute("/profile")({
+export const Route = createFileRoute("/nutrition-plan")({
   head: () => ({
     meta: [
       { title },
@@ -27,220 +32,192 @@ export const Route = createFileRoute("/profile")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: ProfilePage,
+  component: NutritionPlanPage,
 });
 
-function ProfilePage() {
+function NutritionPlanPage() {
   const { profile, hydrated } = useAhaarProfile();
 
-  if (!hydrated) {
-    return <div className="min-h-screen bg-background" aria-hidden />;
-  }
+  if (!hydrated) return <div className="min-h-screen bg-background" aria-hidden />;
 
-  const hasProfile = Boolean(
-    profile.ageGroup ||
-      profile.region ||
-      profile.dietaryPreference
-  );
-
-  // SAFE DOSHA LOOKUP
-  // Prevents the page from crashing if localStorage contains
-  // an invalid or outdated dosha value.
-  const dosha = profile.dosha
-    ? doshaProfiles[profile.dosha]
-    : undefined;
+  const plan = buildNutritionPlan(profile);
+  const notes = planFocusNotes(profile);
+  const dosha = profile.dosha ? doshaProfiles[profile.dosha] : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted px-4 py-16">
-      <div className="container mx-auto max-w-3xl">
-        <div className="mb-10 text-center">
-          <div className="mb-6 flex justify-center">
-            <div className="rounded-full bg-gradient-hero p-5 shadow-warm">
-              <Leaf className="h-8 w-8 text-primary-foreground" />
+    <div className="min-h-screen bg-gradient-to-b from-background to-muted px-4 py-12">
+      <div className="container mx-auto max-w-4xl space-y-8">
+        <Link
+          to="/dashboard"
+          className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-smooth hover:text-primary"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to dashboard
+        </Link>
+
+        {/* Header */}
+        <header className="rounded-2xl border border-primary/15 bg-card p-8 text-center shadow-warm">
+          <div className="mb-4 flex justify-center">
+            <div className="rounded-full bg-gradient-hero p-4 shadow-warm">
+              <Leaf className="h-7 w-7 text-primary-foreground" />
             </div>
           </div>
-
-          <h1 className="mb-2 text-3xl font-bold md:text-4xl">
-            My Ahaar Profile
-          </h1>
-
-          <p className="font-hindi text-muted-foreground">
-            मेरी आहार प्रोफ़ाइल
+          <h1 className="text-3xl font-bold md:text-4xl">Your Personalized Nutrition Plan</h1>
+          <p className="mt-2 font-hindi text-muted-foreground">आपकी व्यक्तिगत पोषण योजना</p>
+          <p className="mx-auto mt-4 max-w-xl text-sm text-foreground/80">
+            This one-day plan is built from the preferences and goals you shared in your Ahaar
+            Profile, using everyday Indian foods.
           </p>
-        </div>
+        </header>
 
-        {!hasProfile ? (
-          <div className="rounded-2xl border border-primary/15 bg-card p-8 text-center shadow-warm">
-            <p className="mb-6 text-foreground/90">
-              You haven't set up your Ahaar Profile yet. It only takes a minute.
-            </p>
-
-            <Button variant="hero" size="lg" asChild>
-              <Link to="/onboarding">Let's Get Started</Link>
-            </Button>
+        {/* Plan based on */}
+        <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+          <h2 className="mb-4 flex items-center gap-2 text-lg font-semibold">
+            <Info className="h-5 w-5 text-primary" />
+            Plan based on
+            <span className="font-hindi text-sm font-normal text-muted-foreground">आपकी जानकारी</span>
+          </h2>
+          <div className="grid gap-4 sm:grid-cols-3">
+            <Stat label="Age group" value={labelFor(ageGroupOptions, profile.ageGroup)} />
+            <Stat label="Region" value={labelFor(regionOptions, profile.region)} />
+            <Stat label="Food preference" value={labelFor(dietOptions, profile.dietaryPreference)} />
           </div>
-        ) : (
-          <>
-            {/* BASIC PROFILE INFORMATION */}
-            <div className="mb-8 grid gap-4 sm:grid-cols-2">
-              <Card
-                label="Age group"
-                hindi="आयु वर्ग"
-                value={labelFor(ageGroupOptions, profile.ageGroup)}
-              />
-
-              <Card
-                label="Region"
-                hindi="क्षेत्र"
-                value={labelFor(regionOptions, profile.region)}
-              />
-
-              <Card
-                label="Food preference"
-                hindi="भोजन प्राथमिकता"
-                value={labelFor(
-                  dietOptions,
-                  profile.dietaryPreference
-                )}
-              />
-
-              <Card
-                label="Allergies"
-                hindi="एलर्जी"
-                value={
-                  profile.allergies.length
-                    ? profile.allergies
-                        .map((allergy) =>
-                          allergy === "other" && profile.otherAllergy
-                            ? profile.otherAllergy
-                            : labelFor(
-                                allergyOptions,
-                                allergy
-                              )
-                        )
-                        .join(", ")
-                    : "—"
-                }
-              />
-            </div>
-
-            {/* GOALS */}
-            <div className="mb-8 rounded-2xl border border-secondary/20 bg-card p-6 shadow-sm">
-              <h2 className="mb-4 flex items-center gap-2 text-lg font-semibold">
-                <Utensils className="h-5 w-5 text-secondary" />
-
-                Your goals
-
-                <span className="font-hindi text-sm font-normal text-muted-foreground">
-                  लक्ष्य
-                </span>
-              </h2>
-
-              <ul className="space-y-2 text-sm text-foreground/90">
-                {profile.goals.map((goal) => (
-                  <li key={goal} className="flex gap-2">
-                    <span className="text-secondary">•</span>
-
+          <div className="mt-5">
+            <p className="text-xs uppercase tracking-[0.15em] text-muted-foreground">Goals</p>
+            <ul className="mt-2 flex flex-wrap gap-2">
+              {profile.goals.length ? (
+                profile.goals.map((goal) => (
+                  <li
+                    key={goal}
+                    className="rounded-full border border-secondary/25 bg-secondary/10 px-3 py-1 text-sm"
+                  >
                     {goal === "other" && profile.otherGoal
                       ? profile.otherGoal
                       : labelFor(goalOptions, goal)}
                   </li>
-                ))}
-
-                {profile.goals.length === 0 && (
-                  <li className="text-muted-foreground">—</li>
-                )}
-              </ul>
-            </div>
-
-            {/* AYURVEDA */}
-            <div className="mb-10 rounded-2xl border border-accent/25 bg-card p-6 shadow-sm">
-              <h2 className="mb-3 flex items-center gap-2 text-lg font-semibold">
-                <Sparkles className="h-5 w-5 text-accent" />
-
-                Ayurvedic wellness (optional)
-              </h2>
-
-              {dosha ? (
-                <div>
-                  <p className="text-sm text-foreground/90">
-                    Your dominant dosha is{" "}
-                    <span className="font-semibold text-primary">
-                      {dosha.name}
-                    </span>{" "}
-                    <span className="font-hindi">
-                      {dosha.hindi}
-                    </span>
-                    .
-                  </p>
-
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    {dosha.summary}
-                  </p>
-
-                  <Link
-                    to="/dosha"
-                    className="mt-3 inline-block text-sm underline underline-offset-4 hover:text-primary"
-                  >
-                    Retake the quiz
-                  </Link>
-                </div>
+                ))
               ) : (
-                <p className="text-sm text-foreground/90">
-                  You haven't explored Ayurveda yet.{" "}
-                  <Link
-                    to="/dosha"
-                    className="underline underline-offset-4 hover:text-primary"
-                  >
-                    Take the optional dosha quiz
-                  </Link>
-                </p>
+                <li className="text-sm text-muted-foreground">No goals selected</li>
               )}
+            </ul>
+          </div>
+          {notes.length > 0 && (
+            <ul className="mt-5 space-y-1.5 text-sm text-foreground/90">
+              {notes.map((n) => (
+                <li key={n} className="flex gap-2">
+                  <span className="text-primary">•</span>
+                  {n}
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
 
-              <p className="mt-3 text-xs text-muted-foreground">
-                Ayurvedic wellness information is provided for educational
-                purposes and is not a medical diagnosis.
+        {/* Meals */}
+               <section className="space-y-4">
+          <h2 className="flex items-center gap-2 text-lg font-semibold">
+            <Utensils className="h-5 w-5 text-secondary" />
+            Your day of meals
+            <span className="font-hindi text-sm font-normal text-muted-foreground">आज का आहार</span>
+          </h2>
+
+          {plan.map((section) => (
+            <article
+              key={section.slot}
+              className="rounded-2xl border border-border bg-card p-6 shadow-sm"
+            >
+              <p className="text-xs uppercase tracking-[0.15em] text-muted-foreground">
+                {section.title}{" "}
+                <span className="font-hindi normal-case tracking-normal">{section.hindi}</span>
               </p>
-            </div>
+              <h3 className="mt-2 text-xl font-semibold text-primary">{section.item.name}</h3>
+              <p className="font-hindi text-sm text-muted-foreground">{section.item.hindi}</p>
+              <p className="mt-3 text-sm text-foreground/90">{section.item.description}</p>
+              <p className="mt-2 text-sm text-foreground/70">
+                <span className="font-medium text-secondary">Why it helps: </span>
+                {section.item.benefit}
+              </p>
+            </article>
+          ))}
 
-            {/* EDIT PROFILE */}
-            <div className="text-center">
-              <Button variant="soft" size="lg" asChild>
-                <Link to="/onboarding">
-                  <Pencil className="mr-2 h-4 w-4" />
-                  Edit my answers
-                </Link>
+          <p className="rounded-xl border border-border bg-background p-4 text-xs text-muted-foreground">
+            {ALLERGY_NOTE}
+          </p>
+        </section>
+
+        {/* Ayurveda */}
+        <section className="rounded-2xl border border-accent/25 bg-card p-6 shadow-sm">
+          <h2 className="mb-3 flex items-center gap-2 text-lg font-semibold">
+            <Sparkles className="h-5 w-5 text-accent" />
+            {dosha ? "Your Ayurvedic Insight" : "Explore Ayurveda"}
+            <span className="font-hindi text-sm font-normal text-muted-foreground">
+              आपकी आयुर्वेदिक जानकारी
+            </span>
+          </h2>
+
+          {dosha ? (
+            <div>
+              <p className="text-sm text-foreground/90">
+                <span className="font-semibold text-primary">{dosha.name}</span>{" "}
+                <span className="font-hindi">{dosha.hindi}</span> · {dosha.elements}
+              </p>
+              <p className="mt-2 text-sm text-muted-foreground">{dosha.summary}</p>
+
+              <p className="mt-4 text-xs uppercase tracking-[0.15em] text-muted-foreground">
+                Gentle suggestions
+              </p>
+              <ul className="mt-2 space-y-1.5 text-sm text-foreground/90">
+                {dosha.eat.slice(0, 2).map((tip) => (
+                  <li key={tip} className="flex gap-2">
+                    <span className="text-accent">•</span>
+                    {tip}
+                  </li>
+                ))}
+                {dosha.habits.slice(0, 1).map((tip) => (
+                  <li key={tip} className="flex gap-2">
+                    <span className="text-accent">•</span>
+                    {tip}
+                  </li>
+                ))}
+              </ul>
+
+              <Button variant="soft" className="mt-4" asChild>
+                <Link to="/dosha">View full dosha guidance</Link>
               </Button>
             </div>
-          </>
-        )}
+          ) : (
+            <div>
+              <p className="text-sm text-foreground/90">
+                You can optionally explore your Ayurvedic body type for a gentle traditional
+                perspective alongside this plan. It is completely optional.
+              </p>
+              <Button variant="hero" className="mt-4" asChild>
+                <Link to="/dosha">Take Dosha Quiz</Link>
+              </Button>
+            </div>
+          )}
+
+          <p className="mt-4 text-xs text-muted-foreground">{AYURVEDA_DISCLAIMER}</p>
+        </section>
+
+        <div className="flex flex-wrap justify-center gap-3 pb-4">
+          <Button variant="soft" asChild>
+            <Link to="/dashboard">Back to dashboard</Link>
+          </Button>
+          <Button variant="ghost" asChild>
+            <Link to="/profile">Edit my profile</Link>
+          </Button>
+        </div>
       </div>
     </div>
   );
 }
 
-function Card({
-  label,
-  hindi,
-  value,
-}: {
-  label: string;
-  hindi: string;
-  value: string;
-}) {
+function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
-      <p className="text-xs uppercase tracking-[0.15em] text-muted-foreground">
-        {label}
-      </p>
-
-      <p className="font-hindi text-xs text-muted-foreground">
-        {hindi}
-      </p>
-
-      <p className="mt-2 font-medium">
-        {value}
-      </p>
+    <div className="rounded-xl border border-border bg-background p-4">
+      <p className="text-xs uppercase tracking-[0.15em] text-muted-foreground">{label}</p>
+      <p className="mt-1 font-medium">{value}</p>
     </div>
   );
 }

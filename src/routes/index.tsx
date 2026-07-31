@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Leaf, Heart, Sparkles, Utensils } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+
 const title =
   "Ahaar Amrit — Personalized Indian Nutrition";
 
@@ -26,6 +27,7 @@ export const Route = createFileRoute("/")({
 });
 
 
+
 const features = [
   {
     icon: Utensils,
@@ -38,7 +40,7 @@ const features = [
     icon: Heart,
     title: "Indian Food Culture",
     hindi: "भारतीय भोजन",
-    text: "Foods and habits connected to your region and routine.",
+    text: "Foods connected with your region and routine.",
   },
 
   {
@@ -50,369 +52,426 @@ const features = [
 ];
 
 
+
 function Index() {
 
-  return (
-
-    <main
-      className="
-      relative
-      min-h-screen
-      overflow-hidden
-      px-6
-      pt-28
-      pb-20
-      bg-[#f7f1df]
-      "
-    >
-
-
-      {/* HERO IMAGE BACKGROUND */}
-
-      <div
-        className="
-        absolute
-        inset-0
-        z-0
-        bg-cover
-        bg-center
-        "
-        style={{
-          backgroundImage:
-            "url('/ayurveda-hero.png')",
-        }}
-      />
-
-
-      {/* IMAGE OVERLAY */}
-
-      <div
-        className="
-        absolute
-        inset-0
-        z-10
-        bg-gradient-to-r
-        from-[#f7f1df]/95
-        via-[#f7f1df]/80
-        to-[#f7f1df]/30
-        "
-      />
+return (
+
+<main
+className="
+relative
+min-h-screen
+overflow-hidden
+px-6
+pt-28
+pb-20
+"
+>
+
+
+{/* HERO IMAGE */}
+
+<div
+className="
+absolute
+inset-0
+-z-20
+bg-cover
+bg-center
+"
+style={{
+backgroundImage:"url('/ayurveda-hero.png')"
+}}
+/>
+
+
+{/* IMAGE OVERLAY */}
+
+<div
+className="
+absolute
+inset-0
+-z-10
+bg-gradient-to-r
+from-[#faf4e6]
+via-[#faf4e6]/90
+to-[#faf4e6]/40
+"
+/>
+
+
+
+{/* FLOATING LIGHT */}
+
+<div
+className="
+absolute
+left-10
+top-32
+h-72
+w-72
+rounded-full
+bg-orange-300/30
+blur-3xl
+animate-float
+"
+/>
+
+
+<div
+className="
+absolute
+right-10
+bottom-20
+h-96
+w-96
+rounded-full
+bg-green-300/30
+blur-3xl
+animate-float-slow
+"
+/>
+
+
+
+
+<section
+className="
+relative
+mx-auto
+grid
+max-w-6xl
+items-center
+gap-12
+md:grid-cols-2
+"
+>
 
 
 
-      {/* CONTENT */}
+{/* LEFT */}
 
-      <section
-        className="
-        relative
-        z-20
-        mx-auto
-        grid
-        max-w-6xl
-        items-center
-        gap-12
-        md:grid-cols-2
-        "
-      >
+<div>
 
 
-        {/* LEFT */}
+<p
+className="
+font-hindi
+mb-4
+text-xl
+text-secondary
+"
+>
+स्वस्थ भारत, विकसित भारत
+</p>
 
-        <div>
 
-          <p
-            className="
-            mb-5
-            font-hindi
-            text-xl
-            text-secondary
-            "
-          >
-            स्वस्थ भारत, विकसित भारत
-          </p>
 
+<h1
+className="
+font-display
+text-6xl
+font-bold
+leading-tight
+md:text-8xl
+"
+>
 
+आहार
 
-          <h1
-            className="
-            font-display
-            text-6xl
-            font-bold
-            leading-tight
-            md:text-8xl
-            "
-          >
+<span
+className="
+text-gradient-saffron
+"
+>
+{" "}अमृत
+</span>
 
-            आहार
+</h1>
 
-            <span className="text-gradient-saffron">
-              {" "}अमृत
-            </span>
 
-          </h1>
 
+<h2
+className="
+mt-4
+text-3xl
+font-semibold
+"
+>
+Ahaar Amrit
+</h2>
 
 
-          <h2
-            className="
-            mt-4
-            text-3xl
-            font-semibold
-            "
-          >
-            Ahaar Amrit
-          </h2>
 
+<p
+className="
+mt-6
+max-w-xl
+text-lg
+text-muted-foreground
+"
+>
 
+Personalized nutrition for young India —
+combining modern science,
+Indian food wisdom,
+and optional Ayurvedic wellness.
 
-          <p
-            className="
-            mt-6
-            max-w-xl
-            text-lg
-            text-muted-foreground
-            "
-          >
-            Personalized nutrition for young India —
-            combining modern science, Indian food wisdom,
-            and optional Ayurvedic wellness.
-          </p>
+</p>
 
 
 
 
-          <div className="mt-8 flex flex-wrap gap-4">
+<div
+className="
+mt-8
+flex
+flex-wrap
+gap-4
+"
+>
 
 
-            <Button
-              asChild
-              size="xl"
-              variant="hero"
-            >
+<Button
+asChild
+size="xl"
+variant="hero"
+>
 
-              <Link to="/onboarding">
+<Link to="/onboarding">
 
-                <Sparkles className="mr-2 h-5 w-5"/>
+<Sparkles className="mr-2 h-5 w-5"/>
 
-                Create Profile
+Create Profile
 
-              </Link>
+</Link>
 
-            </Button>
+</Button>
 
 
 
-            <Button
-              asChild
-              size="xl"
-              variant="outline"
-            >
+<Button
+asChild
+size="xl"
+variant="outline"
+>
 
-              <Link to="/dosha">
+<Link to="/dosha">
 
-                Explore Ayurveda
+Explore Ayurveda
 
-              </Link>
+</Link>
 
-            </Button>
+</Button>
 
 
-          </div>
+</div>
 
 
-        </div>
+</div>
 
 
 
 
 
-        {/* RIGHT IMAGE CARD */}
+{/* RIGHT CARD */}
 
 
-        <div
-          className="
-          rounded-[2.5rem]
-          bg-white/40
-          backdrop-blur-xl
-          border
-          border-white/50
-          p-8
-          shadow-2xl
-          "
-        >
+<div
+className="
+rounded-[2.5rem]
+border
+border-white/40
+bg-white/40
+p-8
+shadow-2xl
+backdrop-blur-xl
+"
+>
 
 
-          <div
-            className="
-            h-80
-            overflow-hidden
-            rounded-[2rem]
-            "
-          >
+<div
+className="
+flex
+h-80
+items-center
+justify-center
+rounded-[2rem]
+bg-gradient-premium
+"
+>
 
-            <img
-              src="/ayurveda-hero.png"
-              alt="Ayurveda wellness"
-              className="
-              h-full
-              w-full
-              object-cover
-              "
-            />
 
+<div
+className="
+rounded-full
+bg-white/20
+p-12
+backdrop-blur
+animate-float
+"
+>
 
-          </div>
+<Leaf
+className="
+h-28
+w-28
+text-white
+"
+/>
 
 
+</div>
 
 
-          <div
-            className="
-            mt-6
-            grid
-            grid-cols-3
-            gap-3
-            "
-          >
+</div>
 
-            {
-              [
-                "Energy",
-                "Balance",
-                "Health",
-              ].map((item)=>(
 
-                <div
-                  key={item}
-                  className="
-                  rounded-2xl
-                  bg-white/50
-                  backdrop-blur
-                  p-4
-                  text-center
-                  "
-                >
 
-                  <p className="font-semibold">
-                    {item}
-                  </p>
 
-                  <p className="text-xs text-muted-foreground">
-                    AI Plan
-                  </p>
+<div
+className="
+mt-6
+grid
+grid-cols-3
+gap-3
+"
+>
 
 
-                </div>
+{
+["Energy","Balance","Health"].map((item)=>(
 
-              ))
-            }
+<div
+key={item}
+className="
+rounded-2xl
+bg-white/50
+p-4
+text-center
+backdrop-blur
+"
+>
 
+<p className="font-semibold">
+{item}
+</p>
 
-          </div>
+<p className="text-xs text-muted-foreground">
+AI Plan
+</p>
 
+</div>
 
-        </div>
+))
+}
 
 
-      </section>
+</div>
 
 
+</div>
 
 
+</section>
 
-      {/* FEATURES */}
 
 
-      <section
-        className="
-        relative
-        z-20
-        mx-auto
-        mt-20
-        grid
-        max-w-5xl
-        gap-5
-        md:grid-cols-3
-        "
-      >
 
-        {
-          features.map((feature)=>{
 
-            const Icon = feature.icon;
 
+{/* FEATURES */}
 
-            return (
 
-              <div
+<section
+className="
+relative
+mx-auto
+mt-20
+grid
+max-w-5xl
+gap-5
+md:grid-cols-3
+"
+>
 
-                key={feature.title}
 
-                className="
-                rounded-3xl
-                border
-                border-white/40
-                bg-white/50
-                backdrop-blur-xl
-                p-6
-                text-center
-                shadow-lg
-                transition
-                hover:-translate-y-2
-                "
-              >
+{
+features.map((feature)=>{
 
-                <Icon
-                  className="
-                  mx-auto
-                  mb-4
-                  h-9
-                  w-9
-                  text-primary
-                  "
-                />
+const Icon = feature.icon;
 
 
-                <h3 className="font-semibold">
-                  {feature.title}
-                </h3>
+return (
 
+<div
+key={feature.title}
+className="
+rounded-3xl
+border
+border-white/40
+bg-white/50
+p-6
+text-center
+shadow-lg
+backdrop-blur-xl
+transition
+hover:-translate-y-2
+"
+>
 
-                <p
-                  className="
-                  mt-1
-                  font-hindi
-                  text-sm
-                  text-muted-foreground
-                  "
-                >
-                  {feature.hindi}
-                </p>
+<Icon
+className="
+mx-auto
+mb-4
+h-9
+w-9
+text-primary
+"
+/>
 
 
-                <p
-                  className="
-                  mt-3
-                  text-sm
-                  text-muted-foreground
-                  "
-                >
-                  {feature.text}
-                </p>
+<h3 className="font-semibold">
+{feature.title}
+</h3>
 
 
-              </div>
+<p
+className="
+mt-1
+font-hindi
+text-sm
+text-muted-foreground
+"
+>
+{feature.hindi}
+</p>
 
-            )
 
-          })
-        }
+<p
+className="
+mt-3
+text-sm
+text-muted-foreground
+"
+>
+{feature.text}
+</p>
 
 
-      </section>
+</div>
 
+)
 
-    </main>
+})
+}
 
-  );
+
+</section>
+
+
+</main>
+
+);
+
 }

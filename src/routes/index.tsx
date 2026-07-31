@@ -1,254 +1,412 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Leaf, Heart, Sparkles, Utensils } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+
+const title =
+  "Ahaar Amrit — Personalized Indian Nutrition";
+
+const description =
+  "Personalized Indian nutrition powered by modern science, food culture and optional Ayurveda.";
+
+
+export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      {
+        title,
+      },
+      {
+        name: "description",
+        content: description,
+      },
+    ],
+  }),
+
+  component: Index,
+});
+
+
+
+const features = [
+  {
+    icon: Utensils,
+    title: "Modern Nutrition",
+    hindi: "आधुनिक पोषण",
+    text: "Science-backed nutrition made for Indian lifestyles.",
+  },
+
+  {
+    icon: Heart,
+    title: "Indian Food Culture",
+    hindi: "भारतीय भोजन",
+    text: "Foods and habits connected to your region and routine.",
+  },
+
+  {
+    icon: Sparkles,
+    title: "Optional Ayurveda",
+    hindi: "आयुर्वेद",
+    text: "Traditional wellness insights when you choose.",
+  },
+];
+
+
+
 function Index() {
-return (
-
-<div className="
-min-h-screen
-overflow-hidden
-bg-background
-">
-
-
-<section className="
-relative
-min-h-screen
-flex
-items-center
-justify-center
-px-6
-pt-32
-">
-
-
-<div className="
-absolute
-top-20
-left-10
-h-72
-w-72
-rounded-full
-bg-primary/20
-blur-3xl
-animate-float
-"/>
-
-
-<div className="
-absolute
-bottom-10
-right-10
-h-96
-w-96
-rounded-full
-bg-secondary/20
-blur-3xl
-animate-float-slow
-"/>
-
-
-
-<div className="
-relative
-z-10
-max-w-6xl
-grid
-md:grid-cols-2
-gap-12
-items-center
-">
 
 
-{/* LEFT */}
+  return (
 
-<div>
+    <main className="
+      min-h-screen
+      overflow-hidden
+      bg-background
+      px-6
+      pt-32
+      pb-20
+    ">
 
 
-<p className="
-font-hindi
-text-xl
-text-secondary
-mb-4
-">
-स्वस्थ भारत, विकसित भारत
-</p>
+      {/* Background blobs */}
 
+      <div className="
+        absolute
+        left-0
+        top-20
+        -z-0
+        h-72
+        w-72
+        rounded-full
+        bg-primary/20
+        blur-3xl
+        animate-float
+      "/>
 
-<h1 className="
-font-display
-text-6xl
-md:text-8xl
-font-bold
-leading-tight
-">
 
-आहार
+      <div className="
+        absolute
+        right-0
+        bottom-20
+        -z-0
+        h-96
+        w-96
+        rounded-full
+        bg-secondary/20
+        blur-3xl
+        animate-float-slow
+      "/>
 
-<span className="
-text-gradient-saffron
-">
- अमृत
-</span>
 
-</h1>
 
+      <section className="
+        relative
+        z-10
+        mx-auto
+        grid
+        max-w-6xl
+        items-center
+        gap-12
+        md:grid-cols-2
+      ">
 
-<p className="
-mt-6
-text-xl
-text-muted-foreground
-max-w-xl
-">
 
-Personalized Indian nutrition powered by
-modern science, traditional wisdom and your
-unique lifestyle.
 
-</p>
+        {/* LEFT SIDE */}
 
+        <div>
 
-<div className="
-mt-8
-flex
-gap-4
-">
 
+          <p className="
+            mb-5
+            font-hindi
+            text-xl
+            text-secondary
+          ">
+            स्वस्थ भारत, विकसित भारत
+          </p>
 
-<Link
-to="/onboarding"
-className="
-rounded-full
-bg-primary
-px-8
-py-4
-text-white
-shadow-glow
-hover:scale-105
-transition
-"
->
 
-Create Profile
 
-</Link>
+          <h1 className="
+            font-display
+            text-6xl
+            font-bold
+            leading-tight
+            md:text-8xl
+          ">
 
+            आहार
 
-<Link
-to="/dosha"
-className="
-rounded-full
-border
-px-8
-py-4
-hover:bg-muted
-"
->
+            <span className="
+              text-gradient-saffron
+            ">
+              {" "}अमृत
+            </span>
 
-Explore Ayurveda
+          </h1>
 
-</Link>
 
 
-</div>
+          <h2 className="
+            mt-4
+            text-3xl
+            font-semibold
+          ">
+            Ahaar Amrit
+          </h2>
 
 
-</div>
 
+          <p className="
+            mt-6
+            max-w-xl
+            text-lg
+            text-muted-foreground
+          ">
 
+            Personalized nutrition for young India —
+            combining modern science, Indian food wisdom,
+            and optional Ayurvedic wellness.
 
-{/* RIGHT CARD */}
+          </p>
 
 
-<div className="
-relative
-">
 
+          <div className="
+            mt-8
+            flex
+            flex-wrap
+            gap-4
+          ">
 
-<div className="
-glass
-rounded-[3rem]
-p-10
-shadow-warm
-">
 
-<div className="
-h-72
-rounded-[2rem]
-bg-gradient-premium
-flex
-items-center
-justify-center
-">
+            <Button
+              asChild
+              size="xl"
+              variant="hero"
+            >
 
-<Leaf
-className="
-h-32
-w-32
-text-white
-animate-float
-"
-/>
+              <Link to="/onboarding">
 
-</div>
+                <Sparkles className="mr-2 h-5 w-5"/>
 
+                Create Profile
 
-<div className="
-mt-8
-grid
-grid-cols-3
-gap-3
-">
+              </Link>
 
+            </Button>
 
-{
-["Protein","Energy","Balance"]
-.map(x=>(
 
-<div
-key={x}
-className="
-rounded-2xl
-bg-white/40
-p-4
-text-center
-"
->
 
-<p className="
-font-bold
-">
-{x}
-</p>
+            <Button
+              asChild
+              size="xl"
+              variant="outline"
+            >
 
-<p className="
-text-xs
-text-muted-foreground
-">
-AI Plan
-</p>
+              <Link to="/dosha">
 
+                Explore Ayurveda
 
-</div>
+              </Link>
 
+            </Button>
 
-))
-}
 
+          </div>
 
-</div>
 
+        </div>
 
-</div>
 
-</div>
 
 
 
-</div>
+        {/* RIGHT SIDE CARD */}
 
 
-</section>
+        <div className="
+          glass
+          rounded-[2.5rem]
+          p-8
+          shadow-warm
+        ">
 
 
-</div>
+          <div className="
+            flex
+            h-72
+            items-center
+            justify-center
+            rounded-[2rem]
+            bg-gradient-premium
+          ">
 
-)
+            <div className="
+              rounded-full
+              bg-white/20
+              p-10
+              backdrop-blur
+              animate-float
+            ">
+
+              <Leaf className="
+                h-24
+                w-24
+                text-white
+              "/>
+
+            </div>
+
+
+          </div>
+
+
+
+
+          <div className="
+            mt-6
+            grid
+            grid-cols-3
+            gap-3
+          ">
+
+
+            {
+              [
+                "Energy",
+                "Balance",
+                "Health",
+              ].map((item)=>(
+
+                <div
+                  key={item}
+                  className="
+                    rounded-2xl
+                    bg-white/40
+                    p-4
+                    text-center
+                  "
+                >
+
+                  <p className="
+                    font-semibold
+                  ">
+                    {item}
+                  </p>
+
+
+                  <p className="
+                    text-xs
+                    text-muted-foreground
+                  ">
+                    AI Plan
+                  </p>
+
+
+                </div>
+
+              ))
+            }
+
+
+          </div>
+
+
+        </div>
+
+
+      </section>
+
+
+
+
+
+      {/* FEATURES */}
+
+
+      <section className="
+        relative
+        z-10
+        mx-auto
+        mt-20
+        grid
+        max-w-5xl
+        gap-5
+        md:grid-cols-3
+      ">
+
+
+        {
+          features.map((feature)=>{
+
+            const Icon = feature.icon;
+
+
+            return (
+
+              <div
+                key={feature.title}
+                className="
+                  rounded-3xl
+                  border
+                  bg-card
+                  p-6
+                  text-center
+                  shadow-lg
+                  transition
+                  hover:-translate-y-2
+                "
+              >
+
+                <Icon className="
+                  mx-auto
+                  mb-4
+                  h-9
+                  w-9
+                  text-primary
+                "/>
+
+
+                <h3 className="
+                  font-semibold
+                ">
+                  {feature.title}
+                </h3>
+
+
+                <p className="
+                  mt-1
+                  font-hindi
+                  text-sm
+                  text-muted-foreground
+                ">
+                  {feature.hindi}
+                </p>
+
+
+                <p className="
+                  mt-3
+                  text-sm
+                  text-muted-foreground
+                ">
+                  {feature.text}
+                </p>
+
+
+              </div>
+
+            )
+
+          })
+        }
+
+
+      </section>
+
+
+    </main>
+
+  );
 }

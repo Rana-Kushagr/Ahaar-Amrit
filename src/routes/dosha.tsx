@@ -155,7 +155,7 @@ function DoshaPage() {
             size="lg"
             className="mt-8 rounded-full bg-white px-7 text-primary shadow-xl hover:bg-white/90"
           >
-            <Link to="/onboarding">
+            <Link to="/dosha-quiz">
               Discover My Dosha
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>

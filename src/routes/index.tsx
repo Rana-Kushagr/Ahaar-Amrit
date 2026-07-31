@@ -2,13 +2,11 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Leaf, Heart, Sparkles, Utensils } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-
 const title =
   "Ahaar Amrit — Personalized Indian Nutrition";
 
 const description =
   "Personalized Indian nutrition powered by modern science, food culture and optional Ayurveda.";
-
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -25,7 +23,6 @@ export const Route = createFileRoute("/")({
 
   component: Index,
 });
-
 
 
 const features = [
@@ -52,7 +49,6 @@ const features = [
 ];
 
 
-
 function Index() {
 
 return (
@@ -65,6 +61,7 @@ overflow-hidden
 px-6
 pt-28
 pb-20
+bg-[#f7f1df]
 "
 >
 
@@ -86,13 +83,14 @@ backgroundImage: "url('/ayurveda-hero.png')",
 />
 
 
+
 {/* IMAGE OVERLAY */}
 
 <div
 className="
 absolute
 inset-0
-z-0
+z-10
 bg-gradient-to-r
 from-[#f7f1df]/95
 via-[#f7f1df]/70
@@ -109,6 +107,7 @@ className="
 absolute
 left-10
 top-32
+z-10
 h-72
 w-72
 rounded-full
@@ -124,6 +123,7 @@ className="
 absolute
 right-10
 bottom-20
+z-10
 h-96
 w-96
 rounded-full
@@ -139,6 +139,7 @@ animate-float-slow
 <section
 className="
 relative
+z-20
 mx-auto
 grid
 max-w-6xl
@@ -388,6 +389,7 @@ AI Plan
 <section
 className="
 relative
+z-20
 mx-auto
 mt-20
 grid

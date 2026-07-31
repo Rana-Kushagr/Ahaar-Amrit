@@ -11,18 +11,16 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { Navbar } from "@/components/Navbar";
+import { Navbar } from "../components/Navbar";
 
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="text-7xl font-bold text-foreground">404</h1>
-
         <h2 className="mt-4 text-xl font-semibold text-foreground">
           Page not found
         </h2>
-
         <p className="mt-2 text-sm text-muted-foreground">
           The page you're looking for doesn't exist or has been moved.
         </p>
@@ -135,8 +133,7 @@ export const Route =
         },
         {
           rel: "stylesheet",
-          href:
-            "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Karla:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap",
+          href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Karla:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap",
         },
         {
           rel: "icon",
@@ -172,11 +169,13 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Main navigation shown across the entire application */}
+      {/* Navbar appears on every page */}
       <Navbar />
 
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      {/* All page content appears below the Navbar */}
+      <main>
+        <Outlet />
+      </main>
     </QueryClientProvider>
   );
 }

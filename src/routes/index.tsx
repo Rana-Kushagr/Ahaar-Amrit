@@ -1,76 +1,51 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { Leaf, Heart, Sparkles, Utensils } from "lucide-react";
-import { Button } from "@/components/ui/button";
-
-
-const title =
-  "Ahaar Amrit — Personalized Indian Nutrition";
-
-const description =
-  "Personalized Indian nutrition powered by modern science, food culture and optional Ayurveda.";
-
-
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      {
-        title,
-      },
-      {
-        name: "description",
-        content: description,
-      },
-    ],
-  }),
-
-  component: Index,
-});
-
-
-
-const features = [
-  {
-    icon: Utensils,
-    title: "Modern Nutrition",
-    hindi: "आधुनिक पोषण",
-    text: "Science-backed nutrition made for Indian lifestyles.",
-  },
-
-  {
-    icon: Heart,
-    title: "Indian Food Culture",
-    hindi: "भारतीय भोजन",
-    text: "Foods and habits connected to your region and routine.",
-  },
-
-  {
-    icon: Sparkles,
-    title: "Optional Ayurveda",
-    hindi: "आयुर्वेद",
-    text: "Traditional wellness insights when you choose.",
-  },
-];
-
-
-
 function Index() {
-
-
   return (
-
-    <main className="
+    <main
+      className="
+      relative
       min-h-screen
       overflow-hidden
-      bg-background
       px-6
       pt-32
       pb-20
-    ">
+      bg-[#f7f1df]
+    "
+    >
+
+      {/* HERO BACKGROUND IMAGE */}
+
+      <div
+        className="
+        absolute
+        inset-0
+        -z-10
+        bg-cover
+        bg-center
+      "
+        style={{
+          backgroundImage: "url('/ayurveda-hero.png')",
+        }}
+      />
+
+      {/* Soft cream overlay so text stays readable */}
+
+      <div
+        className="
+        absolute
+        inset-0
+        -z-10
+        bg-gradient-to-r
+        from-[#f7f1df]/95
+        via-[#f7f1df]/75
+        to-transparent
+      "
+      />
 
 
-      {/* Background blobs */}
+      {/* Floating light effects */}
 
-      <div className="
+      <div
+        className="
         absolute
         left-0
         top-20
@@ -81,10 +56,12 @@ function Index() {
         bg-primary/20
         blur-3xl
         animate-float
-      "/>
+      "
+      />
 
 
-      <div className="
+      <div
+        className="
         absolute
         right-0
         bottom-20
@@ -95,11 +72,13 @@ function Index() {
         bg-secondary/20
         blur-3xl
         animate-float-slow
-      "/>
+      "
+      />
 
 
 
-      <section className="
+      <section
+        className="
         relative
         z-10
         mx-auto
@@ -108,14 +87,13 @@ function Index() {
         items-center
         gap-12
         md:grid-cols-2
-      ">
-
+      "
+      >
 
 
         {/* LEFT SIDE */}
 
         <div>
-
 
           <p className="
             mb-5
@@ -127,7 +105,6 @@ function Index() {
           </p>
 
 
-
           <h1 className="
             font-display
             text-6xl
@@ -135,17 +112,13 @@ function Index() {
             leading-tight
             md:text-8xl
           ">
-
             आहार
 
-            <span className="
-              text-gradient-saffron
-            ">
+            <span className="text-gradient-saffron">
               {" "}अमृत
             </span>
 
           </h1>
-
 
 
           <h2 className="
@@ -157,46 +130,31 @@ function Index() {
           </h2>
 
 
-
           <p className="
             mt-6
             max-w-xl
             text-lg
             text-muted-foreground
           ">
-
             Personalized nutrition for young India —
             combining modern science, Indian food wisdom,
             and optional Ayurvedic wellness.
-
           </p>
 
 
 
-          <div className="
-            mt-8
-            flex
-            flex-wrap
-            gap-4
-          ">
-
+          <div className="mt-8 flex flex-wrap gap-4">
 
             <Button
               asChild
               size="xl"
               variant="hero"
             >
-
               <Link to="/onboarding">
-
                 <Sparkles className="mr-2 h-5 w-5"/>
-
                 Create Profile
-
               </Link>
-
             </Button>
-
 
 
             <Button
@@ -204,15 +162,10 @@ function Index() {
               size="xl"
               variant="outline"
             >
-
               <Link to="/dosha">
-
                 Explore Ayurveda
-
               </Link>
-
             </Button>
-
 
           </div>
 
@@ -222,46 +175,53 @@ function Index() {
 
 
 
+        {/* RIGHT SIDE PREMIUM CARD */}
 
-        {/* RIGHT SIDE CARD */}
 
-
-        <div className="
-          glass
+        <div
+          className="
           rounded-[2.5rem]
+          bg-white/40
+          backdrop-blur-xl
+          border
+          border-white/40
           p-8
-          shadow-warm
-        ">
+          shadow-2xl
+        "
+        >
 
-
-          <div className="
+          <div
+            className="
             flex
             h-72
             items-center
             justify-center
             rounded-[2rem]
             bg-gradient-premium
-          ">
+          "
+          >
 
-            <div className="
+            <div
+              className="
               rounded-full
               bg-white/20
               p-10
               backdrop-blur
               animate-float
-            ">
+            "
+            >
 
-              <Leaf className="
+              <Leaf
+                className="
                 h-24
                 w-24
                 text-white
-              "/>
+              "
+              />
 
             </div>
 
-
           </div>
-
 
 
 
@@ -271,7 +231,6 @@ function Index() {
             grid-cols-3
             gap-3
           ">
-
 
             {
               [
@@ -284,35 +243,27 @@ function Index() {
                   key={item}
                   className="
                     rounded-2xl
-                    bg-white/40
+                    bg-white/50
+                    backdrop-blur
                     p-4
                     text-center
                   "
                 >
 
-                  <p className="
-                    font-semibold
-                  ">
+                  <p className="font-semibold">
                     {item}
                   </p>
 
-
-                  <p className="
-                    text-xs
-                    text-muted-foreground
-                  ">
+                  <p className="text-xs text-muted-foreground">
                     AI Plan
                   </p>
-
 
                 </div>
 
               ))
             }
 
-
           </div>
-
 
         </div>
 
@@ -325,8 +276,8 @@ function Index() {
 
       {/* FEATURES */}
 
-
-      <section className="
+      <section
+        className="
         relative
         z-10
         mx-auto
@@ -335,14 +286,13 @@ function Index() {
         max-w-5xl
         gap-5
         md:grid-cols-3
-      ">
-
+      "
+      >
 
         {
           features.map((feature)=>{
 
             const Icon = feature.icon;
-
 
             return (
 
@@ -351,7 +301,9 @@ function Index() {
                 className="
                   rounded-3xl
                   border
-                  bg-card
+                  border-white/40
+                  bg-white/50
+                  backdrop-blur-xl
                   p-6
                   text-center
                   shadow-lg
@@ -360,21 +312,19 @@ function Index() {
                 "
               >
 
-                <Icon className="
+                <Icon
+                  className="
                   mx-auto
                   mb-4
                   h-9
                   w-9
                   text-primary
-                "/>
+                "
+                />
 
-
-                <h3 className="
-                  font-semibold
-                ">
+                <h3 className="font-semibold">
                   {feature.title}
                 </h3>
-
 
                 <p className="
                   mt-1
@@ -394,7 +344,6 @@ function Index() {
                   {feature.text}
                 </p>
 
-
               </div>
 
             )
@@ -402,11 +351,9 @@ function Index() {
           })
         }
 
-
       </section>
 
 
     </main>
-
   );
 }

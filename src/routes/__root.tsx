@@ -172,7 +172,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Global navigation shown across the application */}
+      {/* Main navigation shown across the entire application */}
       <Navbar />
 
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}

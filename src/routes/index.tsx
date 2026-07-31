@@ -45,7 +45,7 @@ const features = [
 
 function Index() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#f7f1df] px-6 pt-24 pb-20">
+    <main className="relative min-h-screen overflow-hidden bg-[url('/ayurveda-hero-bg.png')] bg-cover bg-center bg-no-repeat bg-[#f7f1df] px-6 pt-24 pb-20">
       {/* Load Comfortaa font */}
       <link
         href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&display=swap"
@@ -53,51 +53,7 @@ function Index() {
       />
       <style>{` .font-comfortaa{ font-family: 'Comfortaa', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; } `}</style>
 
-      {/* Enhanced decorative background made from layered gradients and SVG shapes */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        {/* large warm radial for sky/glow */}
-        <div
-          aria-hidden
-          className="absolute -left-40 -top-40 h-[900px] w-[900px] rounded-full bg-[radial-gradient(circle_at_20%_20%,_#fde68a_8%,_transparent_35%)] opacity-90 blur-[60px] transform-gpu"
-        />
-
-        {/* subtle green blob */}
-        <div
-          aria-hidden
-          className="absolute -right-48 bottom-[-10%] h-[720px] w-[720px] rounded-full bg-[radial-gradient(circle_at_80%_80%,_#d1fae5_8%,_transparent_40%)] opacity-85 blur-[80px] transform-gpu"
-        />
-
-        {/* gentle landscape band */}
-        <svg className="absolute left-0 right-0 bottom-0 h-[40vh] w-full" viewBox="0 0 1440 320" preserveAspectRatio="none" aria-hidden>
-          <defs>
-            <linearGradient id="land1" x1="0" x2="1">
-              <stop offset="0%" stopColor="#fff7ed" stopOpacity="1" />
-              <stop offset="100%" stopColor="#f7f1df" stopOpacity="0.95" />
-            </linearGradient>
-          </defs>
-          <path d="M0,160 C220,220 380,80 720,160 C1060,240 1220,120 1440,160 L1440 320 L0 320 Z" fill="url(#land1)" />
-        </svg>
-
-        {/* leaf cluster svg on right */}
-        <svg className="absolute right-6 top-28 h-[340px] w-[340px] opacity-95" viewBox="0 0 400 400" aria-hidden>
-          <g transform="translate(20,20)">
-            <path d="M300 40 C260 0, 200 0, 180 40 C200 60, 260 60, 300 40 Z" fill="#D1FAE5" />
-            <path d="M320 90 C280 50, 220 50, 200 90 C220 110, 280 110, 320 90 Z" fill="#FEF3C7" />
-            <ellipse cx="260" cy="220" rx="120" ry="70" fill="#FFF4E6" />
-            <circle cx="320" cy="30" r="30" fill="#FDE68A" opacity="0.12" />
-          </g>
-        </svg>
-
-        {/* subtle noise texture using SVG filter for organic feel */}
-        <svg className="absolute inset-0 w-full h-full" aria-hidden>
-          <filter id="n" x="0" y="0" width="100%" height="100%">
-            <feTurbulence baseFrequency="0.8" numOctaves="2" stitchTiles="stitch" result="t" />
-            <feColorMatrix type="saturate" values="0" />
-            <feBlend in="SourceGraphic" in2="t" mode="overlay" />
-          </filter>
-          <rect width="100%" height="100%" fill="#ffffff" opacity="0.02" filter="url(#n)" />
-        </svg>
-      </div>
+      {/* Background is now the provided raster artwork at public/ayurveda-hero-bg.png. All decorative SVGs were removed to avoid duplication. */}
 
       {/* Floating rounded navbar (recreated) */}
       <nav className="absolute left-1/2 top-6 z-30 w-[min(1100px,calc(100%-3rem))] -translate-x-1/2 rounded-full bg-white/95 px-6 py-3 shadow-lg flex items-center justify-between">
@@ -135,9 +91,12 @@ function Index() {
           </div>
 
           {/* Heading */}
-          <h1 className="mt-6 font-display font-comfortaa text-5xl font-bold leading-tight sm:text-6xl md:text-7xl">
+          <h1 className="mt-6 font-display font-comfortaa text-6xl font-bold leading-tight sm:text-6xl md:text-[5.5rem]">
             आहार
-            <span className="ml-3 inline-block bg-clip-text text-transparent" style={{ backgroundImage: 'linear-gradient(90deg,#c2410c,#f59e0b)' }}>
+            <span
+              className="ml-3 inline-block bg-clip-text text-transparent"
+              style={{ backgroundImage: "linear-gradient(90deg,#0f766e,#16a34a)" }}
+            >
               अमृत
             </span>
           </h1>
@@ -185,26 +144,8 @@ function Index() {
           </div>
         </div>
 
-        {/* RIGHT: decorative artwork area (SVG/CSS) - no phone mockup */}
-        <div className="relative flex h-[520px] w-full items-center justify-center">
-          <div className="pointer-events-none max-w-[420px] w-full">
-            <svg viewBox="0 0 420 520" className="w-full h-full" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-              <defs>
-                <radialGradient id="g1" cx="50%" cy="30%" r="60%">
-                  <stop offset="0%" stopColor="#FFF7ED" stopOpacity="1" />
-                  <stop offset="100%" stopColor="#F7F1DF" stopOpacity="0" />
-                </radialGradient>
-              </defs>
-
-              <rect x="0" y="0" width="420" height="520" fill="url(#g1)" />
-              <ellipse cx="210" cy="420" rx="180" ry="50" fill="#FFF4E6" />
-              <path d="M320 150 C 300 120, 260 120, 240 150 C 260 170, 300 170, 320 150 Z" fill="#D1FAE5" />
-              <path d="M80 140 C 100 110, 140 110, 160 140 C 140 160, 100 160, 80 140 Z" fill="#FEF3C7" />
-              <circle cx="300" cy="60" r="40" fill="#FDE68A" opacity="0.12" />
-              <circle cx="100" cy="80" r="30" fill="#CFFAFE" opacity="0.08" />
-            </svg>
-          </div>
-        </div>
+        {/* RIGHT: decorative artwork area reserved (no phone mockup) */}
+        <div className="relative flex h-[520px] w-full items-center justify-center" />
       </section>
 
       {/* FEATURES - recreated feature cards */}

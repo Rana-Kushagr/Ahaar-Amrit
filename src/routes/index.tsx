@@ -2,11 +2,13 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Leaf, Heart, Sparkles, Utensils } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+
 const title =
   "Ahaar Amrit — Personalized Indian Nutrition";
 
 const description =
   "Personalized Indian nutrition powered by modern science, food culture and optional Ayurveda.";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -23,6 +25,7 @@ export const Route = createFileRoute("/")({
 
   component: Index,
 });
+
 
 
 const features = [
@@ -49,6 +52,7 @@ const features = [
 ];
 
 
+
 function Index() {
 
 return (
@@ -58,56 +62,21 @@ className="
 relative
 min-h-screen
 overflow-hidden
+bg-[#f7f1df]
 px-6
 pt-28
 pb-20
-bg-[#f7f1df]
 "
 >
 
 
-{/* HERO IMAGE */}
+{/* SOFT BACKGROUND GLOW */}
 
 <div
 className="
 absolute
-inset-0
-z-0
-bg-cover
-bg-center
-bg-no-repeat
-"
-style={{
-backgroundImage: "url('/ayurveda-hero.png')",
-}}
-/>
-
-
-
-{/* IMAGE OVERLAY */}
-
-<div
-className="
-absolute
-inset-0
-z-10
-bg-gradient-to-r
-from-[#f7f1df]/95
-via-[#f7f1df]/70
-to-[#f7f1df]/20
-"
-/>
-
-
-
-{/* FLOATING LIGHT */}
-
-<div
-className="
-absolute
-left-10
-top-32
-z-10
+left-0
+top-20
 h-72
 w-72
 rounded-full
@@ -121,9 +90,8 @@ animate-float
 <div
 className="
 absolute
-right-10
+right-0
 bottom-20
-z-10
 h-96
 w-96
 rounded-full
@@ -136,10 +104,13 @@ animate-float-slow
 
 
 
+
+{/* HERO */}
+
 <section
 className="
 relative
-z-20
+z-10
 mx-auto
 grid
 max-w-6xl
@@ -151,15 +122,15 @@ md:grid-cols-2
 
 
 
-{/* LEFT */}
+{/* LEFT CONTENT */}
 
 <div>
 
 
 <p
 className="
-font-hindi
 mb-4
+font-hindi
 text-xl
 text-secondary
 "
@@ -224,6 +195,7 @@ and optional Ayurvedic wellness.
 
 
 
+
 <div
 className="
 mt-8
@@ -270,70 +242,73 @@ Explore Ayurveda
 </div>
 
 
+
 </div>
 
 
 
 
 
-{/* RIGHT CARD */}
+
+{/* RIGHT IMAGE */}
 
 
 <div
 className="
-rounded-[2.5rem]
-border
-border-white/40
-bg-white/40
-p-8
+relative
+overflow-hidden
+rounded-[3rem]
 shadow-2xl
-backdrop-blur-xl
 "
 >
 
 
-<div
+<img
+src="/ayurveda-hero.png"
+alt="Ayurveda wellness"
 className="
-flex
-h-80
-items-center
-justify-center
-rounded-[2rem]
-bg-gradient-premium
-"
->
-
-
-<div
-className="
-rounded-full
-bg-white/20
-p-12
-backdrop-blur
-animate-float
-"
->
-
-<Leaf
-className="
-h-28
-w-28
-text-white
+h-[520px]
+w-full
+object-cover
 "
 />
 
 
-</div>
+
+<div
+className="
+absolute
+inset-0
+bg-gradient-to-t
+from-black/30
+to-transparent
+"
+/>
 
 
-</div>
 
 
+
+{/* FLOATING CARD */}
+
+<div
+className="
+absolute
+bottom-6
+left-6
+right-6
+rounded-3xl
+bg-white/40
+p-5
+backdrop-blur-xl
+border
+border-white/40
+"
+>
 
 
 <div
 className="
-mt-6
 grid
 grid-cols-3
 gap-3
@@ -348,10 +323,9 @@ gap-3
 key={item}
 className="
 rounded-2xl
-bg-white/50
+bg-white/60
 p-4
 text-center
-backdrop-blur
 "
 >
 
@@ -359,9 +333,16 @@ backdrop-blur
 {item}
 </p>
 
-<p className="text-xs text-muted-foreground">
+
+<p
+className="
+text-xs
+text-muted-foreground
+"
+>
 AI Plan
 </p>
+
 
 </div>
 
@@ -373,6 +354,11 @@ AI Plan
 
 
 </div>
+
+
+
+</div>
+
 
 
 </section>
@@ -389,7 +375,7 @@ AI Plan
 <section
 className="
 relative
-z-20
+z-10
 mx-auto
 mt-20
 grid
@@ -424,6 +410,7 @@ hover:-translate-y-2
 "
 >
 
+
 <Icon
 className="
 mx-auto
@@ -435,9 +422,11 @@ text-primary
 />
 
 
+
 <h3 className="font-semibold">
 {feature.title}
 </h3>
+
 
 
 <p
@@ -452,6 +441,7 @@ text-muted-foreground
 </p>
 
 
+
 <p
 className="
 mt-3
@@ -463,6 +453,7 @@ text-muted-foreground
 </p>
 
 
+
 </div>
 
 )
@@ -472,6 +463,7 @@ text-muted-foreground
 
 
 </section>
+
 
 
 </main>

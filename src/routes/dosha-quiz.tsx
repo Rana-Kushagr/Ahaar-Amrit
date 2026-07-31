@@ -1,7 +1,14 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight, Check, RotateCcw, Sparkles } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Check,
+  RotateCcw,
+  Sparkles,
+} from "lucide-react";
 import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useAhaarProfile } from "@/hooks/use-ahaar-profile";
 
 export const Route = createFileRoute("/dosha-quiz")({
   component: DoshaQuiz,
@@ -21,81 +28,171 @@ const questions: Question[] = [
   {
     question: "How would you describe your natural body build?",
     options: [
-      { text: "Light, slim, or naturally lean", dosha: "Vata" },
-      { text: "Medium build with a balanced physique", dosha: "Pitta" },
-      { text: "Solid, sturdy, or naturally strong", dosha: "Kapha" },
+      {
+        text: "Light, slim, or naturally lean",
+        dosha: "Vata",
+      },
+      {
+        text: "Medium build with a balanced physique",
+        dosha: "Pitta",
+      },
+      {
+        text: "Solid, sturdy, or naturally strong",
+        dosha: "Kapha",
+      },
     ],
   },
   {
     question: "How is your energy throughout the day?",
     options: [
-      { text: "It comes in bursts — very energetic, then I need rest", dosha: "Vata" },
-      { text: "Usually strong and consistent when I have a goal", dosha: "Pitta" },
-      { text: "Steady and calm, but I may take time to get going", dosha: "Kapha" },
+      {
+        text: "It comes in bursts — very energetic, then I need rest",
+        dosha: "Vata",
+      },
+      {
+        text: "Usually strong and consistent when I have a goal",
+        dosha: "Pitta",
+      },
+      {
+        text: "Steady and calm, but I may take time to get going",
+        dosha: "Kapha",
+      },
     ],
   },
   {
     question: "How would you describe your appetite?",
     options: [
-      { text: "It can be unpredictable or change from day to day", dosha: "Vata" },
-      { text: "Usually strong — I notice when I am hungry", dosha: "Pitta" },
-      { text: "Generally steady, but I can comfortably skip a meal", dosha: "Kapha" },
+      {
+        text: "It can be unpredictable or change from day to day",
+        dosha: "Vata",
+      },
+      {
+        text: "Usually strong — I notice when I am hungry",
+        dosha: "Pitta",
+      },
+      {
+        text: "Generally steady, but I can comfortably skip a meal",
+        dosha: "Kapha",
+      },
     ],
   },
   {
     question: "How do you usually respond to stress?",
     options: [
-      { text: "I may become worried, restless, or overthink things", dosha: "Vata" },
-      { text: "I may become impatient, intense, or frustrated", dosha: "Pitta" },
-      { text: "I tend to stay calm, quiet, or withdraw", dosha: "Kapha" },
+      {
+        text: "I may become worried, restless, or overthink things",
+        dosha: "Vata",
+      },
+      {
+        text: "I may become impatient, intense, or frustrated",
+        dosha: "Pitta",
+      },
+      {
+        text: "I tend to stay calm, quiet, or withdraw",
+        dosha: "Kapha",
+      },
     ],
   },
   {
     question: "How would you describe your sleep?",
     options: [
-      { text: "Light or easily interrupted", dosha: "Vata" },
-      { text: "Moderate and generally refreshing", dosha: "Pitta" },
-      { text: "Deep and usually long-lasting", dosha: "Kapha" },
+      {
+        text: "Light or easily interrupted",
+        dosha: "Vata",
+      },
+      {
+        text: "Moderate and generally refreshing",
+        dosha: "Pitta",
+      },
+      {
+        text: "Deep and usually long-lasting",
+        dosha: "Kapha",
+      },
     ],
   },
   {
     question: "Which best describes your natural pace?",
     options: [
-      { text: "Fast, spontaneous, and always looking for something new", dosha: "Vata" },
-      { text: "Focused, purposeful, and goal-oriented", dosha: "Pitta" },
-      { text: "Calm, steady, and unhurried", dosha: "Kapha" },
+      {
+        text: "Fast, spontaneous, and always looking for something new",
+        dosha: "Vata",
+      },
+      {
+        text: "Focused, purposeful, and goal-oriented",
+        dosha: "Pitta",
+      },
+      {
+        text: "Calm, steady, and unhurried",
+        dosha: "Kapha",
+      },
     ],
   },
   {
     question: "How do you usually learn something new?",
     options: [
-      { text: "I learn quickly and enjoy exploring many different ideas", dosha: "Vata" },
-      { text: "I like to understand things deeply and apply them practically", dosha: "Pitta" },
-      { text: "I take my time, but remember things for a long time", dosha: "Kapha" },
+      {
+        text: "I learn quickly and enjoy exploring many different ideas",
+        dosha: "Vata",
+      },
+      {
+        text: "I like to understand things deeply and apply them practically",
+        dosha: "Pitta",
+      },
+      {
+        text: "I take my time, but remember things for a long time",
+        dosha: "Kapha",
+      },
     ],
   },
   {
     question: "How would you describe your personality?",
     options: [
-      { text: "Creative, enthusiastic, curious, and adaptable", dosha: "Vata" },
-      { text: "Confident, focused, ambitious, and determined", dosha: "Pitta" },
-      { text: "Patient, caring, calm, and dependable", dosha: "Kapha" },
+      {
+        text: "Creative, enthusiastic, curious, and adaptable",
+        dosha: "Vata",
+      },
+      {
+        text: "Confident, focused, ambitious, and determined",
+        dosha: "Pitta",
+      },
+      {
+        text: "Patient, caring, calm, and dependable",
+        dosha: "Kapha",
+      },
     ],
   },
   {
     question: "When plans suddenly change, what is your usual reaction?",
     options: [
-      { text: "I adapt quickly, although I may feel unsettled", dosha: "Vata" },
-      { text: "I prefer to understand why the change happened", dosha: "Pitta" },
-      { text: "I prefer stability, but I can adjust with time", dosha: "Kapha" },
+      {
+        text: "I adapt quickly, although I may feel unsettled",
+        dosha: "Vata",
+      },
+      {
+        text: "I prefer to understand why the change happened",
+        dosha: "Pitta",
+      },
+      {
+        text: "I prefer stability, but I can adjust with time",
+        dosha: "Kapha",
+      },
     ],
   },
   {
     question: "Which environment feels most comfortable to you?",
     options: [
-      { text: "Warm, cozy, and peaceful", dosha: "Vata" },
-      { text: "Cool, fresh, and well-ventilated", dosha: "Pitta" },
-      { text: "Warm, active, and stimulating", dosha: "Kapha" },
+      {
+        text: "Warm, cozy, and peaceful",
+        dosha: "Vata",
+      },
+      {
+        text: "Cool, fresh, and well-ventilated",
+        dosha: "Pitta",
+      },
+      {
+        text: "Warm, active, and stimulating",
+        dosha: "Kapha",
+      },
     ],
   },
 ];
@@ -111,6 +208,7 @@ const doshaResults = {
     advice:
       "You may benefit from routines that feel grounding and consistent, nourishing meals, and taking time to slow down when life becomes busy.",
   },
+
   Pitta: {
     hindi: "पित्त",
     emoji: "🔥",
@@ -121,6 +219,7 @@ const doshaResults = {
     advice:
       "You may benefit from balanced routines, regular meals, time to recharge, and creating space to relax when your schedule becomes intense.",
   },
+
   Kapha: {
     hindi: "कफ",
     emoji: "🌿",
@@ -133,46 +232,70 @@ const doshaResults = {
   },
 };
 
+function calculateDosha(answers: Dosha[]): Dosha {
+  const scores: Record<Dosha, number> = {
+    Vata: 0,
+    Pitta: 0,
+    Kapha: 0,
+  };
+
+  answers.forEach((answer) => {
+    scores[answer] += 1;
+  });
+
+  return (Object.keys(scores) as Dosha[]).reduce(
+    (winner, dosha) =>
+      scores[dosha] > scores[winner] ? dosha : winner,
+    "Vata"
+  );
+}
+
 function DoshaQuiz() {
   const navigate = useNavigate();
+
+  // Connect the Dosha quiz to the existing Ahaar profile.
+  const { update } = useAhaarProfile();
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Dosha[]>([]);
   const [showResult, setShowResult] = useState(false);
 
-  const progress = ((currentQuestion + 1) / questions.length) * 100;
+  const progress =
+    ((currentQuestion + 1) / questions.length) * 100;
 
   const result = useMemo(() => {
-    const scores: Record<Dosha, number> = {
-      Vata: 0,
-      Pitta: 0,
-      Kapha: 0,
-    };
-
-    answers.forEach((answer) => {
-      scores[answer] += 1;
-    });
-
-    return (Object.keys(scores) as Dosha[]).reduce((winner, dosha) =>
-      scores[dosha] > scores[winner] ? dosha : winner
-    , "Vata");
+    return calculateDosha(answers);
   }, [answers]);
 
   const handleAnswer = (dosha: Dosha) => {
     const newAnswers = [...answers];
+
     newAnswers[currentQuestion] = dosha;
 
     setAnswers(newAnswers);
 
-    if (currentQuestion < questions.length - 1) {
-      setTimeout(() => {
-        setCurrentQuestion((previous) => previous + 1);
-      }, 180);
-    } else {
+    // If this is the final question, calculate and save
+    // the result using the newest answer.
+    if (currentQuestion === questions.length - 1) {
+      const finalResult = calculateDosha(newAnswers);
+
+      // Save the Dosha into the existing Ahaar Profile.
+      // nutrition-plan.tsx already reads profile.dosha.
+      update({
+        dosha: finalResult,
+      });
+
       setTimeout(() => {
         setShowResult(true);
       }, 180);
+
+      return;
     }
+
+    // Move to the next question.
+    setTimeout(() => {
+      setCurrentQuestion((previous) => previous + 1);
+    }, 180);
   };
 
   const restartQuiz = () => {
@@ -181,22 +304,33 @@ function DoshaQuiz() {
     setShowResult(false);
   };
 
+  /*
+   * ================================
+   * RESULT SCREEN
+   * ================================
+   */
+
   if (showResult) {
     const resultData = doshaResults[result];
 
     return (
       <main className="relative min-h-screen overflow-hidden bg-background">
+        {/* Decorative background */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <div className="animate-pulse-glow absolute -left-32 top-20 h-96 w-96 rounded-full bg-orange-300/20 blur-3xl" />
+
           <div className="animate-float-slow absolute -right-32 top-40 h-96 w-96 rounded-full bg-green-400/20 blur-3xl" />
         </div>
 
         <section className="relative mx-auto flex min-h-[calc(100vh-5rem)] max-w-4xl items-center justify-center px-6 py-16">
           <div className="glass w-full rounded-[2rem] p-8 text-center shadow-warm sm:p-12">
+
+            {/* Dosha emoji */}
             <div className="mx-auto flex h-24 w-24 animate-float items-center justify-center rounded-full bg-white/70 text-5xl shadow-xl">
               {resultData.emoji}
             </div>
 
+            {/* Hindi result */}
             <p className="mt-8 font-hindi text-xl font-semibold text-primary">
               आपका प्रमुख दोष — {resultData.hindi}
             </p>
@@ -205,6 +339,7 @@ function DoshaQuiz() {
               Your Ayurvedic Pattern
             </p>
 
+            {/* Result */}
             <h1 className="mt-4 font-display text-5xl font-bold text-foreground sm:text-6xl">
               {result}
             </h1>
@@ -217,10 +352,12 @@ function DoshaQuiz() {
               {resultData.subtitle}
             </p>
 
+            {/* Description */}
             <p className="mx-auto mt-8 max-w-2xl text-base leading-8 text-muted-foreground">
               {resultData.description}
             </p>
 
+            {/* Advice */}
             <div className="mx-auto mt-8 max-w-2xl rounded-2xl bg-primary/10 p-6 text-left">
               <h3 className="font-display text-xl font-bold text-foreground">
                 A gentle starting point
@@ -231,9 +368,17 @@ function DoshaQuiz() {
               </p>
             </div>
 
+            {/* Actions */}
             <div className="mt-10 flex flex-wrap justify-center gap-3">
+
+              {/* This now leads to the nutrition plan
+                  with the Dosha already saved in profile.dosha */}
               <Button
-                onClick={() => navigate({ to: "/nutrition-plan" })}
+                onClick={() =>
+                  navigate({
+                    to: "/nutrition-plan",
+                  })
+                }
                 size="lg"
                 className="rounded-full"
               >
@@ -252,6 +397,7 @@ function DoshaQuiz() {
               </Button>
             </div>
 
+            {/* Home */}
             <Link
               to="/"
               className="mt-8 inline-block text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
@@ -259,6 +405,7 @@ function DoshaQuiz() {
               Return to Ahaar Amrit
             </Link>
 
+            {/* Disclaimer */}
             <p className="mx-auto mt-8 max-w-xl text-xs leading-5 text-muted-foreground/70">
               This quiz is an educational wellness experience based on
               traditional Ayurvedic concepts. It does not provide a medical
@@ -271,25 +418,41 @@ function DoshaQuiz() {
     );
   }
 
+  /*
+   * ================================
+   * QUIZ SCREEN
+   * ================================
+   */
+
   const question = questions[currentQuestion];
   const selectedAnswer = answers[currentQuestion];
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-background">
+
+      {/* Decorative background */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="animate-pulse-glow absolute -left-32 top-20 h-80 w-80 rounded-full bg-orange-300/20 blur-3xl" />
+
         <div className="animate-float-slow absolute -right-32 top-40 h-96 w-96 rounded-full bg-green-400/20 blur-3xl" />
       </div>
 
       <section className="relative mx-auto max-w-4xl px-6 py-12 sm:py-20">
+
+        {/* Top navigation */}
         <div className="mb-10 flex items-center justify-between">
+
           <Button
             variant="ghost"
             onClick={() => {
               if (currentQuestion > 0) {
-                setCurrentQuestion((previous) => previous - 1);
+                setCurrentQuestion(
+                  (previous) => previous - 1
+                );
               } else {
-                navigate({ to: "/dosha" });
+                navigate({
+                  to: "/dosha",
+                });
               }
             }}
             className="rounded-full"
@@ -304,10 +467,13 @@ function DoshaQuiz() {
           </div>
         </div>
 
+        {/* Progress */}
         <div className="mb-8">
+
           <div className="mb-3 flex items-center justify-between text-sm">
             <span className="font-medium text-primary">
-              Question {currentQuestion + 1} of {questions.length}
+              Question {currentQuestion + 1} of{" "}
+              {questions.length}
             </span>
 
             <span className="text-muted-foreground">
@@ -318,13 +484,18 @@ function DoshaQuiz() {
           <div className="h-2 overflow-hidden rounded-full bg-primary/10">
             <div
               className="h-full rounded-full bg-gradient-premium transition-all duration-500"
-              style={{ width: `${progress}%` }}
+              style={{
+                width: `${progress}%`,
+              }}
             />
           </div>
         </div>
 
+        {/* Question Card */}
         <div className="glass rounded-[2rem] p-6 shadow-warm sm:p-10">
+
           <div className="text-center">
+
             <p className="font-hindi text-lg text-secondary">
               अपने बारे में बताएं
             </p>
@@ -338,14 +509,19 @@ function DoshaQuiz() {
             </p>
           </div>
 
+          {/* Answer options */}
           <div className="mx-auto mt-10 grid max-w-2xl gap-4">
+
             {question.options.map((option) => {
-              const isSelected = selectedAnswer === option.dosha;
+              const isSelected =
+                selectedAnswer === option.dosha;
 
               return (
                 <button
                   key={option.dosha}
-                  onClick={() => handleAnswer(option.dosha)}
+                  onClick={() =>
+                    handleAnswer(option.dosha)
+                  }
                   className={`group flex w-full items-center justify-between rounded-2xl border p-5 text-left transition-all duration-300 ${
                     isSelected
                       ? "border-primary bg-primary/10 shadow-lg"
@@ -370,23 +546,38 @@ function DoshaQuiz() {
             })}
           </div>
 
-          {selectedAnswer && currentQuestion < questions.length - 1 && (
-            <div className="mt-8 text-center text-xs text-muted-foreground">
-              Moving to the next question...
-            </div>
-          )}
+          {/* Moving message */}
+          {selectedAnswer &&
+            currentQuestion <
+              questions.length - 1 && (
+              <div className="mt-8 text-center text-xs text-muted-foreground">
+                Moving to the next question...
+              </div>
+            )}
 
-          {selectedAnswer && currentQuestion === questions.length - 1 && (
-            <div className="mt-8 text-center">
-              <Button
-                onClick={() => setShowResult(true)}
-                className="rounded-full"
-              >
-                See My Result
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </div>
-          )}
+          {/* Final question button */}
+          {selectedAnswer &&
+            currentQuestion ===
+              questions.length - 1 && (
+              <div className="mt-8 text-center">
+                <Button
+                  onClick={() => {
+                    const finalResult =
+                      calculateDosha(answers);
+
+                    update({
+                      dosha: finalResult,
+                    });
+
+                    setShowResult(true);
+                  }}
+                  className="rounded-full"
+                >
+                  See My Result
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </div>
+            )}
         </div>
       </section>
     </main>

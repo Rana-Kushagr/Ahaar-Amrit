@@ -92,11 +92,11 @@ backgroundImage: "url('/ayurveda-hero.png')",
 className="
 absolute
 inset-0
--z-10
+z-0
 bg-gradient-to-r
-from-[#faf4e6]
-via-[#faf4e6]/90
-to-[#faf4e6]/40
+from-[#f7f1df]/95
+via-[#f7f1df]/70
+to-[#f7f1df]/20
 "
 />
 

@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as DoshaRouteImport } from './routes/dosha'
+import { Route as DoshaQuizRouteImport } from './routes/dosha-quiz'
 import { Route as NutritionPlanRouteImport } from './routes/nutrition-plan'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as ProfileRouteImport } from './routes/profile'
@@ -29,6 +30,11 @@ const DashboardRoute = DashboardRouteImport.update({
 const DoshaRoute = DoshaRouteImport.update({
   id: '/dosha',
   path: '/dosha',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DoshaQuizRoute = DoshaQuizRouteImport.update({
+  id: '/dosha-quiz',
+  path: '/dosha-quiz',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NutritionPlanRoute = NutritionPlanRouteImport.update({
@@ -51,6 +57,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
   '/dosha': typeof DoshaRoute
+  '/dosha-quiz': typeof DoshaQuizRoute
   '/nutrition-plan': typeof NutritionPlanRoute
   '/onboarding': typeof OnboardingRoute
   '/profile': typeof ProfileRoute
@@ -59,6 +66,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
   '/dosha': typeof DoshaRoute
+  '/dosha-quiz': typeof DoshaQuizRoute
   '/nutrition-plan': typeof NutritionPlanRoute
   '/onboarding': typeof OnboardingRoute
   '/profile': typeof ProfileRoute
@@ -68,6 +76,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
   '/dosha': typeof DoshaRoute
+  '/dosha-quiz': typeof DoshaQuizRoute
   '/nutrition-plan': typeof NutritionPlanRoute
   '/onboarding': typeof OnboardingRoute
   '/profile': typeof ProfileRoute
@@ -78,6 +87,7 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard'
     | '/dosha'
+    | '/dosha-quiz'
     | '/nutrition-plan'
     | '/onboarding'
     | '/profile'
@@ -86,6 +96,7 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard'
     | '/dosha'
+    | '/dosha-quiz'
     | '/nutrition-plan'
     | '/onboarding'
     | '/profile'
@@ -94,6 +105,7 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard'
     | '/dosha'
+    | '/dosha-quiz'
     | '/nutrition-plan'
     | '/onboarding'
     | '/profile'
@@ -103,6 +115,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRoute: typeof DashboardRoute
   DoshaRoute: typeof DoshaRoute
+  DoshaQuizRoute: typeof DoshaQuizRoute
   NutritionPlanRoute: typeof NutritionPlanRoute
   OnboardingRoute: typeof OnboardingRoute
   ProfileRoute: typeof ProfileRoute
@@ -129,6 +142,13 @@ declare module '@tanstack/react-router' {
       path: '/dosha'
       fullPath: '/dosha'
       preLoaderRoute: typeof DoshaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dosha-quiz': {
+      id: '/dosha-quiz'
+      path: '/dosha-quiz'
+      fullPath: '/dosha-quiz'
+      preLoaderRoute: typeof DoshaQuizRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/nutrition-plan': {
@@ -159,6 +179,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRoute: DashboardRoute,
   DoshaRoute: DoshaRoute,
+  DoshaQuizRoute: DoshaQuizRoute,
   NutritionPlanRoute: NutritionPlanRoute,
   OnboardingRoute: OnboardingRoute,
   ProfileRoute: ProfileRoute,

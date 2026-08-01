@@ -309,13 +309,13 @@ function DoshaQuiz() {
     const resultData = doshaResults[result];
 
     return (
-      <main className="relative min-h-screen overflow-hidden bg-background">
+      <main className="relative min-h-screen overflow-hidden bg-background pt-28 sm:pt-36 pb-16">
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <div className="animate-pulse-glow absolute -left-32 top-20 h-96 w-96 rounded-full bg-orange-300/20 blur-3xl" />
           <div className="animate-float-slow absolute -right-32 top-40 h-96 w-96 rounded-full bg-green-400/20 blur-3xl" />
         </div>
 
-        <section className="relative mx-auto flex min-h-screen max-w-4xl items-center justify-center px-6 py-16">
+        <section className="relative mx-auto flex min-h-[80vh] max-w-4xl items-center justify-center px-6">
           <div className="glass w-full rounded-[2rem] p-8 text-center shadow-warm sm:p-12">
 
             <div className="mx-auto flex h-24 w-24 animate-float items-center justify-center rounded-full bg-white/70 text-5xl shadow-xl">
@@ -413,7 +413,7 @@ function DoshaQuiz() {
     });
 
     return (
-      <main className="flex min-h-screen items-center justify-center bg-background">
+      <main className="flex min-h-screen items-center justify-center bg-background pt-28 sm:pt-36">
         <div className="text-center">
           <Sparkles className="mx-auto h-10 w-10 animate-pulse text-primary" />
           <p className="mt-4 text-muted-foreground">
@@ -435,17 +435,17 @@ function DoshaQuiz() {
   const selectedAnswer = answers[currentQuestion];
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-background">
+    <main className="relative min-h-screen overflow-hidden bg-background pt-28 sm:pt-36 pb-16">
 
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="animate-pulse-glow absolute -left-32 top-20 h-80 w-80 rounded-full bg-orange-300/20 blur-3xl" />
         <div className="animate-float-slow absolute -right-32 top-40 h-96 w-96 rounded-full bg-green-400/20 blur-3xl" />
       </div>
 
-      <section className="relative mx-auto max-w-4xl px-6 py-12 sm:py-20">
+      <section className="relative mx-auto max-w-4xl px-6">
 
         {/* TOP BAR */}
-        <div className="mb-10 flex items-center justify-between">
+        <div className="mb-8 flex items-center justify-between">
           <Button
             variant="ghost"
             onClick={handlePreviousQuestion}

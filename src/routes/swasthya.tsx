@@ -41,7 +41,7 @@ function SwasthyaPage() {
       <div className="pointer-events-none fixed inset-0 z-0 bg-emerald-950/50" aria-hidden />
 
 
-      <div className="relative mx-auto max-w-5xl space-y-10">
+      <div className="relative z-10 mx-auto max-w-5xl space-y-10">
 
         {/* =====================================================
             BACK BUTTON (GLASS UI)

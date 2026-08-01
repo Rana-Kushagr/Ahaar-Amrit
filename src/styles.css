@@ -4,19 +4,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
-
-/* =====================================================
-   AHAAR AMRIT
-   MODERN NATURE + GLASSMORPHISM DESIGN SYSTEM
-   ===================================================== */
-
-
-/* =====================================================
-   THEME
-   ===================================================== */
+/* =========================================================
+   AHAAR AMRIT — AYURVEDIC GLASSMORPHIC DESIGN SYSTEM
+   ========================================================= */
 
 @theme inline {
-
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -59,108 +51,83 @@
 }
 
 
-/* =====================================================
-   COLORS
-   ===================================================== */
+/* =========================================================
+   COLOR SYSTEM
+========================================================= */
 
 :root {
+  --radius: 1.4rem;
 
-  --radius: 1.2rem;
+  --background: #182516;
+  --foreground: #fff8e7;
 
-  /*
-   * IMPORTANT:
-   * Keep the base background transparent-looking.
-   * The actual visual background comes from
-   * .page-background.
-   */
+  --primary: #ff8a2a;
+  --primary-foreground: #ffffff;
 
-  --background: oklch(0.96 0.02 110);
+  --secondary: #8fbd58;
+  --secondary-foreground: #ffffff;
 
-  --foreground: oklch(0.20 0.04 140);
+  --accent: #d7a83e;
+  --accent-foreground: #211b0e;
 
-  --primary: oklch(0.68 0.20 50);
+  --muted: rgba(255, 248, 231, 0.10);
+  --muted-foreground: rgba(255, 248, 231, 0.72);
 
-  --primary-foreground: white;
+  --border: rgba(255, 255, 255, 0.20);
 
-  --secondary: oklch(0.48 0.15 150);
+  --input: rgba(255, 255, 255, 0.15);
 
-  --secondary-foreground: white;
-
-  --accent: oklch(0.78 0.15 85);
-
-  --accent-foreground: oklch(0.25 0.05 90);
-
-  --muted: rgba(255, 255, 255, 0.16);
-
-  --muted-foreground: rgba(45, 55, 42, 0.72);
-
-  --border: rgba(255, 255, 255, 0.35);
-
-  --input: rgba(255, 255, 255, 0.20);
-
-  --ring: oklch(0.68 0.20 50);
+  --ring: #ff8a2a;
 }
 
 
-/* =====================================================
+/* =========================================================
    GRADIENTS
-   ===================================================== */
+========================================================= */
 
 :root {
-
   --gradient-hero:
     linear-gradient(
       135deg,
-      #ff9d2f,
-      #ff6b35,
-      #3b7d45
+      #ff8a2a 0%,
+      #d96b29 45%,
+      #4d7835 100%
     );
 
   --gradient-premium:
     linear-gradient(
       135deg,
-      #ffb347,
-      #ff6b35,
-      #2f8f46
+      #e8a72c 0%,
+      #d9772a 40%,
+      #476f32 100%
     );
 
   --gradient-saffron:
     linear-gradient(
       90deg,
-      #ff9d2f,
-      #ff5f35
-    );
-
-  --gradient-nature:
-    linear-gradient(
-      135deg,
-      rgba(255, 174, 74, 0.25),
-      rgba(255, 125, 62, 0.18),
-      rgba(65, 145, 80, 0.22)
+      #ffb13b,
+      #ff7040
     );
 }
 
 
-/* =====================================================
+/* =========================================================
    BASE
-   ===================================================== */
+========================================================= */
 
 @layer base {
 
   * {
     border-color: var(--border);
-    box-sizing: border-box;
   }
 
   html {
     scroll-behavior: smooth;
+    background: #142313;
   }
 
   body {
-
     min-height: 100vh;
-
-    margin: 0;
 
     color: var(--foreground);
 
@@ -168,101 +135,53 @@
 
     overflow-x: hidden;
 
-    /*
-     * The image is now visible globally.
-     * Pages that use .page-background get the full
-     * fantasy nature atmosphere.
-     */
-
     background:
       linear-gradient(
-        135deg,
-        rgba(255, 181, 90, 0.15),
-        rgba(255, 255, 255, 0.04),
-        rgba(70, 150, 85, 0.15)
+        180deg,
+        rgba(12, 27, 14, 0.28),
+        rgba(12, 27, 14, 0.65)
       ),
-      url("/ayurveda-hero-bg.png");
-
-    background-size: cover;
-
-    background-position: center;
-
-    background-attachment: fixed;
-
-    background-repeat: no-repeat;
+      #142313;
   }
 
   h1,
   h2,
   h3,
-  h4,
-  h5,
-  h6 {
-
+  h4 {
     font-family: var(--font-display);
 
     letter-spacing: -0.03em;
   }
 
   button,
-  a,
-  input,
-  textarea,
-  select {
-    font-family: inherit;
-  }
-
-  ::selection {
-
-    background: rgba(255, 145, 50, 0.30);
-
-    color: #2f241a;
-  }
-
-  ::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  ::-webkit-scrollbar-track {
-
-    background: rgba(255, 255, 255, 0.10);
-  }
-
-  ::-webkit-scrollbar-thumb {
-
-    background:
-      linear-gradient(
-        180deg,
-        rgba(255, 145, 50, 0.70),
-        rgba(55, 130, 70, 0.70)
-      );
-
-    border-radius: 999px;
+  a {
+    -webkit-tap-highlight-color: transparent;
   }
 }
 
 
-/* =====================================================
+/* =========================================================
    GLOBAL PAGE BACKGROUND
-   ===================================================== */
+   =========================================================
 
-@utility page-background {
+   IMPORTANT:
+   Add class "ayurvedic-page" to the main/root container
+   of pages where you want the image background.
 
-  min-height: 100vh;
+========================================================= */
+
+@utility ayurvedic-page {
 
   position: relative;
 
-  isolation: isolate;
+  min-height: 100vh;
 
-  background:
-
+  background-image:
     linear-gradient(
-      135deg,
-      rgba(255, 178, 82, 0.16),
-      rgba(255, 255, 255, 0.03),
-      rgba(70, 150, 85, 0.16)
+      180deg,
+      rgba(14, 32, 16, 0.20),
+      rgba(14, 32, 16, 0.55)
     ),
-
     url("/ayurveda-hero-bg.png");
 
   background-size: cover;
@@ -272,462 +191,259 @@
   background-attachment: fixed;
 
   background-repeat: no-repeat;
+
 }
 
 
-/* =====================================================
-   BACKGROUND ATMOSPHERE
-   ===================================================== */
+/* =========================================================
+   DARK NATURAL OVERLAY
+========================================================= */
 
-@utility background-atmosphere {
+@utility nature-overlay {
 
-  position: fixed;
+  position: absolute;
 
   inset: 0;
-
-  z-index: -10;
 
   pointer-events: none;
 
   background:
-
     radial-gradient(
-      circle at 10% 15%,
-      rgba(255, 167, 65, 0.22),
-      transparent 28%
-    ),
-
-    radial-gradient(
-      circle at 90% 20%,
-      rgba(76, 160, 90, 0.20),
-      transparent 30%
-    ),
-
-    radial-gradient(
-      circle at 50% 90%,
-      rgba(255, 205, 105, 0.14),
+      circle at 15% 15%,
+      rgba(255, 177, 60, 0.22),
       transparent 32%
+    ),
+
+    radial-gradient(
+      circle at 85% 25%,
+      rgba(91, 150, 62, 0.20),
+      transparent 34%
+    ),
+
+    linear-gradient(
+      180deg,
+      rgba(13, 30, 15, 0.08),
+      rgba(13, 30, 15, 0.35)
     );
 }
 
 
-/* =====================================================
-   GLASS — MAIN COMPONENT
-   ===================================================== */
+/* =========================================================
+   MAIN GLASS
+   Dark translucent glass like reference image
+========================================================= */
 
 @utility glass {
 
-  background: rgba(255, 255, 255, 0.16);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.15),
+      rgba(255, 255, 255, 0.055)
+    );
 
   border:
-    1px solid
-    rgba(255, 255, 255, 0.38);
+    1px solid rgba(255, 255, 255, 0.28);
 
   backdrop-filter:
-    blur(18px)
-    saturate(140%);
+    blur(16px)
+    saturate(135%);
 
   -webkit-backdrop-filter:
-    blur(18px)
-    saturate(140%);
+    blur(16px)
+    saturate(135%);
 
   box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
 
-    0 18px 55px
-    rgba(0, 0, 0, 0.10),
-
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.42);
+  color: #fff8e7;
 
   transition:
-
-    background 0.3s ease,
-
-    border-color 0.3s ease,
-
-    box-shadow 0.3s ease,
-
-    transform 0.3s ease;
-}
-
-
-/* =====================================================
-   STRONG GLASS
-   ===================================================== */
-
-@utility glass-strong {
-
-  background: rgba(255, 255, 255, 0.24);
-
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.46);
-
-  backdrop-filter:
-    blur(24px)
-    saturate(155%);
-
-  -webkit-backdrop-filter:
-    blur(24px)
-    saturate(155%);
-
-  box-shadow:
-
-    0 22px 65px
-    rgba(0, 0, 0, 0.12),
-
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.50);
-}
-
-
-/* =====================================================
-   LIGHT GLASS
-   ===================================================== */
-
-@utility glass-light {
-
-  background: rgba(255, 255, 255, 0.10);
-
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.28);
-
-  backdrop-filter:
-    blur(12px);
-
-  -webkit-backdrop-filter:
-    blur(12px);
-
-  box-shadow:
-
-    0 10px 35px
-    rgba(0, 0, 0, 0.08);
-}
-
-
-/* =====================================================
-   GLASS CARD
-   ===================================================== */
-
-@utility glass-card {
-
-  background: rgba(255, 255, 255, 0.15);
-
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.36);
-
-  backdrop-filter:
-    blur(20px)
-    saturate(145%);
-
-  -webkit-backdrop-filter:
-    blur(20px)
-    saturate(145%);
-
-  box-shadow:
-
-    0 20px 60px
-    rgba(0, 0, 0, 0.10),
-
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.38);
-
-  transition:
-
     transform 0.35s ease,
-
     background 0.35s ease,
-
-    box-shadow 0.35s ease;
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
 }
 
 
-@utility glass-card-hover {
+/* =========================================================
+   GLASS HOVER
+========================================================= */
+
+@utility glass-hover {
 
   &:hover {
 
     background:
-      rgba(255, 255, 255, 0.23);
+      linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.21),
+        rgba(255, 255, 255, 0.075)
+      );
 
-    transform:
-      translateY(-7px);
+    border-color:
+      rgba(255, 255, 255, 0.42);
 
     box-shadow:
-
-      0 30px 75px
-      rgba(0, 0, 0, 0.14),
-
-      inset 0 1px 0
-      rgba(255, 255, 255, 0.48);
+      0 25px 70px rgba(0, 0, 0, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.28);
   }
 }
 
 
-/* =====================================================
+/* =========================================================
    LARGE GLASS PANEL
-   ===================================================== */
+========================================================= */
 
 @utility glass-panel {
 
   background:
-    rgba(255, 255, 255, 0.12);
+    linear-gradient(
+      135deg,
+      rgba(30, 52, 26, 0.42),
+      rgba(20, 40, 20, 0.25)
+    );
 
   border:
-    1px solid
-    rgba(255, 255, 255, 0.32);
+    1px solid rgba(255, 255, 255, 0.25);
 
   backdrop-filter:
-    blur(24px)
-    saturate(145%);
+    blur(18px)
+    saturate(130%);
 
   -webkit-backdrop-filter:
-    blur(24px)
-    saturate(145%);
+    blur(18px)
+    saturate(130%);
 
   box-shadow:
-
-    0 25px 80px
-    rgba(0, 0, 0, 0.10),
-
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.35);
+    0 25px 70px rgba(0, 0, 0, 0.20),
+    inset 0 1px 0 rgba(255, 255, 255, 0.20);
 }
 
 
-/* =====================================================
-   NAVBAR
-   ===================================================== */
+/* =========================================================
+   INNER GLASS CARDS
+========================================================= */
 
-.navbar-glass {
+@utility glass-card {
 
   background:
-    rgba(255, 255, 255, 0.20);
+    rgba(255, 255, 255, 0.10);
 
   border:
-    1px solid
-    rgba(255, 255, 255, 0.42);
+    1px solid rgba(255, 255, 255, 0.25);
 
   backdrop-filter:
-    blur(26px)
-    saturate(150%);
+    blur(10px);
 
   -webkit-backdrop-filter:
-    blur(26px)
-    saturate(150%);
+    blur(10px);
 
   box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
 
-    0 15px 55px
-    rgba(0, 0, 0, 0.13),
-
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.48);
+  color: #fff8e7;
 
   transition:
     background 0.3s ease,
-    box-shadow 0.3s ease;
+    transform 0.3s ease,
+    border-color 0.3s ease;
+
+  &:hover {
+
+    background:
+      rgba(255, 255, 255, 0.16);
+
+    border-color:
+      rgba(255, 255, 255, 0.38);
+
+    transform:
+      translateY(-3px);
+  }
 }
 
 
-/* =====================================================
-   NAVIGATION LINKS
-   ===================================================== */
+/* =========================================================
+   NAVBAR GLASS
+========================================================= */
 
-.nav-link-glass {
+@utility navbar-glass {
 
   background:
-    transparent;
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.18),
+      rgba(255, 255, 255, 0.06)
+    );
 
   border:
-    1px solid
-    transparent;
-
-  border-radius:
-    999px;
-
-  transition:
-
-    background 0.25s ease,
-
-    color 0.25s ease,
-
-    box-shadow 0.25s ease,
-
-    transform 0.25s ease;
-}
-
-
-.nav-link-glass:hover {
-
-  background:
-    rgba(255, 255, 255, 0.20);
-
-  border-color:
-    rgba(255, 255, 255, 0.28);
-
-  box-shadow:
-
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.35);
-
-  transform:
-    translateY(-1px);
-}
-
-
-.nav-link-glass.active {
-
-  background:
-    rgba(255, 255, 255, 0.32);
-
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.42);
-
-  box-shadow:
-
-    0 8px 25px
-    rgba(0, 0, 0, 0.10),
-
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.52);
-}
-
-
-/* =====================================================
-   GLASS BUTTON
-   ===================================================== */
-
-.glass-button {
-
-  background:
-    rgba(255, 255, 255, 0.20);
-
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.42);
+    1px solid rgba(255, 255, 255, 0.32);
 
   backdrop-filter:
-    blur(16px);
+    blur(22px)
+    saturate(145%);
 
   -webkit-backdrop-filter:
-    blur(16px);
+    blur(22px)
+    saturate(145%);
 
   box-shadow:
-
-    0 8px 28px
-    rgba(0, 0, 0, 0.10),
-
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.45);
-
-  transition:
-    all 0.3s ease;
+    0 18px 50px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.30);
 }
 
 
-.glass-button:hover {
+/* =========================================================
+   NAVIGATION ACTIVE ITEM
+========================================================= */
+
+@utility nav-active {
 
   background:
-    rgba(255, 255, 255, 0.32);
+    linear-gradient(
+      135deg,
+      #ff8b2d,
+      #d8792c 55%,
+      #628d3c
+    );
 
-  transform:
-    translateY(-2px);
+  color: white;
 
   box-shadow:
-
-    0 14px 38px
-    rgba(0, 0, 0, 0.14),
-
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.60);
-}
-
-
-/* =====================================================
-   GLASS INPUT
-   ===================================================== */
-
-.glass-input {
-
-  background:
-    rgba(255, 255, 255, 0.16);
+    0 8px 25px rgba(255, 130, 40, 0.28);
 
   border:
-    1px solid
-    rgba(255, 255, 255, 0.38);
+    1px solid rgba(255, 255, 255, 0.20);
+}
 
-  backdrop-filter:
-    blur(14px);
 
-  -webkit-backdrop-filter:
-    blur(14px);
+/* =========================================================
+   NAVIGATION HOVER
+========================================================= */
 
-  box-shadow:
+@utility nav-item {
 
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.38);
+  color:
+    rgba(255, 248, 231, 0.78);
 
   transition:
     all 0.25s ease;
+
+  &:hover {
+
+    color: white;
+
+    background:
+      rgba(255, 255, 255, 0.12);
+  }
 }
 
 
-.glass-input:focus {
-
-  background:
-    rgba(255, 255, 255, 0.25);
-
-  border-color:
-    rgba(255, 255, 255, 0.65);
-
-  outline:
-    none;
-
-  box-shadow:
-
-    0 0 0 3px
-    rgba(255, 160, 50, 0.15),
-
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.50);
-}
-
-
-/* =====================================================
-   GLASS BADGE
-   ===================================================== */
-
-.glass-badge {
-
-  background:
-    rgba(255, 255, 255, 0.18);
-
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.36);
-
-  backdrop-filter:
-    blur(12px);
-
-  -webkit-backdrop-filter:
-    blur(12px);
-
-  box-shadow:
-
-    0 6px 22px
-    rgba(0, 0, 0, 0.08),
-
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.38);
-}
-
-
-/* =====================================================
-   GRADIENT UTILITIES
-   ===================================================== */
+/* =========================================================
+   ORANGE / GREEN GRADIENT
+========================================================= */
 
 @utility bg-gradient-hero {
 
@@ -743,12 +459,9 @@
 }
 
 
-@utility bg-gradient-nature {
-
-  background:
-    var(--gradient-nature);
-}
-
+/* =========================================================
+   TEXT GRADIENT
+========================================================= */
 
 @utility text-gradient-saffron {
 
@@ -766,93 +479,42 @@
 }
 
 
-/* =====================================================
-   SHADOWS
-   ===================================================== */
+/* =========================================================
+   WARM SHADOW
+========================================================= */
 
 @utility shadow-warm {
 
   box-shadow:
-
-    0 25px 70px
-    rgba(255, 120, 40, 0.22);
+    0 20px 60px rgba(255, 130, 40, 0.22);
 }
 
+
+/* =========================================================
+   GREEN GLOW
+========================================================= */
+
+@utility shadow-green {
+
+  box-shadow:
+    0 20px 60px rgba(80, 150, 60, 0.20);
+}
+
+
+/* =========================================================
+   GLOW
+========================================================= */
 
 @utility shadow-glow {
 
   box-shadow:
-
-    0 0 70px
-    rgba(255, 140, 40, 0.35);
+    0 0 60px rgba(255, 140, 40, 0.30);
 }
 
 
-@utility shadow-glass {
-
-  box-shadow:
-
-    0 20px 60px
-    rgba(0, 0, 0, 0.12),
-
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.40);
-}
-
-
-/* =====================================================
-   3D SAFFRON ORB
-   ===================================================== */
-
-@utility orb-saffron {
-
-  background:
-
-    radial-gradient(
-      circle at 30% 30%,
-      #ffd27a,
-      #ff8c32 45%,
-      #d94f1f
-    );
-
-  box-shadow:
-
-    inset -20px -20px 40px
-    rgba(0, 0, 0, 0.25),
-
-    0 30px 70px
-    rgba(255, 120, 30, 0.32);
-}
-
-
-/* =====================================================
-   3D GREEN ORB
-   ===================================================== */
-
-@utility orb-green {
-
-  background:
-
-    radial-gradient(
-      circle at 30% 30%,
-      #8ee89b,
-      #3b9148 50%,
-      #165c2c
-    );
-
-  box-shadow:
-
-    inset -20px -20px 40px
-    rgba(0, 0, 0, 0.25),
-
-    0 30px 70px
-    rgba(40, 150, 70, 0.30);
-}
-
-
-/* =====================================================
-   ANIMATIONS
-   ===================================================== */
+/* =========================================================
+   FLOAT ANIMATION
+========================================================= */
 
 @keyframes float {
 
@@ -879,7 +541,7 @@
 
   50% {
     transform:
-      translateY(-30px);
+      translateY(-28px);
   }
 }
 
@@ -888,18 +550,16 @@
 
   0%,
   100% {
-
     opacity:
-      0.3;
+      0.25;
 
     transform:
       scale(1);
   }
 
   50% {
-
     opacity:
-      0.75;
+      0.65;
 
     transform:
       scale(1.15);
@@ -907,48 +567,30 @@
 }
 
 
-@keyframes shimmer {
-
-  0% {
-    transform:
-      translateX(-100%);
-  }
-
-  100% {
-    transform:
-      translateX(100%);
-  }
-}
-
-
-/* =====================================================
-   ANIMATION UTILITIES
-   ===================================================== */
-
 @utility animate-float {
 
   animation:
-    float 4s ease-in-out infinite;
+    float 5s ease-in-out infinite;
 }
 
 
 @utility animate-float-slow {
 
   animation:
-    floatSlow 8s ease-in-out infinite;
+    floatSlow 9s ease-in-out infinite;
 }
 
 
 @utility animate-pulse-glow {
 
   animation:
-    pulseGlow 3s ease-in-out infinite;
+    pulseGlow 4s ease-in-out infinite;
 }
 
 
-/* =====================================================
+/* =========================================================
    HOVER LIFT
-   ===================================================== */
+========================================================= */
 
 @utility hover-lift {
 
@@ -959,91 +601,111 @@
   &:hover {
 
     transform:
-      translateY(-8px)
-      scale(1.01);
+      translateY(-8px);
 
     box-shadow:
-
-      0 35px 85px
-      rgba(0, 0, 0, 0.15);
+      0 30px 70px rgba(0, 0, 0, 0.25);
   }
 }
 
 
-/* =====================================================
-   GLASS DIVIDER
-   ===================================================== */
+/* =========================================================
+   3D ORBS
+========================================================= */
 
-.glass-divider {
-
-  height:
-    1px;
+@utility orb-saffron {
 
   background:
-
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.50),
-      transparent
+    radial-gradient(
+      circle at 30% 30%,
+      #ffd27a,
+      #ff8c32 45%,
+      #c64e23
     );
+
+  box-shadow:
+    inset -15px -15px 35px rgba(0, 0, 0, 0.25),
+    0 25px 60px rgba(255, 120, 30, 0.30);
 }
 
 
-/* =====================================================
+@utility orb-green {
+
+  background:
+    radial-gradient(
+      circle at 30% 30%,
+      #a3df7b,
+      #4c913f 50%,
+      #1d5427
+    );
+
+  box-shadow:
+    inset -15px -15px 35px rgba(0, 0, 0, 0.25),
+    0 25px 60px rgba(50, 140, 50, 0.30);
+}
+
+
+/* =========================================================
+   BUTTON SYSTEM
+========================================================= */
+
+@utility glass-button {
+
+  background:
+    rgba(255, 255, 255, 0.12);
+
+  border:
+    1px solid rgba(255, 255, 255, 0.30);
+
+  backdrop-filter:
+    blur(10px);
+
+  color:
+    white;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.12);
+
+  transition:
+    all 0.3s ease;
+
+  &:hover {
+
+    background:
+      rgba(255, 255, 255, 0.20);
+
+    transform:
+      translateY(-2px);
+  }
+}
+
+
+/* =========================================================
+   REMOVE OLD LIGHT PAGE FEEL
+========================================================= */
+
+.bg-\[\#f7f1df\] {
+  background:
+    transparent !important;
+}
+
+
+/* =========================================================
    MOBILE
-   ===================================================== */
+========================================================= */
 
 @media (max-width: 768px) {
 
-  body {
-
-    background-attachment:
-      scroll;
+  h1 {
+    font-size:
+      3rem;
   }
 
-  .page-background {
-
+  .ayurvedic-page {
     background-attachment:
       scroll;
 
     background-position:
-      center;
-  }
-
-  .navbar-glass {
-
-    background:
-      rgba(255, 255, 255, 0.24);
-
-    backdrop-filter:
-      blur(20px);
-
-    -webkit-backdrop-filter:
-      blur(20px);
-  }
-
-  .glass {
-
-    background:
-      rgba(255, 255, 255, 0.20);
-
-    backdrop-filter:
-      blur(16px);
-
-    -webkit-backdrop-filter:
-      blur(16px);
-  }
-
-  .glass-card {
-
-    background:
-      rgba(255, 255, 255, 0.20);
-
-    backdrop-filter:
-      blur(16px);
-
-    -webkit-backdrop-filter:
-      blur(16px);
+      center top;
   }
 }

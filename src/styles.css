@@ -6,8 +6,9 @@
 
 
 /* =========================================================
-   AHAAR AMRIT — MODERN AYURVEDIC DESIGN SYSTEM
-   ========================================================= */
+   AHAAR AMRIT — PREMIUM AYURVEDIC DESIGN SYSTEM
+   DARK GREEN • GOLD • SAFFRON • TRANSLUCENT GLASS
+========================================================= */
 
 
 /* =========================================================
@@ -54,119 +55,157 @@
 
   --font-hindi:
     "Noto Sans Devanagari",
-    system-ui,
+    "Nirmala UI",
     sans-serif;
 }
 
 
 /* =========================================================
-   COLORS
+   CORE COLORS
 ========================================================= */
 
 :root {
 
   --radius: 1.2rem;
 
-  /* Dark forest background */
+  /* Main page colors */
+
   --background:
-    oklch(0.17 0.04 150);
+    #092c1d;
 
   --foreground:
-    oklch(0.95 0.02 140);
+    #f8f2df;
 
-  /* Saffron */
+
+  /* Saffron / orange */
+
   --primary:
-    oklch(0.72 0.18 55);
+    #ff7a2f;
 
   --primary-foreground:
-    white;
+    #ffffff;
+
 
   /* Ayurvedic green */
+
   --secondary:
-    oklch(0.62 0.15 145);
+    #9bd58a;
 
   --secondary-foreground:
-    white;
+    #092c1d;
 
-  /* Golden accent */
+
+  /* Gold */
+
   --accent:
-    oklch(0.80 0.16 85);
+    #e5bd68;
 
   --accent-foreground:
-    oklch(0.20 0.04 90);
+    #1b2619;
 
-  /* Dark translucent surfaces */
+
+  /* Text */
+
   --muted:
-    oklch(0.25 0.035 145);
+    rgba(255, 255, 255, 0.10);
 
   --muted-foreground:
-    oklch(0.78 0.03 140);
+    rgba(248, 242, 223, 0.78);
+
+
+  /* Borders */
 
   --border:
-    rgba(255, 255, 255, 0.16);
+    rgba(255, 255, 255, 0.20);
 
   --input:
     rgba(255, 255, 255, 0.16);
 
   --ring:
-    oklch(0.72 0.18 55);
+    #ff8b3d;
 }
 
 
 /* =========================================================
-   GRADIENTS
+   GLOBAL GRADIENTS
 ========================================================= */
 
 :root {
 
+  /* Main brand gradient */
+
   --gradient-hero:
     linear-gradient(
       135deg,
-      #ff9d2f 0%,
-      #ff6b35 45%,
-      #267346 100%
+      #ff7a2f 0%,
+      #e96b35 42%,
+      #7b8e3f 100%
     );
+
+
+  /* Premium gold-green */
 
   --gradient-premium:
     linear-gradient(
       135deg,
-      #ffb347 0%,
-      #e85d35 45%,
-      #246b3d 100%
+      #ff8b3d 0%,
+      #c8893f 42%,
+      #3d7b4c 100%
     );
+
+
+  /* Saffron text */
 
   --gradient-saffron:
     linear-gradient(
       90deg,
-      #ffb347,
-      #ff7043
+      #ffb347 0%,
+      #ff7135 50%,
+      #ff9a52 100%
     );
 
-  --gradient-green:
+
+  /* Dark Ayurvedic background */
+
+  --gradient-ayurveda:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(193, 145, 50, 0.22),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 85% 15%,
+      rgba(40, 130, 74, 0.32),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 50% 100%,
+      rgba(190, 125, 42, 0.14),
+      transparent 35%
+    ),
     linear-gradient(
       135deg,
-      #4caf6a,
-      #1d6339
+      #071f15 0%,
+      #0a3824 45%,
+      #06291c 100%
     );
 }
 
 
 /* =========================================================
-   GLOBAL BASE
+   BASE
 ========================================================= */
 
 @layer base {
 
   * {
     border-color: var(--border);
-    box-sizing: border-box;
   }
 
 
   html {
     scroll-behavior: smooth;
-    min-height: 100%;
-    background: #0b2116;
+    background: #071f15;
   }
 
 
@@ -174,58 +213,51 @@
 
     min-height: 100vh;
 
-    margin: 0;
+    background:
+      radial-gradient(
+        circle at 10% 15%,
+        rgba(210, 155, 55, 0.22),
+        transparent 25%
+      ),
 
-    color: var(--foreground);
+      radial-gradient(
+        circle at 90% 15%,
+        rgba(38, 135, 74, 0.25),
+        transparent 28%
+      ),
+
+      radial-gradient(
+        circle at 50% 100%,
+        rgba(185, 120, 40, 0.12),
+        transparent 35%
+      ),
+
+      linear-gradient(
+        135deg,
+        #061d13,
+        #0a3322 45%,
+        #06271a
+      );
+
+    color:
+      var(--foreground);
 
     font-family:
       var(--font-body);
 
     overflow-x: hidden;
 
-    /*
-      GLOBAL BACKGROUND IMAGE
+    /* Makes text smoother */
 
-      Every page will inherit this background
-      unless a component explicitly covers it.
-    */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 
-    background-image:
-
-      linear-gradient(
-        135deg,
-        rgba(5, 25, 15, 0.78),
-        rgba(15, 50, 30, 0.55),
-        rgba(5, 25, 15, 0.80)
-      ),
-
-      url("/ayurveda-hero-bg.png");
-
-    background-size: cover;
-
-    background-position: center;
-
-    background-repeat: no-repeat;
-
-    background-attachment: fixed;
   }
 
 
-  /*
-    Root application container
-  */
-
-  #root {
-
-    min-height: 100vh;
-
-    background: transparent;
-  }
-
-
-  /*
-    Headings
-  */
+  /* =====================================================
+     HEADINGS
+  ===================================================== */
 
   h1,
   h2,
@@ -237,108 +269,67 @@
     font-family:
       var(--font-display);
 
+    color:
+      #fff7df;
+
     letter-spacing:
       -0.03em;
 
-    color:
-      #f1f8f2;
-
     text-shadow:
-      0 2px 12px rgba(0, 0, 0, 0.35);
+      0 2px 18px rgba(0, 0, 0, 0.35);
+
   }
 
 
-  /*
-    Normal paragraphs
-  */
+  /* =====================================================
+     NORMAL TEXT
+  ===================================================== */
 
   p {
 
     color:
-      rgba(235, 245, 237, 0.88);
+      rgba(248, 242, 223, 0.86);
+
   }
 
 
-  /*
-    Links
-  */
+  /* =====================================================
+     LINKS
+  ===================================================== */
 
   a {
 
     transition:
       color 0.25s ease,
-      opacity 0.25s ease;
+      background 0.25s ease,
+      transform 0.25s ease;
+
+  }
+
+
+  /* =====================================================
+     BUTTONS
+  ===================================================== */
+
+  button {
+
+    font-family:
+      var(--font-body);
+
   }
 
 }
 
 
 /* =========================================================
-   GLOBAL PAGE BACKGROUND
-========================================================= */
-
-/*
-  Use this on page wrappers:
-
-  <main className="page-background">
-
-*/
-
-@utility page-background {
-
-  min-height: 100vh;
-
-  background:
-    radial-gradient(
-      circle at 10% 10%,
-      rgba(255, 155, 45, 0.12),
-      transparent 28%
-    ),
-
-    radial-gradient(
-      circle at 90% 20%,
-      rgba(70, 190, 110, 0.12),
-      transparent 30%
-    ),
-
-    transparent;
-}
-
-
-/*
-  IMPORTANT:
-  Main elements should not replace the global image.
-*/
-
-main {
-
-  min-height: 100vh;
-
-  background:
-    radial-gradient(
-      circle at 10% 10%,
-      rgba(255, 155, 45, 0.08),
-      transparent 30%
-    ),
-
-    radial-gradient(
-      circle at 90% 20%,
-      rgba(50, 180, 100, 0.08),
-      transparent 30%
-    ),
-
-    transparent;
-}
-
-
-/* =========================================================
-   FONT UTILITIES
+   UTILITY — FONTS
 ========================================================= */
 
 @utility font-display {
 
   font-family:
     var(--font-display);
+
 }
 
 
@@ -346,6 +337,7 @@ main {
 
   font-family:
     var(--font-hindi);
+
 }
 
 
@@ -357,6 +349,7 @@ main {
 
   background:
     var(--gradient-hero);
+
 }
 
 
@@ -364,13 +357,7 @@ main {
 
   background:
     var(--gradient-premium);
-}
 
-
-@utility bg-gradient-green {
-
-  background:
-    var(--gradient-green);
 }
 
 
@@ -387,448 +374,142 @@ main {
 
   color:
     transparent;
+
 }
 
 
 /* =========================================================
-   GLASS EFFECT
+   MAIN GLASS SYSTEM
+   IMPORTANT:
+   This fixes your unreadable cards.
 ========================================================= */
 
 @utility glass {
 
+  /* Translucent dark glass */
+
   background:
-    rgba(255, 255, 255, 0.11) !important;
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.13),
+      rgba(255, 255, 255, 0.055)
+    );
 
   border:
-    1px solid rgba(255, 255, 255, 0.20) !important;
+    1px solid
+    rgba(255, 245, 210, 0.28);
 
   backdrop-filter:
     blur(22px)
-    saturate(135%);
+    saturate(130%);
 
   -webkit-backdrop-filter:
     blur(22px)
-    saturate(135%);
+    saturate(130%);
 
   box-shadow:
 
     0 20px 60px
-    rgba(0, 0, 0, 0.20),
-
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.12);
-
-  color:
-    #edf7ef;
-}
-
-
-/* Glass hover */
-
-.glass:hover {
-
-  background:
-    rgba(255, 255, 255, 0.15) !important;
-
-  border-color:
-    rgba(255, 255, 255, 0.28) !important;
-
-  box-shadow:
-
-    0 28px 75px
     rgba(0, 0, 0, 0.25),
 
     inset 0 1px 0
-    rgba(255, 255, 255, 0.18);
+    rgba(255, 255, 255, 0.15);
+
+  color:
+    #fff7df;
+
 }
 
 
 /* =========================================================
-   GLASS CARD
+   GLASS HOVER
 ========================================================= */
 
-@utility glass-card {
+@utility glass-hover {
 
-  background:
-    rgba(255, 255, 255, 0.10);
+  transition:
+    transform 0.35s ease,
+    background 0.35s ease,
+    box-shadow 0.35s ease;
 
-  border:
-    1px solid rgba(255, 255, 255, 0.18);
+  &:hover {
 
-  backdrop-filter:
-    blur(20px);
+    transform:
+      translateY(-6px);
 
-  -webkit-backdrop-filter:
-    blur(20px);
+    background:
+      linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.18),
+        rgba(255, 255, 255, 0.075)
+      );
 
-  box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.20);
+    box-shadow:
+
+      0 30px 80px
+      rgba(0, 0, 0, 0.32),
+
+      inset 0 1px 0
+      rgba(255, 255, 255, 0.20);
+
+  }
+
 }
 
 
 /* =========================================================
-   DARK GLASS
+   TEXT READABILITY
 ========================================================= */
 
-@utility glass-dark {
+@utility text-readable {
 
-  background:
-    rgba(5, 25, 15, 0.42);
+  color:
+    #fff7df;
 
-  border:
-    1px solid rgba(255, 255, 255, 0.14);
+  text-shadow:
+    0 2px 12px
+    rgba(0, 0, 0, 0.45);
 
-  backdrop-filter:
-    blur(24px);
+}
 
-  -webkit-backdrop-filter:
-    blur(24px);
 
-  box-shadow:
-    0 25px 70px
-    rgba(0, 0, 0, 0.25);
+@utility text-readable-muted {
+
+  color:
+    rgba(255, 248, 225, 0.78);
+
+  text-shadow:
+    0 1px 8px
+    rgba(0, 0, 0, 0.35);
+
 }
 
 
 /* =========================================================
-   GLOBAL TEXT VISIBILITY
+   OVERRIDE COMMON MUTED TEXT
 ========================================================= */
 
 .text-muted-foreground {
 
   color:
-    rgba(220, 235, 224, 0.72) !important;
-}
+    rgba(255, 248, 225, 0.78) !important;
 
-
-.text-foreground {
-
-  color:
-    #f1f8f2 !important;
-}
-
-
-.text-primary {
-
-  color:
-    #ffb347 !important;
 }
 
 
 .text-secondary {
 
   color:
-    #8bd39a !important;
+    #b7e09b !important;
+
 }
 
 
-/* =========================================================
-   TRANSLUCENT WHITE BACKGROUNDS
-========================================================= */
-
-/*
-  These override common white Tailwind classes
-  so cards do not suddenly become solid white.
-*/
-
-.bg-white {
-
-  background:
-    rgba(255, 255, 255, 0.11) !important;
-}
-
-
-.bg-white\/95 {
-
-  background:
-    rgba(255, 255, 255, 0.14) !important;
-}
-
-
-.bg-white\/90 {
-
-  background:
-    rgba(255, 255, 255, 0.13) !important;
-}
-
-
-.bg-white\/80 {
-
-  background:
-    rgba(255, 255, 255, 0.12) !important;
-}
-
-
-.bg-white\/70 {
-
-  background:
-    rgba(255, 255, 255, 0.11) !important;
-}
-
-
-.bg-white\/65 {
-
-  background:
-    rgba(255, 255, 255, 0.10) !important;
-}
-
-
-.bg-white\/60 {
-
-  background:
-    rgba(255, 255, 255, 0.10) !important;
-}
-
-
-.bg-white\/50 {
-
-  background:
-    rgba(255, 255, 255, 0.09) !important;
-}
-
-
-/* =========================================================
-   COMMON COLORED CARDS
-========================================================= */
-
-.bg-green-100,
-.bg-green-200,
-.bg-orange-100,
-.bg-orange-200,
-.bg-yellow-100,
-.bg-yellow-200,
-.bg-blue-100,
-.bg-blue-200 {
-
-  background:
-    rgba(255, 255, 255, 0.12) !important;
-
-  border:
-    1px solid rgba(255, 255, 255, 0.12);
-}
-
-
-/* =========================================================
-   NAVBAR
-========================================================= */
-
-header {
-
-  background:
-    rgba(7, 35, 21, 0.48) !important;
-
-  border:
-    1px solid rgba(255, 255, 255, 0.20) !important;
-
-  backdrop-filter:
-    blur(25px)
-    saturate(145%);
-
-  -webkit-backdrop-filter:
-    blur(25px)
-    saturate(145%);
-
-  box-shadow:
-
-    0 15px 50px
-    rgba(0, 0, 0, 0.22);
-}
-
-
-/* Navbar text */
-
-header a {
+.text-primary {
 
   color:
-    #edf7ef;
-}
+    #ff9a52 !important;
 
-
-header a:hover {
-
-  color:
-    #ffd08a;
-}
-
-
-/* Navbar active item */
-
-header a.bg-primary {
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 157, 47, 0.92),
-      rgba(255, 107, 53, 0.92)
-    ) !important;
-
-  color:
-    white !important;
-
-  box-shadow:
-
-    0 8px 25px
-    rgba(255, 120, 40, 0.32);
-}
-
-
-/* =========================================================
-   BUTTONS
-========================================================= */
-
-button {
-
-  transition:
-
-    transform 0.25s ease,
-
-    box-shadow 0.25s ease,
-
-    background 0.25s ease;
-}
-
-
-button:hover {
-
-  transform:
-    translateY(-2px);
-}
-
-
-/* Outline buttons */
-
-button[class*="outline"],
-a[class*="outline"] {
-
-  background:
-    rgba(255, 255, 255, 0.10) !important;
-
-  border-color:
-    rgba(255, 255, 255, 0.30) !important;
-
-  color:
-    #f1f8f2 !important;
-
-  backdrop-filter:
-    blur(15px);
-
-  -webkit-backdrop-filter:
-    blur(15px);
-}
-
-
-button[class*="outline"]:hover,
-a[class*="outline"]:hover {
-
-  background:
-    rgba(255, 255, 255, 0.18) !important;
-}
-
-
-/* =========================================================
-   INPUTS
-========================================================= */
-
-input,
-textarea,
-select {
-
-  background:
-    rgba(255, 255, 255, 0.10) !important;
-
-  color:
-    #f1f8f2 !important;
-
-  border:
-    1px solid rgba(255, 255, 255, 0.22) !important;
-
-  backdrop-filter:
-    blur(15px);
-
-  -webkit-backdrop-filter:
-    blur(15px);
-}
-
-
-input::placeholder,
-textarea::placeholder {
-
-  color:
-    rgba(225, 240, 228, 0.55) !important;
-}
-
-
-input:focus,
-textarea:focus,
-select:focus {
-
-  border-color:
-    rgba(255, 170, 70, 0.65) !important;
-
-  outline:
-    none;
-
-  box-shadow:
-
-    0 0 0 3px
-    rgba(255, 150, 50, 0.15),
-
-    0 10px 30px
-    rgba(0, 0, 0, 0.15);
-}
-
-
-/* =========================================================
-   SELECT OPTIONS
-========================================================= */
-
-select option {
-
-  background:
-    #173525;
-
-  color:
-    #f1f8f2;
-}
-
-
-/* =========================================================
-   TABLES
-========================================================= */
-
-table {
-
-  background:
-    rgba(255, 255, 255, 0.07);
-
-  border-radius:
-    1rem;
-
-  overflow:
-    hidden;
-
-  backdrop-filter:
-    blur(18px);
-}
-
-
-th {
-
-  background:
-    rgba(255, 255, 255, 0.12);
-
-  color:
-    #f4faf5;
-}
-
-
-td {
-
-  color:
-    rgba(235, 245, 237, 0.88);
-
-  border-color:
-    rgba(255, 255, 255, 0.10);
 }
 
 
@@ -841,7 +522,11 @@ td {
   box-shadow:
 
     0 25px 70px
-    rgba(255, 120, 40, 0.22);
+    rgba(0, 0, 0, 0.28),
+
+    0 10px 35px
+    rgba(255, 130, 45, 0.14);
+
 }
 
 
@@ -849,8 +534,413 @@ td {
 
   box-shadow:
 
-    0 0 70px
-    rgba(255, 140, 40, 0.35);
+    0 0 60px
+    rgba(255, 135, 45, 0.35);
+
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+header {
+
+  background:
+    rgba(8, 31, 20, 0.68) !important;
+
+  border:
+    1px solid
+    rgba(255, 244, 210, 0.25) !important;
+
+  backdrop-filter:
+    blur(24px)
+    saturate(140%);
+
+  -webkit-backdrop-filter:
+    blur(24px)
+    saturate(140%);
+
+  box-shadow:
+
+    0 18px 50px
+    rgba(0, 0, 0, 0.25),
+
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.12);
+
+}
+
+
+/* Navbar brand */
+
+header p {
+
+  color:
+    #fff4d8;
+
+}
+
+
+/* Navbar navigation */
+
+header nav a {
+
+  color:
+    rgba(255, 248, 225, 0.78);
+
+  text-shadow:
+    0 1px 8px
+    rgba(0, 0, 0, 0.3);
+
+}
+
+
+header nav a:hover {
+
+  color:
+    #ffffff;
+
+  background:
+    rgba(255, 255, 255, 0.10);
+
+}
+
+
+/* Active navbar item */
+
+header nav a.bg-primary {
+
+  color:
+    #ffffff !important;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ff8135,
+      #6e8843
+    ) !important;
+
+  box-shadow:
+    0 8px 25px
+    rgba(255, 120, 40, 0.25);
+
+}
+
+
+/* =========================================================
+   FORM ELEMENTS
+========================================================= */
+
+input,
+textarea,
+select {
+
+  background:
+    rgba(255, 255, 255, 0.09) !important;
+
+  color:
+    #fff7df !important;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.22) !important;
+
+  backdrop-filter:
+    blur(12px);
+
+}
+
+
+input::placeholder,
+textarea::placeholder {
+
+  color:
+    rgba(255, 248, 225, 0.55) !important;
+
+}
+
+
+input:focus,
+textarea:focus,
+select:focus {
+
+  border-color:
+    rgba(255, 150, 70, 0.8) !important;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(255, 130, 50, 0.15);
+
+}
+
+
+/* =========================================================
+   CARD TEXT
+========================================================= */
+
+.glass h1,
+.glass h2,
+.glass h3,
+.glass h4 {
+
+  color:
+    #fff7df;
+
+}
+
+
+.glass p {
+
+  color:
+    rgba(255, 248, 225, 0.80);
+
+}
+
+
+/* =========================================================
+   WHITE BACKGROUND OVERRIDE
+   Prevents white cards from destroying theme.
+========================================================= */
+
+.bg-white {
+
+  background:
+    rgba(255, 255, 255, 0.10) !important;
+
+  color:
+    #fff7df !important;
+
+}
+
+
+.bg-white\/60 {
+
+  background:
+    rgba(255, 255, 255, 0.10) !important;
+
+}
+
+
+.bg-white\/65 {
+
+  background:
+    rgba(255, 255, 255, 0.11) !important;
+
+}
+
+
+.bg-white\/70 {
+
+  background:
+    rgba(255, 255, 255, 0.13) !important;
+
+}
+
+
+.bg-white\/80 {
+
+  background:
+    rgba(255, 255, 255, 0.15) !important;
+
+}
+
+
+/* =========================================================
+   LIGHT BACKGROUND COLORS
+   Converts old cream components into translucent glass.
+========================================================= */
+
+.bg-orange-100 {
+
+  background:
+    rgba(255, 150, 70, 0.16) !important;
+
+}
+
+
+.bg-green-100 {
+
+  background:
+    rgba(90, 180, 100, 0.16) !important;
+
+}
+
+
+.bg-yellow-100 {
+
+  background:
+    rgba(235, 190, 70, 0.16) !important;
+
+}
+
+
+/* =========================================================
+   COMMON DARK TEXT OVERRIDES
+   Fixes the exact problem visible in your screenshot.
+========================================================= */
+
+.text-\[\#382719\],
+.text-\[\#3b2b1f\],
+.text-\[\#493629\],
+.text-\[\#5a4939\],
+.text-\[\#6c482b\],
+.text-\[\#6b5a4b\],
+.text-\[\#735f4d\],
+.text-\[\#765c43\] {
+
+  color:
+    #fff4d8 !important;
+
+  text-shadow:
+    0 2px 10px
+    rgba(0, 0, 0, 0.38);
+
+}
+
+
+/* =========================================================
+   DARK GREEN TEXT OVERRIDE
+========================================================= */
+
+.text-green-700 {
+
+  color:
+    #b9e69c !important;
+
+}
+
+
+.text-orange-600 {
+
+  color:
+    #ffad68 !important;
+
+}
+
+
+.text-yellow-700 {
+
+  color:
+    #f2d27b !important;
+
+}
+
+
+/* =========================================================
+   BUTTON SYSTEM
+========================================================= */
+
+button,
+[role="button"] {
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    filter 0.25s ease;
+
+}
+
+
+button:hover,
+[role="button"]:hover {
+
+  filter:
+    brightness(1.08);
+
+}
+
+
+/* Primary CTA */
+
+.bg-primary {
+
+  background:
+    linear-gradient(
+      135deg,
+      #ff8135,
+      #e76b38
+    ) !important;
+
+}
+
+
+/* =========================================================
+   OUTLINE BUTTONS
+========================================================= */
+
+button.border,
+a.border {
+
+  border-color:
+    rgba(255, 244, 210, 0.30) !important;
+
+  color:
+    #fff4d8 !important;
+
+  background:
+    rgba(255, 255, 255, 0.07);
+
+  backdrop-filter:
+    blur(12px);
+
+}
+
+
+button.border:hover,
+a.border:hover {
+
+  background:
+    rgba(255, 255, 255, 0.14);
+
+}
+
+
+/* =========================================================
+   3D ORBS
+========================================================= */
+
+@utility orb-saffron {
+
+  background:
+
+    radial-gradient(
+      circle at 30% 30%,
+      #ffd27a,
+      #ff8135 45%,
+      #b94725
+    );
+
+  box-shadow:
+
+    inset -20px -20px 40px
+    rgba(0, 0, 0, 0.25),
+
+    0 30px 70px
+    rgba(255, 120, 30, 0.30);
+
+}
+
+
+@utility orb-green {
+
+  background:
+
+    radial-gradient(
+      circle at 30% 30%,
+      #9be89c,
+      #3d914b 50%,
+      #14582b
+    );
+
+  box-shadow:
+
+    inset -20px -20px 40px
+    rgba(0, 0, 0, 0.25),
+
+    0 30px 70px
+    rgba(40, 150, 70, 0.30);
+
 }
 
 
@@ -861,7 +951,8 @@ td {
 @utility hover-lift {
 
   transition:
-    all 0.35s ease;
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
 
   &:hover {
 
@@ -872,54 +963,10 @@ td {
     box-shadow:
 
       0 35px 80px
-      rgba(0, 0, 0, 0.28);
+      rgba(0, 0, 0, 0.30);
+
   }
-}
 
-
-/* =========================================================
-   ORBS
-========================================================= */
-
-@utility orb-saffron {
-
-  background:
-
-    radial-gradient(
-      circle at 30% 30%,
-      #ffd27a,
-      #ff8c32 45%,
-      #d94f1f
-    );
-
-  box-shadow:
-
-    inset -20px -20px 40px
-    rgba(0, 0, 0, 0.25),
-
-    0 40px 80px
-    rgba(255, 120, 30, 0.35);
-}
-
-
-@utility orb-green {
-
-  background:
-
-    radial-gradient(
-      circle at 30% 30%,
-      #8ee89b,
-      #3b9148 50%,
-      #165c2c
-    );
-
-  box-shadow:
-
-    inset -20px -20px 40px
-    rgba(0, 0, 0, 0.25),
-
-    0 40px 80px
-    rgba(40, 150, 70, 0.35);
 }
 
 
@@ -934,13 +981,16 @@ td {
 
     transform:
       translateY(0);
+
   }
 
   50% {
 
     transform:
       translateY(-15px);
+
   }
+
 }
 
 
@@ -951,13 +1001,16 @@ td {
 
     transform:
       translateY(0);
+
   }
 
   50% {
 
     transform:
       translateY(-30px);
+
   }
+
 }
 
 
@@ -967,20 +1020,23 @@ td {
   100% {
 
     opacity:
-      0.3;
+      0.25;
 
     transform:
       scale(1);
+
   }
 
   50% {
 
     opacity:
-      0.8;
+      0.65;
 
     transform:
       scale(1.15);
+
   }
+
 }
 
 
@@ -988,6 +1044,7 @@ td {
 
   animation:
     float 4s ease-in-out infinite;
+
 }
 
 
@@ -995,6 +1052,7 @@ td {
 
   animation:
     floatSlow 8s ease-in-out infinite;
+
 }
 
 
@@ -1002,6 +1060,59 @@ td {
 
   animation:
     pulseGlow 3s ease-in-out infinite;
+
+}
+
+
+/* =========================================================
+   BACKGROUND IMAGE READABILITY
+========================================================= */
+
+main {
+
+  color:
+    #fff7df;
+
+}
+
+
+/* Sections should not paint cream over the background */
+
+main.bg-\[\#f7f1df\] {
+
+  background:
+    transparent !important;
+
+}
+
+
+/* Remove old cream backgrounds */
+
+.bg-\[\#f7f1df\] {
+
+  background:
+    transparent !important;
+
+}
+
+
+.bg-\[\#fff8e9\] {
+
+  background:
+    transparent !important;
+
+}
+
+
+/* =========================================================
+   SECTION CONTENT
+========================================================= */
+
+section {
+
+  position:
+    relative;
+
 }
 
 
@@ -1013,40 +1124,37 @@ td {
 
   width:
     10px;
+
 }
 
 
 ::-webkit-scrollbar-track {
 
   background:
-    rgba(5, 20, 12, 0.75);
+    #061d13;
+
 }
 
 
 ::-webkit-scrollbar-thumb {
 
   background:
-
     linear-gradient(
-      180deg,
-      #ff9d2f,
-      #3b9148
+      #ff8135,
+      #5f8846
     );
 
   border-radius:
     999px;
+
 }
 
 
 ::-webkit-scrollbar-thumb:hover {
 
   background:
+    #ff9a52;
 
-    linear-gradient(
-      180deg,
-      #ffb347,
-      #4ca85a
-    );
 }
 
 
@@ -1056,23 +1164,68 @@ td {
 
 @media (max-width: 768px) {
 
-  body {
-
-    background-attachment:
-      scroll;
-  }
-
-
-  main {
-
-    overflow-x:
-      hidden;
-  }
-
-
   h1 {
 
     font-size:
       3rem;
+
   }
+
+
+  h2 {
+
+    font-size:
+      2.2rem;
+
+  }
+
+
+  .glass {
+
+    backdrop-filter:
+      blur(18px);
+
+    -webkit-backdrop-filter:
+      blur(18px);
+
+  }
+
+}
+
+
+/* =========================================================
+   ACCESSIBILITY / READABILITY
+========================================================= */
+
+::selection {
+
+  background:
+    rgba(255, 130, 50, 0.55);
+
+  color:
+    #ffffff;
+
+}
+
+
+/* Make strong text clearly visible */
+
+strong {
+
+  color:
+    #fff4d2;
+
+}
+
+
+/* Icons inside cards */
+
+.glass svg {
+
+  filter:
+    drop-shadow(
+      0 2px 5px
+      rgba(0, 0, 0, 0.25)
+    );
+
 }

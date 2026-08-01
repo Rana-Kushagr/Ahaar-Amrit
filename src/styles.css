@@ -4,11 +4,19 @@
 
 @custom-variant dark (&:is(.dark *));
 
+
 /* =====================================================
-   AHAAR AMRIT — PREMIUM MODERN DESIGN SYSTEM
+   AHAAR AMRIT
+   MODERN NATURE + GLASSMORPHISM DESIGN SYSTEM
+   ===================================================== */
+
+
+/* =====================================================
+   THEME
    ===================================================== */
 
 @theme inline {
+
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -47,63 +55,73 @@
 
   --font-hindi:
     "Noto Sans Devanagari",
-    serif;
+    sans-serif;
 }
+
 
 /* =====================================================
    COLORS
    ===================================================== */
 
 :root {
+
   --radius: 1.2rem;
 
-  /* Warm natural cream */
-  --background: oklch(0.975 0.025 95);
+  /*
+   * IMPORTANT:
+   * Keep the base background transparent-looking.
+   * The actual visual background comes from
+   * .page-background.
+   */
 
-  /* Deep natural green */
-  --foreground: oklch(0.22 0.04 140);
+  --background: oklch(0.96 0.02 110);
 
-  /* Saffron / turmeric */
+  --foreground: oklch(0.20 0.04 140);
+
   --primary: oklch(0.68 0.20 50);
+
   --primary-foreground: white;
 
-  /* Leaf green */
   --secondary: oklch(0.48 0.15 150);
+
   --secondary-foreground: white;
 
-  /* Golden accent */
   --accent: oklch(0.78 0.15 85);
+
   --accent-foreground: oklch(0.25 0.05 90);
 
-  --muted: oklch(0.94 0.02 100);
-  --muted-foreground: oklch(0.50 0.03 100);
+  --muted: rgba(255, 255, 255, 0.16);
 
-  --border: oklch(0.88 0.03 100);
+  --muted-foreground: rgba(45, 55, 42, 0.72);
 
-  --input: oklch(0.88 0.03 100);
+  --border: rgba(255, 255, 255, 0.35);
+
+  --input: rgba(255, 255, 255, 0.20);
 
   --ring: oklch(0.68 0.20 50);
 }
+
 
 /* =====================================================
    GRADIENTS
    ===================================================== */
 
 :root {
+
   --gradient-hero:
     linear-gradient(
       135deg,
-      #ffb347 0%,
-      #ff7a35 45%,
-      #3b7d45 100%
+      #ff9d2f,
+      #ff6b35,
+      #3b7d45
     );
 
   --gradient-premium:
     linear-gradient(
       135deg,
-      #ffd27a 0%,
-      #ff8a3d 40%,
-      #3b9148 100%
+      #ffb347,
+      #ff6b35,
+      #2f8f46
     );
 
   --gradient-saffron:
@@ -113,22 +131,25 @@
       #ff5f35
     );
 
-  --gradient-natural:
+  --gradient-nature:
     linear-gradient(
       135deg,
-      rgba(255, 179, 71, 0.95),
-      rgba(255, 122, 53, 0.9),
-      rgba(59, 125, 69, 0.95)
+      rgba(255, 174, 74, 0.25),
+      rgba(255, 125, 62, 0.18),
+      rgba(65, 145, 80, 0.22)
     );
 }
+
 
 /* =====================================================
    BASE
    ===================================================== */
 
 @layer base {
+
   * {
     border-color: var(--border);
+    box-sizing: border-box;
   }
 
   html {
@@ -136,7 +157,10 @@
   }
 
   body {
+
     min-height: 100vh;
+
+    margin: 0;
 
     color: var(--foreground);
 
@@ -145,319 +169,645 @@
     overflow-x: hidden;
 
     /*
-      GLOBAL AHAAR AMRIT BACKGROUND
-
-      This applies to every page:
-      Home
-      Dashboard
-      Nutrition
-      Ayurveda
-      Profile
-    */
-
-    /*
-      Added the ayurvedic background image (public/ayurveda-hero-bg.png)
-      as a layered background. The gradients and textures remain on top
-      so the site retains its look while showing the hero image beneath.
-    */
+     * The image is now visible globally.
+     * Pages that use .page-background get the full
+     * fantasy nature atmosphere.
+     */
 
     background:
-      /* Top-left saffron sunlight */
-      radial-gradient(
-        circle at 5% 5%,
-        rgba(255, 164, 54, 0.32),
-        transparent 28%
+      linear-gradient(
+        135deg,
+        rgba(255, 181, 90, 0.15),
+        rgba(255, 255, 255, 0.04),
+        rgba(70, 150, 85, 0.15)
       ),
+      url("/ayurveda-hero-bg.png");
 
-      /* Top-right green botanical glow */
-      radial-gradient(
-        circle at 95% 8%,
-        rgba(63, 153, 83, 0.24),
-        transparent 30%
-      ),
+    background-size: cover;
 
-      /* Bottom-left warm glow */
-      radial-gradient(
-        circle at 0% 90%,
-        rgba(255, 193, 92, 0.20),
-        transparent 32%
-      ),
+    background-position: center;
 
-      /* Bottom-right natural green */
-      radial-gradient(
-        circle at 100% 90%,
-        rgba(53, 130, 70, 0.18),
-        transparent 32%
-      ),
+    background-attachment: fixed;
 
-      /* Soft central light */
-      radial-gradient(
-        circle at 50% 45%,
-        rgba(255, 255, 255, 0.75),
-        transparent 55%
-      ),
-
-      /* The photography / hero PNG placed under the decorative gradients */
-      url('/ayurveda-hero-bg.png') center/cover no-repeat,
-
-      var(--background);
-  }
-
-  /*
-    Creates a subtle texture layer over the whole website.
-    This makes the background feel less flat.
-  */
-
-  body::before {
-    content: "";
-
-    position: fixed;
-
-    inset: 0;
-
-    pointer-events: none;
-
-    z-index: -1;
-
-    opacity: 0.45;
-
-    background-image:
-      radial-gradient(
-        circle at 20% 30%,
-        rgba(255, 255, 255, 0.5) 0,
-        transparent 2px
-      ),
-      radial-gradient(
-        circle at 80% 70%,
-        rgba(255, 255, 255, 0.35) 0,
-        transparent 2px
-      );
-
-    background-size:
-      90px 90px,
-      120px 120px;
-  }
-
-  /*
-    Very subtle decorative glow.
-    Helps pages feel connected visually.
-  */
-
-  body::after {
-    content: "";
-
-    position: fixed;
-
-    width: 500px;
-    height: 500px;
-
-    right: -250px;
-    top: 35%;
-
-    pointer-events: none;
-
-    z-index: -1;
-
-    border-radius: 9999px;
-
-    background:
-      radial-gradient(
-        circle,
-        rgba(74, 150, 82, 0.12),
-        transparent 70%
-      );
-
-    filter: blur(40px);
+    background-repeat: no-repeat;
   }
 
   h1,
   h2,
-  h3 {
+  h3,
+  h4,
+  h5,
+  h6 {
+
     font-family: var(--font-display);
 
     letter-spacing: -0.03em;
   }
 
   button,
-  a {
-    -webkit-tap-highlight-color: transparent;
+  a,
+  input,
+  textarea,
+  select {
+    font-family: inherit;
+  }
+
+  ::selection {
+
+    background: rgba(255, 145, 50, 0.30);
+
+    color: #2f241a;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+
+    background: rgba(255, 255, 255, 0.10);
+  }
+
+  ::-webkit-scrollbar-thumb {
+
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255, 145, 50, 0.70),
+        rgba(55, 130, 70, 0.70)
+      );
+
+    border-radius: 999px;
   }
 }
 
+
 /* =====================================================
-   UTILITY CLASSES
+   GLOBAL PAGE BACKGROUND
    ===================================================== */
 
-@utility font-display {
-  font-family: var(--font-display);
+@utility page-background {
+
+  min-height: 100vh;
+
+  position: relative;
+
+  isolation: isolate;
+
+  background:
+
+    linear-gradient(
+      135deg,
+      rgba(255, 178, 82, 0.16),
+      rgba(255, 255, 255, 0.03),
+      rgba(70, 150, 85, 0.16)
+    ),
+
+    url("/ayurveda-hero-bg.png");
+
+  background-size: cover;
+
+  background-position: center;
+
+  background-attachment: fixed;
+
+  background-repeat: no-repeat;
 }
 
-@utility font-hindi {
-  font-family: var(--font-hindi);
-}
-
-@utility bg-gradient-hero {
-  background: var(--gradient-hero);
-}
-
-@utility bg-gradient-premium {
-  background: var(--gradient-premium);
-}
-
-@utility text-gradient-saffron {
-  background: var(--gradient-saffron);
-
-  background-clip: text;
-  -webkit-background-clip: text;
-
-  color: transparent;
-}
 
 /* =====================================================
-   PREMIUM GLASS EFFECT
+   BACKGROUND ATMOSPHERE
+   ===================================================== */
+
+@utility background-atmosphere {
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: -10;
+
+  pointer-events: none;
+
+  background:
+
+    radial-gradient(
+      circle at 10% 15%,
+      rgba(255, 167, 65, 0.22),
+      transparent 28%
+    ),
+
+    radial-gradient(
+      circle at 90% 20%,
+      rgba(76, 160, 90, 0.20),
+      transparent 30%
+    ),
+
+    radial-gradient(
+      circle at 50% 90%,
+      rgba(255, 205, 105, 0.14),
+      transparent 32%
+    );
+}
+
+
+/* =====================================================
+   GLASS — MAIN COMPONENT
    ===================================================== */
 
 @utility glass {
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.72),
-      rgba(255, 255, 255, 0.42)
-    );
+
+  background: rgba(255, 255, 255, 0.16);
 
   border:
-    1px solid rgba(255, 255, 255, 0.65);
+    1px solid
+    rgba(255, 255, 255, 0.38);
+
+  backdrop-filter:
+    blur(18px)
+    saturate(140%);
+
+  -webkit-backdrop-filter:
+    blur(18px)
+    saturate(140%);
+
+  box-shadow:
+
+    0 18px 55px
+    rgba(0, 0, 0, 0.10),
+
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.42);
+
+  transition:
+
+    background 0.3s ease,
+
+    border-color 0.3s ease,
+
+    box-shadow 0.3s ease,
+
+    transform 0.3s ease;
+}
+
+
+/* =====================================================
+   STRONG GLASS
+   ===================================================== */
+
+@utility glass-strong {
+
+  background: rgba(255, 255, 255, 0.24);
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.46);
 
   backdrop-filter:
     blur(24px)
-    saturate(150%);
+    saturate(155%);
 
   -webkit-backdrop-filter:
     blur(24px)
+    saturate(155%);
+
+  box-shadow:
+
+    0 22px 65px
+    rgba(0, 0, 0, 0.12),
+
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.50);
+}
+
+
+/* =====================================================
+   LIGHT GLASS
+   ===================================================== */
+
+@utility glass-light {
+
+  background: rgba(255, 255, 255, 0.10);
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.28);
+
+  backdrop-filter:
+    blur(12px);
+
+  -webkit-backdrop-filter:
+    blur(12px);
+
+  box-shadow:
+
+    0 10px 35px
+    rgba(0, 0, 0, 0.08);
+}
+
+
+/* =====================================================
+   GLASS CARD
+   ===================================================== */
+
+@utility glass-card {
+
+  background: rgba(255, 255, 255, 0.15);
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.36);
+
+  backdrop-filter:
+    blur(20px)
+    saturate(145%);
+
+  -webkit-backdrop-filter:
+    blur(20px)
+    saturate(145%);
+
+  box-shadow:
+
+    0 20px 60px
+    rgba(0, 0, 0, 0.10),
+
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.38);
+
+  transition:
+
+    transform 0.35s ease,
+
+    background 0.35s ease,
+
+    box-shadow 0.35s ease;
+}
+
+
+@utility glass-card-hover {
+
+  &:hover {
+
+    background:
+      rgba(255, 255, 255, 0.23);
+
+    transform:
+      translateY(-7px);
+
+    box-shadow:
+
+      0 30px 75px
+      rgba(0, 0, 0, 0.14),
+
+      inset 0 1px 0
+      rgba(255, 255, 255, 0.48);
+  }
+}
+
+
+/* =====================================================
+   LARGE GLASS PANEL
+   ===================================================== */
+
+@utility glass-panel {
+
+  background:
+    rgba(255, 255, 255, 0.12);
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.32);
+
+  backdrop-filter:
+    blur(24px)
+    saturate(145%);
+
+  -webkit-backdrop-filter:
+    blur(24px)
+    saturate(145%);
+
+  box-shadow:
+
+    0 25px 80px
+    rgba(0, 0, 0, 0.10),
+
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.35);
+}
+
+
+/* =====================================================
+   NAVBAR
+   ===================================================== */
+
+.navbar-glass {
+
+  background:
+    rgba(255, 255, 255, 0.20);
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.42);
+
+  backdrop-filter:
+    blur(26px)
+    saturate(150%);
+
+  -webkit-backdrop-filter:
+    blur(26px)
     saturate(150%);
 
   box-shadow:
-    0 20px 60px rgba(67, 73, 50, 0.10),
-    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+
+    0 15px 55px
+    rgba(0, 0, 0, 0.13),
+
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.48);
+
+  transition:
+    background 0.3s ease,
+    box-shadow 0.3s ease;
 }
+
 
 /* =====================================================
-   PREMIUM CARD
+   NAVIGATION LINKS
    ===================================================== */
 
-@utility premium-card {
+.nav-link-glass {
+
   background:
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.82),
-      rgba(255, 255, 255, 0.62)
-    );
+    transparent;
 
   border:
-    1px solid rgba(255, 255, 255, 0.72);
+    1px solid
+    transparent;
 
-  backdrop-filter: blur(18px);
+  border-radius:
+    999px;
 
-  -webkit-backdrop-filter: blur(18px);
+  transition:
+
+    background 0.25s ease,
+
+    color 0.25s ease,
+
+    box-shadow 0.25s ease,
+
+    transform 0.25s ease;
+}
+
+
+.nav-link-glass:hover {
+
+  background:
+    rgba(255, 255, 255, 0.20);
+
+  border-color:
+    rgba(255, 255, 255, 0.28);
 
   box-shadow:
-    0 20px 60px rgba(67, 73, 50, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.35);
+
+  transform:
+    translateY(-1px);
 }
+
+
+.nav-link-glass.active {
+
+  background:
+    rgba(255, 255, 255, 0.32);
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.42);
+
+  box-shadow:
+
+    0 8px 25px
+    rgba(0, 0, 0, 0.10),
+
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.52);
+}
+
+
+/* =====================================================
+   GLASS BUTTON
+   ===================================================== */
+
+.glass-button {
+
+  background:
+    rgba(255, 255, 255, 0.20);
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.42);
+
+  backdrop-filter:
+    blur(16px);
+
+  -webkit-backdrop-filter:
+    blur(16px);
+
+  box-shadow:
+
+    0 8px 28px
+    rgba(0, 0, 0, 0.10),
+
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.45);
+
+  transition:
+    all 0.3s ease;
+}
+
+
+.glass-button:hover {
+
+  background:
+    rgba(255, 255, 255, 0.32);
+
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+
+    0 14px 38px
+    rgba(0, 0, 0, 0.14),
+
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.60);
+}
+
+
+/* =====================================================
+   GLASS INPUT
+   ===================================================== */
+
+.glass-input {
+
+  background:
+    rgba(255, 255, 255, 0.16);
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.38);
+
+  backdrop-filter:
+    blur(14px);
+
+  -webkit-backdrop-filter:
+    blur(14px);
+
+  box-shadow:
+
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.38);
+
+  transition:
+    all 0.25s ease;
+}
+
+
+.glass-input:focus {
+
+  background:
+    rgba(255, 255, 255, 0.25);
+
+  border-color:
+    rgba(255, 255, 255, 0.65);
+
+  outline:
+    none;
+
+  box-shadow:
+
+    0 0 0 3px
+    rgba(255, 160, 50, 0.15),
+
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.50);
+}
+
+
+/* =====================================================
+   GLASS BADGE
+   ===================================================== */
+
+.glass-badge {
+
+  background:
+    rgba(255, 255, 255, 0.18);
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.36);
+
+  backdrop-filter:
+    blur(12px);
+
+  -webkit-backdrop-filter:
+    blur(12px);
+
+  box-shadow:
+
+    0 6px 22px
+    rgba(0, 0, 0, 0.08),
+
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.38);
+}
+
+
+/* =====================================================
+   GRADIENT UTILITIES
+   ===================================================== */
+
+@utility bg-gradient-hero {
+
+  background:
+    var(--gradient-hero);
+}
+
+
+@utility bg-gradient-premium {
+
+  background:
+    var(--gradient-premium);
+}
+
+
+@utility bg-gradient-nature {
+
+  background:
+    var(--gradient-nature);
+}
+
+
+@utility text-gradient-saffron {
+
+  background:
+    var(--gradient-saffron);
+
+  background-clip:
+    text;
+
+  -webkit-background-clip:
+    text;
+
+  color:
+    transparent;
+}
+
 
 /* =====================================================
    SHADOWS
    ===================================================== */
 
 @utility shadow-warm {
+
   box-shadow:
-    0 25px 70px rgba(255, 120, 40, 0.20);
+
+    0 25px 70px
+    rgba(255, 120, 40, 0.22);
 }
+
 
 @utility shadow-glow {
+
   box-shadow:
-    0 0 70px rgba(255, 140, 40, 0.35);
+
+    0 0 70px
+    rgba(255, 140, 40, 0.35);
 }
+
+
+@utility shadow-glass {
+
+  box-shadow:
+
+    0 20px 60px
+    rgba(0, 0, 0, 0.12),
+
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.40);
+}
+
 
 /* =====================================================
-   ANIMATIONS
-   ===================================================== */
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-15px);
-  }
-}
-
-@keyframes floatSlow {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-30px);
-  }
-}
-
-@keyframes pulseGlow {
-  0%,
-  100% {
-    opacity: 0.3;
-    transform: scale(1);
-  }
-
-  50% {
-    opacity: 0.8;
-    transform: scale(1.15);
-  }
-}
-
-@utility animate-float {
-  animation:
-    float 4s ease-in-out infinite;
-}
-
-@utility animate-float-slow {
-  animation:
-    floatSlow 8s ease-in-out infinite;
-}
-
-@utility animate-pulse-glow {
-  animation:
-    pulseGlow 3s ease-in-out infinite;
-}
-
-/* =====================================================
-   HOVER EFFECT
-   ===================================================== */
-
-@utility hover-lift {
-  transition:
-    transform 0.35s ease,
-    box-shadow 0.35s ease;
-
-  &:hover {
-    transform:
-      translateY(-8px)
-      scale(1.015);
-
-    box-shadow:
-      0 30px 70px rgba(67, 73, 50, 0.16);
-  }
-}
-
-/* =====================================================
-   3D ORBS
+   3D SAFFRON ORB
    ===================================================== */
 
 @utility orb-saffron {
+
   background:
+
     radial-gradient(
       circle at 30% 30%,
       #ffd27a,
@@ -466,12 +816,23 @@
     );
 
   box-shadow:
-    inset -20px -20px 40px rgba(0, 0, 0, 0.25),
-    0 40px 80px rgba(255, 120, 30, 0.35);
+
+    inset -20px -20px 40px
+    rgba(0, 0, 0, 0.25),
+
+    0 30px 70px
+    rgba(255, 120, 30, 0.32);
 }
 
+
+/* =====================================================
+   3D GREEN ORB
+   ===================================================== */
+
 @utility orb-green {
+
   background:
+
     radial-gradient(
       circle at 30% 30%,
       #8ee89b,
@@ -480,69 +841,209 @@
     );
 
   box-shadow:
-    inset -20px -20px 40px rgba(0, 0, 0, 0.25),
-    0 40px 80px rgba(40, 150, 70, 0.35);
+
+    inset -20px -20px 40px
+    rgba(0, 0, 0, 0.25),
+
+    0 30px 70px
+    rgba(40, 150, 70, 0.30);
 }
+
 
 /* =====================================================
-   NAVBAR SUPPORT
+   ANIMATIONS
    ===================================================== */
 
-/*
-  Gives the fixed navbar a stronger premium glass appearance.
-  This works with your current Navbar.tsx.
-*/
+@keyframes float {
 
-header.fixed {
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.82),
-      rgba(255, 255, 255, 0.58)
-    ) !important;
+  0%,
+  100% {
+    transform:
+      translateY(0);
+  }
 
-  border-color:
-    rgba(255, 255, 255, 0.75) !important;
-
-  backdrop-filter:
-    blur(24px)
-    saturate(160%);
-
-  -webkit-backdrop-filter:
-    blur(24px)
-    saturate(160%);
-
-  box-shadow:
-    0 15px 45px rgba(50, 70, 45, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  50% {
+    transform:
+      translateY(-15px);
+  }
 }
+
+
+@keyframes floatSlow {
+
+  0%,
+  100% {
+    transform:
+      translateY(0);
+  }
+
+  50% {
+    transform:
+      translateY(-30px);
+  }
+}
+
+
+@keyframes pulseGlow {
+
+  0%,
+  100% {
+
+    opacity:
+      0.3;
+
+    transform:
+      scale(1);
+  }
+
+  50% {
+
+    opacity:
+      0.75;
+
+    transform:
+      scale(1.15);
+  }
+}
+
+
+@keyframes shimmer {
+
+  0% {
+    transform:
+      translateX(-100%);
+  }
+
+  100% {
+    transform:
+      translateX(100%);
+  }
+}
+
+
+/* =====================================================
+   ANIMATION UTILITIES
+   ===================================================== */
+
+@utility animate-float {
+
+  animation:
+    float 4s ease-in-out infinite;
+}
+
+
+@utility animate-float-slow {
+
+  animation:
+    floatSlow 8s ease-in-out infinite;
+}
+
+
+@utility animate-pulse-glow {
+
+  animation:
+    pulseGlow 3s ease-in-out infinite;
+}
+
+
+/* =====================================================
+   HOVER LIFT
+   ===================================================== */
+
+@utility hover-lift {
+
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+
+  &:hover {
+
+    transform:
+      translateY(-8px)
+      scale(1.01);
+
+    box-shadow:
+
+      0 35px 85px
+      rgba(0, 0, 0, 0.15);
+  }
+}
+
+
+/* =====================================================
+   GLASS DIVIDER
+   ===================================================== */
+
+.glass-divider {
+
+  height:
+    1px;
+
+  background:
+
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.50),
+      transparent
+    );
+}
+
 
 /* =====================================================
    MOBILE
    ===================================================== */
 
 @media (max-width: 768px) {
-  h1 {
-    font-size: 3rem;
+
+  body {
+
+    background-attachment:
+      scroll;
   }
 
-  body::after {
-    width: 300px;
-    height: 300px;
+  .page-background {
+
+    background-attachment:
+      scroll;
+
+    background-position:
+      center;
   }
-}
 
-/* =====================================================
-   REDUCED MOTION
-   ===================================================== */
+  .navbar-glass {
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    background:
+      rgba(255, 255, 255, 0.24);
+
+    backdrop-filter:
+      blur(20px);
+
+    -webkit-backdrop-filter:
+      blur(20px);
+  }
+
+  .glass {
+
+    background:
+      rgba(255, 255, 255, 0.20);
+
+    backdrop-filter:
+      blur(16px);
+
+    -webkit-backdrop-filter:
+      blur(16px);
+  }
+
+  .glass-card {
+
+    background:
+      rgba(255, 255, 255, 0.20);
+
+    backdrop-filter:
+      blur(16px);
+
+    -webkit-backdrop-filter:
+      blur(16px);
   }
 }

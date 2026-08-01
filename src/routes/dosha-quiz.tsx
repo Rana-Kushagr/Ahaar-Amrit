@@ -1,7 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import {
   ArrowLeft,
-  ArrowRight,
   Check,
   RotateCcw,
   Sparkles,
@@ -271,23 +270,19 @@ function DoshaQuiz() {
     setShowResult(true);
   };
 
-  const handleAnswerSelect = (dosha: Dosha) => {
+  const handleOptionSelect = (dosha: Dosha) => {
     const newAnswers = [...answers];
     newAnswers[currentQuestion] = dosha;
     setAnswers(newAnswers);
-  };
 
-  const handleNextQuestion = () => {
-    if (!answers[currentQuestion]) return;
-
-    // LAST QUESTION
-    if (currentQuestion === questions.length - 1) {
-      finishQuiz(answers);
-      return;
-    }
-
-    // Move to next question.
-    setCurrentQuestion((prev) => prev + 1);
+    // Short timeout so the user sees their option highlight before moving forward
+    setTimeout(() => {
+      if (currentQuestion === questions.length - 1) {
+        finishQuiz(newAnswers);
+      } else {
+        setCurrentQuestion((prev) => prev + 1);
+      }
+    }, 200);
   };
 
   const handlePreviousQuestion = () => {
@@ -372,7 +367,6 @@ function DoshaQuiz() {
                 className="rounded-full"
               >
                 Build My Nutrition Plan
-                <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
 
               <Button
@@ -502,7 +496,7 @@ function DoshaQuiz() {
             </h1>
 
             <p className="mt-4 text-sm text-muted-foreground">
-              Choose the option that feels most like you.
+              Click an option to automatically move to the next question.
             </p>
           </div>
 
@@ -513,13 +507,10 @@ function DoshaQuiz() {
               return (
                 <button
                   key={option.dosha}
-                  onClick={() => {
-                    handleAnswerSelect(option.dosha);
-                    // Automatically auto-advance to next question if desired, or user can click Next
-                  }}
-                  className={`group flex w-full items-center justify-between rounded-2xl border p-5 text-left transition-all duration-300 ${
+                  onClick={() => handleOptionSelect(option.dosha)}
+                  className={`group flex w-full items-center justify-between rounded-2xl border p-5 text-left transition-all duration-200 ${
                     isSelected
-                      ? "border-primary bg-primary/10 shadow-lg"
+                      ? "border-primary bg-primary/20 shadow-lg scale-[1.01]"
                       : "border-border bg-white/40 hover:-translate-y-1 hover:border-primary/40 hover:bg-white/70 hover:shadow-lg"
                   }`}
                 >
@@ -539,30 +530,6 @@ function DoshaQuiz() {
                 </button>
               );
             })}
-          </div>
-
-          {/* ACTION NAVIGATION BUTTONS AT BOTTOM */}
-          <div className="mt-10 flex items-center justify-between border-t border-border/40 pt-6">
-            <Button
-              variant="outline"
-              onClick={handlePreviousQuestion}
-              disabled={currentQuestion === 0}
-              className="rounded-full"
-            >
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Previous
-            </Button>
-
-            <Button
-              onClick={handleNextQuestion}
-              disabled={!selectedAnswer}
-              className="rounded-full px-6"
-            >
-              {currentQuestion === questions.length - 1
-                ? "See My Result"
-                : "Next Question"}
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
           </div>
 
         </div>

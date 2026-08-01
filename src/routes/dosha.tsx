@@ -41,7 +41,7 @@ const doshas = [
 
 function DoshaPage() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-background">
+    <main className="relative min-h-screen overflow-hidden bg-[url('/ayurveda-hero-bg.png')] bg-cover bg-center bg-fixed">
       {/* Decorative 3D background elements */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="animate-pulse-glow absolute -left-32 top-20 h-80 w-80 rounded-full bg-orange-300/20 blur-3xl" />
@@ -170,3 +170,4 @@ function DoshaPage() {
     </main>
   );
 }
+

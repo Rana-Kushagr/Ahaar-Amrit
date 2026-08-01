@@ -68,13 +68,9 @@ function NutritionPlanPage() {
       ===================================================== */}
 
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-
-        <div className="absolute left-[-120px] top-[15%] h-72 w-72 rounded-full bg-orange-300/20 blur-3xl" />
-
-        <div className="absolute right-[-100px] top-[35%] h-80 w-80 rounded-full bg-green-300/20 blur-3xl" />
-
-        <div className="absolute bottom-[10%] left-[30%] h-72 w-72 rounded-full bg-yellow-200/20 blur-3xl" />
-
+        <div className="absolute left-[-120px] top-[15%] h-72 w-72 rounded-full bg-emerald-500/10 blur-3xl" />
+        <div className="absolute right-[-100px] top-[35%] h-80 w-80 rounded-full bg-green-500/10 blur-3xl" />
+        <div className="absolute bottom-[10%] left-[30%] h-72 w-72 rounded-full bg-teal-500/10 blur-3xl" />
       </div>
 
 
@@ -97,21 +93,20 @@ function NutritionPlanPage() {
             gap-2
             rounded-full
             border
-            border-white/40
-            bg-white/40
+            border-white/20
+            bg-black/20
             px-4
             py-2
             text-sm
-            text-[#5c4938]
+            text-emerald-100
             shadow-sm
             backdrop-blur-xl
             transition-all
             hover:-translate-x-1
-            hover:bg-white/60
+            hover:bg-black/30
           "
         >
           <ArrowLeft className="h-4 w-4" />
-
           Back to dashboard
         </Link>
 
@@ -126,18 +121,17 @@ function NutritionPlanPage() {
             overflow-hidden
             rounded-[2.5rem]
             border
-            border-white/50
-            bg-white/40
+            border-white/10
+            bg-emerald-950/40
             p-8
             text-center
-            shadow-[0_25px_80px_rgba(80,50,20,0.12)]
+            shadow-2xl
             backdrop-blur-2xl
             sm:p-12
           "
         >
 
           {/* Decorative glow */}
-
           <div className="
             pointer-events-none
             absolute
@@ -146,7 +140,7 @@ function NutritionPlanPage() {
             h-56
             w-56
             rounded-full
-            bg-orange-300/20
+            bg-emerald-500/20
             blur-3xl
           " />
 
@@ -158,15 +152,13 @@ function NutritionPlanPage() {
             h-56
             w-56
             rounded-full
-            bg-green-300/20
+            bg-green-500/20
             blur-3xl
           " />
 
 
           {/* Icon */}
-
           <div className="relative mb-5 flex justify-center">
-
             <div
               className="
                 flex
@@ -175,18 +167,16 @@ function NutritionPlanPage() {
                 items-center
                 justify-center
                 rounded-2xl
-                bg-gradient-hero
-                shadow-[0_15px_40px_rgba(230,100,30,0.25)]
+                bg-emerald-600
+                shadow-[0_15px_40px_rgba(16,185,129,0.3)]
               "
             >
-              <Leaf className="h-8 w-8 text-white" />
+              <Leaf className="h-8 w-8 text-emerald-50" />
             </div>
-
           </div>
 
 
           {/* Heading */}
-
           <h1
             className="
               relative
@@ -194,18 +184,18 @@ function NutritionPlanPage() {
               text-4xl
               font-bold
               tracking-tight
-              text-[#382719]
+              text-emerald-50
               sm:text-5xl
             "
           >
             Your Personalized
-            <span className="text-gradient-saffron">
+            <span className="text-emerald-400">
               {" "}Nutrition Plan
             </span>
           </h1>
 
 
-          <p className="relative mt-3 font-hindi text-base text-secondary">
+          <p className="relative mt-3 font-hindi text-base text-emerald-200/80">
             आपकी व्यक्तिगत पोषण योजना
           </p>
 
@@ -218,7 +208,7 @@ function NutritionPlanPage() {
               max-w-2xl
               text-sm
               leading-relaxed
-              text-[#6b5a4b]
+              text-emerald-100/70
               sm:text-base
             "
           >
@@ -237,17 +227,16 @@ function NutritionPlanPage() {
           className="
             rounded-[2rem]
             border
-            border-white/50
-            bg-white/40
+            border-white/10
+            bg-emerald-950/40
             p-6
-            shadow-[0_20px_60px_rgba(80,50,20,0.08)]
+            shadow-xl
             backdrop-blur-2xl
             sm:p-8
           "
         >
 
           <div className="mb-6 flex items-center gap-3">
-
             <div
               className="
                 flex
@@ -256,41 +245,34 @@ function NutritionPlanPage() {
                 items-center
                 justify-center
                 rounded-xl
-                bg-orange-100
+                bg-emerald-900/60
+                text-emerald-300
               "
             >
-              <Info className="h-5 w-5 text-orange-600" />
+              <Info className="h-5 w-5" />
             </div>
 
             <div>
-
-              <h2 className="font-display text-xl font-bold text-[#382719]">
+              <h2 className="font-display text-xl font-bold text-emerald-50">
                 Your plan is based on
               </h2>
-
-              <p className="font-hindi text-sm text-secondary">
+              <p className="font-hindi text-sm text-emerald-200/70">
                 आपकी जानकारी
               </p>
-
             </div>
-
           </div>
 
 
           {/* Profile stats */}
-
           <div className="grid gap-4 sm:grid-cols-3">
-
             <Stat
               label="Age group"
               value={labelFor(ageGroupOptions, profile.ageGroup)}
             />
-
             <Stat
               label="Region"
               value={labelFor(regionOptions, profile.region)}
             />
-
             <Stat
               label="Food preference"
               value={labelFor(
@@ -298,94 +280,77 @@ function NutritionPlanPage() {
                 profile.dietaryPreference
               )}
             />
-
           </div>
 
 
           {/* Goals */}
-
           <div className="mt-6">
-
             <p className="
               text-xs
               font-semibold
               uppercase
               tracking-[0.15em]
-              text-muted-foreground
+              text-emerald-300/80
             ">
               Your goals
             </p>
 
             <ul className="mt-3 flex flex-wrap gap-2">
-
               {profile.goals.length ? (
-
                 profile.goals.map((goal) => (
-
                   <li
                     key={goal}
                     className="
                       rounded-full
                       border
-                      border-orange-200/60
-                      bg-orange-100/50
+                      border-emerald-500/30
+                      bg-emerald-900/40
                       px-4
                       py-2
                       text-sm
                       font-medium
-                      text-[#765033]
+                      text-emerald-100
                     "
                   >
                     {goal === "other" && profile.otherGoal
                       ? profile.otherGoal
                       : labelFor(goalOptions, goal)}
                   </li>
-
                 ))
-
               ) : (
-
-                <li className="text-sm text-muted-foreground">
+                <li className="text-sm text-emerald-200/60">
                   No goals selected
                 </li>
-
               )}
-
             </ul>
-
           </div>
 
 
           {/* Focus notes */}
-
           {notes.length > 0 && (
-
             <div
               className="
                 mt-6
                 rounded-2xl
                 border
-                border-green-200/50
-                bg-green-50/40
+                border-emerald-500/30
+                bg-emerald-900/30
                 p-5
               "
             >
-
               <p className="
                 mb-3
                 text-xs
                 font-semibold
                 uppercase
                 tracking-[0.15em]
-                text-green-700
+                text-emerald-300
               ">
                 Your nutrition focus
               </p>
 
               <ul className="space-y-2">
-
                 {notes.map((note) => (
-
                   <li
                     key={note}
                     className="
@@ -393,23 +358,17 @@ function NutritionPlanPage() {
                       gap-3
                       text-sm
                       leading-relaxed
-                      text-[#4d5b4a]
+                      text-emerald-100/90
                     "
                   >
-                    <span className="mt-1 text-green-600">
+                    <span className="mt-1 text-emerald-400">
                       •
                     </span>
-
                     {note}
-
                   </li>
-
                 ))}
-
               </ul>
-
             </div>
-
           )}
 
         </section>
@@ -422,7 +381,6 @@ function NutritionPlanPage() {
         <section className="space-y-5">
 
           <div className="flex items-center gap-3">
-
             <div
               className="
                 flex
@@ -431,39 +389,33 @@ function NutritionPlanPage() {
                 items-center
                 justify-center
                 rounded-xl
-                bg-gradient-hero
-                shadow-warm
+                bg-emerald-600
+                text-emerald-50
+                shadow-lg
               "
             >
-              <Utensils className="h-5 w-5 text-white" />
+              <Utensils className="h-5 w-5" />
             </div>
 
             <div>
-
               <h2 className="
                 font-display
                 text-2xl
                 font-bold
-                text-[#382719]
+                text-emerald-50
               ">
                 Your Day of Meals
               </h2>
-
-              <p className="font-hindi text-sm text-secondary">
+              <p className="font-hindi text-sm text-emerald-200/70">
                 आज का आहार
               </p>
-
             </div>
-
           </div>
 
 
           {/* Meals */}
-
           <div className="grid gap-5">
-
             {plan.map((section, index) => (
-
               <article
                 key={section.slot}
                 className="
@@ -472,22 +424,21 @@ function NutritionPlanPage() {
                   overflow-hidden
                   rounded-[2rem]
                   border
-                  border-white/50
-                  bg-white/45
+                  border-white/10
+                  bg-emerald-950/40
                   p-6
-                  shadow-[0_20px_60px_rgba(80,50,20,0.08)]
+                  shadow-xl
                   backdrop-blur-2xl
                   transition-all
                   duration-500
                   hover:-translate-y-1
-                  hover:bg-white/60
-                  hover:shadow-[0_30px_70px_rgba(80,50,20,0.14)]
+                  hover:bg-emerald-950/60
+                  hover:border-white/20
                   sm:p-7
                 "
               >
 
                 {/* Number */}
-
                 <div
                   className="
                     absolute
@@ -499,10 +450,10 @@ function NutritionPlanPage() {
                     items-center
                     justify-center
                     rounded-full
-                    bg-orange-100/70
+                    bg-emerald-800/60
                     text-sm
                     font-bold
-                    text-orange-700
+                    text-emerald-200
                   "
                 >
                   {index + 1}
@@ -510,31 +461,26 @@ function NutritionPlanPage() {
 
 
                 {/* Meal time */}
-
                 <div className="flex items-center gap-2">
-
-                  <Clock className="h-4 w-4 text-secondary" />
-
+                  <Clock className="h-4 w-4 text-emerald-400" />
                   <p className="
                     text-xs
                     font-semibold
                     uppercase
                     tracking-[0.15em]
-                    text-muted-foreground
+                    text-emerald-300/80
                   ">
                     {section.title}
                   </p>
-
                 </div>
 
 
-                <p className="mt-1 font-hindi text-sm text-secondary">
+                <p className="mt-1 font-hindi text-sm text-emerald-200/60">
                   {section.hindi}
                 </p>
 
 
                 {/* Meal name */}
-
                 <h3
                   className="
                     mt-5
@@ -542,92 +488,80 @@ function NutritionPlanPage() {
                     font-display
                     text-2xl
                     font-bold
-                    text-[#382719]
+                    text-emerald-50
                     transition-colors
-                    group-hover:text-primary
+                    group-hover:text-emerald-300
                   "
                 >
                   {section.item.name}
                 </h3>
 
 
-                <p className="mt-1 font-hindi text-sm text-[#765c43]">
+                <p className="mt-1 font-hindi text-sm text-emerald-200/80">
                   {section.item.hindi}
                 </p>
 
 
                 {/* Description */}
-
                 <p
                   className="
                     mt-4
                     max-w-3xl
                     text-sm
                     leading-relaxed
-                    text-[#6b5a4b]
+                    text-emerald-100/80
                   "
                 >
                   {section.item.description}
                 </p>
 
 
-                {/* Benefit */}
-
+                {/* Benefit — MATCHED TO BACKGROUND */}
                 <div
                   className="
                     mt-5
                     rounded-2xl
                     border
-                    border-green-200/50
-                    bg-green-50/40
+                    border-emerald-500/20
+                    bg-emerald-900/30
                     p-4
                   "
                 >
-
                   <p className="
                     text-sm
                     leading-relaxed
-                    text-[#4d5b4a]
+                    text-emerald-100
                   ">
-
-                    <span className="font-semibold text-green-700">
+                    <span className="font-semibold text-emerald-300">
                       Why it helps:
                     </span>{" "}
-
                     {section.item.benefit}
-
                   </p>
-
                 </div>
 
               </article>
-
             ))}
-
           </div>
 
 
           {/* Allergy note */}
-
           <div
             className="
               rounded-2xl
               border
-              border-yellow-200/60
-              bg-yellow-50/50
+              border-amber-500/30
+              bg-amber-950/30
               p-5
               text-sm
               leading-relaxed
-              text-[#75613d]
+              text-amber-100
               backdrop-blur-xl
             "
           >
-            <span className="font-semibold text-yellow-700">
+            <span className="font-semibold text-amber-300">
               Allergy note:
             </span>{" "}
-
             {ALLERGY_NOTE}
-
           </div>
 
         </section>
@@ -641,17 +575,16 @@ function NutritionPlanPage() {
           className="
             rounded-[2rem]
             border
-            border-purple-200/40
-            bg-white/40
+            border-purple-500/20
+            bg-purple-950/30
             p-6
-            shadow-[0_20px_60px_rgba(80,50,20,0.08)]
+            shadow-xl
             backdrop-blur-2xl
             sm:p-8
           "
         >
 
           <div className="flex items-start gap-4">
-
             <div
               className="
                 flex
@@ -661,67 +594,59 @@ function NutritionPlanPage() {
                 items-center
                 justify-center
                 rounded-xl
-                bg-gradient-premium
-                shadow-warm
+                bg-purple-600
+                text-purple-50
+                shadow-lg
               "
             >
-              <Sparkles className="h-6 w-6 text-white" />
+              <Sparkles className="h-6 w-6" />
             </div>
 
             <div>
-
               <h2 className="
                 font-display
                 text-2xl
                 font-bold
-                text-[#382719]
+                text-purple-100
               ">
                 {dosha
                   ? "Your Ayurvedic Insight"
                   : "Explore Ayurveda"}
               </h2>
 
-              <p className="font-hindi text-sm text-secondary">
+              <p className="font-hindi text-sm text-purple-200/70">
                 आपकी आयुर्वेदिक जानकारी
               </p>
-
             </div>
-
           </div>
 
 
           {dosha ? (
-
             <div className="mt-6">
-
               <div
                 className="
                   rounded-2xl
                   border
-                  border-purple-200/40
-                  bg-purple-50/30
+                  border-purple-500/30
+                  bg-purple-900/30
                   p-5
                 "
               >
-
-                <p className="text-sm text-[#55445f]">
-
-                  <span className="font-bold text-primary">
+                <p className="text-sm text-purple-100">
+                  <span className="font-bold text-purple-300">
                     {dosha.name}
                   </span>{" "}
 
-                  <span className="font-hindi">
+                  <span className="font-hindi text-purple-200">
                     {dosha.hindi}
                   </span>{" "}
 
                   · {dosha.elements}
-
                 </p>
 
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                <p className="mt-3 text-sm leading-relaxed text-purple-200/80">
                   {dosha.summary}
                 </p>
-
               </div>
 
 
@@ -731,16 +656,14 @@ function NutritionPlanPage() {
                 font-semibold
                 uppercase
                 tracking-[0.15em]
-                text-muted-foreground
+                text-purple-300/80
               ">
                 Gentle suggestions
               </p>
 
 
               <ul className="mt-3 space-y-3">
-
                 {dosha.eat.slice(0, 2).map((tip) => (
-
                   <li
                     key={tip}
                     className="
@@ -748,22 +671,17 @@ function NutritionPlanPage() {
                       gap-3
                       text-sm
                       leading-relaxed
-                      text-[#5c4938]
+                      text-purple-100/90
                     "
                   >
-                    <span className="text-purple-600">
+                    <span className="text-purple-400">
                       ✦
                     </span>
-
                     {tip}
-
                   </li>
-
                 ))}
-
 
                 {dosha.habits.slice(0, 1).map((tip) => (
-
                   <li
                     key={tip}
                     className="
@@ -771,42 +689,34 @@ function NutritionPlanPage() {
                       gap-3
                       text-sm
                       leading-relaxed
-                      text-[#5c4938]
+                      text-purple-100/90
                     "
                   >
-                    <span className="text-purple-600">
+                    <span className="text-purple-400">
                       ✦
                     </span>
-
                     {tip}
-
                   </li>
-
                 ))}
-
               </ul>
 
 
               <Button
                 variant="soft"
-                className="mt-6"
+                className="mt-6 bg-purple-900/50 text-purple-100 hover:bg-purple-900/80"
                 asChild
               >
                 <Link to="/dosha">
                   View full dosha guidance
                 </Link>
               </Button>
-
             </div>
-
           ) : (
-
             <div className="mt-6">
-
               <p className="
                 text-sm
                 leading-relaxed
-                text-[#6b5a4b]
+                text-purple-200/80
               ">
                 You can optionally explore your Ayurvedic body type
                 for a gentle traditional perspective alongside this
@@ -822,20 +732,18 @@ function NutritionPlanPage() {
                   Take Dosha Quiz
                 </Link>
               </Button>
-
             </div>
-
           )}
 
 
           <p className="
             mt-6
             border-t
-            border-border/50
+            border-purple-500/20
             pt-5
             text-xs
             leading-relaxed
-            text-muted-foreground
+            text-purple-200/60
           ">
             {AYURVEDA_DISCLAIMER}
           </p>
@@ -854,7 +762,6 @@ function NutritionPlanPage() {
           gap-3
           pb-6
         ">
-
           <Button
             variant="hero"
             asChild
@@ -864,16 +771,15 @@ function NutritionPlanPage() {
             </Link>
           </Button>
 
-
           <Button
             variant="ghost"
+            className="text-emerald-100 hover:bg-white/10"
             asChild
           >
             <Link to="/profile">
               Edit my profile
             </Link>
           </Button>
-
         </div>
 
       </div>
@@ -899,21 +805,20 @@ function Stat({
       className="
         rounded-2xl
         border
-        border-white/50
-        bg-white/40
+        border-white/10
+        bg-emerald-900/30
         p-5
         backdrop-blur-xl
         transition-all
-        hover:bg-white/60
+        hover:bg-emerald-900/50
       "
     >
-
       <p className="
         text-xs
         font-semibold
         uppercase
         tracking-[0.15em]
-        text-muted-foreground
+        text-emerald-300/80
       ">
         {label}
       </p>
@@ -923,11 +828,10 @@ function Stat({
         font-display
         text-lg
         font-bold
-        text-[#493629]
+        text-emerald-50
       ">
         {value}
       </p>
-
     </div>
   );
 }

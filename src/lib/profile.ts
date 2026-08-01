@@ -8,7 +8,7 @@ export type Region =
   | "west"
   | "northeast";
 export type DietaryPreference = "vegetarian" | "non-vegetarian" | "eggetarian";
-export type Allergy = "dairy" | "nuts" | "gluten" | "soy" | "other" | "none";
+export type Allergy = "dairy" | "nuts" | "gluten" | "soy" | "fish" | "other" | "none";
 export type Goal =
   | "balanced-diet"
   | "everyday-habits"

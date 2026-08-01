@@ -265,7 +265,7 @@ function DoshaQuiz() {
 
     // Save the final Dosha into the Ahaar profile.
     update({
-      dosha: finalResult,
+      dosha: finalResult.toLowerCase() as "vata" | "pitta" | "kapha",
     });
 
     setShowResult(true);
@@ -409,7 +409,7 @@ function DoshaQuiz() {
     const safeResult = calculateDosha(answers);
 
     update({
-      dosha: safeResult,
+      dosha: safeResult.toLowerCase() as "vata" | "pitta" | "kapha",
     });
 
     return (

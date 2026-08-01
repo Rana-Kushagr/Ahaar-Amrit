@@ -21,7 +21,7 @@ export const Route = createFileRoute("/onboarding")({
 
 function OnboardingPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted">
+    <div className="min-h-screen bg-gradient-to-b from-background to-muted pt-28 sm:pt-36 pb-16">
       <OnboardingFlow />
     </div>
   );

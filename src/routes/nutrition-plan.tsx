@@ -64,25 +64,20 @@ function NutritionPlanPage() {
     <main className="relative min-h-screen overflow-hidden px-4 pb-16 pt-32 sm:px-6">
 
       {/* =====================================================
-          IMAGE BACKGROUND WITH DARK EMERALD OVERLAY
+          CRISP IMAGE BACKGROUND (No blurry orbs!)
       ===================================================== */}
-      <div className="pointer-events-none fixed inset-0 -z-10">
+      <div className="pointer-events-none fixed inset-0 -z-10 bg-emerald-950">
         
         {/* High-quality Indian Food/Spices Background Image */}
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000"
+          className="absolute inset-0 bg-cover bg-center bg-fixed"
           style={{ 
             backgroundImage: `url('https://images.unsplash.com/photo-1606914501449-5a96b6ce24ca?q=80&w=2070&auto=format&fit=crop')`,
-            opacity: 0.45
+            opacity: 0.25 // Light enough to show the image cleanly without overpowering the text
           }}
         />
         
-        {/* Dark Emerald Gradient Overlay (ensures text readability) */}
-        <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/90 via-emerald-950/95 to-black/95" />
-        
-        {/* Subtle glowing orbs to maintain the magical Ahaar Amrit feel */}
-        <div className="absolute left-[-10%] top-[20%] h-[500px] w-[500px] rounded-full bg-emerald-500/15 blur-[120px]" />
-        <div className="absolute right-[-10%] bottom-[10%] h-[400px] w-[400px] rounded-full bg-amber-500/10 blur-[120px]" />
+        {/* We removed all the blurry elements and messy gradients! */}
       </div>
 
 
@@ -106,7 +101,7 @@ function NutritionPlanPage() {
             rounded-full
             border
             border-white/20
-            bg-black/30
+            bg-emerald-950/80
             px-4
             py-2
             text-sm
@@ -115,7 +110,7 @@ function NutritionPlanPage() {
             backdrop-blur-xl
             transition-all
             hover:-translate-x-1
-            hover:bg-black/50
+            hover:bg-emerald-900/80
           "
         >
           <ArrowLeft className="h-4 w-4" />
@@ -133,8 +128,8 @@ function NutritionPlanPage() {
             overflow-hidden
             rounded-[2.5rem]
             border
-            border-white/10
-            bg-emerald-950/50
+            border-emerald-500/20
+            bg-emerald-950/70
             p-8
             text-center
             shadow-2xl
@@ -142,32 +137,6 @@ function NutritionPlanPage() {
             sm:p-12
           "
         >
-
-          {/* Decorative glow */}
-          <div className="
-            pointer-events-none
-            absolute
-            -right-20
-            -top-20
-            h-56
-            w-56
-            rounded-full
-            bg-emerald-500/20
-            blur-3xl
-          " />
-
-          <div className="
-            pointer-events-none
-            absolute
-            -bottom-20
-            -left-20
-            h-56
-            w-56
-            rounded-full
-            bg-green-500/20
-            blur-3xl
-          " />
-
 
           {/* Icon */}
           <div className="relative mb-5 flex justify-center">
@@ -239,8 +208,8 @@ function NutritionPlanPage() {
           className="
             rounded-[2rem]
             border
-            border-white/10
-            bg-emerald-950/50
+            border-emerald-500/20
+            bg-emerald-950/70
             p-6
             shadow-xl
             backdrop-blur-xl
@@ -257,8 +226,8 @@ function NutritionPlanPage() {
                 items-center
                 justify-center
                 rounded-xl
-                bg-emerald-900/60
-                text-emerald-300
+                bg-emerald-800/80
+                text-emerald-100
               "
             >
               <Info className="h-5 w-5" />
@@ -316,7 +285,7 @@ function NutritionPlanPage() {
                       rounded-full
                       border
                       border-emerald-500/30
-                      bg-emerald-900/50
+                      bg-emerald-900/60
                       px-4
                       py-2
                       text-sm
@@ -348,7 +317,6 @@ function NutritionPlanPage() {
                 border-emerald-500/30
                 bg-emerald-900/40
                 p-5
-                backdrop-blur-md
               "
             >
               <p className="
@@ -437,16 +405,15 @@ function NutritionPlanPage() {
                   overflow-hidden
                   rounded-[2rem]
                   border
-                  border-white/10
-                  bg-emerald-950/60
+                  border-emerald-500/20
+                  bg-emerald-950/70
                   p-6
                   shadow-xl
                   backdrop-blur-xl
                   transition-all
                   duration-500
                   hover:-translate-y-1
-                  hover:bg-emerald-900/60
-                  hover:border-white/20
+                  hover:bg-emerald-900/80
                   sm:p-7
                 "
               >
@@ -463,10 +430,10 @@ function NutritionPlanPage() {
                     items-center
                     justify-center
                     rounded-full
-                    bg-emerald-800/60
+                    bg-emerald-800/80
                     text-sm
                     font-bold
-                    text-emerald-200
+                    text-emerald-100
                   "
                 >
                   {index + 1}
@@ -481,7 +448,7 @@ function NutritionPlanPage() {
                     font-semibold
                     uppercase
                     tracking-[0.15em]
-                    text-emerald-300/80
+                    text-emerald-300/90
                   ">
                     {section.title}
                   </p>
@@ -522,7 +489,7 @@ function NutritionPlanPage() {
                     max-w-3xl
                     text-sm
                     leading-relaxed
-                    text-emerald-100/80
+                    text-emerald-100/90
                   "
                 >
                   {section.item.description}
@@ -535,15 +502,15 @@ function NutritionPlanPage() {
                     mt-5
                     rounded-2xl
                     border
-                    border-emerald-500/20
-                    bg-emerald-900/40
+                    border-emerald-500/30
+                    bg-emerald-900/50
                     p-4
                   "
                 >
                   <p className="
                     text-sm
                     leading-relaxed
-                    text-emerald-100
+                    text-emerald-50
                   ">
                     <span className="font-semibold text-emerald-300">
                       Why it helps:
@@ -563,11 +530,11 @@ function NutritionPlanPage() {
               rounded-2xl
               border
               border-amber-500/30
-              bg-amber-950/40
+              bg-amber-950/60
               p-5
               text-sm
               leading-relaxed
-              text-amber-100
+              text-amber-50
               backdrop-blur-xl
             "
           >
@@ -589,7 +556,7 @@ function NutritionPlanPage() {
             rounded-[2rem]
             border
             border-purple-500/20
-            bg-purple-950/40
+            bg-purple-950/60
             p-6
             shadow-xl
             backdrop-blur-xl
@@ -641,11 +608,11 @@ function NutritionPlanPage() {
                   rounded-2xl
                   border
                   border-purple-500/30
-                  bg-purple-900/40
+                  bg-purple-900/50
                   p-5
                 "
               >
-                <p className="text-sm text-purple-100">
+                <p className="text-sm text-purple-50">
                   <span className="font-bold text-purple-300">
                     {dosha.name}
                   </span>{" "}
@@ -657,7 +624,7 @@ function NutritionPlanPage() {
                   · {dosha.elements}
                 </p>
 
-                <p className="mt-3 text-sm leading-relaxed text-purple-200/80">
+                <p className="mt-3 text-sm leading-relaxed text-purple-100/90">
                   {dosha.summary}
                 </p>
               </div>
@@ -669,7 +636,7 @@ function NutritionPlanPage() {
                 font-semibold
                 uppercase
                 tracking-[0.15em]
-                text-purple-300/80
+                text-purple-300/90
               ">
                 Gentle suggestions
               </p>
@@ -684,7 +651,7 @@ function NutritionPlanPage() {
                       gap-3
                       text-sm
                       leading-relaxed
-                      text-purple-100/90
+                      text-purple-50
                     "
                   >
                     <span className="text-purple-400">
@@ -702,7 +669,7 @@ function NutritionPlanPage() {
                       gap-3
                       text-sm
                       leading-relaxed
-                      text-purple-100/90
+                      text-purple-50
                     "
                   >
                     <span className="text-purple-400">
@@ -716,7 +683,7 @@ function NutritionPlanPage() {
 
               <Button
                 variant="soft"
-                className="mt-6 bg-purple-900/50 text-purple-100 hover:bg-purple-900/80 border border-purple-500/20"
+                className="mt-6 bg-purple-800/60 text-purple-50 hover:bg-purple-700 border border-purple-500/30"
                 asChild
               >
                 <Link to="/dosha">
@@ -729,7 +696,7 @@ function NutritionPlanPage() {
               <p className="
                 text-sm
                 leading-relaxed
-                text-purple-200/80
+                text-purple-100/90
               ">
                 You can optionally explore your Ayurvedic body type
                 for a gentle traditional perspective alongside this
@@ -752,11 +719,11 @@ function NutritionPlanPage() {
           <p className="
             mt-6
             border-t
-            border-purple-500/20
+            border-purple-500/30
             pt-5
             text-xs
             leading-relaxed
-            text-purple-200/60
+            text-purple-200/70
           ">
             {AYURVEDA_DISCLAIMER}
           </p>
@@ -786,7 +753,7 @@ function NutritionPlanPage() {
 
           <Button
             variant="ghost"
-            className="text-emerald-100 hover:bg-white/10"
+            className="text-emerald-100 hover:bg-emerald-900/50"
             asChild
           >
             <Link to="/profile">
@@ -818,12 +785,12 @@ function Stat({
       className="
         rounded-2xl
         border
-        border-white/10
-        bg-emerald-900/40
+        border-emerald-500/20
+        bg-emerald-900/50
         p-5
         backdrop-blur-xl
         transition-all
-        hover:bg-emerald-900/60
+        hover:bg-emerald-800/50
       "
     >
       <p className="
@@ -831,7 +798,7 @@ function Stat({
         font-semibold
         uppercase
         tracking-[0.15em]
-        text-emerald-300/80
+        text-emerald-300/90
       ">
         {label}
       </p>

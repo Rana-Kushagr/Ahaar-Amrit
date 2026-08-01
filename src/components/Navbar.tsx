@@ -5,6 +5,7 @@ const links = [
   { label: "Home", to: "/" },
   { label: "Dashboard", to: "/dashboard" },
   { label: "Nutrition", to: "/nutrition-plan" },
+  { label: "Swasthya", to: "/swasthya" },
   { label: "Ayurveda", to: "/dosha" },
   { label: "Profile", to: "/profile" },
 ] as const;
@@ -147,7 +148,8 @@ export function Navbar() {
                 className={`
                   relative
                   rounded-full
-                  px-5
+                  px-4
+                  lg:px-5
                   py-2.5
 
                   text-sm

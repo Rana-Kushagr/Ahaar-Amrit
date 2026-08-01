@@ -67,17 +67,11 @@ function NutritionPlanPage() {
           CRISP IMAGE BACKGROUND (No blurry orbs!)
       ===================================================== */}
       <div className="pointer-events-none fixed inset-0 -z-10 bg-emerald-950">
-        
-        {/* High-quality Indian Food/Spices Background Image */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-fixed"
-          style={{ 
-            backgroundImage: `url('https://images.unsplash.com/photo-1606914501449-5a96b6ce24ca?q=80&w=2070&auto=format&fit=crop')`,
-            opacity: 0.25 // Light enough to show the image cleanly without overpowering the text
-          }}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url('${nutritionBg.url}')` }}
         />
-        
-        {/* We removed all the blurry elements and messy gradients! */}
+        <div className="absolute inset-0 bg-emerald-950/60" />
       </div>
 
 

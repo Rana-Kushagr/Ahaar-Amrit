@@ -32,18 +32,16 @@ function SwasthyaPage() {
     <main className="relative min-h-screen overflow-hidden px-4 pb-16 pt-28 sm:px-6 sm:pt-36">
 
       {/* =====================================================
-          CRYSTAL CLEAR BACKGROUND IMAGE (NO MUDDY OVERLAYS)
+          100% CRYSTAL CLEAR BACKGROUND
       ===================================================== */}
-      <div className="pointer-events-none fixed inset-0 -z-10 bg-emerald-950">
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-fixed"
-          style={{ 
-            backgroundImage: `url('https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=2070&auto=format&fit=crop')`,
-            opacity: 0.45 // Clean and crisp background visibility
-          }}
-        />
-        {/* Soft dark vignette so text pops cleanly */}
-        <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/60 via-emerald-950/70 to-black/80" />
+      <div 
+        className="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat"
+        style={{ 
+          backgroundImage: `url('https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=2070&auto=format&fit=crop')`,
+        }}
+      >
+        {/* A very light emerald tint so the glass cards are readable, but the image remains fully visible */}
+        <div className="absolute inset-0 bg-emerald-950/40" />
       </div>
 
       <div className="relative mx-auto max-w-5xl space-y-10">
@@ -138,10 +136,10 @@ function SwasthyaPage() {
               <Skull className="h-5 w-5" />
             </div>
             <div>
-              <h2 className="font-display text-2xl font-bold text-emerald-50">
+              <h2 className="font-display text-2xl font-bold text-emerald-50 drop-shadow-md">
                 Junk Food Truth Lab
               </h2>
-              <p className="font-hindi text-sm text-emerald-200/80">
+              <p className="font-hindi text-sm text-emerald-100 drop-shadow-md">
                 जानिए आपके पसंदीदा जंक फ़ूड में असल में क्या है
               </p>
             </div>
@@ -150,9 +148,9 @@ function SwasthyaPage() {
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             
             {/* PIZZA / BURGER */}
-            <div className="rounded-[2rem] border border-white/15 bg-emerald-950/40 p-6 backdrop-blur-xl shadow-xl space-y-4 hover:border-emerald-400/30 transition-all">
+            <div className="rounded-[2rem] border border-white/20 bg-black/40 p-6 backdrop-blur-xl shadow-xl space-y-4 hover:border-emerald-400/50 transition-all">
               <div className="text-lg font-bold text-emerald-300">🍕 Pizza & Burgers</div>
-              <div className="space-y-2 text-xs text-emerald-100/90">
+              <div className="space-y-2 text-xs text-emerald-50">
                 <div className="flex justify-between border-b border-white/10 pb-1">
                   <span>Saturated Fats:</span>
                   <span className="font-bold text-amber-400">20g - 35g (High)</span>
@@ -162,7 +160,7 @@ function SwasthyaPage() {
                   <span className="font-bold text-amber-400">1200mg (60% Limit)</span>
                 </div>
                 <div className="flex justify-between border-b border-white/10 pb-1">
-                  <span>Refined Flour (Maida):</span>
+                  <span>Refined Flour:</span>
                   <span className="font-bold text-amber-400">80g+</span>
                 </div>
                 <div className="flex justify-between pb-1">
@@ -173,11 +171,11 @@ function SwasthyaPage() {
             </div>
 
             {/* CHOWMEIN & CHILLI POTATO */}
-            <div className="rounded-[2rem] border border-white/15 bg-emerald-950/40 p-6 backdrop-blur-xl shadow-xl space-y-4 hover:border-emerald-400/30 transition-all">
+            <div className="rounded-[2rem] border border-white/20 bg-black/40 p-6 backdrop-blur-xl shadow-xl space-y-4 hover:border-emerald-400/50 transition-all">
               <div className="text-lg font-bold text-emerald-300">🍜 Chowmein & Chilli Potato</div>
-              <div className="space-y-2 text-xs text-emerald-100/90">
+              <div className="space-y-2 text-xs text-emerald-50">
                 <div className="flex justify-between border-b border-white/10 pb-1">
-                  <span>Palm Oil / Reused Oil:</span>
+                  <span>Palm / Reused Oil:</span>
                   <span className="font-bold text-amber-400">25g+ (Trans-fats)</span>
                 </div>
                 <div className="flex justify-between border-b border-white/10 pb-1">
@@ -196,9 +194,9 @@ function SwasthyaPage() {
             </div>
 
             {/* FRIES & FRIED MOMOS */}
-            <div className="rounded-[2rem] border border-white/15 bg-emerald-950/40 p-6 backdrop-blur-xl shadow-xl space-y-4 hover:border-emerald-400/30 transition-all">
+            <div className="rounded-[2rem] border border-white/20 bg-black/40 p-6 backdrop-blur-xl shadow-xl space-y-4 hover:border-emerald-400/50 transition-all">
               <div className="text-lg font-bold text-emerald-300">🍟 Fries & Fried Momos</div>
-              <div className="space-y-2 text-xs text-emerald-100/90">
+              <div className="space-y-2 text-xs text-emerald-50">
                 <div className="flex justify-between border-b border-white/10 pb-1">
                   <span>Acrylamide Toxins:</span>
                   <span className="font-bold text-amber-400">High (Deep Frying)</span>
@@ -219,9 +217,9 @@ function SwasthyaPage() {
             </div>
 
             {/* COLD DRINKS & SODA */}
-            <div className="rounded-[2rem] border border-white/15 bg-emerald-950/40 p-6 backdrop-blur-xl shadow-xl space-y-4 hover:border-emerald-400/30 transition-all">
+            <div className="rounded-[2rem] border border-white/20 bg-black/40 p-6 backdrop-blur-xl shadow-xl space-y-4 hover:border-emerald-400/50 transition-all">
               <div className="text-lg font-bold text-emerald-300">🥤 Fizzy Drinks & Soda</div>
-              <div className="space-y-2 text-xs text-emerald-100/90">
+              <div className="space-y-2 text-xs text-emerald-50">
                 <div className="flex justify-between border-b border-white/10 pb-1">
                   <span>Added Sugar:</span>
                   <span className="font-bold text-amber-400">35g - 40g (10 tsp)</span>
@@ -254,10 +252,10 @@ function SwasthyaPage() {
               <AlertTriangle className="h-5 w-5" />
             </div>
             <div>
-              <h2 className="font-display text-2xl font-bold text-emerald-50">
+              <h2 className="font-display text-2xl font-bold text-emerald-50 drop-shadow-md">
                 How It Affects Your Looks & Body
               </h2>
-              <p className="font-hindi text-sm text-emerald-200/80">
+              <p className="font-hindi text-sm text-emerald-100 drop-shadow-md">
                 चेहरे, बालों और ग्रोथ पर जंक फ़ूड का सीधा हमला
               </p>
             </div>
@@ -266,42 +264,42 @@ function SwasthyaPage() {
           <div className="grid gap-5 sm:grid-cols-2">
 
             {/* IMPACT 1 */}
-            <div className="rounded-[2rem] border border-white/15 bg-emerald-950/40 p-7 shadow-xl backdrop-blur-xl space-y-3 hover:border-emerald-400/30 transition-all">
+            <div className="rounded-[2rem] border border-white/20 bg-emerald-950/40 p-7 shadow-xl backdrop-blur-xl space-y-3 hover:border-emerald-400/50 transition-all">
               <h3 className="font-display text-xl font-bold text-amber-300 flex items-center gap-2">
                 🔴 Acne, Pimples & Dull Skin
               </h3>
-              <p className="text-sm text-emerald-100/90 leading-relaxed">
-                Refined Maida and high sugar cause insulin spikes. This signals your skin glands to produce excess oil (sebum), clogging pores and causing <strong className="text-emerald-50">painful pimples and dull, oily skin</strong>.
+              <p className="text-sm text-emerald-50 leading-relaxed">
+                Refined Maida and high sugar cause insulin spikes. This signals your skin glands to produce excess oil (sebum), clogging pores and causing <strong className="text-white">painful pimples and dull, oily skin</strong>.
               </p>
             </div>
 
             {/* IMPACT 2 */}
-            <div className="rounded-[2rem] border border-white/15 bg-emerald-950/40 p-7 shadow-xl backdrop-blur-xl space-y-3 hover:border-emerald-400/30 transition-all">
+            <div className="rounded-[2rem] border border-white/20 bg-emerald-950/40 p-7 shadow-xl backdrop-blur-xl space-y-3 hover:border-emerald-400/50 transition-all">
               <h3 className="font-display text-xl font-bold text-amber-300 flex items-center gap-2">
                 📏 Stunted Height & Weak Bones
               </h3>
-              <p className="text-sm text-emerald-100/90 leading-relaxed">
-                Teens need maximum Calcium and Vitamin D for bone growth. Cold drinks contain <strong className="text-emerald-50">Phosphoric Acid</strong>, which leaches Calcium directly out of your bones, slowing down natural height potential!
+              <p className="text-sm text-emerald-50 leading-relaxed">
+                Teens need maximum Calcium and Vitamin D for bone growth. Cold drinks contain <strong className="text-white">Phosphoric Acid</strong>, which leaches Calcium directly out of your bones, slowing down natural height potential!
               </p>
             </div>
 
             {/* IMPACT 3 */}
-            <div className="rounded-[2rem] border border-white/15 bg-emerald-950/40 p-7 shadow-xl backdrop-blur-xl space-y-3 hover:border-emerald-400/30 transition-all">
+            <div className="rounded-[2rem] border border-white/20 bg-emerald-950/40 p-7 shadow-xl backdrop-blur-xl space-y-3 hover:border-emerald-400/50 transition-all">
               <h3 className="font-display text-xl font-bold text-amber-300 flex items-center gap-2">
                 ⚠️ Stubborn Belly Fat & Face Bloating
               </h3>
-              <p className="text-sm text-emerald-100/90 leading-relaxed">
-                Junk food is packed with excess sodium. Sodium forces your body to trap water under your skin, leading to <strong className="text-emerald-50">bloated cheeks, puffy eyes, and stubborn lower belly fat</strong>.
+              <p className="text-sm text-emerald-50 leading-relaxed">
+                Junk food is packed with excess sodium. Sodium forces your body to trap water under your skin, leading to <strong className="text-white">bloated cheeks, puffy eyes, and stubborn lower belly fat</strong>.
               </p>
             </div>
 
             {/* IMPACT 4 */}
-            <div className="rounded-[2rem] border border-white/15 bg-emerald-950/40 p-7 shadow-xl backdrop-blur-xl space-y-3 hover:border-emerald-400/30 transition-all">
+            <div className="rounded-[2rem] border border-white/20 bg-emerald-950/40 p-7 shadow-xl backdrop-blur-xl space-y-3 hover:border-emerald-400/50 transition-all">
               <h3 className="font-display text-xl font-bold text-amber-300 flex items-center gap-2">
                 💤 Brain Fog & Exam Laziness
               </h3>
-              <p className="text-sm text-emerald-100/90 leading-relaxed">
-                Fast food gives a 30-minute energy rush followed by a massive <strong className="text-emerald-50">sugar crash</strong>. This leaves you feeling sluggish, irritable, and unable to focus during late-night study sessions.
+              <p className="text-sm text-emerald-50 leading-relaxed">
+                Fast food gives a 30-minute energy rush followed by a massive <strong className="text-white">sugar crash</strong>. This leaves you feeling sluggish, irritable, and unable to focus during late-night study sessions.
               </p>
             </div>
 
@@ -318,10 +316,10 @@ function SwasthyaPage() {
               <Flame className="h-5 w-5" />
             </div>
             <div>
-              <h2 className="font-display text-2xl font-bold text-emerald-50">
+              <h2 className="font-display text-2xl font-bold text-emerald-50 drop-shadow-md">
                 Smart Indian Craving Swaps
               </h2>
-              <p className="font-hindi text-sm text-emerald-200/80">
+              <p className="font-hindi text-sm text-emerald-100 drop-shadow-md">
                 बिना मज़ा खोए स्वस्थ विकल्प
               </p>
             </div>
@@ -329,49 +327,49 @@ function SwasthyaPage() {
 
           <div className="grid gap-5 sm:grid-cols-3">
             {/* SWAP 1 */}
-            <div className="rounded-[2rem] border border-white/15 bg-emerald-950/40 p-6 shadow-xl backdrop-blur-xl space-y-4 hover:border-emerald-400/30 transition-all">
+            <div className="rounded-[2rem] border border-white/20 bg-black/40 p-6 shadow-xl backdrop-blur-xl space-y-4 hover:border-emerald-400/50 transition-all">
               <div className="text-xs font-bold uppercase tracking-wider text-amber-300 bg-amber-950/60 border border-amber-500/30 px-3 py-1 rounded-full w-fit">
                 Swap: Chowmein / Chilli Potato
               </div>
               <h3 className="font-display text-xl font-bold text-emerald-50">
                 Sesame Chilli Makhana or Sevaiyan
               </h3>
-              <p className="text-sm text-emerald-100/90 leading-relaxed">
+              <p className="text-sm text-emerald-50 leading-relaxed">
                 Crunchy fox nuts or rice vermicelli tossed with sesame seeds, curry leaves, and veggies.
               </p>
-              <div className="border-t border-white/10 pt-3 text-xs text-amber-300 font-medium">
+              <div className="border-t border-white/20 pt-3 text-xs text-amber-400 font-medium">
                 💡 Result: Clear skin, zero maida, high protein.
               </div>
             </div>
 
             {/* SWAP 2 */}
-            <div className="rounded-[2rem] border border-white/15 bg-emerald-950/40 p-6 shadow-xl backdrop-blur-xl space-y-4 hover:border-emerald-400/30 transition-all">
+            <div className="rounded-[2rem] border border-white/20 bg-black/40 p-6 shadow-xl backdrop-blur-xl space-y-4 hover:border-emerald-400/50 transition-all">
               <div className="text-xs font-bold uppercase tracking-wider text-amber-300 bg-amber-950/60 border border-amber-500/30 px-3 py-1 rounded-full w-fit">
                 Swap: Pizza / Burger
               </div>
               <h3 className="font-display text-xl font-bold text-emerald-50">
                 Paneer & Veggie Mini Uttapam
               </h3>
-              <p className="text-sm text-emerald-100/90 leading-relaxed">
+              <p className="text-sm text-emerald-50 leading-relaxed">
                 Fermented rice-dal base topped with spiced paneer, capsicum, onions, and mint chutney.
               </p>
-              <div className="border-t border-white/10 pt-3 text-xs text-amber-300 font-medium">
+              <div className="border-t border-white/20 pt-3 text-xs text-amber-400 font-medium">
                 💡 Result: Clean gut, no bloating, sustained stamina.
               </div>
             </div>
 
             {/* SWAP 3 */}
-            <div className="rounded-[2rem] border border-white/15 bg-emerald-950/40 p-6 shadow-xl backdrop-blur-xl space-y-4 hover:border-emerald-400/30 transition-all">
+            <div className="rounded-[2rem] border border-white/20 bg-black/40 p-6 shadow-xl backdrop-blur-xl space-y-4 hover:border-emerald-400/50 transition-all">
               <div className="text-xs font-bold uppercase tracking-wider text-amber-300 bg-amber-950/60 border border-amber-500/30 px-3 py-1 rounded-full w-fit">
                 Swap: French Fries
               </div>
               <h3 className="font-display text-xl font-bold text-emerald-50">
                 Peri-Peri Roasted Shakarkandi
               </h3>
-              <p className="text-sm text-emerald-100/90 leading-relaxed">
+              <p className="text-sm text-emerald-50 leading-relaxed">
                 Air-fried or roasted sweet potato wedges seasoned with spicy peri-peri chaat masala.
               </p>
-              <div className="border-t border-white/10 pt-3 text-xs text-amber-300 font-medium">
+              <div className="border-t border-white/20 pt-3 text-xs text-amber-400 font-medium">
                 💡 Result: Vitamin A for glowing skin & slow carbs.
               </div>
             </div>
@@ -382,7 +380,7 @@ function SwasthyaPage() {
         {/* =====================================================
             SECTION 4: JUNK DETOX RECOVERY
         ===================================================== */}
-        <section className="rounded-[2rem] border border-amber-500/40 bg-amber-950/30 p-6 shadow-2xl backdrop-blur-xl sm:p-8 space-y-4">
+        <section className="rounded-[2rem] border border-amber-500/40 bg-amber-950/40 p-6 shadow-2xl backdrop-blur-xl sm:p-8 space-y-4">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/20 text-amber-400 backdrop-blur-md">
               <ShieldAlert className="h-5 w-5" />
@@ -397,15 +395,15 @@ function SwasthyaPage() {
           </p>
 
           <div className="grid gap-3 sm:grid-cols-3 pt-2">
-            <div className="rounded-xl border border-amber-500/20 bg-emerald-950/60 p-4 text-xs text-amber-100 space-y-1 backdrop-blur-md">
+            <div className="rounded-xl border border-white/20 bg-emerald-950/60 p-4 text-xs text-emerald-50 space-y-1 backdrop-blur-md">
               <strong className="text-amber-300 block text-sm">1. Hydrate & Flush</strong>
               Drink warm Saunf-Coriander water to eliminate salt retention & face bloating.
             </div>
-            <div className="rounded-xl border border-amber-500/20 bg-emerald-950/60 p-4 text-xs text-amber-100 space-y-1 backdrop-blur-md">
+            <div className="rounded-xl border border-white/20 bg-emerald-950/60 p-4 text-xs text-emerald-50 space-y-1 backdrop-blur-md">
               <strong className="text-amber-300 block text-sm">2. Light Khichdi Dinner</strong>
               Have a warm moong dal khichdi to give your gut a chance to recover.
             </div>
-            <div className="rounded-xl border border-amber-500/20 bg-emerald-950/60 p-4 text-xs text-amber-100 space-y-1 backdrop-blur-md">
+            <div className="rounded-xl border border-white/20 bg-emerald-950/60 p-4 text-xs text-emerald-50 space-y-1 backdrop-blur-md">
               <strong className="text-amber-300 block text-sm">3. Probiotic Bowl</strong>
               Have a bowl of fresh curd with a pinch of black salt to restore healthy gut bacteria.
             </div>
@@ -420,7 +418,7 @@ function SwasthyaPage() {
           <Button variant="hero" asChild>
             <Link to="/nutrition-plan">Get My Daily Nutrition Plan</Link>
           </Button>
-          <Button variant="ghost" className="text-emerald-100 hover:bg-emerald-900/50" asChild>
+          <Button variant="ghost" className="text-emerald-100 hover:bg-emerald-900/50 backdrop-blur-md" asChild>
             <Link to="/dashboard">Back to Dashboard</Link>
           </Button>
         </div>

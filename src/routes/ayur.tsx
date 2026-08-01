@@ -81,10 +81,11 @@ function AyurChatPage() {
 
     // 3. Call the Gemini API
     try {
-      const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+      // API Key hardcoded for immediate testing
+      const apiKey = "AQ.Ab8RN6IaHgL16kJf6txnuuyofgMtp3uztfBPbnsCGerRAIv6_Q";
       
       if (!apiKey) {
-        throw new Error("API key is missing! Please set VITE_GEMINI_API_KEY in your environment variables.");
+        throw new Error("API key is missing!");
       }
 
       const response = await fetch(

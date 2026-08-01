@@ -7,6 +7,7 @@ import {
   ShieldAlert,
   Skull,
 } from "lucide-react";
+import nutritionBg from "@/assets/nutrition.png.asset.json";
 import { Button } from "@/components/ui/button";
 
 const title = "Swasthya & Junk Food Reality — Ahaar Amrit";

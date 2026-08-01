@@ -82,7 +82,7 @@ function AyurChatPage() {
     // 3. Call the Gemini API
     try {
       // API Key hardcoded for immediate testing
-      const apiKey = "AQ.Ab8RN6IaHgL16kJf6txnuuyofgMtp3uztfBPbnsCGerRAIv6_Q";
+      const apiKey = "AQ.Ab8RN6J2AwsWwobWhZ8cG74HVOlFjtXH9cz_u6ih1n_aptG17Q";
       
       if (!apiKey) {
         throw new Error("API key is missing!");

@@ -5,7 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 /* =====================================================
-   AHAAR AMRIT — MODERN PREMIUM WELLNESS DESIGN SYSTEM
+   AHAAR AMRIT — PREMIUM MODERN DESIGN SYSTEM
    ===================================================== */
 
 @theme inline {
@@ -57,17 +57,17 @@
 :root {
   --radius: 1.2rem;
 
-  /* Warm cream background */
-  --background: oklch(0.97 0.025 100);
+  /* Warm natural cream */
+  --background: oklch(0.975 0.025 95);
 
-  /* Deep natural green text */
+  /* Deep natural green */
   --foreground: oklch(0.22 0.04 140);
 
-  /* Saffron / orange */
+  /* Saffron / turmeric */
   --primary: oklch(0.68 0.20 50);
   --primary-foreground: white;
 
-  /* Natural green */
+  /* Leaf green */
   --secondary: oklch(0.48 0.15 150);
   --secondary-foreground: white;
 
@@ -75,9 +75,8 @@
   --accent: oklch(0.78 0.15 85);
   --accent-foreground: oklch(0.25 0.05 90);
 
-  /* Soft cream surfaces */
   --muted: oklch(0.94 0.02 100);
-  --muted-foreground: oklch(0.5 0.03 100);
+  --muted-foreground: oklch(0.50 0.03 100);
 
   --border: oklch(0.88 0.03 100);
 
@@ -91,25 +90,22 @@
    ===================================================== */
 
 :root {
-  /* Main Ahaar Amrit gradient */
   --gradient-hero:
     linear-gradient(
       135deg,
-      #ff9d2f 0%,
-      #ff6b35 48%,
+      #ffb347 0%,
+      #ff7a35 45%,
       #3b7d45 100%
     );
 
-  /* Premium warm-to-green gradient */
   --gradient-premium:
     linear-gradient(
       135deg,
-      #ffb347 0%,
-      #ff6b35 45%,
-      #2f8f46 100%
+      #ffd27a 0%,
+      #ff8a3d 40%,
+      #3b9148 100%
     );
 
-  /* Saffron gradient */
   --gradient-saffron:
     linear-gradient(
       90deg,
@@ -117,13 +113,12 @@
       #ff5f35
     );
 
-  /* Soft page background */
-  --gradient-background:
+  --gradient-natural:
     linear-gradient(
       135deg,
-      #fffaf0 0%,
-      #f8f3df 45%,
-      #eef5e8 100%
+      rgba(255, 179, 71, 0.95),
+      rgba(255, 122, 53, 0.9),
+      rgba(59, 125, 69, 0.95)
     );
 }
 
@@ -143,55 +138,128 @@
   body {
     min-height: 100vh;
 
-    /*
-      MODERN AHAAR AMRIT BACKGROUND
-
-      The three radial gradients create visible
-      saffron, green and golden wellness glows.
-    */
-
-    background:
-      radial-gradient(
-        circle at 5% 5%,
-        rgba(255, 145, 45, 0.28),
-        transparent 28%
-      ),
-
-      radial-gradient(
-        circle at 95% 10%,
-        rgba(65, 150, 80, 0.22),
-        transparent 30%
-      ),
-
-      radial-gradient(
-        circle at 50% 90%,
-        rgba(255, 190, 80, 0.18),
-        transparent 35%
-      ),
-
-      var(--gradient-background);
-
-    background-attachment: fixed;
-
     color: var(--foreground);
 
     font-family: var(--font-body);
 
     overflow-x: hidden;
+
+    /*
+      GLOBAL AHAAR AMRIT BACKGROUND
+
+      This applies to every page:
+      Home
+      Dashboard
+      Nutrition
+      Ayurveda
+      Profile
+    */
+
+    background:
+      /* Top-left saffron sunlight */
+      radial-gradient(
+        circle at 5% 5%,
+        rgba(255, 164, 54, 0.32),
+        transparent 28%
+      ),
+
+      /* Top-right green botanical glow */
+      radial-gradient(
+        circle at 95% 8%,
+        rgba(63, 153, 83, 0.24),
+        transparent 30%
+      ),
+
+      /* Bottom-left warm glow */
+      radial-gradient(
+        circle at 0% 90%,
+        rgba(255, 193, 92, 0.20),
+        transparent 32%
+      ),
+
+      /* Bottom-right natural green */
+      radial-gradient(
+        circle at 100% 90%,
+        rgba(53, 130, 70, 0.18),
+        transparent 32%
+      ),
+
+      /* Soft central light */
+      radial-gradient(
+        circle at 50% 45%,
+        rgba(255, 255, 255, 0.75),
+        transparent 55%
+      ),
+
+      var(--background);
   }
 
   /*
-    Subtle selection color
+    Creates a subtle texture layer over the whole website.
+    This makes the background feel less flat.
   */
 
-  ::selection {
-    background: rgba(255, 145, 45, 0.25);
-    color: var(--foreground);
+  body::before {
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: -1;
+
+    opacity: 0.45;
+
+    background-image:
+      radial-gradient(
+        circle at 20% 30%,
+        rgba(255, 255, 255, 0.5) 0,
+        transparent 2px
+      ),
+      radial-gradient(
+        circle at 80% 70%,
+        rgba(255, 255, 255, 0.35) 0,
+        transparent 2px
+      );
+
+    background-size:
+      90px 90px,
+      120px 120px;
   }
 
   /*
-    Headings use the premium serif display font
+    Very subtle decorative glow.
+    Helps pages feel connected visually.
   */
+
+  body::after {
+    content: "";
+
+    position: fixed;
+
+    width: 500px;
+    height: 500px;
+
+    right: -250px;
+    top: 35%;
+
+    pointer-events: none;
+
+    z-index: -1;
+
+    border-radius: 9999px;
+
+    background:
+      radial-gradient(
+        circle,
+        rgba(74, 150, 82, 0.12),
+        transparent 70%
+      );
+
+    filter: blur(40px);
+  }
 
   h1,
   h2,
@@ -199,6 +267,11 @@
     font-family: var(--font-display);
 
     letter-spacing: -0.03em;
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
   }
 }
 
@@ -213,10 +286,6 @@
 @utility font-hindi {
   font-family: var(--font-hindi);
 }
-
-/* =====================================================
-   GRADIENT UTILITIES
-   ===================================================== */
 
 @utility bg-gradient-hero {
   background: var(--gradient-hero);
@@ -236,7 +305,7 @@
 }
 
 /* =====================================================
-   MODERN GLASS EFFECT
+   PREMIUM GLASS EFFECT
    ===================================================== */
 
 @utility glass {
@@ -248,50 +317,43 @@
     );
 
   border:
-    1px solid rgba(255, 255, 255, 0.55);
+    1px solid rgba(255, 255, 255, 0.65);
 
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter:
+    blur(24px)
+    saturate(150%);
+
+  -webkit-backdrop-filter:
+    blur(24px)
+    saturate(150%);
 
   box-shadow:
-    0 20px 60px rgba(70, 50, 20, 0.10),
-    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+    0 20px 60px rgba(67, 73, 50, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 
 /* =====================================================
    PREMIUM CARD
    ===================================================== */
 
-@utility glass-card {
+@utility premium-card {
   background:
     linear-gradient(
       135deg,
-      rgba(255, 255, 255, 0.78),
-      rgba(255, 252, 242, 0.58)
+      rgba(255, 255, 255, 0.82),
+      rgba(255, 255, 255, 0.62)
     );
 
   border:
-    1px solid rgba(255, 255, 255, 0.65);
+    1px solid rgba(255, 255, 255, 0.72);
 
   backdrop-filter: blur(18px);
+
   -webkit-backdrop-filter: blur(18px);
 
   box-shadow:
-    0 20px 60px rgba(70, 50, 20, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.65);
-
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease,
-    border-color 0.3s ease;
-
-  &:hover {
-    transform: translateY(-3px);
-
-    box-shadow:
-      0 28px 70px rgba(70, 50, 20, 0.12),
-      inset 0 1px 0 rgba(255, 255, 255, 0.75);
-  }
+    0 20px 60px rgba(67, 73, 50, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 /* =====================================================
@@ -305,17 +367,7 @@
 
 @utility shadow-glow {
   box-shadow:
-    0 0 60px rgba(255, 140, 40, 0.35);
-}
-
-/* =====================================================
-   SOFT BACKGROUND GLOW
-   ===================================================== */
-
-@utility wellness-glow {
-  box-shadow:
-    0 0 100px rgba(255, 145, 45, 0.14),
-    0 0 160px rgba(65, 150, 80, 0.08);
+    0 0 70px rgba(255, 140, 40, 0.35);
 }
 
 /* =====================================================
@@ -384,15 +436,15 @@
   &:hover {
     transform:
       translateY(-8px)
-      scale(1.01);
+      scale(1.015);
 
     box-shadow:
-      0 30px 80px rgba(0, 0, 0, 0.12);
+      0 30px 70px rgba(67, 73, 50, 0.16);
   }
 }
 
 /* =====================================================
-   3D SAFFRON ORB
+   3D ORBS
    ===================================================== */
 
 @utility orb-saffron {
@@ -409,10 +461,6 @@
     0 40px 80px rgba(255, 120, 30, 0.35);
 }
 
-/* =====================================================
-   3D GREEN ORB
-   ===================================================== */
-
 @utility orb-green {
   background:
     radial-gradient(
@@ -428,7 +476,40 @@
 }
 
 /* =====================================================
-   RESPONSIVE
+   NAVBAR SUPPORT
+   ===================================================== */
+
+/*
+  Gives the fixed navbar a stronger premium glass appearance.
+  This works with your current Navbar.tsx.
+*/
+
+header.fixed {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.82),
+      rgba(255, 255, 255, 0.58)
+    ) !important;
+
+  border-color:
+    rgba(255, 255, 255, 0.75) !important;
+
+  backdrop-filter:
+    blur(24px)
+    saturate(160%);
+
+  -webkit-backdrop-filter:
+    blur(24px)
+    saturate(160%);
+
+  box-shadow:
+    0 15px 45px rgba(50, 70, 45, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+/* =====================================================
+   MOBILE
    ===================================================== */
 
 @media (max-width: 768px) {
@@ -436,38 +517,21 @@
     font-size: 3rem;
   }
 
-  body {
-    background:
-      radial-gradient(
-        circle at 0% 5%,
-        rgba(255, 145, 45, 0.22),
-        transparent 35%
-      ),
-
-      radial-gradient(
-        circle at 100% 15%,
-        rgba(65, 150, 80, 0.18),
-        transparent 35%
-      ),
-
-      var(--gradient-background);
-
-    background-attachment: scroll;
+  body::after {
+    width: 300px;
+    height: 300px;
   }
 }
 
 /* =====================================================
-   REDUCED MOTION ACCESSIBILITY
+   REDUCED MOTION
    ===================================================== */
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
   *,
   *::before,
   *::after {
+    scroll-behavior: auto !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;

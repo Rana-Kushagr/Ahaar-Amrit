@@ -16,6 +16,7 @@ import { Route as DoshaQuizRouteImport } from './routes/dosha-quiz'
 import { Route as NutritionPlanRouteImport } from './routes/nutrition-plan'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as SwasthyaRouteImport } from './routes/swasthya'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -52,6 +53,11 @@ const ProfileRoute = ProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SwasthyaRoute = SwasthyaRouteImport.update({
+  id: '/swasthya',
+  path: '/swasthya',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -61,6 +67,7 @@ export interface FileRoutesByFullPath {
   '/nutrition-plan': typeof NutritionPlanRoute
   '/onboarding': typeof OnboardingRoute
   '/profile': typeof ProfileRoute
+  '/swasthya': typeof SwasthyaRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -70,6 +77,7 @@ export interface FileRoutesByTo {
   '/nutrition-plan': typeof NutritionPlanRoute
   '/onboarding': typeof OnboardingRoute
   '/profile': typeof ProfileRoute
+  '/swasthya': typeof SwasthyaRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -80,6 +88,7 @@ export interface FileRoutesById {
   '/nutrition-plan': typeof NutritionPlanRoute
   '/onboarding': typeof OnboardingRoute
   '/profile': typeof ProfileRoute
+  '/swasthya': typeof SwasthyaRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,6 +100,7 @@ export interface FileRouteTypes {
     | '/nutrition-plan'
     | '/onboarding'
     | '/profile'
+    | '/swasthya'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -100,6 +110,7 @@ export interface FileRouteTypes {
     | '/nutrition-plan'
     | '/onboarding'
     | '/profile'
+    | '/swasthya'
   id:
     | '__root__'
     | '/'
@@ -109,6 +120,7 @@ export interface FileRouteTypes {
     | '/nutrition-plan'
     | '/onboarding'
     | '/profile'
+    | '/swasthya'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -119,6 +131,7 @@ export interface RootRouteChildren {
   NutritionPlanRoute: typeof NutritionPlanRoute
   OnboardingRoute: typeof OnboardingRoute
   ProfileRoute: typeof ProfileRoute
+  SwasthyaRoute: typeof SwasthyaRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -172,6 +185,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/swasthya': {
+      id: '/swasthya'
+      path: '/swasthya'
+      fullPath: '/swasthya'
+      preLoaderRoute: typeof SwasthyaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -183,6 +203,7 @@ const rootRouteChildren: RootRouteChildren = {
   NutritionPlanRoute: NutritionPlanRoute,
   OnboardingRoute: OnboardingRoute,
   ProfileRoute: ProfileRoute,
+  SwasthyaRoute: SwasthyaRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

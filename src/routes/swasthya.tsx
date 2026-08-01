@@ -7,6 +7,7 @@ import {
   ShieldAlert,
   Skull,
 } from "lucide-react";
+import nutritionBg from "@/assets/nutrition.png.asset.json";
 import { Button } from "@/components/ui/button";
 
 const title = "Swasthya & Junk Food Reality — Ahaar Amrit";
@@ -29,22 +30,18 @@ export const Route = createFileRoute("/swasthya")({
 
 function SwasthyaPage() {
   return (
-    <main className="relative min-h-screen overflow-hidden px-4 pb-16 pt-28 sm:px-6 sm:pt-36">
+    <main className="relative min-h-screen px-4 pb-16 pt-32 sm:px-6">
 
-      {/* =====================================================
-          100% CRYSTAL CLEAR BACKGROUND
-      ===================================================== */}
-      <div 
-        className="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat"
-        style={{ 
-          backgroundImage: `url('https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=2070&auto=format&fit=crop')`,
-        }}
-      >
-        {/* A very light emerald tint so the glass cards are readable, but the image remains fully visible */}
-        <div className="absolute inset-0 bg-emerald-950/40" />
-      </div>
+      {/* Fixed full-screen background image (same as nutrition plan) */}
+      <div
+        className="pointer-events-none fixed inset-0 z-0 bg-emerald-950 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url('${nutritionBg.url}')` }}
+        aria-hidden
+      />
+      <div className="pointer-events-none fixed inset-0 z-0 bg-emerald-950/50" aria-hidden />
 
-      <div className="relative mx-auto max-w-5xl space-y-10">
+
+      <div className="relative z-10 mx-auto max-w-5xl space-y-10">
 
         {/* =====================================================
             BACK BUTTON (GLASS UI)

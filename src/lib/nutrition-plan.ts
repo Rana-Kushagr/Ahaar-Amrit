@@ -1,15 +1,27 @@
-import type { Allergy, DietaryPreference, Region, AhaarProfile } from "@/lib/profile";
+import type {
+  Allergy,
+  DietaryPreference,
+  Region,
+  AhaarProfile,
+} from "@/lib/profile";
 
-export type MealSlot = "breakfast" | "midMorning" | "lunch" | "eveningSnack" | "dinner";
+export type MealSlot =
+  | "breakfast"
+  | "midMorning"
+  | "lunch"
+  | "eveningSnack"
+  | "dinner";
 
 export interface MealItem {
   name: string;
   hindi: string;
   description: string;
   benefit: string;
-  /** Diets this item is suitable for. */
+
+  /** Dietary preferences this meal is suitable for. */
   diets: DietaryPreference[];
-  /** Allergens present, used for future allergy-safe filtering. */
+
+  /** Allergens present in the meal. */
   allergens: Exclude<Allergy, "none" | "other">[];
 }
 
@@ -20,527 +32,705 @@ export interface MealSection {
   item: MealItem;
 }
 
-export const mealSlotLabels: Record<MealSlot, { title: string; hindi: string }> = {
-  breakfast: { title: "Breakfast", hindi: "नाश्ता" },
-  midMorning: { title: "Mid-morning / School Snack", hindi: "मध्य-सुबह का नाश्ता" },
-  lunch: { title: "Lunch", hindi: "दोपहर का भोजन" },
-  eveningSnack: { title: "Evening Snack", hindi: "शाम का नाश्ता" },
-  dinner: { title: "Dinner", hindi: "रात का भोजन" },
+export const mealSlotLabels: Record<
+  MealSlot,
+  { title: string; hindi: string }
+> = {
+  breakfast: {
+    title: "Breakfast",
+    hindi: "नाश्ता",
+  },
+  midMorning: {
+    title: "Mid-morning / School Snack",
+    hindi: "मध्य-सुबह का नाश्ता",
+  },
+  lunch: {
+    title: "Lunch",
+    hindi: "दोपहर का भोजन",
+  },
+  eveningSnack: {
+    title: "Evening Snack",
+    hindi: "शाम का नाश्ता",
+  },
+  dinner: {
+    title: "Dinner",
+    hindi: "रात का भोजन",
+  },
 };
 
-const ALL_DIETS: DietaryPreference[] = ["vegetarian", "non-vegetarian", "eggetarian"];
-const EGG_DIETS: DietaryPreference[] = ["non-vegetarian", "eggetarian"];
-const NONVEG_ONLY: DietaryPreference[] = ["non-vegetarian"];
 
-/**
- * Region-aware meal options. Multiple options per slot so dietary preference
- * and (later) allergy filtering can pick the first suitable item.
- */
+/* =========================================================
+   DIET GROUPS
+========================================================= */
+
+const VEGETARIAN: DietaryPreference[] = ["vegetarian"];
+const EGG_DIETS: DietaryPreference[] = ["eggetarian", "non-vegetarian"];
+const NONVEG_DIETS: DietaryPreference[] = ["non-vegetarian"];
+
+
+/* =========================================================
+   REGION MENU TYPE
+========================================================= */
+
 type RegionMenu = Record<MealSlot, MealItem[]>;
+
+
+/* =========================================================
+   NORTH INDIA
+========================================================= */
 
 const north: RegionMenu = {
   breakfast: [
     {
-      name: "Stuffed Paratha with Curd",
-      hindi: "परांठा और दही",
-      description: "Whole-wheat paratha stuffed with vegetables, served with curd.",
-      benefit: "Whole grains plus curd give steady energy, protein and calcium.",
-      diets: ALL_DIETS,
+      name: "Paneer Stuffed Paratha with Curd",
+      hindi: "पनीर परांठा और दही",
+      description: "Whole-wheat paratha generously stuffed with spiced paneer, served with fresh mint curd.",
+      benefit: "Excellent combination of complex carbs and high-quality dairy protein for sustained morning energy.",
+      diets: VEGETARIAN,
       allergens: ["gluten", "dairy"],
     },
     {
-      name: "Bajra Roti with Vegetable Bhurji",
-      hindi: "बाजरे की रोटी और सब्ज़ी भुर्जी",
-      description: "Millet flatbread with a lightly spiced vegetable scramble.",
-      benefit: "Iron-rich millet with vegetables supports growth and energy.",
-      diets: ALL_DIETS,
-      allergens: [],
+      name: "Egg Kheema with Buttered Pav",
+      hindi: "अंडा कीमा और पाव",
+      description: "Spicy, minced boiled egg masala served with lightly toasted pav.",
+      benefit: "A protein-packed start that keeps you full and focused through morning classes.",
+      diets: EGG_DIETS,
+      allergens: ["gluten"],
+    },
+    {
+      name: "Chicken Tikka Paratha Roll",
+      hindi: "चिकन टिक्का परांठा रोल",
+      description: "Tender chicken tikka pieces wrapped in a flaky whole-wheat paratha with mint chutney.",
+      benefit: "High-protein, satisfying breakfast that is delicious and rich in iron.",
+      diets: NONVEG_DIETS,
+      allergens: ["gluten", "dairy"],
     },
   ],
+
   midMorning: [
     {
-      name: "Roasted Chana & Seasonal Fruit",
-      hindi: "भुना चना और मौसमी फल",
-      description: "A small handful of roasted chana with any seasonal fruit.",
-      benefit: "Plant protein with fibre keeps you full between classes.",
-      diets: ALL_DIETS,
-      allergens: [],
-    },
-  ],
-  lunch: [
-    {
-      name: "Roti, Dal and Sarson Saag",
-      hindi: "रोटी, दाल और सरसों का साग",
-      description: "Whole-wheat roti with dal and a leafy mustard-greens sabzi.",
-      benefit: "Grain plus dal makes a complete protein; greens add iron and vitamin A.",
-      diets: ALL_DIETS,
-      allergens: ["gluten"],
+      name: "Roasted Makhana & Almonds",
+      hindi: "भुना मखाना और बादाम",
+      description: "Crunchy fox nuts roasted in a touch of ghee, paired with almonds.",
+      benefit: "Light on the stomach but rich in calcium and healthy fats for brain function.",
+      diets: VEGETARIAN,
+      allergens: ["dairy", "nuts"],
     },
     {
-      name: "Rice, Rajma and Salad",
-      hindi: "चावल, राजमा और सलाद",
-      description: "Rajma curry with rice and a fresh salad.",
-      benefit: "Legumes provide protein, fibre and slow-release carbohydrates.",
-      diets: ALL_DIETS,
-      allergens: [],
-    },
-    {
-      name: "Roti with Chicken Curry and Salad",
-      hindi: "रोटी, चिकन करी और सलाद",
-      description: "Home-style chicken curry with roti and salad.",
-      benefit: "Lean animal protein supports muscle growth and iron intake.",
-      diets: NONVEG_ONLY,
-      allergens: ["gluten"],
-    },
-  ],
-  eveningSnack: [
-    {
-      name: "Chana Chaat",
-      hindi: "चना चाट",
-      description: "Boiled chana with onion, tomato, lemon and light spices.",
-      benefit: "A filling snack with protein, fibre and vitamin C.",
-      diets: ALL_DIETS,
-      allergens: [],
-    },
-    {
-      name: "Boiled Egg with Lemon and Pepper",
-      hindi: "उबला अंडा",
-      description: "A simple boiled egg seasoned with lemon and black pepper.",
-      benefit: "High-quality protein and vitamin B12 in a quick snack.",
+      name: "Boiled Egg Chaat",
+      hindi: "अंडा चाट",
+      description: "Sliced boiled eggs tossed with onions, tomatoes, green chilies, and chaat masala.",
+      benefit: "Quick, tasty protein boost to prevent the mid-morning slump.",
       diets: EGG_DIETS,
       allergens: [],
     },
   ],
-  dinner: [
+
+  lunch: [
     {
-      name: "Khichdi with Ghee and Vegetables",
-      hindi: "खिचड़ी, घी और सब्ज़ी",
-      description: "Light moong dal khichdi with seasonal vegetables.",
-      benefit: "Easy to digest at night while still providing protein.",
-      diets: ALL_DIETS,
+      name: "Chole Masala with Jeera Rice and Raita",
+      hindi: "छोले, जीरा राइस और रायता",
+      description: "Authentic Punjabi chickpea curry served with cumin-tempered rice and cooling cucumber raita.",
+      benefit: "A perfect complete protein profile from legumes and dairy, rich in fiber.",
+      diets: VEGETARIAN,
       allergens: ["dairy"],
     },
     {
-      name: "Phulka with Mixed Vegetable Sabzi",
-      hindi: "फुल्का और मिली-जुली सब्ज़ी",
-      description: "Soft phulka with a lightly spiced mixed vegetable sabzi.",
-      benefit: "Balanced, light dinner with fibre and micronutrients.",
-      diets: ALL_DIETS,
-      allergens: ["gluten"],
+      name: "Butter Chicken with Garlic Naan",
+      hindi: "बटर चिकन और गार्लिक नान",
+      description: "Classic creamy tomato chicken curry served with soft, garlic-infused whole wheat naan.",
+      benefit: "A satisfying, culturally rich meal providing heavy protein and energy.",
+      diets: NONVEG_DIETS,
+      allergens: ["gluten", "dairy"],
+    },
+    {
+      name: "Mutton Rogan Josh with Roti",
+      hindi: "मटन रोगन जोश और रोटी",
+      description: "Tender pieces of mutton slow-cooked in aromatic Kashmiri spices, served with soft phulkas.",
+      benefit: "Red meat provides highly bioavailable iron and essential B12 for growth.",
+      diets: NONVEG_DIETS,
+      allergens: ["gluten", "dairy"],
+    },
+  ],
+
+  eveningSnack: [
+    {
+      name: "Aloo Tikki Chaat",
+      hindi: "आलू टिक्की चाट",
+      description: "Shallow-fried potato patties topped with sweet yogurt, tamarind, and mint chutney.",
+      benefit: "A delicious energy-replenishing snack after a long school day.",
+      diets: VEGETARIAN,
+      allergens: ["dairy"],
+    },
+    {
+      name: "Chicken Seekh Kebab",
+      hindi: "चिकन सीख कबाब",
+      description: "Juicy, spiced minced chicken kebabs grilled to perfection.",
+      benefit: "Pure lean protein to aid muscle recovery and growth without heavy carbs.",
+      diets: NONVEG_DIETS,
+      allergens: [],
+    },
+  ],
+
+  dinner: [
+    {
+      name: "Palak Paneer with Missi Roti",
+      hindi: "पालक पनीर और मिस्सी रोटी",
+      description: "Cottage cheese cubes in a smooth, spiced spinach gravy, served with gram flour flatbread.",
+      benefit: "Incredibly nutrient-dense: iron from spinach, protein from paneer, and fiber from besan.",
+      diets: VEGETARIAN,
+      allergens: ["gluten", "dairy"],
+    },
+    {
+      name: "Egg Curry with Jeera Rice",
+      hindi: "अंडा करी और जीरा राइस",
+      description: "Hard-boiled eggs simmered in a rich tomato-onion gravy, served with fragrant cumin rice.",
+      benefit: "Light enough for dinner but packed with essential amino acids.",
+      diets: EGG_DIETS,
+      allergens: [],
+    },
+    {
+      name: "Tandoori Chicken with Mint Salad",
+      hindi: "तंदूरी चिकन और पुदीना सलाद",
+      description: "Yogurt and spice-marinated chicken roasted perfectly, served with fresh greens.",
+      benefit: "High protein, low carb dinner that is easy to digest before sleep.",
+      diets: NONVEG_DIETS,
+      allergens: ["dairy"],
     },
   ],
 };
+
+
+/* =========================================================
+   SOUTH INDIA
+========================================================= */
 
 const south: RegionMenu = {
   breakfast: [
     {
-      name: "Idli with Sambar",
-      hindi: "इडली और सांभर",
-      description: "Steamed fermented rice cakes with lentil sambar.",
-      benefit: "Fermented, easy to digest, and dal adds protein.",
-      diets: ALL_DIETS,
+      name: "Masala Dosa with Coconut Chutney",
+      hindi: "मसाला डोसा और नारियल चटनी",
+      description: "Crispy fermented crepe stuffed with spiced potato mash, served with fresh coconut chutney.",
+      benefit: "Fermented batter is excellent for gut health and provides easily digestible energy.",
+      diets: VEGETARIAN,
       allergens: [],
     },
     {
-      name: "Ragi Dosa with Chutney",
-      hindi: "रागी डोसा और चटनी",
-      description: "Finger-millet dosa served with coconut or tomato chutney.",
-      benefit: "Ragi is a strong plant source of calcium for growing bones.",
-      diets: ALL_DIETS,
-      allergens: ["nuts"],
+      name: "Mutta Roast (Egg Roast) with Appam",
+      hindi: "अंडा रोस्ट और अप्पम",
+      description: "Spicy Kerala-style onion and tomato egg roast served with lacy, soft rice hoppers.",
+      benefit: "A brilliant combination of light carbs and high-quality egg protein.",
+      diets: EGG_DIETS,
+      allergens: [],
+    },
+    {
+      name: "Chicken Chettinad with Parotta",
+      hindi: "चेट्टीनाड चिकन और परोट्टा",
+      description: "Fiery, pepper-rich chicken curry from Tamil Nadu, served with flaky layered parotta.",
+      benefit: "Spices aid metabolism and digestion, while chicken provides robust protein.",
+      diets: NONVEG_DIETS,
+      allergens: ["gluten"],
     },
   ],
-  midMorning: [
-    {
-      name: "Buttermilk and Banana",
-      hindi: "छाछ और केला",
-      description: "A glass of spiced buttermilk with a banana.",
-      benefit: "Hydrating, with potassium and gut-friendly bacteria.",
-      diets: ALL_DIETS,
-      allergens: ["dairy"],
-    },
-    {
-      name: "Steamed Sundal",
-      hindi: "सुंडल",
-      description: "Boiled legumes tempered with curry leaves and coconut.",
-      benefit: "Plant protein and fibre in a light mid-morning snack.",
-      diets: ALL_DIETS,
-      allergens: [],
-    },
-  ],
-  lunch: [
-    {
-      name: "Rice with Sambar and Poriyal",
-      hindi: "चावल, सांभर और पोरियल",
-      description: "Rice with lentil sambar and a dry vegetable poriyal.",
-      benefit: "Rice plus dal forms complete protein; vegetables add micronutrients.",
-      diets: ALL_DIETS,
-      allergens: [],
-    },
-    {
-      name: "Rice with Fish Curry and Poriyal",
-      hindi: "चावल, मछली करी और पोरियल",
-      description: "Light coastal-style fish curry with rice and vegetables.",
-      benefit: "Fish provides protein and omega-3 fats.",
-      diets: NONVEG_ONLY,
-      allergens: [],
-    },
-  ],
-  eveningSnack: [
-    {
-      name: "Ragi Malt",
-      hindi: "रागी माल्ट",
-      description: "Warm finger-millet drink, lightly sweetened.",
-      benefit: "Calcium and iron in an easy-to-drink form.",
-      diets: ALL_DIETS,
-      allergens: ["dairy"],
-    },
-    {
-      name: "Steamed Kozhukattai",
-      hindi: "कोझुक्कट्टई",
-      description: "Steamed rice dumplings with a light filling.",
-      benefit: "Steamed instead of fried, so lower in added fat.",
-      diets: ALL_DIETS,
-      allergens: [],
-    },
-  ],
-  dinner: [
-    {
-      name: "Rasam Rice with Vegetables",
-      hindi: "रसम चावल और सब्ज़ी",
-      description: "Light rasam with rice and a simple vegetable side.",
-      benefit: "Light on the stomach with warming spices for digestion.",
-      diets: ALL_DIETS,
-      allergens: [],
-    },
-    {
-      name: "Adai with Avial",
-      hindi: "अडै और अवियल",
-      description: "Mixed-lentil pancake with a mixed vegetable curry.",
-      benefit: "High plant protein with a variety of vegetables.",
-      diets: ALL_DIETS,
-      allergens: [],
-    },
-  ],
-};
 
-const east: RegionMenu = {
-  breakfast: [
+  midMorning: [
     {
-      name: "Chira (Poha) with Curd and Fruit",
-      hindi: "चिड़ा, दही और फल",
-      description: "Flattened rice with curd and seasonal fruit.",
-      benefit: "Light carbohydrates with protein and calcium from curd.",
-      diets: ALL_DIETS,
+      name: "Mini Podi Idlis",
+      hindi: "पोडी इडली",
+      description: "Bite-sized idlis tossed in ghee and spicy lentil powder (gunpowder).",
+      benefit: "Easy to pack for school, offering steady energy and lentil protein.",
+      diets: VEGETARIAN,
       allergens: ["dairy"],
     },
     {
-      name: "Vegetable Ghugni",
-      hindi: "घुगनी",
-      description: "Spiced white peas curry, often eaten with puffed rice.",
-      benefit: "Legume protein and fibre for a filling start.",
-      diets: ALL_DIETS,
-      allergens: [],
-    },
-  ],
-  midMorning: [
-    {
-      name: "Muri with Roasted Peanuts",
-      hindi: "मुड़ी और मूंगफली",
-      description: "Puffed rice tossed with roasted peanuts and mustard oil.",
-      benefit: "Light snack with a little protein and healthy fat.",
-      diets: ALL_DIETS,
-      allergens: ["nuts"],
-    },
-    {
-      name: "Seasonal Fruit",
-      hindi: "मौसमी फल",
-      description: "Any fresh seasonal fruit available locally.",
-      benefit: "Fibre, vitamins and natural hydration.",
-      diets: ALL_DIETS,
-      allergens: [],
-    },
-  ],
-  lunch: [
-    {
-      name: "Rice with Dal and Shukto",
-      hindi: "भात, दाल और शुक्तो",
-      description: "Rice with dal and a mixed vegetable shukto.",
-      benefit: "Balanced grain-and-dal plate with plenty of vegetables.",
-      diets: ALL_DIETS,
-      allergens: [],
-    },
-    {
-      name: "Rice with Rohu Fish Curry",
-      hindi: "भात और रोहू माछेर झोल",
-      description: "Light fish curry with rice and a vegetable side.",
-      benefit: "Fish gives protein and omega-3 fats for growth.",
-      diets: NONVEG_ONLY,
-      allergens: [],
-    },
-  ],
-  eveningSnack: [
-    {
-      name: "Chhena or Paneer Cubes",
-      hindi: "छेना",
-      description: "Fresh soft cheese cubes with a pinch of black pepper.",
-      benefit: "Protein and calcium in a small portion.",
-      diets: ALL_DIETS,
-      allergens: ["dairy"],
-    },
-    {
-      name: "Roasted Chana and Jaggery",
-      hindi: "भुना चना और गुड़",
-      description: "Roasted gram with a small piece of jaggery.",
-      benefit: "Iron and protein, a traditional after-school snack.",
-      diets: ALL_DIETS,
-      allergens: [],
-    },
-  ],
-  dinner: [
-    {
-      name: "Rice with Light Dal and Aloo Posto",
-      hindi: "भात, दाल और आलू पोस्तो",
-      description: "Simple dal with rice and a mild potato preparation.",
-      benefit: "Light, comforting dinner with plant protein.",
-      diets: ALL_DIETS,
-      allergens: [],
-    },
-    {
-      name: "Vegetable Khichuri",
-      hindi: "सब्ज़ी खिचुड़ी",
-      description: "Rice and moong dal cooked together with vegetables.",
-      benefit: "One-pot balanced meal that is easy to digest.",
-      diets: ALL_DIETS,
-      allergens: [],
-    },
-  ],
-};
-
-const west: RegionMenu = {
-  breakfast: [
-    {
-      name: "Thepla with Curd",
-      hindi: "थेपला और दही",
-      description: "Methi thepla made from whole wheat, served with curd.",
-      benefit: "Whole grains and fenugreek greens with protein from curd.",
-      diets: ALL_DIETS,
-      allergens: ["gluten", "dairy"],
-    },
-    {
-      name: "Vegetable Poha",
-      hindi: "सब्ज़ी पोहा",
-      description: "Flattened rice with peas, carrots and curry leaves.",
-      benefit: "Quick, light carbohydrates with vegetables and iron.",
-      diets: ALL_DIETS,
-      allergens: ["nuts"],
-    },
-  ],
-  midMorning: [
-    {
-      name: "Sprouts Salad",
-      hindi: "अंकुरित सलाद",
-      description: "Moong sprouts with lemon, onion and tomato.",
-      benefit: "Sprouting improves protein and mineral availability.",
-      diets: ALL_DIETS,
-      allergens: [],
-    },
-  ],
-  lunch: [
-    {
-      name: "Jowar Bhakri with Usal",
-      hindi: "ज्वार भाकरी और उसळ",
-      description: "Millet flatbread with a sprouted legume curry.",
-      benefit: "Millets plus legumes give sustained energy and protein.",
-      diets: ALL_DIETS,
-      allergens: [],
-    },
-    {
-      name: "Bhakri with Egg Curry",
-      hindi: "भाकरी और अंडा करी",
-      description: "Home-style egg curry with millet flatbread.",
-      benefit: "Eggs are a complete protein with vitamin B12.",
+      name: "Boiled Egg with Pepper",
+      hindi: "काली मिर्च के साथ उबला अंडा",
+      description: "Simple boiled egg dusted with freshly ground black pepper.",
+      benefit: "Quick brain-boosting protein for mid-day focus.",
       diets: EGG_DIETS,
       allergens: [],
     },
   ],
-  eveningSnack: [
+
+  lunch: [
     {
-      name: "Steamed Dhokla",
-      hindi: "ढोकला",
-      description: "Fermented gram-flour cake, steamed not fried.",
-      benefit: "Light, fermented and protein-rich from besan.",
-      diets: ALL_DIETS,
+      name: "Bisi Bele Bath with Boondi",
+      hindi: "बिसी बेले भात",
+      description: "A wholesome Karnataka specialty: rice, lentils, and mixed vegetables cooked together in special spices.",
+      benefit: "The ultimate balanced one-pot meal, rich in fiber, vitamins, and protein.",
+      diets: VEGETARIAN,
       allergens: [],
     },
     {
-      name: "Kokum Sherbet with Roasted Chana",
-      hindi: "कोकम शरबत और भुना चना",
-      description: "A cooling drink with a small portion of roasted gram.",
-      benefit: "Hydration plus a little plant protein.",
-      diets: ALL_DIETS,
+      name: "Andhra Fish Pulusu with Rice",
+      hindi: "आंध्र फिश पुलुसु और चावल",
+      description: "Tangy and spicy tamarind-based fish curry served with steamed rice.",
+      benefit: "Fish is the best source of Omega-3 fatty acids, crucial for student brain development.",
+      diets: NONVEG_DIETS,
+      allergens: [],
+    },
+    {
+      name: "Chicken Biryani with Raita",
+      hindi: "चिकन बिरयानी और रायता",
+      description: "Aromatic basmati rice cooked with tender chicken pieces and whole spices.",
+      benefit: "A deeply satisfying meal providing heavy carbs for energy and chicken for muscle repair.",
+      diets: NONVEG_DIETS,
+      allergens: ["dairy"],
+    },
+  ],
+
+  eveningSnack: [
+    {
+      name: "Medu Vada with Sambar",
+      hindi: "मेदु वड़ा और सांभर",
+      description: "Crispy deep-fried lentil donuts dipped in vegetable-rich sambar.",
+      benefit: "Urad dal provides a great vegetarian protein punch after school.",
+      diets: VEGETARIAN,
+      allergens: [],
+    },
+    {
+      name: "Chicken 65",
+      hindi: "चिकन 65",
+      description: "Spicy, deep-fried bite-sized chicken pieces marinated in yogurt and curry leaves.",
+      benefit: "A protein-heavy, culturally iconic snack that satisfies cravings.",
+      diets: NONVEG_DIETS,
+      allergens: ["dairy"],
+    },
+  ],
+
+  dinner: [
+    {
+      name: "Lemon Rice with Potato Fry",
+      hindi: "लेमन राइस और आलू फ्राई",
+      description: "Tangy peanut-tempered lemon rice paired with a light, spiced potato roast.",
+      benefit: "Vitamin C from lemon aids iron absorption; a comforting, light dinner.",
+      diets: VEGETARIAN,
+      allergens: ["nuts"],
+    },
+    {
+      name: "Kerala Malabar Prawn Curry with Rice",
+      hindi: "मालाबार झींगा करी और चावल",
+      description: "Juicy prawns simmered in a mild coconut milk gravy.",
+      benefit: "Prawns are rich in zinc and iodine, while coconut milk provides healthy fats.",
+      diets: NONVEG_DIETS,
+      allergens: ["shellfish"],
+    },
+  ],
+};
+
+
+/* =========================================================
+   EAST INDIA
+========================================================= */
+
+const east: RegionMenu = {
+  breakfast: [
+    {
+      name: "Luchi with Cholar Dal",
+      hindi: "लूची और छोलार दाल",
+      description: "Deep-fried puffed bread served with slightly sweet and spicy Bengal gram dal.",
+      benefit: "A festive, high-energy start to the day with good protein from the dal.",
+      diets: VEGETARIAN,
+      allergens: ["gluten"],
+    },
+    {
+      name: "Dim Kosha (Egg Curry) with Paratha",
+      hindi: "डिम कोशा और परांठा",
+      description: "Bengali-style rich, caramelized onion and egg curry served with flaky paratha.",
+      benefit: "High energy and protein to keep you satiated for hours.",
+      diets: EGG_DIETS,
+      allergens: ["gluten"],
+    },
+  ],
+
+  midMorning: [
+    {
+      name: "Jhal Muri",
+      hindi: "झाल मुड़ी",
+      description: "Puffed rice tossed with mustard oil, chopped onions, green chilies, and roasted peanuts.",
+      benefit: "A very light, digestion-friendly snack with a crunch.",
+      diets: VEGETARIAN,
+      allergens: ["nuts"],
+    },
+    {
+      name: "Egg Kati Roll",
+      hindi: "अंडा काठी रोल",
+      description: "A thin paratha wrapped around a freshly beaten egg, onions, and tangy sauce.",
+      benefit: "Perfectly portable school snack balancing carbs and protein.",
+      diets: EGG_DIETS,
+      allergens: ["gluten"],
+    },
+  ],
+
+  lunch: [
+    {
+      name: "Khichuri with Begun Bhaja",
+      hindi: "खिचुड़ी और बैंगन भाजा",
+      description: "Roasted moong dal and rice porridge served with thick, fried eggplant slices.",
+      benefit: "The ultimate comfort food; very easy to digest with a complete amino acid profile.",
+      diets: VEGETARIAN,
+      allergens: [],
+    },
+    {
+      name: "Shorshe Maach (Mustard Fish) with Rice",
+      hindi: "शोर्षे माछ और चावल",
+      description: "Fresh river fish cooked in a pungent mustard paste, served with steamed white rice.",
+      benefit: "Mustard aids digestion, and fish provides unparalleled Omega-3s and lean protein.",
+      diets: NONVEG_DIETS,
+      allergens: ["fish"],
+    },
+    {
+      name: "Kosha Mangsho with Pulao",
+      hindi: "कोशा मांगशो और पुलाव",
+      description: "Slow-cooked, dark, and spicy mutton dry curry served with sweet yellow pulao.",
+      benefit: "A rich, calorie-dense meal providing massive amounts of iron and B-vitamins.",
+      diets: NONVEG_DIETS,
       allergens: [],
     },
   ],
+
+  eveningSnack: [
+    {
+      name: "Mishti Doi & Roshogolla",
+      hindi: "मिष्टी दोई और रसगुल्ला",
+      description: "Traditional sweetened yogurt paired with a spongy cottage cheese ball.",
+      benefit: "A quick sugar and calcium boost for late afternoon energy.",
+      diets: VEGETARIAN,
+      allergens: ["dairy"],
+    },
+    {
+      name: "Chicken Pakora",
+      hindi: "चिकन पकोड़ा",
+      description: "Bite-sized chicken marinated in spices and gram flour, deep-fried until crispy.",
+      benefit: "High protein, deeply satisfying crunch after a long day.",
+      diets: NONVEG_DIETS,
+      allergens: [],
+    },
+  ],
+
   dinner: [
     {
-      name: "Varan Bhaat with Sabzi",
-      hindi: "वरण भात और सब्ज़ी",
-      description: "Simple dal with rice and a seasonal vegetable.",
-      benefit: "Light and balanced with grain, dal and vegetables.",
-      diets: ALL_DIETS,
+      name: "Dalma with Rice",
+      hindi: "दालमा और चावल",
+      description: "Odia specialty of lentils cooked with a variety of nutritious vegetables like pumpkin and plantain.",
+      benefit: "Extremely nutrient-dense, providing every essential vitamin in one light bowl.",
+      diets: VEGETARIAN,
       allergens: [],
     },
     {
-      name: "Bajra Roti with Vegetable Curry",
-      hindi: "बाजरे की रोटी और सब्ज़ी",
-      description: "Millet flatbread with a mildly spiced vegetable curry.",
-      benefit: "Iron-rich millet keeps dinner light yet filling.",
-      diets: ALL_DIETS,
+      name: "Chicken Rezala with Roti",
+      hindi: "चिकन रेज़ाला और रोटी",
+      description: "Aromatic, white chicken curry made with yogurt, poppy seeds, and mild spices.",
+      benefit: "Mild on the stomach for dinner, yet rich in protein and soothing dairy.",
+      diets: NONVEG_DIETS,
+      allergens: ["gluten", "dairy", "nuts"],
+    },
+  ],
+};
+
+
+/* =========================================================
+   WEST INDIA
+========================================================= */
+
+const west: RegionMenu = {
+  breakfast: [
+    {
+      name: "Misal Pav",
+      hindi: "मिसल पाव",
+      description: "Spicy sprouted moth bean curry topped with farsan, served with soft pav.",
+      benefit: "Sprouts are incredibly high in bioavailable protein, fiber, and vitamins.",
+      diets: VEGETARIAN,
+      allergens: ["gluten"],
+    },
+    {
+      name: "Anda Bhurji Pav",
+      hindi: "अंडा भुर्जी पाव",
+      description: "Mumbai-style scrambled eggs cooked with tomatoes, onions, and pav bhaji masala.",
+      benefit: "A fiery, protein-heavy start to kickstart metabolism.",
+      diets: EGG_DIETS,
+      allergens: ["gluten"],
+    },
+    {
+      name: "Keema Ghotala with Pav",
+      hindi: "कीमा घोटाला और पाव",
+      description: "Minced mutton cooked with scrambled eggs in rich spices, served with buttered bread.",
+      benefit: "The ultimate power breakfast for intense physical or mental days.",
+      diets: NONVEG_DIETS,
+      allergens: ["gluten"],
+    },
+  ],
+
+  midMorning: [
+    {
+      name: "Khandvi",
+      hindi: "खांडवी",
+      description: "Soft, rolled bite-sized snacks made from gram flour and yogurt, tempered with mustard seeds.",
+      benefit: "Light, steamed, and provides protein from besan and probiotics from yogurt.",
+      diets: VEGETARIAN,
+      allergens: ["dairy"],
+    },
+    {
+      name: "Boiled Egg",
+      hindi: "उबला अंडा",
+      description: "A simple boiled egg for a protein-rich snack.",
+      benefit: "High-quality protein and vitamin B12.",
+      diets: EGG_DIETS,
+      allergens: [],
+    },
+  ],
+
+  lunch: [
+    {
+      name: "Gujarati Kadhi and Khichdi",
+      hindi: "गुजराती कढ़ी और खिचड़ी",
+      description: "Sweet and sour yogurt-based curry served with comforting rice and dal khichdi.",
+      benefit: "Very cooling for the body, excellent for gut health and digestion.",
+      diets: VEGETARIAN,
+      allergens: ["dairy"],
+    },
+    {
+      name: "Goan Fish Curry with Rice",
+      hindi: "गोअन फिश करी और चावल",
+      description: "Tangy, coconut-based fish curry flavored with kokum, served with unpolished rice.",
+      benefit: "Provides lean protein, healthy coconut fats, and Omega-3s.",
+      diets: NONVEG_DIETS,
+      allergens: ["fish"],
+    },
+    {
+      name: "Malvani Chicken Curry with Bhakri",
+      hindi: "मालवणी चिकन और भाकरी",
+      description: "Intensely flavored coastal chicken curry served with hearty rice flour or millet flatbread.",
+      benefit: "Gluten-free carbs paired with high-quality poultry protein.",
+      diets: NONVEG_DIETS,
+      allergens: [],
+    },
+  ],
+
+  eveningSnack: [
+    {
+      name: "Healthy Pav Bhaji (Less Butter)",
+      hindi: "पाव भाजी",
+      description: "Mashed mixed vegetables in a tomato base, served with toasted whole-wheat pav.",
+      benefit: "A great way to consume a massive amount of hidden vegetables.",
+      diets: VEGETARIAN,
+      allergens: ["gluten", "dairy"],
+    },
+    {
+      name: "Chicken Frankie",
+      hindi: "चिकन फ्रेंकी",
+      description: "Mumbai-style street wrap filled with spiced chicken and vinegar onions.",
+      benefit: "A heavy, satisfying snack that feels like a treat but delivers protein.",
+      diets: NONVEG_DIETS,
+      allergens: ["gluten"],
+    },
+  ],
+
+  dinner: [
+    {
+      name: "Puran Poli with Katachi Amti",
+      hindi: "पूरन पोली और कटाची आमटी",
+      description: "Sweet lentil stuffed flatbread served with a spicy, thin lentil soup.",
+      benefit: "Comforting balance of sweet and spicy, rich in complex carbohydrates.",
+      diets: VEGETARIAN,
+      allergens: ["gluten", "dairy"],
+    },
+    {
+      name: "Egg Curry with Bajra Roti",
+      hindi: "अंडा करी और बाजरे की रोटी",
+      description: "Spicy egg masala served with iron-rich pearl millet flatbread.",
+      benefit: "Millet aids in slow digestion, keeping you full through the night.",
+      diets: EGG_DIETS,
+      allergens: [],
+    },
+    {
+      name: "Chicken Sukka with Neer Dosa",
+      hindi: "चिकन सुक्का और नीर डोसा",
+      description: "Dry roasted coconut chicken served with incredibly thin, lace-like rice crepes.",
+      benefit: "Light on the stomach but completely satisfies protein requirements.",
+      diets: NONVEG_DIETS,
       allergens: [],
     },
   ],
 };
+
+
+/* =========================================================
+   NORTH-EAST INDIA
+========================================================= */
 
 const northeast: RegionMenu = {
   breakfast: [
     {
-      name: "Rice with Boiled Vegetables",
-      hindi: "चावल और उबली सब्ज़ी",
-      description: "Steamed rice with lightly boiled seasonal vegetables.",
-      benefit: "Simple, low-oil start with fibre and vitamins.",
-      diets: ALL_DIETS,
-      allergens: [],
+      name: "Veg Thukpa",
+      hindi: "वेज थुक्पा",
+      description: "Hearty Tibetan-style noodle soup packed with cabbage, carrots, and beans.",
+      benefit: "Hydrating, warming, and loaded with vitamins from fresh vegetables.",
+      diets: VEGETARIAN,
+      allergens: ["gluten"],
     },
     {
-      name: "Black Rice Porridge",
-      hindi: "काले चावल की खीर",
-      description: "Warm porridge made from nutrient-rich black rice.",
-      benefit: "Whole grain with antioxidants and slow-release energy.",
-      diets: ALL_DIETS,
-      allergens: ["dairy"],
+      name: "Egg Thukpa",
+      hindi: "अंडा थुक्पा",
+      description: "Noodle soup loaded with vegetables and sliced boiled eggs.",
+      benefit: "Adds a solid protein punch to a warming, hydrating breakfast.",
+      diets: EGG_DIETS,
+      allergens: ["gluten"],
     },
   ],
+
   midMorning: [
     {
-      name: "Seasonal Fruit and Roasted Seeds",
-      hindi: "मौसमी फल और बीज",
-      description: "Local seasonal fruit with a spoon of roasted seeds.",
-      benefit: "Vitamins with a little healthy fat and protein.",
-      diets: ALL_DIETS,
-      allergens: [],
+      name: "Steamed Momo (Veg)",
+      hindi: "वेज मोमो",
+      description: "Steamed dumplings filled with finely chopped cabbage, carrots, and onions.",
+      benefit: "Zero-oil snack that provides light carbs and vegetable fiber.",
+      diets: VEGETARIAN,
+      allergens: ["gluten"],
+    },
+    {
+      name: "Chicken Momo",
+      hindi: "चिकन मोमो",
+      description: "Steamed dumplings filled with juicy minced chicken.",
+      benefit: "A clean, steamed protein snack perfect for school breaks.",
+      diets: NONVEG_DIETS,
+      allergens: ["gluten"],
     },
   ],
+
   lunch: [
     {
-      name: "Rice with Dal and Bamboo Shoot Curry",
-      hindi: "चावल, दाल और बांस की सब्ज़ी",
-      description: "Rice and dal with a traditional bamboo shoot vegetable.",
-      benefit: "Grain and dal together give complete protein and fibre.",
-      diets: ALL_DIETS,
+      name: "Aloo Pitika with Dal and Rice",
+      hindi: "आलू पिटिका, दाल और चावल",
+      description: "Assamese comfort food: mashed potatoes with mustard oil and onions, alongside dal and rice.",
+      benefit: "Mustard oil provides healthy fats, while dal and rice form a complete protein.",
+      diets: VEGETARIAN,
       allergens: [],
     },
     {
-      name: "Rice with Steamed Fish and Greens",
-      hindi: "चावल, भाप में मछली और साग",
-      description: "Steamed fish with rice and local leafy greens.",
-      benefit: "Lean protein with iron-rich greens, cooked with little oil.",
-      diets: NONVEG_ONLY,
+      name: "Masor Tenga (Sour Fish Curry) with Rice",
+      hindi: "मासोर टेंगा और चावल",
+      description: "A signature light and sour Assamese fish curry made with tomatoes or elephant apple.",
+      benefit: "Extremely light on the stomach, highly digestive, and rich in lean fish protein.",
+      diets: NONVEG_DIETS,
+      allergens: ["fish"],
+    },
+    {
+      name: "Smoked Pork/Chicken with Bamboo Shoot",
+      hindi: "बैम्बू शूट चिकन",
+      description: "Traditional tribal curry cooking meat with earthy, fermented bamboo shoots.",
+      benefit: "Fermented bamboo shoots are excellent for the gut; meat provides high protein.",
+      diets: NONVEG_DIETS,
       allergens: [],
     },
   ],
+
   eveningSnack: [
     {
-      name: "Roasted Soybeans or Peanuts",
-      hindi: "भुना सोयाबीन या मूंगफली",
-      description: "A small portion of roasted local legumes.",
-      benefit: "Protein-rich snack that keeps hunger away till dinner.",
-      diets: ALL_DIETS,
-      allergens: ["soy", "nuts"],
+      name: "Roasted Soybeans (Bhutte)",
+      hindi: "भुना सोयाबीन",
+      description: "Crunchy, dry-roasted local soybeans.",
+      benefit: "One of the highest plant-based protein snacks available.",
+      diets: VEGETARIAN,
+      allergens: ["soy"],
     },
     {
-      name: "Steamed Corn",
-      hindi: "उबला भुट्टा",
-      description: "Fresh steamed corn with lemon and pepper.",
-      benefit: "Whole grain with fibre and a light energy boost.",
-      diets: ALL_DIETS,
+      name: "Boiled Egg with Chilis",
+      hindi: "उबला अंडा",
+      description: "Boiled egg served with local herbs and a pinch of salt.",
+      benefit: "Fast, efficient protein delivery.",
+      diets: EGG_DIETS,
       allergens: [],
     },
   ],
+
   dinner: [
     {
-      name: "Light Vegetable Stew with Rice",
-      hindi: "हल्का सब्ज़ी स्टू और चावल",
-      description: "Boiled seasonal vegetable stew served with rice.",
-      benefit: "Low-oil, easy-to-digest dinner rich in vegetables.",
-      diets: ALL_DIETS,
+      name: "Eromba (Veg adaptation) with Rice",
+      hindi: "एरोंबा और चावल",
+      description: "Manipuri dish of boiled vegetables and bamboo shoot mashed together.",
+      benefit: "Very low in calories and oil, high in fiber and micronutrients.",
+      diets: VEGETARIAN,
       allergens: [],
     },
     {
-      name: "Dal with Rice and Greens",
-      hindi: "दाल, चावल और साग",
-      description: "Simple dal and rice with a side of local greens.",
-      benefit: "Balanced plant protein with iron and folate.",
-      diets: ALL_DIETS,
+      name: "Chicken Curry with Local Greens (Lai Patta)",
+      hindi: "चिकन और लाई पत्ता",
+      description: "Chicken simmered with nutritious mustard greens.",
+      benefit: "Greens provide massive amounts of iron and calcium, paired with chicken protein.",
+      diets: NONVEG_DIETS,
       allergens: [],
     },
   ],
 };
 
+
+/* =========================================================
+   GENERIC / OTHER REGION
+========================================================= */
+
 const generic: RegionMenu = {
   breakfast: [
     {
-      name: "Vegetable Upma",
-      hindi: "सब्ज़ी उपमा",
-      description: "Semolina cooked with vegetables and curry leaves.",
-      benefit: "Warm, filling breakfast with fibre and vegetables.",
-      diets: ALL_DIETS,
-      allergens: ["gluten"],
+      name: "Vegetable Poha",
+      hindi: "सब्ज़ी पोहा",
+      description: "Flattened rice cooked with turmeric, peanuts, and peas.",
+      benefit: "Light, iron-rich, and gives a quick energy boost.",
+      diets: VEGETARIAN,
+      allergens: ["nuts"],
     },
     {
-      name: "Moong Dal Chilla",
-      hindi: "मूंग दाल चीला",
-      description: "Savoury lentil pancake with chopped vegetables.",
-      benefit: "High plant protein to start the day.",
-      diets: ALL_DIETS,
-      allergens: [],
+      name: "Egg Sandwich",
+      hindi: "अंडा सैंडविच",
+      description: "Boiled or scrambled egg layered with veggies in whole-wheat bread.",
+      benefit: "Convenient mix of complex carbs and protein.",
+      diets: EGG_DIETS,
+      allergens: ["gluten"],
     },
   ],
   midMorning: [
     {
-      name: "Seasonal Fruit",
-      hindi: "मौसमी फल",
-      description: "Any fresh fruit available in your area.",
-      benefit: "Fibre, vitamins and natural sugars for quick energy.",
-      diets: ALL_DIETS,
+      name: "Mixed Fruit Bowl",
+      hindi: "फलों का सलाद",
+      description: "A bowl of seasonal fresh fruits.",
+      benefit: "Provides natural hydration and vitamins.",
+      diets: VEGETARIAN,
+      allergens: [],
+    },
+    {
+      name: "Boiled Egg",
+      hindi: "उबला अंडा",
+      description: "A simple boiled egg.",
+      benefit: "High-quality protein on the go.",
+      diets: EGG_DIETS,
       allergens: [],
     },
   ],
   lunch: [
     {
-      name: "Roti, Dal, Sabzi and Salad",
-      hindi: "रोटी, दाल, सब्ज़ी और सलाद",
-      description: "A classic balanced Indian thali-style plate.",
-      benefit: "Grain, dal and vegetables together cover most daily needs.",
-      diets: ALL_DIETS,
-      allergens: ["gluten"],
+      name: "Roti, Dal Tadka, and Salad",
+      hindi: "रोटी, दाल तड़का और सलाद",
+      description: "Classic Indian meal with yellow lentils and fresh greens.",
+      benefit: "The gold standard for balanced daily nutrition.",
+      diets: VEGETARIAN,
+      allergens: ["gluten", "dairy"],
     },
     {
-      name: "Rice, Dal, Sabzi and Salad",
-      hindi: "चावल, दाल, सब्ज़ी और सलाद",
-      description: "Rice-based balanced plate with dal and vegetables.",
-      benefit: "Complete protein from rice and dal with plenty of fibre.",
-      diets: ALL_DIETS,
+      name: "Chicken Curry with Rice",
+      hindi: "चिकन करी और चावल",
+      description: "Home-style chicken curry served with steamed rice.",
+      benefit: "Excellent macro balance for growing students.",
+      diets: NONVEG_DIETS,
       allergens: [],
     },
   ],
   eveningSnack: [
     {
-      name: "Roasted Chana and Murmura",
-      hindi: "भुना चना और मुरमुरा",
-      description: "Light roasted mix instead of fried snacks.",
-      benefit: "Protein and fibre with very little added oil.",
-      diets: ALL_DIETS,
+      name: "Roasted Chana",
+      hindi: "भुना चना",
+      description: "Dry roasted chickpeas.",
+      benefit: "High fiber and plant protein.",
+      diets: VEGETARIAN,
       allergens: [],
     },
   ],
@@ -548,64 +738,247 @@ const generic: RegionMenu = {
     {
       name: "Moong Dal Khichdi",
       hindi: "मूंग दाल खिचड़ी",
-      description: "One-pot rice and lentil meal with vegetables.",
-      benefit: "Balanced and easy to digest before sleep.",
-      diets: ALL_DIETS,
+      description: "One-pot rice and lentil meal with light spices.",
+      benefit: "Extremely easy to digest before sleep.",
+      diets: VEGETARIAN,
       allergens: [],
+    },
+    {
+      name: "Fish Curry with Rice",
+      hindi: "मछली करी और चावल",
+      description: "Light fish curry with seasonal vegetables.",
+      benefit: "Omega-3 rich dinner that is light on the stomach.",
+      diets: NONVEG_DIETS,
+      allergens: ["fish"],
     },
   ],
 };
 
-const regionMenus: Record<Region, RegionMenu> = { north, south, east, west, northeast };
 
-const slots: MealSlot[] = ["breakfast", "midMorning", "lunch", "eveningSnack", "dinner"];
+/* =========================================================
+   REGION MAP
+========================================================= */
 
-function matchesDiet(item: MealItem, diet?: DietaryPreference): boolean {
-  if (!diet) return item.diets.includes("vegetarian");
-  return item.diets.includes(diet);
+const regionMenus: Record<Region, RegionMenu> = {
+  north,
+  south,
+  east,
+  west,
+  northeast,
+};
+
+
+/* =========================================================
+   MEAL SLOTS
+========================================================= */
+
+const slots: MealSlot[] = [
+  "breakfast",
+  "midMorning",
+  "lunch",
+  "eveningSnack",
+  "dinner",
+];
+
+
+/* =========================================================
+   DIET MATCHING
+========================================================= */
+
+function matchesDiet(
+  item: MealItem,
+  diet?: DietaryPreference,
+): boolean {
+  if (!diet) {
+    return item.diets.includes("vegetarian");
+  }
+
+  if (diet === "vegetarian") {
+    return item.diets.includes("vegetarian");
+  }
+
+  if (diet === "eggetarian") {
+    return (
+      item.diets.includes("vegetarian") ||
+      item.diets.includes("eggetarian")
+    );
+  }
+
+  if (diet === "non-vegetarian") {
+    return (
+      item.diets.includes("vegetarian") ||
+      item.diets.includes("eggetarian") ||
+      item.diets.includes("non-vegetarian")
+    );
+  }
+
+  return false;
 }
 
-function conflictsWithAllergies(item: MealItem, allergies: Allergy[]): boolean {
-  return item.allergens.some((a) => allergies.includes(a));
+
+/* =========================================================
+   DIET PRIORITY
+========================================================= */
+
+function dietPriority(
+  item: MealItem,
+  diet?: DietaryPreference,
+): number {
+  if (!diet) {
+    return 0;
+  }
+
+  if (diet === "vegetarian") {
+    return item.diets.includes("vegetarian") ? 100 : -1;
+  }
+
+  if (diet === "eggetarian") {
+    if (item.diets.includes("eggetarian")) return 100;
+    if (item.diets.includes("vegetarian")) return 50;
+    return -1;
+  }
+
+  if (diet === "non-vegetarian") {
+    if (item.diets.includes("non-vegetarian")) return 100;
+    if (item.diets.includes("eggetarian")) return 75;
+    if (item.diets.includes("vegetarian")) return 50;
+    return -1;
+  }
+
+  return 0;
 }
 
-/** Deterministic, rule-based one-day plan built from the saved Ahaar Profile. */
-export function buildNutritionPlan(profile: AhaarProfile): MealSection[] {
-  const menu = profile.region ? regionMenus[profile.region] : generic;
-  const allergies = profile.allergies.filter((a) => a !== "none" && a !== "other");
+
+/* =========================================================
+   ALLERGY FILTER
+========================================================= */
+
+function conflictsWithAllergies(
+  item: MealItem,
+  allergies: Allergy[],
+): boolean {
+  return item.allergens.some((a) =>
+    allergies.includes(a),
+  );
+}
+
+
+/* =========================================================
+   BUILD NUTRITION PLAN
+========================================================= */
+
+export function buildNutritionPlan(
+  profile: AhaarProfile,
+): MealSection[] {
+  const menu = profile.region
+    ? regionMenus[profile.region]
+    : generic;
+
+  const allergies = profile.allergies.filter(
+    (a) =>
+      a !== "none" &&
+      a !== "other",
+  );
 
   return slots.map((slot) => {
-    const candidates = [...menu[slot], ...generic[slot]].filter((i) =>
-      matchesDiet(i, profile.dietaryPreference),
+    const candidates = [
+      ...menu[slot],
+      ...generic[slot],
+    ].filter((item) =>
+      matchesDiet(
+        item,
+        profile.dietaryPreference,
+      ),
     );
-    const safe = candidates.filter((i) => !conflictsWithAllergies(i, allergies));
-    const item = safe[0] ?? candidates[0] ?? generic[slot][0];
-    return { slot, ...mealSlotLabels[slot], item };
+
+    const safeCandidates = candidates.filter(
+      (item) =>
+        !conflictsWithAllergies(
+          item,
+          allergies,
+        ),
+    );
+
+    const ranked = safeCandidates.sort(
+      (a, b) =>
+        dietPriority(
+          b,
+          profile.dietaryPreference,
+        ) -
+        dietPriority(
+          a,
+          profile.dietaryPreference,
+        ),
+    );
+
+    const item =
+      ranked[0] ??
+      safeCandidates[0] ??
+      candidates[0] ??
+      generic[slot][0];
+
+    return {
+      slot,
+      ...mealSlotLabels[slot],
+      item,
+    };
   });
 }
 
-/** Short, non-medical guidance notes influenced by age group and goals. */
-export function planFocusNotes(profile: AhaarProfile): string[] {
+
+/* =========================================================
+   PLAN FOCUS NOTES
+========================================================= */
+
+export function planFocusNotes(
+  profile: AhaarProfile,
+): string[] {
   const notes: string[] = [];
-  if (profile.ageGroup === "13-15" || profile.ageGroup === "16-18") {
-    notes.push("Teen years need extra calcium, iron and protein — include dal, curd or millets daily.");
+
+  if (
+    profile.ageGroup === "13-15" ||
+    profile.ageGroup === "16-18"
+  ) {
+    notes.push(
+      "Teen years need extra calcium, iron and protein — include dal, curd, or lean meats daily.",
+    );
   } else {
-    notes.push("Keep portions balanced across grains, dal or protein, vegetables and fruit.");
+    notes.push(
+      "Keep portions balanced across grains, dal or protein, vegetables and fruit.",
+    );
   }
+
   if (profile.goals.includes("balanced-diet")) {
-    notes.push("Aim for a grain + protein + vegetable combination in every main meal.");
+    notes.push(
+      "Aim for a grain + protein + vegetable combination in every main meal.",
+    );
   }
+
   if (profile.goals.includes("everyday-habits")) {
-    notes.push("Eat at roughly the same times daily and drink water through the day.");
+    notes.push(
+      "Eat at roughly the same times daily and drink water through the day.",
+    );
   }
+
   if (profile.goals.includes("discover-indian-foods")) {
-    notes.push("Try one new traditional or seasonal Indian dish each week.");
+    notes.push(
+      "Try one new traditional or seasonal Indian dish each week from your region.",
+    );
   }
+
   if (profile.goals.includes("ayurvedic-wellness")) {
-    notes.push("Prefer freshly cooked, warm meals and avoid eating very late at night.");
+    notes.push(
+      "Prefer freshly cooked, warm meals and avoid eating very late at night.",
+    );
   }
+
   return notes;
 }
+
+
+/* =========================================================
+   DISCLAIMERS
+========================================================= */
 
 export const ALLERGY_NOTE =
   "Allergy information is used as a preference input in this early version. Always check ingredients and labels, and consult a qualified professional for serious allergies.";

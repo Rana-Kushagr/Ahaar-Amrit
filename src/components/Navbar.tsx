@@ -7,6 +7,7 @@ const links = [
   { label: "Nutrition", to: "/nutrition-plan" },
   { label: "Swasthya", to: "/swasthya" },
   { label: "Ayurveda", to: "/dosha" },
+  { label: "Ayur AI", to: "/ayur" }, // <-- Ayur AI Link Added Here
   { label: "Profile", to: "/profile" },
 ] as const;
 
@@ -148,8 +149,8 @@ export function Navbar() {
                 className={`
                   relative
                   rounded-full
-                  px-4
-                  lg:px-5
+                  px-3
+                  lg:px-4
                   py-2.5
 
                   text-sm

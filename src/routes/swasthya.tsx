@@ -10,17 +10,13 @@ import {
   RotateCcw,
   ChevronLeft,
   ChevronRight,
-  Droplets,
-  Moon,
-  Apple,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const title = "Swasthya & Junk Food Reality — Ahaar Amrit";
-
 const description =
-  "Explore how frequently eating highly processed foods can affect energy, skin, sleep, dental health and overall nutrition — plus practical Indian food swaps.";
+  "Exposing the hidden truth of junk foods: Fats, Sodium, Sugar, and their impact on teen skin, height, weight, and overall looks.";
 
 export const Route = createFileRoute("/swasthya")({
   head: () => ({
@@ -37,158 +33,145 @@ export const Route = createFileRoute("/swasthya")({
 });
 
 // =====================================================
-// JUNK FOOD DATA
+// 10 DETAILED JUNK FOODS DATA
 // =====================================================
 
 const junkFoods = [
   {
     name: "🍔 Burgers & Cheeseburgers",
     nutrients: [
-      { label: "Saturated Fat", value: "Can be high", color: "text-amber-400" },
-      { label: "Sodium", value: "Often high", color: "text-amber-400" },
-      { label: "Refined Flour", value: "Common in buns", color: "text-red-400" },
-      { label: "Protein", value: "Varies by filling", color: "text-emerald-300" },
+      { label: "Saturated Fats", value: "20g+", color: "text-amber-400" },
+      { label: "Sodium (Salt)", value: "1000mg", color: "text-amber-400" },
+      { label: "Refined Flour (Bun)", value: "High", color: "text-red-400" },
+      { label: "Protein Quality", value: "Processed", color: "text-red-400" },
     ],
     effects:
-      "Many burgers combine refined grains, cheese, sauces and salty processed ingredients, which can make the meal high in calories, sodium and saturated fat.",
+      "Causes rapid insulin spikes from the maida bun, signaling glands to produce excess sebum.",
     longTerm:
-      "Eating these foods very frequently can make it harder to maintain a balanced diet and may contribute to excess calorie intake over time.",
+      "Leads to severe acne breakouts, sluggishness, and stubborn belly fat.",
   },
-
   {
     name: "🍕 Pizza",
     nutrients: [
-      { label: "Cheese / Saturated Fat", value: "Can be high", color: "text-red-400" },
-      { label: "Sodium", value: "Often high", color: "text-amber-400" },
-      { label: "Refined Carbohydrates", value: "Common", color: "text-amber-400" },
-      { label: "Dietary Fiber", value: "Varies", color: "text-emerald-300" },
+      { label: "Cheese / Trans Fats", value: "Extremely High", color: "text-red-400" },
+      { label: "Sodium (Salt)", value: "1500mg+", color: "text-amber-400" },
+      { label: "Empty Carbs", value: "60g+", color: "text-amber-400" },
+      { label: "Dietary Fiber", value: "< 2g", color: "text-red-400" },
     ],
     effects:
-      "Large portions of pizza can provide substantial sodium, refined carbohydrates and saturated fat, especially when loaded with cheese and processed toppings.",
+      "Excess sodium traps water under the skin, leading to immediate face bloating and puffy eyes.",
     longTerm:
-      "Having it frequently without enough vegetables, fruits and other nutrient-rich foods may reduce overall diet quality.",
+      "Causes chronic gut issues, oily skin, and unwanted obesity in teens.",
   },
-
   {
     name: "🍜 Instant Noodles",
     nutrients: [
-      { label: "Sodium", value: "Often very high", color: "text-red-400" },
-      { label: "Added Fat", value: "Varies", color: "text-amber-400" },
-      { label: "Refined Wheat", value: "Common", color: "text-red-400" },
-      { label: "Micronutrients", value: "Often limited", color: "text-amber-400" },
+      { label: "Sodium & MSG", value: "Toxic Levels", color: "text-red-400" },
+      { label: "Palm Oil (Fried)", value: "15g+", color: "text-amber-400" },
+      { label: "Refined Wheat", value: "100%", color: "text-red-400" },
+      { label: "Essential Vitamins", value: "0%", color: "text-red-400" },
     ],
     effects:
-      "Instant noodles can be convenient but many varieties are high in sodium and relatively low in vegetables, fibre and micronutrients.",
+      "Coated in wax and deep-fried in palm oil; impossible to digest quickly, killing gut bacteria.",
     longTerm:
-      "Eating them very often instead of varied meals may make it harder to get enough fibre, protein and essential nutrients.",
+      "Results in severe bloating, dark circles, and long-term metabolic damage.",
   },
-
   {
     name: "🌶️ Chowmein & Chilli Potato",
     nutrients: [
-      { label: "Added Oil", value: "Can be high", color: "text-red-400" },
-      { label: "Refined Carbohydrates", value: "Often high", color: "text-amber-400" },
-      { label: "Sodium", value: "Can be high", color: "text-red-400" },
-      { label: "Vegetables", value: "Varies", color: "text-emerald-300" },
+      { label: "Reused Oil / Fats", value: "25g+", color: "text-red-400" },
+      { label: "Glycemic Index", value: "Very High", color: "text-amber-400" },
+      { label: "Ajinomoto (MSG)", value: "High", color: "text-red-400" },
+      { label: "Fiber & Protein", value: "Almost 0g", color: "text-red-400" },
     ],
     effects:
-      "Restaurant-style versions may contain considerable oil, refined carbohydrates and salty sauces.",
+      "High glycemic index forces the body to store all consumed calories instantly as fat.",
     longTerm:
-      "Frequent large portions can contribute to excess calorie intake and may displace more balanced meals containing vegetables and protein.",
+      "Hormonal imbalances, stubborn facial acne, and lower belly fat accumulation.",
   },
-
   {
     name: "🍫 Chocolates & Candy Bars",
     nutrients: [
-      { label: "Added Sugar", value: "Often high", color: "text-red-400" },
-      { label: "Saturated Fat", value: "Varies", color: "text-amber-400" },
-      { label: "Artificial Flavors", value: "Varies", color: "text-amber-400" },
-      { label: "Cocoa", value: "Varies widely", color: "text-emerald-300" },
+      { label: "Added Sugars", value: "30g+", color: "text-red-400" },
+      { label: "Corn Syrup", value: "High", color: "text-red-400" },
+      { label: "Artificial Flavors", value: "High", color: "text-amber-400" },
+      { label: "Real Cocoa", value: "Very Low", color: "text-amber-400" },
     ],
     effects:
-      "Sugary snacks provide quick energy but often contain little fibre or protein compared with whole-food snacks.",
+      "Creates a massive 30-minute sugar rush followed by a severe energy crash and brain fog.",
     longTerm:
-      "Frequent consumption of sugary foods can increase the risk of dental cavities and make it easier to consume excess added sugar.",
+      "Causes rapid tooth decay, premature skin dullness (glycation), and mood swings.",
   },
-
   {
     name: "🍩 Doughnuts & Pastries",
     nutrients: [
-      { label: "Added Sugar", value: "Often high", color: "text-red-400" },
-      { label: "Deep-Fried Fat", value: "May be high", color: "text-red-400" },
-      { label: "Refined Flour", value: "Common", color: "text-amber-400" },
-      { label: "Fiber", value: "Often low", color: "text-red-400" },
+      { label: "Deep-Fried Fats", value: "20g+", color: "text-red-400" },
+      { label: "Refined Sugar", value: "25g+", color: "text-red-400" },
+      { label: "Maida", value: "High", color: "text-amber-400" },
+      { label: "Nutritional Value", value: "Zero", color: "text-red-400" },
     ],
     effects:
-      "Doughnuts and pastries often combine refined flour, added sugar and fat, making them energy-dense foods.",
+      "The combination of deep-frying and high sugar causes massive inflammation in the body.",
     longTerm:
-      "Frequent intake may contribute to excess calorie consumption and can leave less room in the diet for nutrient-rich foods.",
+      "Drastically increases the risk of teen obesity, lethargy, and dull, aging skin.",
   },
-
   {
     name: "🥤 Carbonated Soft Drinks",
     nutrients: [
-      { label: "Added Sugar", value: "Can be high", color: "text-red-400" },
-      { label: "Acids", value: "Present", color: "text-red-400" },
-      { label: "Calories", value: "Varies by type", color: "text-amber-400" },
-      { label: "Nutrients", value: "Usually limited", color: "text-amber-400" },
+      { label: "Added Sugar", value: "40g (10 tsp!)", color: "text-red-400" },
+      { label: "Phosphoric Acid", value: "High", color: "text-red-400" },
+      { label: "Empty Calories", value: "150+", color: "text-amber-400" },
+      { label: "Hydration", value: "Dehydrating", color: "text-amber-400" },
     ],
     effects:
-      "Sugary soft drinks can add a significant amount of sugar without providing much nutritional value.",
+      "Phosphoric acid blocks calcium absorption during your most crucial growth years.",
     longTerm:
-      "Frequent sugary drinks are associated with higher risk of dental cavities and excess calorie intake. Choosing water or unsweetened drinks more often is a practical habit.",
+      "Permanently stunts height potential, erodes dental enamel, and causes sudden weight gain.",
   },
-
   {
     name: "⚡ Energy Drinks",
     nutrients: [
-      { label: "Caffeine", value: "Can be high", color: "text-red-400" },
-      { label: "Added Sugar", value: "Varies", color: "text-amber-400" },
-      { label: "Stimulants", value: "May be present", color: "text-red-400" },
-      { label: "Hydration", value: "Not ideal", color: "text-amber-400" },
+      { label: "Caffeine", value: "Extreme", color: "text-red-400" },
+      { label: "Taurine & Guarana", value: "High", color: "text-amber-400" },
+      { label: "Artificial Sweeteners", value: "Toxic", color: "text-red-400" },
+      { label: "Sugar", value: "30g+", color: "text-amber-400" },
     ],
     effects:
-      "Energy drinks can contain substantial caffeine and sometimes large amounts of added sugar.",
+      "Overstimulates the nervous system, causing heart palpitations, anxiety, and jitters.",
     longTerm:
-      "For teenagers, high caffeine intake can interfere with sleep and may cause unwanted effects such as jitteriness, anxiety or a racing heartbeat.",
+      "Severe sleep disruption, dark circles under eyes, and chronic exam stress/brain fog.",
   },
-
   {
     name: "🧋 Flavoured Milks & Shakes",
     nutrients: [
-      { label: "Added Sugar", value: "Can be high", color: "text-red-400" },
-      { label: "Saturated Fat", value: "Varies", color: "text-amber-400" },
-      { label: "Flavourings", value: "Varies", color: "text-red-400" },
-      { label: "Real Fruit", value: "Varies widely", color: "text-amber-400" },
+      { label: "Hidden Sugars", value: "35g+", color: "text-red-400" },
+      { label: "Saturated Dairy Fat", value: "High", color: "text-amber-400" },
+      { label: "Artificial Colors", value: "High", color: "text-red-400" },
+      { label: "Real Fruit", value: "0%", color: "text-amber-400" },
     ],
     effects:
-      "Some flavoured milk drinks and shakes contain much more added sugar than plain milk or unsweetened homemade versions.",
+      "Thick, sugar-loaded dairy heavily triggers sebum production in teenage skin.",
     longTerm:
-      "Frequent high-sugar drinks can contribute to excess calorie intake and dental problems.",
+      "Leads to cystic acne, lactose-induced bloating, and sluggish digestion.",
   },
-
   {
     name: "🍗 Fried Chicken & Fries",
     nutrients: [
-      { label: "Saturated Fat", value: "Can be high", color: "text-red-400" },
-      { label: "Sodium", value: "Often high", color: "text-amber-400" },
-      { label: "Deep-Frying", value: "Adds fat", color: "text-red-400" },
-      { label: "Protein", value: "Present in chicken", color: "text-emerald-300" },
+      { label: "Trans Fats", value: "Dangerous", color: "text-red-400" },
+      { label: "Acrylamide (Toxins)", value: "High", color: "text-red-400" },
+      { label: "Sodium", value: "1200mg+", color: "text-amber-400" },
+      { label: "Cholesterol", value: "High", color: "text-amber-400" },
     ],
     effects:
-      "Deep-fried meals can be energy-dense and may contain significant amounts of sodium and saturated fat.",
+      "Deep frying creates acrylamides, which are highly inflammatory and toxic to the skin.",
     longTerm:
-      "Eating fried fast food very frequently may contribute to excess calorie intake and reduce overall diet variety.",
+      "Greasy skin, poor heart health stamina for sports, and overall bodily inflammation.",
   },
 ];
 
-// =====================================================
-// PAGE
-// =====================================================
-
 function SwasthyaPage() {
   // =====================================================
-  // STREAK TRACKER
+  // STREAK TRACKER LOGIC
   // =====================================================
 
   const [streak, setStreak] = useState(0);
@@ -199,11 +182,10 @@ function SwasthyaPage() {
     const savedStreak = localStorage.getItem("ahaar_junk_streak");
     const lastLoggedDate = localStorage.getItem("ahaar_last_logged_date");
     const lastFailedDate = localStorage.getItem("ahaar_last_failed_date");
-
     const today = new Date().toDateString();
 
     if (savedStreak) {
-      setStreak(parseInt(savedStreak, 10));
+      setStreak(parseInt(savedStreak));
     }
 
     if (lastLoggedDate === today) {
@@ -216,129 +198,180 @@ function SwasthyaPage() {
   }, []);
 
   const handleLogDay = () => {
-    if (loggedToday || failedToday) return;
+    if (!loggedToday && !failedToday) {
+      const newStreak = streak + 1;
 
-    const newStreak = streak + 1;
-    const today = new Date().toDateString();
+      setStreak(newStreak);
+      setLoggedToday(true);
 
-    setStreak(newStreak);
-    setLoggedToday(true);
+      const today = new Date().toDateString();
 
-    localStorage.setItem(
-      "ahaar_junk_streak",
-      newStreak.toString(),
-    );
-
-    localStorage.setItem(
-      "ahaar_last_logged_date",
-      today,
-    );
+      localStorage.setItem("ahaar_junk_streak", newStreak.toString());
+      localStorage.setItem("ahaar_last_logged_date", today);
+    }
   };
 
   const handleFailDay = () => {
-    if (failedToday) return;
-
     const today = new Date().toDateString();
 
     setStreak(0);
     setLoggedToday(false);
     setFailedToday(true);
 
-    localStorage.setItem(
-      "ahaar_junk_streak",
-      "0",
-    );
+    localStorage.setItem("ahaar_junk_streak", "0");
+    localStorage.setItem("ahaar_last_failed_date", today);
 
-    localStorage.setItem(
-      "ahaar_last_failed_date",
-      today,
-    );
-
-    localStorage.removeItem(
-      "ahaar_last_logged_date",
-    );
+    localStorage.removeItem("ahaar_last_logged_date");
   };
 
   // =====================================================
-  // INFINITE TWO-CARD CAROUSEL
+  // CLEAR 2-CARD SLIDE CAROUSEL
   // =====================================================
 
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [animationDirection, setAnimationDirection] = useState<
+    "next" | "prev"
+  >("next");
+
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [dragOffset, setDragOffset] = useState(0);
 
-  const realLength = junkFoods.length;
+  const animationTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const handleDragStart = (
-    e: React.MouseEvent | React.TouchEvent,
-  ) => {
+  const visibleCards = 2;
+
+  // -----------------------------------------------------
+  // Get the next two cards.
+  // This creates the circular effect:
+  //
+  // 1,2 → 2,3 → 3,4 → ... → 9,10 → 10,1 → 1,2
+  // -----------------------------------------------------
+
+  const getCardIndex = (index: number) => {
+    return (index + junkFoods.length) % junkFoods.length;
+  };
+
+  const currentCards = [
+    junkFoods[getCardIndex(currentIndex)],
+    junkFoods[getCardIndex(currentIndex + 1)],
+  ];
+
+  const nextCards = [
+    junkFoods[getCardIndex(currentIndex + 1)],
+    junkFoods[getCardIndex(currentIndex + 2)],
+  ];
+
+  const previousCards = [
+    junkFoods[getCardIndex(currentIndex - 1)],
+    junkFoods[getCardIndex(currentIndex)],
+  ];
+
+  // -----------------------------------------------------
+  // MOVE NEXT
+  // -----------------------------------------------------
+
+  const handleNext = () => {
+    if (isAnimating) return;
+
+    setAnimationDirection("next");
+    setIsAnimating(true);
+
+    animationTimerRef.current = setTimeout(() => {
+      setCurrentIndex((prev) => getCardIndex(prev + 1));
+      setIsAnimating(false);
+    }, 500);
+  };
+
+  // -----------------------------------------------------
+  // MOVE PREVIOUS
+  // -----------------------------------------------------
+
+  const handlePrev = () => {
+    if (isAnimating) return;
+
+    setAnimationDirection("prev");
+    setIsAnimating(true);
+
+    animationTimerRef.current = setTimeout(() => {
+      setCurrentIndex((prev) => getCardIndex(prev - 1));
+      setIsAnimating(false);
+    }, 500);
+  };
+
+  // -----------------------------------------------------
+  // CLEAN UP ANIMATION TIMER
+  // -----------------------------------------------------
+
+  useEffect(() => {
+    return () => {
+      if (animationTimerRef.current) {
+        clearTimeout(animationTimerRef.current);
+      }
+    };
+  }, []);
+
+  // -----------------------------------------------------
+  // DRAG START
+  // -----------------------------------------------------
+
+  const handleDragStart = (e: React.MouseEvent | React.TouchEvent) => {
+    if (isAnimating) return;
+
     setIsDragging(true);
 
     const clientX =
-      "touches" in e
-        ? e.touches[0].clientX
-        : e.clientX;
+      "touches" in e ? e.touches[0].clientX : e.clientX;
 
     setStartX(clientX);
   };
 
-  const handleDragMove = (
-    e: React.MouseEvent | React.TouchEvent,
-  ) => {
-    if (!isDragging) return;
+  // -----------------------------------------------------
+  // DRAG MOVE
+  // -----------------------------------------------------
+
+  const handleDragMove = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!isDragging || isAnimating) return;
 
     const clientX =
-      "touches" in e
-        ? e.touches[0].clientX
-        : e.clientX;
+      "touches" in e ? e.touches[0].clientX : e.clientX;
 
-    setDragOffset(clientX - startX);
+    const offset = clientX - startX;
+
+    // Limit dragging so cards don't fly too far
+    const limitedOffset = Math.max(
+      -180,
+      Math.min(180, offset),
+    );
+
+    setDragOffset(limitedOffset);
   };
 
+  // -----------------------------------------------------
+  // DRAG END
+  // -----------------------------------------------------
+
   const handleDragEnd = () => {
-    if (!isDragging) return;
+    if (!isDragging || isAnimating) return;
 
     setIsDragging(false);
 
-    if (dragOffset > 50) {
-      handlePrev();
-    } else if (dragOffset < -50) {
+    if (dragOffset < -60) {
       handleNext();
+    } else if (dragOffset > 60) {
+      handlePrev();
     }
 
     setDragOffset(0);
   };
 
-  const handleNext = () => {
-    setCurrentIndex(
-      (prev) => (prev + 1) % realLength,
-    );
-  };
-
-  const handlePrev = () => {
-    setCurrentIndex(
-      (prev) =>
-        (prev - 1 + realLength) %
-        realLength,
-    );
-  };
-
-  // Create circular visible sequence.
-  const visibleFoods = Array.from(
-    { length: 2 },
-    (_, index) =>
-      junkFoods[
-        (currentIndex + index) %
-          realLength
-      ],
-  );
-
   return (
     <main className="relative min-h-screen overflow-hidden px-4 pb-16 pt-28 sm:px-6 sm:pt-36">
 
       {/* =====================================================
-          FIXED BACKGROUND
+          100% CRYSTAL CLEAR BACKGROUND
       ===================================================== */}
 
       <div
@@ -423,24 +456,21 @@ function SwasthyaPage() {
 
           <h1 className="font-display text-4xl font-bold tracking-tight text-emerald-50 sm:text-5xl">
             Swasthya &{" "}
-            <span className="text-amber-400">
-              Junk Reality
-            </span>
+            <span className="text-amber-400">Junk Reality</span>
           </h1>
 
           <p className="mt-3 font-hindi text-base text-emerald-200/90">
-            जंक फ़ूड का सच: आपकी सेहत, एनर्जी और रोज़मर्रा की आदतों पर असर
+            जंक फ़ूड का कड़वा सच: आपकी सुंदरता, हाइट और एनर्जी पर असर
           </p>
 
           <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-emerald-100/90 sm:text-base">
-            Explore what common fast foods contain, how frequent consumption
-            can affect your health, and discover practical Indian alternatives
-            that keep your meals enjoyable.
+            Exposing what fast food actually contains and how it secretly
+            affects your skin, body shape, growth, and confidence.
           </p>
         </header>
 
         {/* =====================================================
-            STREAK TRACKER
+            STREAK TRACKER WIDGET
         ===================================================== */}
 
         <section className="space-y-4 rounded-[2rem] border border-white/20 bg-black/40 p-8 text-center shadow-xl backdrop-blur-xl transition-all hover:border-emerald-400/50">
@@ -450,7 +480,7 @@ function SwasthyaPage() {
           </h2>
 
           <p className="font-hindi text-sm text-emerald-100 drop-shadow-md">
-            Build healthy habits. One day at a time.
+            Build discipline. Keep your skin clear and energy high!
           </p>
 
           <div className="flex items-center justify-center gap-4 py-4">
@@ -472,8 +502,8 @@ function SwasthyaPage() {
           </div>
 
           {failedToday && (
-            <div className="mx-auto mb-4 inline-block rounded-full border border-amber-500/30 bg-amber-950/40 px-4 py-2 text-sm font-bold text-amber-300">
-              Today didn't go as planned — that's okay. Start fresh tomorrow!
+            <div className="mx-auto mb-4 inline-block rounded-full border border-red-500/30 bg-red-950/40 px-4 py-2 text-sm font-bold text-red-400">
+              You ate junk food today. Streak reset to 0! Try again tomorrow.
             </div>
           )}
 
@@ -498,7 +528,7 @@ function SwasthyaPage() {
               ) : failedToday ? (
                 <>
                   <ShieldAlert className="mr-2 h-4 w-4" />
-                  Try Again Tomorrow
+                  Locked for Today
                 </>
               ) : (
                 <>
@@ -519,14 +549,14 @@ function SwasthyaPage() {
               }`}
             >
               <RotateCcw className="mr-2 h-4 w-4" />
-              I Had Some Junk Today
+              Oops, I ate junk
             </Button>
 
           </div>
         </section>
 
         {/* =====================================================
-            SECTION 1 — JUNK FOOD TRUTH LAB
+            SECTION 1: THE JUNK FOOD TRUTH LAB
         ===================================================== */}
 
         <section className="space-y-5">
@@ -540,15 +570,13 @@ function SwasthyaPage() {
               </div>
 
               <div>
-
                 <h2 className="font-display text-2xl font-bold text-emerald-50 drop-shadow-md">
                   Junk Food Truth Lab
                 </h2>
 
                 <p className="font-hindi text-sm text-emerald-100 drop-shadow-md">
-                  Swipe to explore 10 popular junk foods
+                  Swipe to reveal the reality of 10 popular junk foods
                 </p>
-
               </div>
 
             </div>
@@ -558,7 +586,8 @@ function SwasthyaPage() {
               <Button
                 variant="ghost"
                 onClick={handlePrev}
-                className="rounded-full border border-white/20 bg-black/40 text-emerald-100 hover:bg-emerald-900/60"
+                disabled={isAnimating}
+                className="rounded-full border border-white/20 bg-black/40 text-emerald-100 hover:bg-emerald-900/60 disabled:opacity-50"
               >
                 <ChevronLeft className="h-5 w-5" />
               </Button>
@@ -566,17 +595,17 @@ function SwasthyaPage() {
               <Button
                 variant="ghost"
                 onClick={handleNext}
-                className="rounded-full border border-white/20 bg-black/40 text-emerald-100 hover:bg-emerald-900/60"
+                disabled={isAnimating}
+                className="rounded-full border border-white/20 bg-black/40 text-emerald-100 hover:bg-emerald-900/60 disabled:opacity-50"
               >
                 <ChevronRight className="h-5 w-5" />
               </Button>
 
             </div>
-
           </div>
 
           {/* =====================================================
-              TWO-CARD SWIPE CAROUSEL
+              NEW 2-CARD SLIDE CAROUSEL
           ===================================================== */}
 
           <div
@@ -590,98 +619,141 @@ function SwasthyaPage() {
             onTouchEnd={handleDragEnd}
           >
 
-            <div
-              className="flex w-full"
-              style={{
-                transform: `translateX(${dragOffset}px)`,
-                transition: isDragging
-                  ? "none"
-                  : "transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)",
-              }}
-            >
+            {/* CAROUSEL VIEWPORT */}
 
-              {visibleFoods.map((food, index) => (
+            <div className="relative overflow-hidden rounded-[2.25rem]">
 
+              {/* -------------------------------------------------
+                  PREVIOUS CARDS
+                  They slide OUT when going backwards
+              ------------------------------------------------- */}
+
+              {isAnimating && animationDirection === "prev" && (
                 <div
-                  key={`${food.name}-${currentIndex}-${index}`}
-                  className="min-w-full p-2 sm:min-w-[50%]"
+                  className="
+                    absolute
+                    inset-0
+                    z-10
+                    flex
+                    w-full
+                    translate-x-[-100%]
+                    animate-[slideOutLeft_500ms_cubic-bezier(0.25,1,0.5,1)_forwards]
+                  "
                 >
-
-                  <div className="flex h-full flex-col space-y-4 rounded-[2rem] border border-white/20 bg-black/40 p-6 shadow-xl backdrop-blur-xl transition-all hover:border-emerald-400/50">
-
-                    <div className="text-lg font-bold text-emerald-300">
-                      {food.name}
+                  {currentCards.map((food, index) => (
+                    <div
+                      key={`prev-out-${food.name}-${index}`}
+                      className="w-1/2 shrink-0 p-2"
+                    >
+                      <FoodCard food={food} />
                     </div>
-
-                    <div className="flex-grow space-y-2 text-xs text-emerald-50">
-
-                      {food.nutrients.map(
-                        (nutrient, idx) => (
-
-                          <div
-                            key={idx}
-                            className="flex justify-between border-b border-white/10 pb-1"
-                          >
-
-                            <span>
-                              {nutrient.label}:
-                            </span>
-
-                            <span
-                              className={`font-bold ${nutrient.color}`}
-                            >
-                              {nutrient.value}
-                            </span>
-
-                          </div>
-
-                        ),
-                      )}
-
-                    </div>
-
-                    <div className="space-y-2 pt-2">
-
-                      <div className="text-xs text-amber-200">
-
-                        <strong className="mb-1 block text-amber-400">
-                          What to know:
-                        </strong>
-
-                        {food.effects}
-
-                      </div>
-
-                      <div className="border-t border-white/10 pt-2 text-xs text-red-300">
-
-                        <strong className="mb-1 block text-red-400">
-                          If eaten frequently:
-                        </strong>
-
-                        {food.longTerm}
-
-                      </div>
-
-                    </div>
-
-                  </div>
-
+                  ))}
                 </div>
+              )}
 
+              {/* -------------------------------------------------
+                  NEXT CARDS
+                  They slide IN when going forward
+              ------------------------------------------------- */}
+
+              {isAnimating && animationDirection === "next" && (
+                <div
+                  className="
+                    absolute
+                    inset-0
+                    z-10
+                    flex
+                    w-full
+                    translate-x-full
+                    animate-[slideInRight_500ms_cubic-bezier(0.25,1,0.5,1)_forwards]
+                  "
+                >
+                  {nextCards.map((food, index) => (
+                    <div
+                      key={`next-in-${food.name}-${index}`}
+                      className="w-1/2 shrink-0 p-2"
+                    >
+                      <FoodCard food={food} />
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* -------------------------------------------------
+                  MAIN CURRENT CARDS
+                  These visibly slide left/right during transition
+              ------------------------------------------------- */}
+
+              <div
+                className={`flex w-full ${
+                  isDragging
+                    ? ""
+                    : "transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                }`}
+                style={{
+                  transform: isDragging
+                    ? `translateX(${dragOffset}px)`
+                    : isAnimating
+                      ? animationDirection === "next"
+                        ? "translateX(-100%)"
+                        : "translateX(100%)"
+                      : "translateX(0)",
+                }}
+              >
+
+                {currentCards.map((food, index) => (
+                  <div
+                    key={`${food.name}-${currentIndex}-${index}`}
+                    className="w-full shrink-0 p-2 sm:w-1/2"
+                  >
+                    <FoodCard food={food} />
+                  </div>
+                ))}
+
+              </div>
+
+            </div>
+
+            {/* -------------------------------------------------
+                MOBILE SWIPE HINT
+            ------------------------------------------------- */}
+
+            <div className="mt-3 flex items-center justify-center gap-2 text-xs text-emerald-100/60 sm:hidden">
+              <ChevronLeft className="h-3 w-3" />
+              Swipe to explore
+              <ChevronRight className="h-3 w-3" />
+            </div>
+
+            {/* -------------------------------------------------
+                DOT INDICATORS
+            ------------------------------------------------- */}
+
+            <div className="mt-4 flex justify-center gap-1.5">
+
+              {junkFoods.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    if (!isAnimating) {
+                      setCurrentIndex(index);
+                    }
+                  }}
+                  aria-label={`Show junk food ${index + 1}`}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    currentIndex === index
+                      ? "w-7 bg-amber-400"
+                      : "w-1.5 bg-white/30 hover:bg-white/50"
+                  }`}
+                />
               ))}
 
             </div>
 
           </div>
-
-          <p className="text-center text-xs text-emerald-100/60">
-            ← Swipe or drag to explore → 
-          </p>
-
         </section>
 
         {/* =====================================================
-            SECTION 2 — EFFECTS
+            SECTION 2: HOW JUNK FOOD IMPACTS YOUR LOOKS & GROWTH
         ===================================================== */}
 
         <section className="space-y-5">
@@ -693,87 +765,79 @@ function SwasthyaPage() {
             </div>
 
             <div>
-
               <h2 className="font-display text-2xl font-bold text-emerald-50 drop-shadow-md">
-                How Frequent Junk Food Can Affect You
+                How It Affects Your Looks & Body
               </h2>
 
               <p className="font-hindi text-sm text-emerald-100 drop-shadow-md">
-                चेहरे, नींद, एनर्जी और सेहत पर असर
+                चेहरे, बालों और ग्रोथ पर जंक फ़ूड का सीधा हमला
               </p>
-
             </div>
 
           </div>
 
           <div className="grid gap-5 sm:grid-cols-2">
 
-            <div className="space-y-3 rounded-[2rem] border border-white/20 bg-emerald-950/40 p-7 shadow-xl backdrop-blur-xl transition-all hover:border-emerald-400/50">
+            <ImpactCard
+              title="🔴 Acne, Pimples & Dull Skin"
+              text={
+                <>
+                  Refined Maida and high sugar cause insulin spikes. This
+                  signals your skin glands to produce excess oil (sebum),
+                  clogging pores and causing{" "}
+                  <strong className="text-white">
+                    painful pimples and dull, oily skin
+                  </strong>
+                  .
+                </>
+              }
+            />
 
-              <h3 className="flex items-center gap-2 font-display text-xl font-bold text-amber-300">
-                🔴 Skin & Acne
-              </h3>
+            <ImpactCard
+              title="📏 Stunted Height & Weak Bones"
+              text={
+                <>
+                  Teens need maximum Calcium and Vitamin D for bone growth.
+                  Cold drinks contain{" "}
+                  <strong className="text-white">Phosphoric Acid</strong>,
+                  which leaches Calcium directly out of your bones, slowing
+                  down natural height potential!
+                </>
+              }
+            />
 
-              <p className="text-sm leading-relaxed text-emerald-50">
-                Diet is only one factor in skin health, but frequent intake of
-                high-glycemic foods may be associated with acne in some people.
-                Skin health is also influenced by hormones, genetics, stress and
-                skincare habits.
-              </p>
+            <ImpactCard
+              title="⚠️ Stubborn Belly Fat & Face Bloating"
+              text={
+                <>
+                  Junk food is packed with excess sodium. Sodium forces your
+                  body to trap water under your skin, leading to{" "}
+                  <strong className="text-white">
+                    bloated cheeks, puffy eyes, and stubborn lower belly fat
+                  </strong>
+                  .
+                </>
+              }
+            />
 
-            </div>
-
-            <div className="space-y-3 rounded-[2rem] border border-white/20 bg-emerald-950/40 p-7 shadow-xl backdrop-blur-xl transition-all hover:border-emerald-400/50">
-
-              <h3 className="flex items-center gap-2 font-display text-xl font-bold text-amber-300">
-                📏 Growth & Bone Health
-              </h3>
-
-              <p className="text-sm leading-relaxed text-emerald-50">
-                Teenagers need enough protein, calcium, vitamin D and other
-                nutrients during growth. Junk food doesn't automatically stop
-                height, but a diet dominated by nutrient-poor foods can make it
-                harder to meet nutritional needs.
-              </p>
-
-            </div>
-
-            <div className="space-y-3 rounded-[2rem] border border-white/20 bg-emerald-950/40 p-7 shadow-xl backdrop-blur-xl transition-all hover:border-emerald-400/50">
-
-              <h3 className="flex items-center gap-2 font-display text-xl font-bold text-amber-300">
-                ⚠️ Excess Calories & Sodium
-              </h3>
-
-              <p className="text-sm leading-relaxed text-emerald-50">
-                Many fast foods are high in calories and sodium. Too much sodium
-                can temporarily increase water retention, while regularly
-                consuming more calories than your body needs can contribute to
-                unhealthy weight gain over time.
-              </p>
-
-            </div>
-
-            <div className="space-y-3 rounded-[2rem] border border-white/20 bg-emerald-950/40 p-7 shadow-xl backdrop-blur-xl transition-all hover:border-emerald-400/50">
-
-              <h3 className="flex items-center gap-2 font-display text-xl font-bold text-amber-300">
-                💤 Energy, Sleep & Focus
-              </h3>
-
-              <p className="text-sm leading-relaxed text-emerald-50">
-                Large meals high in refined carbohydrates or sugar may cause
-                short-term energy fluctuations for some people. Caffeine from
-                energy drinks can also interfere with sleep, which can affect
-                concentration and daily energy.
-              </p>
-
-            </div>
+            <ImpactCard
+              title="💤 Brain Fog & Exam Laziness"
+              text={
+                <>
+                  Fast food gives a 30-minute energy rush followed by a
+                  massive{" "}
+                  <strong className="text-white">sugar crash</strong>. This
+                  leaves you feeling sluggish, irritable, and unable to focus
+                  during late-night study sessions.
+                </>
+              }
+            />
 
           </div>
-
         </section>
 
         {/* =====================================================
-            SECTION 3 — SMART INDIAN CRAVING SWAPS
+            SECTION 3: SMART CRAVING SWAPS
         ===================================================== */}
 
         <section className="space-y-5">
@@ -785,90 +849,45 @@ function SwasthyaPage() {
             </div>
 
             <div>
-
               <h2 className="font-display text-2xl font-bold text-emerald-50 drop-shadow-md">
                 Smart Indian Craving Swaps
               </h2>
 
               <p className="font-hindi text-sm text-emerald-100 drop-shadow-md">
-                बिना मज़ा खोए बेहतर विकल्प
+                बिना मज़ा खोए स्वस्थ विकल्प
               </p>
-
             </div>
 
           </div>
 
           <div className="grid gap-5 sm:grid-cols-3">
 
-            <div className="space-y-4 rounded-[2rem] border border-white/20 bg-black/40 p-6 shadow-xl backdrop-blur-xl transition-all hover:border-emerald-400/50">
+            <SwapCard
+              swap="Chowmein / Chilli Potato"
+              title="Sesame Chilli Makhana or Sevaiyan"
+              description="Crunchy fox nuts or rice vermicelli tossed with sesame seeds, curry leaves, and veggies."
+              result="Clear skin, zero maida, high protein."
+            />
 
-              <div className="w-fit rounded-full border border-amber-500/30 bg-amber-950/60 px-3 py-1 text-xs font-bold uppercase tracking-wider text-amber-300">
-                Swap: Chowmein / Chilli Potato
-              </div>
+            <SwapCard
+              swap="Pizza / Burger"
+              title="Paneer & Veggie Mini Uttapam"
+              description="Fermented rice-dal base topped with spiced paneer, capsicum, onions, and mint chutney."
+              result="Clean gut, no bloating, sustained stamina."
+            />
 
-              <h3 className="font-display text-xl font-bold text-emerald-50">
-                Sesame Chilli Makhana or Veggie Sevaiyan
-              </h3>
-
-              <p className="text-sm leading-relaxed text-emerald-50">
-                Try roasted makhana or vegetable sevaiyan with sesame seeds,
-                curry leaves and colourful vegetables.
-              </p>
-
-              <div className="border-t border-white/20 pt-3 text-xs font-medium text-amber-400">
-                💡 Result: More fibre and variety with a satisfying crunch.
-              </div>
-
-            </div>
-
-            <div className="space-y-4 rounded-[2rem] border border-white/20 bg-black/40 p-6 shadow-xl backdrop-blur-xl transition-all hover:border-emerald-400/50">
-
-              <div className="w-fit rounded-full border border-amber-500/30 bg-amber-950/60 px-3 py-1 text-xs font-bold uppercase tracking-wider text-amber-300">
-                Swap: Pizza / Burger
-              </div>
-
-              <h3 className="font-display text-xl font-bold text-emerald-50">
-                Paneer & Veggie Mini Uttapam
-              </h3>
-
-              <p className="text-sm leading-relaxed text-emerald-50">
-                A fermented rice-dal base topped with paneer, capsicum, onions
-                and mint chutney for a fun Indian-style alternative.
-              </p>
-
-              <div className="border-t border-white/20 pt-3 text-xs font-medium text-amber-400">
-                💡 Result: A more balanced combination of grains, protein and vegetables.
-              </div>
-
-            </div>
-
-            <div className="space-y-4 rounded-[2rem] border border-white/20 bg-black/40 p-6 shadow-xl backdrop-blur-xl transition-all hover:border-emerald-400/50">
-
-              <div className="w-fit rounded-full border border-amber-500/30 bg-amber-950/60 px-3 py-1 text-xs font-bold uppercase tracking-wider text-amber-300">
-                Swap: French Fries
-              </div>
-
-              <h3 className="font-display text-xl font-bold text-emerald-50">
-                Roasted Shakarkandi Wedges
-              </h3>
-
-              <p className="text-sm leading-relaxed text-emerald-50">
-                Roast or air-fry sweet potato wedges with spices and chaat
-                masala for a naturally sweet, fibre-rich option.
-              </p>
-
-              <div className="border-t border-white/20 pt-3 text-xs font-medium text-amber-400">
-                💡 Result: A colourful source of carbohydrates and fibre.
-              </div>
-
-            </div>
+            <SwapCard
+              swap="French Fries"
+              title="Peri-Peri Roasted Shakarkandi"
+              description="Air-fried or roasted sweet potato wedges seasoned with spicy peri-peri chaat masala."
+              result="Vitamin A for glowing skin & slow carbs."
+            />
 
           </div>
-
         </section>
 
         {/* =====================================================
-            SECTION 4 — SMART RECOVERY
+            SECTION 4: JUNK DETOX RECOVERY
         ===================================================== */}
 
         <section className="space-y-4 rounded-[2rem] border border-amber-500/40 bg-amber-950/40 p-6 shadow-2xl backdrop-blur-xl sm:p-8">
@@ -880,60 +899,34 @@ function SwasthyaPage() {
             </div>
 
             <h2 className="font-display text-xl font-bold text-amber-200">
-              Ate Junk Food Today? Don't Panic.
+              Ate Junk Food Today? 1-Day Recovery Protocol!
             </h2>
 
           </div>
 
           <p className="text-sm leading-relaxed text-amber-100/90">
-            One meal doesn't define your health. You don't need to starve,
-            skip meals or follow a "detox." Simply return to your normal
-            balanced routine.
+            Don't stress or starve yourself! Do this tomorrow to flush out
+            sodium and prevent pimples:
           </p>
 
           <div className="grid gap-3 pt-2 sm:grid-cols-3">
 
-            <div className="space-y-2 rounded-xl border border-white/20 bg-emerald-950/60 p-4 text-xs text-emerald-50 backdrop-blur-md">
+            <RecoveryCard
+              title="1. Hydrate & Flush"
+              text="Drink warm Saunf-Coriander water to eliminate salt retention & face bloating."
+            />
 
-              <Droplets className="h-5 w-5 text-emerald-300" />
+            <RecoveryCard
+              title="2. Light Khichdi Dinner"
+              text="Have a warm moong dal khichdi to give your gut a chance to recover."
+            />
 
-              <strong className="block text-sm text-amber-300">
-                1. Hydrate Normally
-              </strong>
-
-              Drink water according to your thirst and routine. No special
-              detox drink is required.
-
-            </div>
-
-            <div className="space-y-2 rounded-xl border border-white/20 bg-emerald-950/60 p-4 text-xs text-emerald-50 backdrop-blur-md">
-
-              <Apple className="h-5 w-5 text-emerald-300" />
-
-              <strong className="block text-sm text-amber-300">
-                2. Eat Balanced Meals
-              </strong>
-
-              Return to meals with vegetables, fruit, whole grains and a
-              suitable protein source.
-
-            </div>
-
-            <div className="space-y-2 rounded-xl border border-white/20 bg-emerald-950/60 p-4 text-xs text-emerald-50 backdrop-blur-md">
-
-              <Moon className="h-5 w-5 text-emerald-300" />
-
-              <strong className="block text-sm text-amber-300">
-                3. Sleep Well
-              </strong>
-
-              A good night's sleep helps your body recover and supports
-              energy, mood and concentration.
-
-            </div>
+            <RecoveryCard
+              title="3. Probiotic Bowl"
+              text="Have a bowl of fresh curd with a pinch of black salt to restore healthy gut bacteria."
+            />
 
           </div>
-
         </section>
 
         {/* =====================================================
@@ -942,10 +935,7 @@ function SwasthyaPage() {
 
         <div className="flex flex-wrap justify-center gap-4 pb-6 pt-4">
 
-          <Button
-            variant="hero"
-            asChild
-          >
+          <Button variant="hero" asChild>
             <Link to="/nutrition-plan">
               Get My Daily Nutrition Plan
             </Link>
@@ -965,6 +955,179 @@ function SwasthyaPage() {
 
       </div>
 
+      {/* =====================================================
+          CAROUSEL ANIMATION STYLES
+      ===================================================== */}
+
+      <style>{`
+        @keyframes slideInRight {
+          from {
+            transform: translateX(100%);
+            opacity: 0.7;
+          }
+          to {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+
+        @keyframes slideOutLeft {
+          from {
+            transform: translateX(0);
+            opacity: 1;
+          }
+          to {
+            transform: translateX(-100%);
+            opacity: 0.7;
+          }
+        }
+      `}</style>
+
     </main>
+  );
+}
+
+// =====================================================
+// FOOD CARD COMPONENT
+// =====================================================
+
+function FoodCard({
+  food,
+}: {
+  food: (typeof junkFoods)[number];
+}) {
+  return (
+    <div className="flex h-full min-h-[390px] flex-col space-y-4 rounded-[2rem] border border-white/20 bg-black/40 p-6 shadow-xl backdrop-blur-xl transition-all duration-300 hover:border-emerald-400/50 hover:shadow-emerald-950/30">
+
+      <div className="text-lg font-bold text-emerald-300">
+        {food.name}
+      </div>
+
+      <div className="flex-grow space-y-2 text-xs text-emerald-50">
+
+        {food.nutrients.map((n, idx) => (
+          <div
+            key={idx}
+            className="flex justify-between border-b border-white/10 pb-1"
+          >
+            <span>{n.label}:</span>
+
+            <span className={`font-bold ${n.color}`}>
+              {n.value}
+            </span>
+          </div>
+        ))}
+
+      </div>
+
+      <div className="space-y-2 pt-2">
+
+        <div className="text-xs text-amber-200">
+          <strong className="mb-1 block text-amber-400">
+            Immediate Effect:
+          </strong>
+
+          {food.effects}
+        </div>
+
+        <div className="border-t border-white/10 pt-2 text-xs text-red-300">
+          <strong className="mb-1 block text-red-400">
+            Long-Term Impact:
+          </strong>
+
+          {food.longTerm}
+        </div>
+
+      </div>
+
+    </div>
+  );
+}
+
+// =====================================================
+// IMPACT CARD
+// =====================================================
+
+function ImpactCard({
+  title,
+  text,
+}: {
+  title: string;
+  text: React.ReactNode;
+}) {
+  return (
+    <div className="space-y-3 rounded-[2rem] border border-white/20 bg-emerald-950/40 p-7 shadow-xl backdrop-blur-xl transition-all hover:border-emerald-400/50">
+
+      <h3 className="flex items-center gap-2 font-display text-xl font-bold text-amber-300">
+        {title}
+      </h3>
+
+      <p className="text-sm leading-relaxed text-emerald-50">
+        {text}
+      </p>
+
+    </div>
+  );
+}
+
+// =====================================================
+// SWAP CARD
+// =====================================================
+
+function SwapCard({
+  swap,
+  title,
+  description,
+  result,
+}: {
+  swap: string;
+  title: string;
+  description: string;
+  result: string;
+}) {
+  return (
+    <div className="space-y-4 rounded-[2rem] border border-white/20 bg-black/40 p-6 shadow-xl backdrop-blur-xl transition-all hover:border-emerald-400/50">
+
+      <div className="w-fit rounded-full border border-amber-500/30 bg-amber-950/60 px-3 py-1 text-xs font-bold uppercase tracking-wider text-amber-300">
+        Swap: {swap}
+      </div>
+
+      <h3 className="font-display text-xl font-bold text-emerald-50">
+        {title}
+      </h3>
+
+      <p className="text-sm leading-relaxed text-emerald-50">
+        {description}
+      </p>
+
+      <div className="border-t border-white/20 pt-3 text-xs font-medium text-amber-400">
+        💡 Result: {result}
+      </div>
+
+    </div>
+  );
+}
+
+// =====================================================
+// RECOVERY CARD
+// =====================================================
+
+function RecoveryCard({
+  title,
+  text,
+}: {
+  title: string;
+  text: string;
+}) {
+  return (
+    <div className="space-y-1 rounded-xl border border-white/20 bg-emerald-950/60 p-4 text-xs text-emerald-50 backdrop-blur-md">
+
+      <strong className="block text-sm text-amber-300">
+        {title}
+      </strong>
+
+      {text}
+
+    </div>
   );
 }

@@ -155,6 +155,12 @@
       Profile
     */
 
+    /*
+      Added the ayurvedic background image (public/ayurveda-hero-bg.png)
+      as a layered background. The gradients and textures remain on top
+      so the site retains its look while showing the hero image beneath.
+    */
+
     background:
       /* Top-left saffron sunlight */
       radial-gradient(
@@ -190,6 +196,9 @@
         rgba(255, 255, 255, 0.75),
         transparent 55%
       ),
+
+      /* The photography / hero PNG placed under the decorative gradients */
+      url('/ayurveda-hero-bg.png') center/cover no-repeat,
 
       var(--background);
   }

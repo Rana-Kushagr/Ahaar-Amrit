@@ -2,17 +2,14 @@
 @source "../src";
 @import "tw-animate-css";
 
-
 @custom-variant dark (&:is(.dark *));
-
 
 /* =====================================================
    AHAAR AMRIT PREMIUM DESIGN SYSTEM
+   Modern Indian • Natural • Ayurvedic • Wellness
    ===================================================== */
 
-
 @theme inline {
-
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -20,614 +17,396 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
 
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
 
-  --color-background:var(--background);
-  --color-foreground:var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
 
-  --color-primary:var(--primary);
-  --color-primary-foreground:var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
 
-  --color-secondary:var(--secondary);
-  --color-secondary-foreground:var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
 
-  --color-muted:var(--muted);
-  --color-muted-foreground:var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
 
-  --color-accent:var(--accent);
-  --color-accent-foreground:var(--accent-foreground);
-
-  --color-border:var(--border);
-  --color-input:var(--input);
-  --color-ring:var(--ring);
-
-
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
 
   --font-display:
-  "Fraunces",
-  Georgia,
-  serif;
-
+    "Fraunces",
+    Georgia,
+    serif;
 
   --font-body:
-  "Karla",
-  system-ui,
-  sans-serif;
-
+    "Karla",
+    system-ui,
+    sans-serif;
 
   --font-hindi:
-  "Noto Sans Devanagari",
-  serif;
-
-
-
+    "Noto Sans Devanagari",
+    serif;
 }
 
-
-
-/* ==========================
+/* =====================================================
    COLORS
-========================== */
+   ===================================================== */
 
+:root {
+  --radius: 1.2rem;
 
-:root{
+  /*
+   * Warm ivory base
+   * Inspired by natural Indian earth tones and Ayurveda.
+   */
+  --background:
+    oklch(0.975 0.018 100);
 
+  /*
+   * Deep natural green for readable text.
+   */
+  --foreground:
+    oklch(0.22 0.04 140);
 
---radius:1.2rem;
+  /*
+   * Warm saffron / turmeric-inspired primary.
+   */
+  --primary:
+    oklch(0.68 0.18 55);
 
+  --primary-foreground:
+    white;
 
---background:
-oklch(0.97 0.025 100);
+  /*
+   * Ayurvedic natural green.
+   */
+  --secondary:
+    oklch(0.48 0.14 145);
 
+  --secondary-foreground:
+    white;
 
---foreground:
-oklch(0.22 0.04 140);
+  /*
+   * Soft muted cream.
+   */
+  --muted:
+    oklch(0.945 0.018 100);
 
+  --muted-foreground:
+    oklch(0.5 0.03 100);
 
+  /*
+   * Soft golden accent.
+   */
+  --accent:
+    oklch(0.78 0.14 85);
 
---primary:
-oklch(0.68 0.20 50);
+  --accent-foreground:
+    oklch(0.25 0.05 90);
 
+  /*
+   * Warm natural borders.
+   */
+  --border:
+    oklch(0.88 0.025 100);
 
---primary-foreground:
-white;
+  --input:
+    oklch(0.88 0.025 100);
 
-
-
---secondary:
-oklch(0.48 0.15 150);
-
-
-
---secondary-foreground:
-white;
-
-
-
---accent:
-oklch(0.78 0.15 85);
-
-
-
---accent-foreground:
-oklch(0.25 0.05 90);
-
-
-
---muted:
-oklch(0.94 0.02 100);
-
-
---muted-foreground:
-oklch(0.5 0.03 100);
-
-
-
---border:
-oklch(0.88 0.03 100);
-
-
-
---input:
-oklch(0.88 0.03 100);
-
-
-
---ring:
-oklch(0.68 0.20 50);
-
-
-
+  --ring:
+    oklch(0.68 0.18 55);
 }
 
-
-
-/* ==========================
+/* =====================================================
    GRADIENTS
-========================== */
+   ===================================================== */
 
+:root {
+  /*
+   * Main Ahaar Amrit hero gradient.
+   * Saffron → warm terracotta → natural green
+   */
+  --gradient-hero:
+    linear-gradient(
+      135deg,
+      #f4a340,
+      #e97845,
+      #4d8b58
+    );
 
-:root{
+  /*
+   * Premium wellness gradient.
+   */
+  --gradient-premium:
+    linear-gradient(
+      135deg,
+      #f6b65c,
+      #e97845,
+      #3f8550
+    );
 
-
---gradient-hero:
-
-linear-gradient(
-135deg,
-#ff9d2f,
-#ff6b35,
-#3b7d45
-);
-
-
-
---gradient-premium:
-
-linear-gradient(
-135deg,
-#ffb347,
-#ff6b35,
-#2f8f46
-);
-
-
-
---gradient-saffron:
-
-linear-gradient(
-90deg,
-#ff9d2f,
-#ff5f35
-);
-
-
-
+  /*
+   * Saffron highlight gradient.
+   */
+  --gradient-saffron:
+    linear-gradient(
+      90deg,
+      #e99a3b,
+      #df7044
+    );
 }
 
-
-
-
-/* ==========================
-BASE
-========================== */
-
+/* =====================================================
+   BASE
+   ===================================================== */
 
 @layer base {
+  * {
+    border-color: var(--border);
+  }
 
+  html {
+    scroll-behavior: smooth;
+  }
 
-*{
+  body {
+    min-height: 100vh;
 
-border-color:
-var(--border);
+    /*
+     * Modern Indian wellness background:
+     *
+     * 1. Soft saffron glow — top left
+     * 2. Soft Ayurvedic green glow — top right
+     * 3. Gentle natural green glow — bottom
+     * 4. Warm ivory base
+     *
+     * Kept intentionally subtle so text and cards
+     * remain easy to read.
+     */
+    background:
+      radial-gradient(
+        circle at 0% 0%,
+        rgba(224, 157, 67, 0.12),
+        transparent 28%
+      ),
 
+      radial-gradient(
+        circle at 100% 10%,
+        rgba(76, 135, 83, 0.12),
+        transparent 30%
+      ),
+
+      radial-gradient(
+        circle at 50% 100%,
+        rgba(120, 160, 105, 0.08),
+        transparent 35%
+      ),
+
+      var(--background);
+
+    color: var(--foreground);
+
+    font-family: var(--font-body);
+
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+
+    letter-spacing: -0.03em;
+  }
 }
 
+/* =====================================================
+   UTILITY CLASSES
+   ===================================================== */
 
-
-html{
-
-scroll-behavior:smooth;
-
+@utility font-display {
+  font-family: var(--font-display);
 }
 
-
-
-body{
-
-
-min-height:100vh;
-
-
-background:
-
-
-radial-gradient(
-circle at 10% 10%,
-rgba(255,160,40,.18),
-transparent 30%
-),
-
-
-radial-gradient(
-circle at 90% 20%,
-rgba(50,150,80,.15),
-transparent 30%
-),
-
-
-var(--background);
-
-
-
-color:
-var(--foreground);
-
-
-
-font-family:
-var(--font-body);
-
-
-overflow-x:hidden;
-
-
+@utility font-hindi {
+  font-family: var(--font-hindi);
 }
 
-
-
-h1,h2,h3{
-
-
-font-family:
-var(--font-display);
-
-
-letter-spacing:-.03em;
-
-
+@utility bg-gradient-hero {
+  background: var(--gradient-hero);
 }
 
-
-
+@utility bg-gradient-premium {
+  background: var(--gradient-premium);
 }
 
+@utility text-gradient-saffron {
+  background: var(--gradient-saffron);
 
+  background-clip: text;
+  -webkit-background-clip: text;
 
- 
-
-/* ==========================
-UTILITY CLASSES
-========================== */
-
-
-@utility font-display{
-
-font-family:
-var(--font-display);
-
+  color: transparent;
 }
 
+/* =====================================================
+   GLASS EFFECT
+   ===================================================== */
 
+@utility glass {
+  background:
+    rgba(255, 255, 255, 0.58);
 
-@utility font-hindi{
+  border:
+    1px solid rgba(255, 255, 255, 0.48);
 
-font-family:
-var(--font-hindi);
+  backdrop-filter:
+    blur(25px);
 
+  -webkit-backdrop-filter:
+    blur(25px);
+
+  box-shadow:
+    0 25px 80px
+    rgba(50, 80, 50, 0.10);
 }
 
+/* =====================================================
+   SHADOWS
+   ===================================================== */
 
-
-
-@utility bg-gradient-hero{
-
-background:
-var(--gradient-hero);
-
+@utility shadow-warm {
+  box-shadow:
+    0 30px 80px
+    rgba(205, 125, 55, 0.18);
 }
 
-
-
-
-@utility bg-gradient-premium{
-
-background:
-var(--gradient-premium);
-
+@utility shadow-glow {
+  box-shadow:
+    0 0 70px
+    rgba(220, 150, 65, 0.30);
 }
 
+/* =====================================================
+   ANIMATIONS
+   ===================================================== */
 
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
 
-
-@utility text-gradient-saffron{
-
-
-background:
-var(--gradient-saffron);
-
-
-background-clip:text;
-
-
--webkit-background-clip:text;
-
-
-color:transparent;
-
-
+  50% {
+    transform: translateY(-15px);
+  }
 }
 
+@keyframes floatSlow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
 
-
-
-/* ==========================
-GLASS EFFECT
-========================== */
-
-
-@utility glass{
-
-
-background:
-rgba(255,255,255,.55);
-
-
-border:
-1px solid rgba(255,255,255,.45);
-
-
-
-backdrop-filter:
-blur(25px);
-
-
-
--webkit-backdrop-filter:
-blur(25px);
-
-
-
-box-shadow:
-
-0 25px 80px
-rgba(0,0,0,.12);
-
-
-
+  50% {
+    transform: translateY(-30px);
+  }
 }
 
+@keyframes pulseGlow {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
 
-
-
-/* ==========================
-SHADOWS
-========================== */
-
-
-@utility shadow-warm{
-
-
-box-shadow:
-
-0 30px 80px
-rgba(255,120,40,.25);
-
-
+  50% {
+    opacity: 0.8;
+    transform: scale(1.15);
+  }
 }
 
-
-
-@utility shadow-glow{
-
-
-box-shadow:
-
-0 0 70px
-rgba(255,140,40,.45);
-
-
+@utility animate-float {
+  animation:
+    float 4s ease-in-out infinite;
 }
 
-
-
-
-/* ==========================
-ANIMATIONS
-========================== */
-
-
-@keyframes float{
-
-
-0%,100%{
-
-transform:
-translateY(0);
-
+@utility animate-float-slow {
+  animation:
+    floatSlow 8s ease-in-out infinite;
 }
 
-
-50%{
-
-transform:
-translateY(-15px);
-
+@utility animate-pulse-glow {
+  animation:
+    pulseGlow 3s ease-in-out infinite;
 }
 
+/* =====================================================
+   HOVER
+   ===================================================== */
 
+@utility hover-lift {
+  transition:
+    all 0.35s ease;
+
+  &:hover {
+    transform:
+      translateY(-10px)
+      scale(1.02);
+
+    box-shadow:
+      0 40px 90px
+      rgba(40, 70, 45, 0.16);
+  }
 }
 
+/* =====================================================
+   3D ORBS
+   ===================================================== */
 
+@utility orb-saffron {
+  background:
+    radial-gradient(
+      circle at 30% 30%,
+      #ffd27a,
+      #f28b3c 45%,
+      #d65a2c
+    );
 
-@keyframes floatSlow{
+  box-shadow:
+    inset -20px -20px 40px
+    rgba(0, 0, 0, 0.20),
 
-
-0%,100%{
-
-transform:
-translateY(0);
-
+    0 40px 80px
+    rgba(220, 120, 45, 0.28);
 }
 
+@utility orb-green {
+  background:
+    radial-gradient(
+      circle at 30% 30%,
+      #9be3a0,
+      #4a9855 50%,
+      #1d6334
+    );
 
-50%{
+  box-shadow:
+    inset -20px -20px 40px
+    rgba(0, 0, 0, 0.20),
 
-transform:
-translateY(-30px);
-
+    0 40px 80px
+    rgba(50, 140, 70, 0.28);
 }
 
-
-}
-
-
-
-@keyframes pulseGlow{
-
-
-0%,100%{
-
-opacity:.3;
-
-transform:
-scale(1);
-
-}
-
-
-50%{
-
-opacity:.8;
-
-transform:
-scale(1.15);
-
-}
-
-
-}
-
-
-
-
-@utility animate-float{
-
-
-animation:
-float 4s ease-in-out infinite;
-
-
-}
-
-
-
-@utility animate-float-slow{
-
-
-animation:
-floatSlow 8s ease-in-out infinite;
-
-
-}
-
-
-
-@utility animate-pulse-glow{
-
-
-animation:
-pulseGlow 3s ease-in-out infinite;
-
-
-}
-
-
-
-
-/* ==========================
-HOVER
-========================== */
-
-
-@utility hover-lift{
-
-
-transition:
-all .35s ease;
-
-
-
-&:hover{
-
-
-transform:
-translateY(-10px)
-scale(1.02);
-
-
-
-box-shadow:
-
-0 40px 90px
-rgba(0,0,0,.18);
-
-
-}
-
-
-}
-
-
-
-
-/* ==========================
-3D ORBS
-========================== */
-
-
-@utility orb-saffron{
-
-
-background:
-
-radial-gradient(
-circle at 30% 30%,
-#ffd27a,
-#ff8c32 45%,
-#d94f1f
-);
-
-
-
-box-shadow:
-
-inset -20px -20px 40px rgba(0,0,0,.25),
-0 40px 80px rgba(255,120,30,.35);
-
-
-
-}
-
-
-
-@utility orb-green{
-
-
-background:
-
-radial-gradient(
-circle at 30% 30%,
-#8ee89b,
-#3b9148 50%,
-#165c2c
-);
-
-
-
-box-shadow:
-
-inset -20px -20px 40px rgba(0,0,0,.25),
-0 40px 80px rgba(40,150,70,.35);
-
-
-
-}
-
-
-
-
-/* ==========================
-MOBILE
-========================== */
-
-
-@media(max-width:768px){
-
-
-h1{
-
-font-size:3rem;
-
-}
-
-
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 3rem;
+  }
 }

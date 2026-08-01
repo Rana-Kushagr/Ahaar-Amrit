@@ -64,13 +64,25 @@ function NutritionPlanPage() {
     <main className="relative min-h-screen overflow-hidden px-4 pb-16 pt-32 sm:px-6">
 
       {/* =====================================================
-          DECORATIVE BACKGROUND
+          IMAGE BACKGROUND WITH DARK EMERALD OVERLAY
       ===================================================== */}
-
-      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-        <div className="absolute left-[-120px] top-[15%] h-72 w-72 rounded-full bg-emerald-500/10 blur-3xl" />
-        <div className="absolute right-[-100px] top-[35%] h-80 w-80 rounded-full bg-green-500/10 blur-3xl" />
-        <div className="absolute bottom-[10%] left-[30%] h-72 w-72 rounded-full bg-teal-500/10 blur-3xl" />
+      <div className="pointer-events-none fixed inset-0 -z-10">
+        
+        {/* High-quality Indian Food/Spices Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000"
+          style={{ 
+            backgroundImage: `url('https://images.unsplash.com/photo-1606914501449-5a96b6ce24ca?q=80&w=2070&auto=format&fit=crop')`,
+            opacity: 0.45
+          }}
+        />
+        
+        {/* Dark Emerald Gradient Overlay (ensures text readability) */}
+        <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/90 via-emerald-950/95 to-black/95" />
+        
+        {/* Subtle glowing orbs to maintain the magical Ahaar Amrit feel */}
+        <div className="absolute left-[-10%] top-[20%] h-[500px] w-[500px] rounded-full bg-emerald-500/15 blur-[120px]" />
+        <div className="absolute right-[-10%] bottom-[10%] h-[400px] w-[400px] rounded-full bg-amber-500/10 blur-[120px]" />
       </div>
 
 
@@ -94,16 +106,16 @@ function NutritionPlanPage() {
             rounded-full
             border
             border-white/20
-            bg-black/20
+            bg-black/30
             px-4
             py-2
             text-sm
-            text-emerald-100
+            text-emerald-50
             shadow-sm
             backdrop-blur-xl
             transition-all
             hover:-translate-x-1
-            hover:bg-black/30
+            hover:bg-black/50
           "
         >
           <ArrowLeft className="h-4 w-4" />
@@ -122,11 +134,11 @@ function NutritionPlanPage() {
             rounded-[2.5rem]
             border
             border-white/10
-            bg-emerald-950/40
+            bg-emerald-950/50
             p-8
             text-center
             shadow-2xl
-            backdrop-blur-2xl
+            backdrop-blur-xl
             sm:p-12
           "
         >
@@ -208,7 +220,7 @@ function NutritionPlanPage() {
               max-w-2xl
               text-sm
               leading-relaxed
-              text-emerald-100/70
+              text-emerald-100/80
               sm:text-base
             "
           >
@@ -228,10 +240,10 @@ function NutritionPlanPage() {
             rounded-[2rem]
             border
             border-white/10
-            bg-emerald-950/40
+            bg-emerald-950/50
             p-6
             shadow-xl
-            backdrop-blur-2xl
+            backdrop-blur-xl
             sm:p-8
           "
         >
@@ -304,7 +316,7 @@ function NutritionPlanPage() {
                       rounded-full
                       border
                       border-emerald-500/30
-                      bg-emerald-900/40
+                      bg-emerald-900/50
                       px-4
                       py-2
                       text-sm
@@ -334,8 +346,9 @@ function NutritionPlanPage() {
                 rounded-2xl
                 border
                 border-emerald-500/30
-                bg-emerald-900/30
+                bg-emerald-900/40
                 p-5
+                backdrop-blur-md
               "
             >
               <p className="
@@ -425,14 +438,14 @@ function NutritionPlanPage() {
                   rounded-[2rem]
                   border
                   border-white/10
-                  bg-emerald-950/40
+                  bg-emerald-950/60
                   p-6
                   shadow-xl
-                  backdrop-blur-2xl
+                  backdrop-blur-xl
                   transition-all
                   duration-500
                   hover:-translate-y-1
-                  hover:bg-emerald-950/60
+                  hover:bg-emerald-900/60
                   hover:border-white/20
                   sm:p-7
                 "
@@ -516,14 +529,14 @@ function NutritionPlanPage() {
                 </p>
 
 
-                {/* Benefit — MATCHED TO BACKGROUND */}
+                {/* Benefit */}
                 <div
                   className="
                     mt-5
                     rounded-2xl
                     border
                     border-emerald-500/20
-                    bg-emerald-900/30
+                    bg-emerald-900/40
                     p-4
                   "
                 >
@@ -550,7 +563,7 @@ function NutritionPlanPage() {
               rounded-2xl
               border
               border-amber-500/30
-              bg-amber-950/30
+              bg-amber-950/40
               p-5
               text-sm
               leading-relaxed
@@ -576,10 +589,10 @@ function NutritionPlanPage() {
             rounded-[2rem]
             border
             border-purple-500/20
-            bg-purple-950/30
+            bg-purple-950/40
             p-6
             shadow-xl
-            backdrop-blur-2xl
+            backdrop-blur-xl
             sm:p-8
           "
         >
@@ -628,7 +641,7 @@ function NutritionPlanPage() {
                   rounded-2xl
                   border
                   border-purple-500/30
-                  bg-purple-900/30
+                  bg-purple-900/40
                   p-5
                 "
               >
@@ -703,7 +716,7 @@ function NutritionPlanPage() {
 
               <Button
                 variant="soft"
-                className="mt-6 bg-purple-900/50 text-purple-100 hover:bg-purple-900/80"
+                className="mt-6 bg-purple-900/50 text-purple-100 hover:bg-purple-900/80 border border-purple-500/20"
                 asChild
               >
                 <Link to="/dosha">
@@ -725,7 +738,7 @@ function NutritionPlanPage() {
 
               <Button
                 variant="hero"
-                className="mt-5"
+                className="mt-5 bg-purple-600 hover:bg-purple-700 text-white"
                 asChild
               >
                 <Link to="/dosha">
@@ -806,11 +819,11 @@ function Stat({
         rounded-2xl
         border
         border-white/10
-        bg-emerald-900/30
+        bg-emerald-900/40
         p-5
         backdrop-blur-xl
         transition-all
-        hover:bg-emerald-900/50
+        hover:bg-emerald-900/60
       "
     >
       <p className="

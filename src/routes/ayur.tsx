@@ -30,11 +30,10 @@ const initialMessages: Message[] = [
   },
 ];
 
-// Define the system instructions that tell Gemini who it is
 const AYUR_SYSTEM_PROMPT = `
 You are Ayur, an expert Indian Ayurvedic and nutrition AI assistant for teenagers. 
 Your goal is to help them with diet, Dosha analysis, junk food swaps, and healthy habits. 
-Keep your answers friendly, engaging, and relatively concise (don't write massive essays unless asked). 
+Keep your answers friendly, engaging, and relatively concise. 
 Use formatting like bolding and emojis to make your text easy to read. 
 Always stay in character. If asked about non-health related topics, gently steer the conversation back to wellness and nutrition.
 `;
@@ -61,35 +60,30 @@ function AyurChatPage() {
     setInputValue("");
     setIsTyping(true);
 
-    // 1. Add User Message to UI instantly
     const newUserMsg: Message = {
       id: Date.now().toString(),
       role: "user",
       content: userText,
     };
     
-    // We create a new array holding the history PLUS the new message
     const updatedMessages = [...messages, newUserMsg];
     setMessages(updatedMessages);
 
-    // 2. Prepare chat history for Gemini API
-    // Gemini uses "user" and "model" as roles
     const geminiHistory = updatedMessages.map((msg) => ({
       role: msg.role === "ayur" ? "model" : "user",
       parts: [{ text: msg.content }],
     }));
 
-    // 3. Call the Gemini API
     try {
-      // API Key hardcoded for immediate testing
-      const apiKey = "AQ.Ab8RN6J2AwsWwobWhZ8cG74HVOlFjtXH9cz_u6ih1n_aptG17Q";
+      const apiKey = "AQ.Ab8RN6ImAi49JeqHWsP_ij65FR7V2X_aL5FYVRLt6vq7t5OO6Q";
       
       if (!apiKey) {
         throw new Error("API key is missing!");
       }
 
+      // Endpoint updated to gemini-1.5-pro-latest
       const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-latest:generateContent?key=${apiKey}`,
         {
           method: "POST",
           headers: {
@@ -109,8 +103,6 @@ function AyurChatPage() {
       }
 
       const data = await response.json();
-      
-      // Extract the text from Gemini's response payload
       const ayurText = data.candidates[0].content.parts[0].text;
 
       const ayurResponse: Message = {
@@ -137,10 +129,6 @@ function AyurChatPage() {
 
   return (
     <main className="relative flex min-h-screen flex-col overflow-hidden px-4 pb-6 pt-28 sm:px-6 sm:pt-36">
-      
-      {/* =====================================================
-          CRYSTAL CLEAR BACKGROUND
-      ===================================================== */}
       <div 
         className="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat"
         style={{ 
@@ -151,10 +139,6 @@ function AyurChatPage() {
       </div>
 
       <div className="relative mx-auto flex w-full max-w-3xl flex-1 flex-col space-y-6">
-
-        {/* =====================================================
-            HEADER
-        ===================================================== */}
         <div className="flex items-center justify-between">
           <Link
             to="/dashboard"
@@ -167,17 +151,12 @@ function AyurChatPage() {
           <div className="flex items-center gap-2 rounded-full border border-amber-500/30 bg-black/40 px-5 py-2 backdrop-blur-md">
             <Sparkles className="h-4 w-4 text-amber-400" />
             <span className="font-display text-sm font-bold text-amber-200 uppercase tracking-widest">
-              Ayur AI
+              Ayur AI (Pro)
             </span>
           </div>
         </div>
 
-        {/* =====================================================
-            CHAT CONTAINER (GLASS UI)
-        ===================================================== */}
         <section className="flex min-h-[500px] flex-1 flex-col overflow-hidden rounded-[2rem] border border-white/20 bg-black/40 shadow-2xl backdrop-blur-xl">
-          
-          {/* Chat Area */}
           <div className="flex-1 overflow-y-auto p-6 space-y-6 scrollbar-thin scrollbar-thumb-emerald-700/50 scrollbar-track-transparent">
             {messages.map((msg) => (
               <div 
@@ -185,8 +164,6 @@ function AyurChatPage() {
                 className={`flex w-full ${msg.role === "user" ? "justify-end" : "justify-start"}`}
               >
                 <div className={`flex max-w-[85%] gap-3 sm:max-w-[80%] ${msg.role === "user" ? "flex-row-reverse" : "flex-row"}`}>
-                  
-                  {/* Avatar */}
                   <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border shadow-md mt-1 ${
                     msg.role === "user" 
                       ? "bg-amber-600/80 border-amber-400/50 text-white" 
@@ -195,7 +172,6 @@ function AyurChatPage() {
                     {msg.role === "user" ? <User className="h-5 w-5" /> : <Leaf className="h-5 w-5" />}
                   </div>
 
-                  {/* Message Bubble */}
                   <div 
                     className={`rounded-2xl p-4 text-sm leading-relaxed shadow-lg backdrop-blur-md whitespace-pre-wrap ${
                       msg.role === "user"
@@ -203,17 +179,14 @@ function AyurChatPage() {
                         : "rounded-tl-none bg-emerald-950/80 text-emerald-50 border border-emerald-500/30"
                     }`}
                   >
-                    {/* Simple formatting render for bold text sent by Gemini */}
                     {msg.content.split('**').map((part, index) => 
                       index % 2 === 1 ? <strong key={index} className="text-white font-bold">{part}</strong> : part
                     )}
                   </div>
-                  
                 </div>
               </div>
             ))}
             
-            {/* Typing Indicator */}
             {isTyping && (
               <div className="flex w-full justify-start">
                 <div className="flex max-w-[85%] flex-row gap-3">
@@ -231,9 +204,6 @@ function AyurChatPage() {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* =====================================================
-              INPUT AREA
-          ===================================================== */}
           <div className="border-t border-white/10 bg-black/20 p-4 sm:p-6">
             <form 
               onSubmit={handleSendMessage}
@@ -260,9 +230,7 @@ function AyurChatPage() {
               Ayur AI can make mistakes. Always consult a real doctor for medical advice.
             </p>
           </div>
-
         </section>
-
       </div>
     </main>
   );

@@ -6,9 +6,11 @@ import {
   AlertTriangle,
   ShieldAlert,
   Skull,
+  CheckCircle2,
+  RotateCcw,
 } from "lucide-react";
-import nutritionBg from "@/assets/nutrition.png.asset.json";
 import { Button } from "@/components/ui/button";
+import { useState, useEffect } from "react";
 
 const title = "Swasthya & Junk Food Reality — Ahaar Amrit";
 const description =
@@ -29,19 +31,63 @@ export const Route = createFileRoute("/swasthya")({
 });
 
 function SwasthyaPage() {
+  // =====================================================
+  // STREAK TRACKER LOGIC
+  // =====================================================
+  const [streak, setStreak] = useState(0);
+  const [loggedToday, setLoggedToday] = useState(false);
+
+  useEffect(() => {
+    // Load saved streak data when the page opens
+    const savedStreak = localStorage.getItem("ahaar_junk_streak");
+    const lastDate = localStorage.getItem("ahaar_last_logged_date");
+    const today = new Date().toDateString();
+
+    if (savedStreak) {
+      setStreak(parseInt(savedStreak));
+    }
+
+    if (lastDate === today) {
+      setLoggedToday(true);
+    }
+  }, []);
+
+  const handleLogDay = () => {
+    if (!loggedToday) {
+      const newStreak = streak + 1;
+      setStreak(newStreak);
+      setLoggedToday(true);
+      
+      const today = new Date().toDateString();
+      localStorage.setItem("ahaar_junk_streak", newStreak.toString());
+      localStorage.setItem("ahaar_last_logged_date", today);
+    }
+  };
+
+  const handleResetStreak = () => {
+    setStreak(0);
+    setLoggedToday(false);
+    localStorage.setItem("ahaar_junk_streak", "0");
+    localStorage.removeItem("ahaar_last_logged_date");
+  };
+
   return (
-    <main className="relative min-h-screen px-4 pb-16 pt-32 sm:px-6">
+    <main className="relative min-h-screen overflow-hidden px-4 pb-16 pt-28 sm:px-6 sm:pt-36">
 
-      {/* Fixed full-screen background image (same as nutrition plan) */}
-      <div
-        className="pointer-events-none fixed inset-0 z-0 bg-emerald-950 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url('${nutritionBg.url}')` }}
-        aria-hidden
-      />
-      <div className="pointer-events-none fixed inset-0 z-0 bg-emerald-950/50" aria-hidden />
+      {/* =====================================================
+          100% CRYSTAL CLEAR BACKGROUND
+      ===================================================== */}
+      <div 
+        className="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat"
+        style={{ 
+          backgroundImage: `url('https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=2070&auto=format&fit=crop')`,
+        }}
+      >
+        {/* A very light emerald tint so the glass cards are readable, but the image remains fully visible */}
+        <div className="absolute inset-0 bg-emerald-950/40" />
+      </div>
 
-
-      <div className="relative z-10 mx-auto max-w-5xl space-y-10">
+      <div className="relative mx-auto max-w-5xl space-y-10">
 
         {/* =====================================================
             BACK BUTTON (GLASS UI)
@@ -122,6 +168,67 @@ function SwasthyaPage() {
             Exposing what fast food actually contains and how it secretly affects your skin, body shape, growth, and confidence.
           </p>
         </header>
+
+
+        {/* =====================================================
+            STREAK TRACKER WIDGET
+        ===================================================== */}
+        <section className="relative overflow-hidden rounded-[2rem] border border-amber-500/30 bg-black/40 p-8 text-center shadow-2xl backdrop-blur-xl transition-all hover:border-amber-400/50">
+          <div className="absolute -top-10 -right-10 h-32 w-32 rounded-full bg-amber-500/10 blur-3xl" />
+          <div className="absolute -bottom-10 -left-10 h-32 w-32 rounded-full bg-emerald-500/10 blur-3xl" />
+          
+          <h2 className="font-display text-xl font-bold text-emerald-50 mb-2">
+            My Junk-Free Streak
+          </h2>
+          <p className="text-sm text-emerald-100/80 mb-6">
+            Build discipline. Keep your skin clear and energy high!
+          </p>
+
+          <div className="flex items-center justify-center gap-4 mb-8">
+            <Flame className={`h-12 w-12 ${streak > 0 ? "text-amber-400 drop-shadow-[0_0_15px_rgba(251,191,36,0.5)] animate-pulse" : "text-emerald-100/30"}`} />
+            <span className="font-display text-6xl font-black text-white tracking-tighter">
+              {streak}
+            </span>
+            <span className="text-lg font-bold text-amber-200 uppercase tracking-widest mt-4">
+              Days
+            </span>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Button
+              onClick={handleLogDay}
+              disabled={loggedToday}
+              className={`rounded-full px-8 py-6 text-base shadow-xl transition-all ${
+                loggedToday 
+                  ? "bg-emerald-900/50 text-emerald-300 opacity-80" 
+                  : "bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white hover:scale-105"
+              }`}
+            >
+              {loggedToday ? (
+                <>
+                  <CheckCircle2 className="mr-2 h-5 w-5" />
+                  Logged for Today!
+                </>
+              ) : (
+                <>
+                  <Sparkles className="mr-2 h-5 w-5" />
+                  I Didn't Eat Junk Today
+                </>
+              )}
+            </Button>
+
+            {streak > 0 && (
+              <Button
+                variant="ghost"
+                onClick={handleResetStreak}
+                className="rounded-full px-6 py-6 text-red-300 hover:bg-red-950/40 hover:text-red-200"
+              >
+                <RotateCcw className="mr-2 h-4 w-4" />
+                Oops, I ate junk
+              </Button>
+            )}
+          </div>
+        </section>
 
 
         {/* =====================================================
@@ -424,4 +531,3 @@ function SwasthyaPage() {
     </main>
   );
 }
- 

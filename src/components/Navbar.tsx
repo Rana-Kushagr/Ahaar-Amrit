@@ -9,120 +9,115 @@ const links = [
   { label: "Profile", to: "/profile" },
 ] as const;
 
-
 export function Navbar() {
-
   const location = useLocation();
 
   return (
-    <header className="
-      fixed top-5 left-1/2 z-50
-      w-[92%] max-w-6xl
-      -translate-x-1/2
-      rounded-3xl
-      border border-white/30
-      bg-white/60
-      backdrop-blur-2xl
-      shadow-xl
-    ">
+    <header
+      className="
+        fixed top-5 left-1/2 z-50
+        w-[94%] max-w-5xl
+        -translate-x-1/2
+        rounded-2xl
+        border border-white/50
+        bg-white/45
+        backdrop-blur-2xl
+        shadow-[0_15px_50px_rgba(70,50,20,0.12)]
+        transition-all duration-300
+      "
+    >
+      <div className="flex items-center justify-between px-5 py-3 md:px-6 md:py-3.5">
 
-      <div className="
-        flex items-center justify-between
-        px-6 py-4
-      ">
-
-        <Link 
+        {/* Logo */}
+        <Link
           to="/"
-          className="flex items-center gap-3"
+          className="
+            group
+            flex items-center gap-3
+            transition-transform duration-300
+            hover:scale-[1.02]
+          "
         >
-
-          <div className="
-            rounded-2xl
-            bg-gradient-hero
-            p-3
-            shadow-glow
-          ">
-            <Leaf className="
-              h-6 w-6 
-              text-white
-            "/>
+          <div
+            className="
+              flex h-11 w-11 items-center justify-center
+              rounded-xl
+              bg-gradient-hero
+              shadow-[0_8px_25px_rgba(255,120,40,0.28)]
+              transition-transform duration-300
+              group-hover:rotate-3
+            "
+          >
+            <Leaf className="h-5 w-5 text-white" />
           </div>
 
-
-          <div>
-            <p className="
-              font-display
-              text-xl
-              font-bold
-            ">
+          <div className="leading-tight">
+            <p className="font-display text-lg font-bold tracking-tight md:text-xl">
               Ahaar Amrit
             </p>
 
-            <p className="
-              font-hindi
-              text-xs
-              text-muted-foreground
-            ">
+            <p className="font-hindi text-[11px] text-muted-foreground">
               आहार अमृत
             </p>
           </div>
-
         </Link>
 
-
-        <nav className="
-          hidden
-          md:flex
-          items-center
-          gap-2
-        ">
-
-        {
-          links.map((link)=>{
-
-            const active =
-              location.pathname === link.to;
-
+        {/* Desktop Navigation */}
+        <nav className="hidden items-center gap-1.5 md:flex">
+          {links.map((link) => {
+            const active = location.pathname === link.to;
 
             return (
               <Link
-              key={link.to}
-              to={link.to}
-              className={`
-                rounded-full
-                px-5 py-2
-                text-sm
-                transition-all
-
-                ${
-                active
-                ?
-                "bg-primary text-white shadow-lg"
-                :
-                "hover:bg-primary/10"
-                }
-              `}
+                key={link.to}
+                to={link.to}
+                className={`
+                  relative rounded-full
+                  px-4 py-2
+                  text-sm font-medium
+                  transition-all duration-300
+                  ${
+                    active
+                      ? `
+                        bg-gradient-hero
+                        text-white
+                        shadow-[0_6px_20px_rgba(255,120,40,0.25)]
+                      `
+                      : `
+                        text-foreground/70
+                        hover:bg-white/60
+                        hover:text-foreground
+                        hover:shadow-sm
+                      `
+                  }
+                `}
               >
-
                 {link.label}
-
               </Link>
-            )
-
-          })
-        }
-
+            );
+          })}
         </nav>
 
-
-        <Menu className="
-          md:hidden
-          h-6 w-6
-        "/>
-
+        {/* Mobile Menu Button */}
+        <button
+          type="button"
+          aria-label="Open navigation menu"
+          className="
+            flex h-10 w-10 items-center justify-center
+            rounded-xl
+            border border-white/50
+            bg-white/40
+            text-foreground
+            transition-all duration-300
+            hover:bg-white/70
+            hover:shadow-md
+            md:hidden
+          "
+        >
+          <Menu className="h-5 w-5" />
+        </button>
 
       </div>
-
     </header>
   );
 }

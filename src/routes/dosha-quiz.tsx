@@ -271,21 +271,31 @@ function DoshaQuiz() {
     setShowResult(true);
   };
 
-  const handleAnswer = (dosha: Dosha) => {
+  const handleAnswerSelect = (dosha: Dosha) => {
     const newAnswers = [...answers];
-
     newAnswers[currentQuestion] = dosha;
-
     setAnswers(newAnswers);
+  };
+
+  const handleNextQuestion = () => {
+    if (!answers[currentQuestion]) return;
 
     // LAST QUESTION
     if (currentQuestion === questions.length - 1) {
-      finishQuiz(newAnswers);
+      finishQuiz(answers);
       return;
     }
 
     // Move to next question.
-    setCurrentQuestion((previous) => previous + 1);
+    setCurrentQuestion((prev) => prev + 1);
+  };
+
+  const handlePreviousQuestion = () => {
+    if (currentQuestion > 0) {
+      setCurrentQuestion((prev) => prev - 1);
+    } else {
+      navigate({ to: "/dosha" });
+    }
   };
 
   const restartQuiz = () => {
@@ -307,7 +317,6 @@ function DoshaQuiz() {
       <main className="relative min-h-screen overflow-hidden bg-background">
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <div className="animate-pulse-glow absolute -left-32 top-20 h-96 w-96 rounded-full bg-orange-300/20 blur-3xl" />
-
           <div className="animate-float-slow absolute -right-32 top-40 h-96 w-96 rounded-full bg-green-400/20 blur-3xl" />
         </div>
 
@@ -402,9 +411,6 @@ function DoshaQuiz() {
    * =====================================================
    */
 
-  // Safety guard:
-  // If the question index somehow becomes invalid,
-  // immediately show the result instead of crashing.
   if (currentQuestion >= questions.length) {
     const safeResult = calculateDosha(answers);
 
@@ -416,7 +422,6 @@ function DoshaQuiz() {
       <main className="flex min-h-screen items-center justify-center bg-background">
         <div className="text-center">
           <Sparkles className="mx-auto h-10 w-10 animate-pulse text-primary" />
-
           <p className="mt-4 text-muted-foreground">
             Calculating your Dosha...
           </p>
@@ -440,30 +445,20 @@ function DoshaQuiz() {
 
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="animate-pulse-glow absolute -left-32 top-20 h-80 w-80 rounded-full bg-orange-300/20 blur-3xl" />
-
         <div className="animate-float-slow absolute -right-32 top-40 h-96 w-96 rounded-full bg-green-400/20 blur-3xl" />
       </div>
 
       <section className="relative mx-auto max-w-4xl px-6 py-12 sm:py-20">
 
+        {/* TOP BAR */}
         <div className="mb-10 flex items-center justify-between">
           <Button
             variant="ghost"
-            onClick={() => {
-              if (currentQuestion > 0) {
-                setCurrentQuestion(
-                  (previous) => previous - 1
-                );
-              } else {
-                navigate({
-                  to: "/dosha",
-                });
-              }
-            }}
+            onClick={handlePreviousQuestion}
             className="rounded-full"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
-            Back
+            {currentQuestion > 0 ? "Previous Question" : "Exit Quiz"}
           </Button>
 
           <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
@@ -472,11 +467,11 @@ function DoshaQuiz() {
           </div>
         </div>
 
+        {/* PROGRESS BAR */}
         <div className="mb-8">
           <div className="mb-3 flex items-center justify-between text-sm">
             <span className="font-medium text-primary">
-              Question {currentQuestion + 1} of{" "}
-              {questions.length}
+              Question {currentQuestion + 1} of {questions.length}
             </span>
 
             <span className="text-muted-foreground">
@@ -494,6 +489,7 @@ function DoshaQuiz() {
           </div>
         </div>
 
+        {/* QUESTION CARD */}
         <div className="glass rounded-[2rem] p-6 shadow-warm sm:p-10">
 
           <div className="text-center">
@@ -512,15 +508,15 @@ function DoshaQuiz() {
 
           <div className="mx-auto mt-10 grid max-w-2xl gap-4">
             {question.options.map((option) => {
-              const isSelected =
-                selectedAnswer === option.dosha;
+              const isSelected = selectedAnswer === option.dosha;
 
               return (
                 <button
                   key={option.dosha}
-                  onClick={() =>
-                    handleAnswer(option.dosha)
-                  }
+                  onClick={() => {
+                    handleAnswerSelect(option.dosha);
+                    // Automatically auto-advance to next question if desired, or user can click Next
+                  }}
                   className={`group flex w-full items-center justify-between rounded-2xl border p-5 text-left transition-all duration-300 ${
                     isSelected
                       ? "border-primary bg-primary/10 shadow-lg"
@@ -545,20 +541,30 @@ function DoshaQuiz() {
             })}
           </div>
 
-          {selectedAnswer &&
-            currentQuestion === questions.length - 1 && (
-              <div className="mt-8 text-center">
-                <Button
-                  onClick={() =>
-                    finishQuiz(answers)
-                  }
-                  className="rounded-full"
-                >
-                  See My Result
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </div>
-            )}
+          {/* ACTION NAVIGATION BUTTONS AT BOTTOM */}
+          <div className="mt-10 flex items-center justify-between border-t border-border/40 pt-6">
+            <Button
+              variant="outline"
+              onClick={handlePreviousQuestion}
+              disabled={currentQuestion === 0}
+              className="rounded-full"
+            >
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Previous
+            </Button>
+
+            <Button
+              onClick={handleNextQuestion}
+              disabled={!selectedAnswer}
+              className="rounded-full px-6"
+            >
+              {currentQuestion === questions.length - 1
+                ? "See My Result"
+                : "Next Question"}
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
+
         </div>
       </section>
     </main>

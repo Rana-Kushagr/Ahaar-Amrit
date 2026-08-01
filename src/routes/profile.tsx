@@ -50,7 +50,7 @@ function ProfilePage() {
       : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted px-4 py-16">
+    <div className="min-h-screen bg-[url('/ayurveda-hero-bg.png')] bg-cover bg-center bg-fixed px-4 py-16">
       <div className="container mx-auto max-w-3xl">
         <div className="mb-10 text-center">
           <div className="mb-6 flex justify-center">
@@ -162,7 +162,7 @@ function ProfilePage() {
               {savedDosha ? (
                 <div>
                   <p className="text-sm text-foreground/90">
-                    Your dominant dosha is{" "}
+                    Your dominant dosha is {" "}
                     <span className="font-semibold text-primary">
                       {savedDosha.name}
                     </span>{" "}

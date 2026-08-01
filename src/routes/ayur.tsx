@@ -30,13 +30,21 @@ const initialMessages: Message[] = [
   },
 ];
 
+// Define the system instructions that tell Gemini who it is
+const AYUR_SYSTEM_PROMPT = `
+You are Ayur, an expert Indian Ayurvedic and nutrition AI assistant for teenagers. 
+Your goal is to help them with diet, Dosha analysis, junk food swaps, and healthy habits. 
+Keep your answers friendly, engaging, and relatively concise (don't write massive essays unless asked). 
+Use formatting like bolding and emojis to make your text easy to read. 
+Always stay in character. If asked about non-health related topics, gently steer the conversation back to wellness and nutrition.
+`;
+
 function AyurChatPage() {
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll to the bottom when a new message is added
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -45,31 +53,85 @@ function AyurChatPage() {
     scrollToBottom();
   }, [messages, isTyping]);
 
-  const handleSendMessage = (e: React.FormEvent) => {
+  const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!inputValue.trim()) return;
 
-    // Add User Message
-    const newUserMsg: Message = {
-      id: Date.now().toString(),
-      role: "user",
-      content: inputValue.trim(),
-    };
-    
-    setMessages((prev) => [...prev, newUserMsg]);
+    const userText = inputValue.trim();
     setInputValue("");
     setIsTyping(true);
 
-    // Simulate AI thinking and replying (You will replace this with real AI later)
-    setTimeout(() => {
+    // 1. Add User Message to UI instantly
+    const newUserMsg: Message = {
+      id: Date.now().toString(),
+      role: "user",
+      content: userText,
+    };
+    
+    // We create a new array holding the history PLUS the new message
+    const updatedMessages = [...messages, newUserMsg];
+    setMessages(updatedMessages);
+
+    // 2. Prepare chat history for Gemini API
+    // Gemini uses "user" and "model" as roles
+    const geminiHistory = updatedMessages.map((msg) => ({
+      role: msg.role === "ayur" ? "model" : "user",
+      parts: [{ text: msg.content }],
+    }));
+
+    // 3. Call the Gemini API
+    try {
+      const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+      
+      if (!apiKey) {
+        throw new Error("API key is missing! Please set VITE_GEMINI_API_KEY in your environment variables.");
+      }
+
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            systemInstruction: {
+              parts: [{ text: AYUR_SYSTEM_PROMPT }]
+            },
+            contents: geminiHistory,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`API Error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      // Extract the text from Gemini's response payload
+      const ayurText = data.candidates[0].content.parts[0].text;
+
       const ayurResponse: Message = {
         id: (Date.now() + 1).toString(),
         role: "ayur",
-        content: "That's a great question! I am currently in training to connect to my main AI brain. Very soon, I will be able to give you a personalized Ayurvedic answer for this! 🌿✨",
+        content: ayurText,
       };
+      
       setMessages((prev) => [...prev, ayurResponse]);
+
+    } catch (error: any) {
+      console.error("Gemini API Error:", error);
+      
+      const errorResponse: Message = {
+        id: (Date.now() + 1).toString(),
+        role: "ayur",
+        content: `Oops! I lost connection to my AI brain. 🧠⚡\n\nError: ${error.message}`,
+      };
+      setMessages((prev) => [...prev, errorResponse]);
+    } finally {
       setIsTyping(false);
-    }, 1500);
+    }
   };
 
   return (
@@ -121,10 +183,10 @@ function AyurChatPage() {
                 key={msg.id} 
                 className={`flex w-full ${msg.role === "user" ? "justify-end" : "justify-start"}`}
               >
-                <div className={`flex max-w-[85%] gap-3 sm:max-w-[75%] ${msg.role === "user" ? "flex-row-reverse" : "flex-row"}`}>
+                <div className={`flex max-w-[85%] gap-3 sm:max-w-[80%] ${msg.role === "user" ? "flex-row-reverse" : "flex-row"}`}>
                   
                   {/* Avatar */}
-                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border shadow-md ${
+                  <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border shadow-md mt-1 ${
                     msg.role === "user" 
                       ? "bg-amber-600/80 border-amber-400/50 text-white" 
                       : "bg-emerald-600/80 border-emerald-400/50 text-white"
@@ -133,12 +195,17 @@ function AyurChatPage() {
                   </div>
 
                   {/* Message Bubble */}
-                  <div className={`rounded-2xl p-4 text-sm leading-relaxed shadow-lg backdrop-blur-md ${
-                    msg.role === "user"
-                      ? "rounded-tr-none bg-amber-600/90 text-white border border-amber-400/30"
-                      : "rounded-tl-none bg-emerald-950/80 text-emerald-50 border border-emerald-500/30"
-                  }`}>
-                    {msg.content}
+                  <div 
+                    className={`rounded-2xl p-4 text-sm leading-relaxed shadow-lg backdrop-blur-md whitespace-pre-wrap ${
+                      msg.role === "user"
+                        ? "rounded-tr-none bg-amber-600/90 text-white border border-amber-400/30"
+                        : "rounded-tl-none bg-emerald-950/80 text-emerald-50 border border-emerald-500/30"
+                    }`}
+                  >
+                    {/* Simple formatting render for bold text sent by Gemini */}
+                    {msg.content.split('**').map((part, index) => 
+                      index % 2 === 1 ? <strong key={index} className="text-white font-bold">{part}</strong> : part
+                    )}
                   </div>
                   
                 </div>

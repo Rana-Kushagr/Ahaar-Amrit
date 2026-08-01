@@ -191,7 +191,7 @@ function Dashboard() {
     : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted px-4 py-12">
+    <div className="min-h-screen bg-[url('/ayurveda-hero-bg.png')] bg-cover bg-center bg-fixed bg-gradient-to-b from-background to-muted px-4 py-12">
       <div className="container mx-auto max-w-4xl space-y-8">
 
         {/* Welcome */}
@@ -302,7 +302,7 @@ function Dashboard() {
           </h2>
 
           <p className="text-2xl font-bold text-primary">
-            Ragi{" "}
+            Ragi {" "}
             <span className="font-hindi text-lg text-muted-foreground">
               रागी
             </span>
@@ -369,13 +369,13 @@ function Dashboard() {
           {dosha ? (
             <div>
               <p className="text-sm text-foreground/90">
-                Your dominant dosha is{" "}
+                Your dominant dosha is {" "}
                 <span className="font-semibold text-primary">
                   {dosha.name}
-                </span>{" "}
+                </span> {" "}
                 <span className="font-hindi">
                   {dosha.hindi}
-                </span>{" "}
+                </span> {" "}
                 · {dosha.elements}
               </p>
 

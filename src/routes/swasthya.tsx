@@ -8,9 +8,11 @@ import {
   Skull,
   CheckCircle2,
   RotateCcw,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const title = "Swasthya & Junk Food Reality — Ahaar Amrit";
 const description =
@@ -30,30 +32,152 @@ export const Route = createFileRoute("/swasthya")({
   component: SwasthyaPage,
 });
 
+// =====================================================
+// 10 DETAILED JUNK FOODS DATA
+// =====================================================
+const junkFoods = [
+  {
+    name: "🍔 Burgers & Cheeseburgers",
+    nutrients: [
+      { label: "Saturated Fats", value: "20g+", color: "text-amber-400" },
+      { label: "Sodium (Salt)", value: "1000mg", color: "text-amber-400" },
+      { label: "Refined Flour (Bun)", value: "High", color: "text-red-400" },
+      { label: "Protein Quality", value: "Processed", color: "text-red-400" },
+    ],
+    effects: "Causes rapid insulin spikes from the maida bun, signaling glands to produce excess sebum.",
+    longTerm: "Leads to severe acne breakouts, sluggishness, and stubborn belly fat.",
+  },
+  {
+    name: "🍕 Pizza",
+    nutrients: [
+      { label: "Cheese / Trans Fats", value: "Extremely High", color: "text-red-400" },
+      { label: "Sodium (Salt)", value: "1500mg+", color: "text-amber-400" },
+      { label: "Empty Carbs", value: "60g+", color: "text-amber-400" },
+      { label: "Dietary Fiber", value: "< 2g", color: "text-red-400" },
+    ],
+    effects: "Excess sodium traps water under the skin, leading to immediate face bloating and puffy eyes.",
+    longTerm: "Causes chronic gut issues, oily skin, and unwanted obesity in teens.",
+  },
+  {
+    name: "🍜 Instant Noodles",
+    nutrients: [
+      { label: "Sodium & MSG", value: "Toxic Levels", color: "text-red-400" },
+      { label: "Palm Oil (Fried)", value: "15g+", color: "text-amber-400" },
+      { label: "Refined Wheat", value: "100%", color: "text-red-400" },
+      { label: "Essential Vitamins", value: "0%", color: "text-red-400" },
+    ],
+    effects: "Coated in wax and deep-fried in palm oil; impossible to digest quickly, killing gut bacteria.",
+    longTerm: "Results in severe bloating, dark circles, and long-term metabolic damage.",
+  },
+  {
+    name: "🌶️ Chowmein & Chilli Potato",
+    nutrients: [
+      { label: "Reused Oil / Fats", value: "25g+", color: "text-red-400" },
+      { label: "Glycemic Index", value: "Very High", color: "text-amber-400" },
+      { label: "Ajinomoto (MSG)", value: "High", color: "text-red-400" },
+      { label: "Fiber & Protein", value: "Almost 0g", color: "text-red-400" },
+    ],
+    effects: "High glycemic index forces the body to store all consumed calories instantly as fat.",
+    longTerm: "Hormonal imbalances, stubborn facial acne, and lower belly fat accumulation.",
+  },
+  {
+    name: "🍫 Chocolates & Candy Bars",
+    nutrients: [
+      { label: "Added Sugars", value: "30g+", color: "text-red-400" },
+      { label: "Corn Syrup", value: "High", color: "text-red-400" },
+      { label: "Artificial Flavors", value: "High", color: "text-amber-400" },
+      { label: "Real Cocoa", value: "Very Low", color: "text-amber-400" },
+    ],
+    effects: "Creates a massive 30-minute sugar rush followed by a severe energy crash and brain fog.",
+    longTerm: "Causes rapid tooth decay, premature skin dullness (glycation), and mood swings.",
+  },
+  {
+    name: "🍩 Doughnuts & Pastries",
+    nutrients: [
+      { label: "Deep-Fried Fats", value: "20g+", color: "text-red-400" },
+      { label: "Refined Sugar", value: "25g+", color: "text-red-400" },
+      { label: "Maida", value: "High", color: "text-amber-400" },
+      { label: "Nutritional Value", value: "Zero", color: "text-red-400" },
+    ],
+    effects: "The combination of deep-frying and high sugar causes massive inflammation in the body.",
+    longTerm: "Drastically increases the risk of teen obesity, lethargy, and dull, aging skin.",
+  },
+  {
+    name: "🥤 Carbonated Soft Drinks",
+    nutrients: [
+      { label: "Added Sugar", value: "40g (10 tsp!)", color: "text-red-400" },
+      { label: "Phosphoric Acid", value: "High", color: "text-red-400" },
+      { label: "Empty Calories", value: "150+", color: "text-amber-400" },
+      { label: "Hydration", value: "Dehydrating", color: "text-amber-400" },
+    ],
+    effects: "Phosphoric acid blocks calcium absorption during your most crucial growth years.",
+    longTerm: "Permanently stunts height potential, erodes dental enamel, and causes sudden weight gain.",
+  },
+  {
+    name: "⚡ Energy Drinks",
+    nutrients: [
+      { label: "Caffeine", value: "Extreme", color: "text-red-400" },
+      { label: "Taurine & Guarana", value: "High", color: "text-amber-400" },
+      { label: "Artificial Sweeteners", value: "Toxic", color: "text-red-400" },
+      { label: "Sugar", value: "30g+", color: "text-amber-400" },
+    ],
+    effects: "Overstimulates the nervous system, causing heart palpitations, anxiety, and jitters.",
+    longTerm: "Severe sleep disruption, dark circles under eyes, and chronic exam stress/brain fog.",
+  },
+  {
+    name: "🧋 Flavoured Milks & Shakes",
+    nutrients: [
+      { label: "Hidden Sugars", value: "35g+", color: "text-red-400" },
+      { label: "Saturated Dairy Fat", value: "High", color: "text-amber-400" },
+      { label: "Artificial Colors", value: "High", color: "text-red-400" },
+      { label: "Real Fruit", value: "0%", color: "text-amber-400" },
+    ],
+    effects: "Thick, sugar-loaded dairy heavily triggers sebum production in teenage skin.",
+    longTerm: "Leads to cystic acne, lactose-induced bloating, and sluggish digestion.",
+  },
+  {
+    name: "🍗 Fried Chicken & Fries",
+    nutrients: [
+      { label: "Trans Fats", value: "Dangerous", color: "text-red-400" },
+      { label: "Acrylamide (Toxins)", value: "High", color: "text-red-400" },
+      { label: "Sodium", value: "1200mg+", color: "text-amber-400" },
+      { label: "Cholesterol", value: "High", color: "text-amber-400" },
+    ],
+    effects: "Deep frying creates acrylamides, which are highly inflammatory and toxic to the skin.",
+    longTerm: "Greasy skin, poor heart health stamina for sports, and overall bodily inflammation.",
+  },
+];
+
+
 function SwasthyaPage() {
   // =====================================================
   // STREAK TRACKER LOGIC
   // =====================================================
   const [streak, setStreak] = useState(0);
   const [loggedToday, setLoggedToday] = useState(false);
+  const [failedToday, setFailedToday] = useState(false);
 
   useEffect(() => {
-    // Load saved streak data when the page opens
     const savedStreak = localStorage.getItem("ahaar_junk_streak");
-    const lastDate = localStorage.getItem("ahaar_last_logged_date");
+    const lastLoggedDate = localStorage.getItem("ahaar_last_logged_date");
+    const lastFailedDate = localStorage.getItem("ahaar_last_failed_date");
     const today = new Date().toDateString();
 
     if (savedStreak) {
       setStreak(parseInt(savedStreak));
     }
 
-    if (lastDate === today) {
+    if (lastLoggedDate === today) {
       setLoggedToday(true);
+    }
+
+    if (lastFailedDate === today) {
+      setFailedToday(true);
     }
   }, []);
 
   const handleLogDay = () => {
-    if (!loggedToday) {
+    if (!loggedToday && !failedToday) {
       const newStreak = streak + 1;
       setStreak(newStreak);
       setLoggedToday(true);
@@ -64,11 +188,62 @@ function SwasthyaPage() {
     }
   };
 
-  const handleResetStreak = () => {
+  const handleFailDay = () => {
+    const today = new Date().toDateString();
     setStreak(0);
     setLoggedToday(false);
+    setFailedToday(true);
+    
     localStorage.setItem("ahaar_junk_streak", "0");
-    localStorage.removeItem("ahaar_last_logged_date");
+    localStorage.setItem("ahaar_last_failed_date", today);
+    // Remove logged date if they change their mind and fail
+    localStorage.removeItem("ahaar_last_logged_date"); 
+  };
+
+
+  // =====================================================
+  // INFINITE ROULETTE CAROUSEL LOGIC
+  // =====================================================
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [dragOffset, setDragOffset] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // We duplicate the array to create a seamless infinite loop illusion
+  const extendedItems = [...junkFoods, ...junkFoods, ...junkFoods];
+  const realLength = junkFoods.length;
+  const offsetIndex = realLength; // Start at the middle duplicate
+
+  const handleDragStart = (e: React.MouseEvent | React.TouchEvent) => {
+    setIsDragging(true);
+    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+    setStartX(clientX);
+  };
+
+  const handleDragMove = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!isDragging) return;
+    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+    const offset = clientX - startX;
+    setDragOffset(offset);
+  };
+
+  const handleDragEnd = () => {
+    setIsDragging(false);
+    if (dragOffset > 50) {
+      handlePrev();
+    } else if (dragOffset < -50) {
+      handleNext();
+    }
+    setDragOffset(0);
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % realLength);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + realLength) % realLength);
   };
 
   return (
@@ -83,7 +258,6 @@ function SwasthyaPage() {
           backgroundImage: `url('https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=2070&auto=format&fit=crop')`,
         }}
       >
-        {/* A very light emerald tint so the glass cards are readable, but the image remains fully visible */}
         <div className="absolute inset-0 bg-emerald-950/40" />
       </div>
 
@@ -169,180 +343,155 @@ function SwasthyaPage() {
           </p>
         </header>
 
-
         {/* =====================================================
             STREAK TRACKER WIDGET
         ===================================================== */}
-        <section className="relative overflow-hidden rounded-[2rem] border border-amber-500/30 bg-black/40 p-8 text-center shadow-2xl backdrop-blur-xl transition-all hover:border-amber-400/50">
-          <div className="absolute -top-10 -right-10 h-32 w-32 rounded-full bg-amber-500/10 blur-3xl" />
-          <div className="absolute -bottom-10 -left-10 h-32 w-32 rounded-full bg-emerald-500/10 blur-3xl" />
-          
-          <h2 className="font-display text-xl font-bold text-emerald-50 mb-2">
+        <section className="rounded-[2rem] border border-white/20 bg-black/40 p-8 text-center backdrop-blur-xl shadow-xl space-y-4 hover:border-emerald-400/50 transition-all">
+          <h2 className="font-display text-2xl font-bold text-emerald-50 drop-shadow-md">
             My Junk-Free Streak
           </h2>
-          <p className="text-sm text-emerald-100/80 mb-6">
+          <p className="font-hindi text-sm text-emerald-100 drop-shadow-md">
             Build discipline. Keep your skin clear and energy high!
           </p>
 
-          <div className="flex items-center justify-center gap-4 mb-8">
-            <Flame className={`h-12 w-12 ${streak > 0 ? "text-amber-400 drop-shadow-[0_0_15px_rgba(251,191,36,0.5)] animate-pulse" : "text-emerald-100/30"}`} />
-            <span className="font-display text-6xl font-black text-white tracking-tighter">
+          <div className="flex items-center justify-center gap-4 py-4">
+            <Flame className={`h-10 w-10 ${streak > 0 ? "text-amber-400 animate-pulse" : "text-white/30"}`} />
+            <span className="font-display text-5xl font-bold text-emerald-300">
               {streak}
             </span>
-            <span className="text-lg font-bold text-amber-200 uppercase tracking-widest mt-4">
+            <span className="text-lg font-bold text-emerald-50 mt-3">
               Days
             </span>
           </div>
 
+          {failedToday && (
+            <div className="mb-4 text-sm font-bold text-red-400 bg-red-950/40 border border-red-500/30 py-2 px-4 rounded-full inline-block mx-auto">
+              You ate junk food today. Streak reset to 0! Try again tomorrow.
+            </div>
+          )}
+
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button
               onClick={handleLogDay}
-              disabled={loggedToday}
-              className={`rounded-full px-8 py-6 text-base shadow-xl transition-all ${
+              disabled={loggedToday || failedToday}
+              className={`rounded-full px-6 py-2 transition-all ${
                 loggedToday 
-                  ? "bg-emerald-900/50 text-emerald-300 opacity-80" 
-                  : "bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white hover:scale-105"
+                  ? "bg-emerald-950/60 text-emerald-300 border border-emerald-500/30" 
+                  : failedToday
+                  ? "bg-gray-800/50 text-gray-400 opacity-50 cursor-not-allowed border border-gray-600/30"
+                  : "bg-emerald-600 hover:bg-emerald-500 text-white"
               }`}
             >
               {loggedToday ? (
                 <>
-                  <CheckCircle2 className="mr-2 h-5 w-5" />
+                  <CheckCircle2 className="mr-2 h-4 w-4" />
                   Logged for Today!
+                </>
+              ) : failedToday ? (
+                <>
+                  <ShieldAlert className="mr-2 h-4 w-4" />
+                  Locked for Today
                 </>
               ) : (
                 <>
-                  <Sparkles className="mr-2 h-5 w-5" />
+                  <Sparkles className="mr-2 h-4 w-4" />
                   I Didn't Eat Junk Today
                 </>
               )}
             </Button>
 
-            {streak > 0 && (
-              <Button
-                variant="ghost"
-                onClick={handleResetStreak}
-                className="rounded-full px-6 py-6 text-red-300 hover:bg-red-950/40 hover:text-red-200"
-              >
-                <RotateCcw className="mr-2 h-4 w-4" />
-                Oops, I ate junk
-              </Button>
-            )}
+            <Button
+              variant="ghost"
+              onClick={handleFailDay}
+              disabled={failedToday}
+              className={`rounded-full px-6 py-2 transition-all ${
+                failedToday
+                  ? "text-red-500/50 cursor-not-allowed"
+                  : "text-red-400 hover:bg-red-950/40 hover:text-red-300"
+              }`}
+            >
+              <RotateCcw className="mr-2 h-4 w-4" />
+              Oops, I ate junk
+            </Button>
           </div>
         </section>
 
 
         {/* =====================================================
-            SECTION 1: THE JUNK FOOD TRUTH LAB (GLASS CARDS)
+            SECTION 1: THE JUNK FOOD TRUTH LAB (INFINITE CAROUSEL)
         ===================================================== */}
         <section className="space-y-5">
-          <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-amber-500/20 border border-amber-500/30 text-amber-400 backdrop-blur-md">
-              <Skull className="h-5 w-5" />
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-amber-500/20 border border-amber-500/30 text-amber-400 backdrop-blur-md">
+                <Skull className="h-5 w-5" />
+              </div>
+              <div>
+                <h2 className="font-display text-2xl font-bold text-emerald-50 drop-shadow-md">
+                  Junk Food Truth Lab
+                </h2>
+                <p className="font-hindi text-sm text-emerald-100 drop-shadow-md">
+                  Swipe to reveal the reality of 10 popular junk foods
+                </p>
+              </div>
             </div>
-            <div>
-              <h2 className="font-display text-2xl font-bold text-emerald-50 drop-shadow-md">
-                Junk Food Truth Lab
-              </h2>
-              <p className="font-hindi text-sm text-emerald-100 drop-shadow-md">
-                जानिए आपके पसंदीदा जंक फ़ूड में असल में क्या है
-              </p>
+            <div className="hidden sm:flex gap-2">
+              <Button variant="ghost" onClick={handlePrev} className="rounded-full bg-black/40 text-emerald-100 hover:bg-emerald-900/60 border border-white/20">
+                <ChevronLeft className="h-5 w-5" />
+              </Button>
+              <Button variant="ghost" onClick={handleNext} className="rounded-full bg-black/40 text-emerald-100 hover:bg-emerald-900/60 border border-white/20">
+                <ChevronRight className="h-5 w-5" />
+              </Button>
             </div>
           </div>
 
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            
-            {/* PIZZA / BURGER */}
-            <div className="rounded-[2rem] border border-white/20 bg-black/40 p-6 backdrop-blur-xl shadow-xl space-y-4 hover:border-emerald-400/50 transition-all">
-              <div className="text-lg font-bold text-emerald-300">🍕 Pizza & Burgers</div>
-              <div className="space-y-2 text-xs text-emerald-50">
-                <div className="flex justify-between border-b border-white/10 pb-1">
-                  <span>Saturated Fats:</span>
-                  <span className="font-bold text-amber-400">20g - 35g (High)</span>
-                </div>
-                <div className="flex justify-between border-b border-white/10 pb-1">
-                  <span>Sodium (Salt):</span>
-                  <span className="font-bold text-amber-400">1200mg (60% Limit)</span>
-                </div>
-                <div className="flex justify-between border-b border-white/10 pb-1">
-                  <span>Refined Flour:</span>
-                  <span className="font-bold text-amber-400">80g+</span>
-                </div>
-                <div className="flex justify-between pb-1">
-                  <span>Vitamins & Fiber:</span>
-                  <span className="font-bold text-red-400">Almost 0%</span>
-                </div>
-              </div>
-            </div>
+          {/* Carousel Container */}
+          <div 
+            className="relative overflow-hidden w-full select-none touch-pan-y"
+            onMouseDown={handleDragStart}
+            onMouseMove={handleDragMove}
+            onMouseUp={handleDragEnd}
+            onMouseLeave={handleDragEnd}
+            onTouchStart={handleDragStart}
+            onTouchMove={handleDragMove}
+            onTouchEnd={handleDragEnd}
+          >
+            <div 
+              ref={containerRef}
+              className="flex w-full"
+              style={{
+                transform: `translateX(calc(-${(offsetIndex + currentIndex) * 50}% + ${dragOffset}px))`,
+                transition: isDragging ? 'none' : 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)',
+              }}
+            >
+              {extendedItems.map((food, i) => (
+                <div key={i} className="min-w-[100%] sm:min-w-[50%] p-2">
+                  <div className="h-full rounded-[2rem] border border-white/20 bg-black/40 p-6 backdrop-blur-xl shadow-xl space-y-4 hover:border-emerald-400/50 transition-all flex flex-col">
+                    <div className="text-lg font-bold text-emerald-300">{food.name}</div>
+                    
+                    <div className="space-y-2 text-xs text-emerald-50 flex-grow">
+                      {food.nutrients.map((n, idx) => (
+                        <div key={idx} className="flex justify-between border-b border-white/10 pb-1">
+                          <span>{n.label}:</span>
+                          <span className={`font-bold ${n.color}`}>{n.value}</span>
+                        </div>
+                      ))}
+                    </div>
 
-            {/* CHOWMEIN & CHILLI POTATO */}
-            <div className="rounded-[2rem] border border-white/20 bg-black/40 p-6 backdrop-blur-xl shadow-xl space-y-4 hover:border-emerald-400/50 transition-all">
-              <div className="text-lg font-bold text-emerald-300">🍜 Chowmein & Chilli Potato</div>
-              <div className="space-y-2 text-xs text-emerald-50">
-                <div className="flex justify-between border-b border-white/10 pb-1">
-                  <span>Palm / Reused Oil:</span>
-                  <span className="font-bold text-amber-400">25g+ (Trans-fats)</span>
+                    <div className="pt-2 space-y-2">
+                      <div className="text-xs text-amber-200">
+                        <strong className="block text-amber-400 mb-1">Immediate Effect:</strong>
+                        {food.effects}
+                      </div>
+                      <div className="text-xs text-red-300 border-t border-white/10 pt-2">
+                        <strong className="block text-red-400 mb-1">Long-Term Impact:</strong>
+                        {food.longTerm}
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex justify-between border-b border-white/10 pb-1">
-                  <span>MSG & Sodium:</span>
-                  <span className="font-bold text-amber-400">Extremely High</span>
-                </div>
-                <div className="flex justify-between border-b border-white/10 pb-1">
-                  <span>Glycemic Index:</span>
-                  <span className="font-bold text-amber-400">High (Fat Store)</span>
-                </div>
-                <div className="flex justify-between pb-1">
-                  <span>Protein Quality:</span>
-                  <span className="font-bold text-red-400">Very Low</span>
-                </div>
-              </div>
+              ))}
             </div>
-
-            {/* FRIES & FRIED MOMOS */}
-            <div className="rounded-[2rem] border border-white/20 bg-black/40 p-6 backdrop-blur-xl shadow-xl space-y-4 hover:border-emerald-400/50 transition-all">
-              <div className="text-lg font-bold text-emerald-300">🍟 Fries & Fried Momos</div>
-              <div className="space-y-2 text-xs text-emerald-50">
-                <div className="flex justify-between border-b border-white/10 pb-1">
-                  <span>Acrylamide Toxins:</span>
-                  <span className="font-bold text-amber-400">High (Deep Frying)</span>
-                </div>
-                <div className="flex justify-between border-b border-white/10 pb-1">
-                  <span>Empty Calories:</span>
-                  <span className="font-bold text-amber-400">400 - 600 kcal</span>
-                </div>
-                <div className="flex justify-between border-b border-white/10 pb-1">
-                  <span>Dietary Fiber:</span>
-                  <span className="font-bold text-red-400">&lt; 1g</span>
-                </div>
-                <div className="flex justify-between pb-1">
-                  <span>Hydration Impact:</span>
-                  <span className="font-bold text-amber-400">Dehydrating</span>
-                </div>
-              </div>
-            </div>
-
-            {/* COLD DRINKS & SODA */}
-            <div className="rounded-[2rem] border border-white/20 bg-black/40 p-6 backdrop-blur-xl shadow-xl space-y-4 hover:border-emerald-400/50 transition-all">
-              <div className="text-lg font-bold text-emerald-300">🥤 Fizzy Drinks & Soda</div>
-              <div className="space-y-2 text-xs text-emerald-50">
-                <div className="flex justify-between border-b border-white/10 pb-1">
-                  <span>Added Sugar:</span>
-                  <span className="font-bold text-amber-400">35g - 40g (10 tsp)</span>
-                </div>
-                <div className="flex justify-between border-b border-white/10 pb-1">
-                  <span>Phosphoric Acid:</span>
-                  <span className="font-bold text-amber-400">Blocks Calcium</span>
-                </div>
-                <div className="flex justify-between border-b border-white/10 pb-1">
-                  <span>Nutritional Value:</span>
-                  <span className="font-bold text-red-400">Absolute 0</span>
-                </div>
-                <div className="flex justify-between pb-1">
-                  <span>Enamel Damage:</span>
-                  <span className="font-bold text-amber-400">High Erosion</span>
-                </div>
-              </div>
-            </div>
-
           </div>
         </section>
 

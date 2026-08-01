@@ -69,21 +69,16 @@ function AyurChatPage() {
     const updatedMessages = [...messages, newUserMsg];
     setMessages(updatedMessages);
 
-    const geminiHistory = updatedMessages.map((msg) => ({
+    const geminiContents = updatedMessages.map((msg) => ({
       role: msg.role === "ayur" ? "model" : "user",
       parts: [{ text: msg.content }],
     }));
 
     try {
-      const apiKey = "AQ.Ab8RN6ImAi49JeqHWsP_ij65FR7V2X_aL5FYVRLt6vq7t5OO6Q";
-      
-      if (!apiKey) {
-        throw new Error("API key is missing!");
-      }
+      const apiKey = "AQ.Ab8RN6LagrOJRaR_4EymKlvQ_Cx1e8Y1C4m7FeSiXI6lCD_RZg";
 
-      // Endpoint updated to gemini-1.5-pro-latest
       const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-latest:generateContent?key=${apiKey}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
         {
           method: "POST",
           headers: {
@@ -93,13 +88,35 @@ function AyurChatPage() {
             systemInstruction: {
               parts: [{ text: AYUR_SYSTEM_PROMPT }]
             },
-            contents: geminiHistory,
+            contents: geminiContents,
           }),
         }
       );
 
       if (!response.ok) {
-        throw new Error(`API Error: ${response.status}`);
+        // Fallback to gemini-pro if flash endpoint throws an error
+        const fallbackResponse = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              contents: geminiContents,
+            }),
+          }
+        );
+
+        if (!fallbackResponse.ok) {
+          throw new Error(`API Error: ${response.status}`);
+        }
+
+        const fallbackData = await fallbackResponse.json();
+        const fallbackText = fallbackData.candidates[0].content.parts[0].text;
+        setMessages((prev) => [
+          ...prev,
+          { id: (Date.now() + 1).toString(), role: "ayur", content: fallbackText },
+        ]);
+        return;
       }
 
       const data = await response.json();
@@ -151,7 +168,7 @@ function AyurChatPage() {
           <div className="flex items-center gap-2 rounded-full border border-amber-500/30 bg-black/40 px-5 py-2 backdrop-blur-md">
             <Sparkles className="h-4 w-4 text-amber-400" />
             <span className="font-display text-sm font-bold text-amber-200 uppercase tracking-widest">
-              Ayur AI (Pro)
+              Ayur AI
             </span>
           </div>
         </div>

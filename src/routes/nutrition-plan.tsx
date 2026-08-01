@@ -62,25 +62,21 @@ function NutritionPlanPage() {
   const dosha = profile.dosha ? doshaProfiles[profile.dosha] : null;
 
   return (
-    <main className="relative min-h-screen overflow-hidden px-4 pb-16 pt-32 sm:px-6">
+    <main className="relative min-h-screen px-4 pb-16 pt-32 sm:px-6">
 
-      {/* =====================================================
-          CRISP IMAGE BACKGROUND (No blurry orbs!)
-      ===================================================== */}
-      <div className="pointer-events-none fixed inset-0 -z-10 bg-emerald-950">
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url('${nutritionBg.url}')` }}
-        />
-        <div className="absolute inset-0 bg-emerald-950/60" />
-      </div>
-
+      {/* Fixed full-screen background image */}
+      <div
+        className="pointer-events-none fixed inset-0 z-0 bg-emerald-950 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url('${nutritionBg.url}')` }}
+        aria-hidden
+      />
+      <div className="pointer-events-none fixed inset-0 z-0 bg-emerald-950/50" aria-hidden />
 
       {/* =====================================================
           MAIN CONTAINER
       ===================================================== */}
 
-      <div className="relative mx-auto max-w-5xl space-y-8">
+      <div className="relative z-10 mx-auto max-w-5xl space-y-8">
 
 
         {/* =====================================================

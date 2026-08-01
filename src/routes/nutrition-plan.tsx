@@ -8,6 +8,7 @@ import {
   Clock,
 } from "lucide-react";
 
+import nutritionBg from "@/assets/nutrition-bg.png.asset.json";
 import { Button } from "@/components/ui/button";
 import { useAhaarProfile } from "@/hooks/use-ahaar-profile";
 import { doshaProfiles } from "@/lib/dosha";

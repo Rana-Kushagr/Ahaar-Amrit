@@ -12,6 +12,7 @@ const allLinks = [
   { label: "Quests", to: "/wellness-challenge" },
   { label: "Explorer", to: "/regional-explorer" },
   { label: "Recipes", to: "/recipe-studio" },
+  { label: "Academy", to: "/ahaar-academy" },
   { label: "Profile", to: "/profile" },
 ] as const;
 
@@ -29,6 +30,7 @@ const dropdownLinks = [
   { label: "Quests", to: "/wellness-challenge" },
   { label: "Explorer", to: "/regional-explorer" },
   { label: "Recipes", to: "/recipe-studio" },
+  { label: "Academy", to: "/ahaar-academy" },
 ] as const;
 
 export function Navbar() {

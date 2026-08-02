@@ -17,6 +17,7 @@ const initialMessages: Message[] = [
   },
 ];
 
+const QUICK_PROMPTS = ["Study time snack", "Lunch ideas", "Best light dinner"];
 
 export function AyurChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,12 +36,12 @@ export function AyurChatWidget() {
     }
   }, [messages, isTyping, isOpen]);
 
-  const handleSendMessage = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!inputValue.trim() || isTyping) return;
+  const sendMessage = async (text: string) => {
+    const userText = text.trim();
+    if (!userText || isTyping) return;
 
-    const userText = inputValue.trim();
     setInputValue("");
+
 
     const newUserMsg: Message = {
       id: Date.now().toString(),
@@ -173,7 +174,26 @@ export function AyurChatWidget() {
           </div>
 
           <div className="border-t border-amber-300/15 bg-emerald-950/70 p-3 backdrop-blur-md">
-            <form onSubmit={handleSendMessage} className="relative flex items-center">
+            <div className="mb-2 flex flex-wrap gap-1.5">
+              {QUICK_PROMPTS.map((prompt) => (
+                <button
+                  key={prompt}
+                  type="button"
+                  onClick={() => void sendMessage(prompt)}
+                  disabled={isTyping}
+                  className="rounded-full border border-amber-300/25 bg-emerald-900/50 px-3 py-1.5 text-[10px] font-medium text-amber-100/90 transition-colors hover:border-amber-300/60 hover:bg-emerald-800/60 hover:text-amber-50 disabled:opacity-40"
+                >
+                  {prompt}
+                </button>
+              ))}
+            </div>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                void sendMessage(inputValue);
+              }}
+              className="relative flex items-center"
+            >
               <input
                 type="text"
                 value={inputValue}

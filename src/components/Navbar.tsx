@@ -51,6 +51,10 @@ export function Navbar() {
     (link) => location.pathname === link.to || (link.to !== "/" && location.pathname.startsWith(link.to))
   );
 
+  // Reusable style variables to ensure 100% exact matching across all buttons and links
+  const activeClass = "bg-gradient-to-r from-orange-400 via-orange-500 to-green-600 text-white shadow-[0_6px_18px_rgba(226,110,40,0.25)] hover:shadow-[0_8px_24px_rgba(226,110,40,0.35)]";
+  const inactiveClass = "text-white/90 hover:bg-white/20 hover:text-white hover:shadow-sm";
+
   return (
     <header
       className="
@@ -67,7 +71,7 @@ export function Navbar() {
         border
         border-white/40
 
-        bg-white/25
+        bg-white/10
         backdrop-blur-xl
         backdrop-saturate-150
 
@@ -132,10 +136,10 @@ export function Navbar() {
 
           {/* Logo text */}
           <div className="hidden sm:block">
-            <p className="font-display text-xl font-bold leading-none tracking-tight text-[#332719]">
+            <p className="font-display text-xl font-bold leading-none tracking-tight text-white">
               Ahaar Amrit
             </p>
-            <p className="mt-1 font-hindi text-[11px] font-medium text-[#665744]">
+            <p className="mt-1 font-hindi text-[11px] font-medium text-white/70">
               आहार अमृत
             </p>
           </div>
@@ -157,14 +161,7 @@ export function Navbar() {
               <Link
                 key={link.to}
                 to={link.to}
-                className={`
-                  relative rounded-full px-3 lg:px-4 py-2.5 text-sm font-medium transition-all duration-300
-                  ${
-                    active
-                      ? "bg-gradient-to-r from-orange-400 via-orange-500 to-green-600 text-white shadow-[0_6px_18px_rgba(226,110,40,0.25)] hover:shadow-[0_8px_24px_rgba(226,110,40,0.35)]"
-                      : "text-[#514638] hover:bg-white/35 hover:text-[#2f2419] hover:shadow-sm"
-                  }
-                `}
+                className={`relative rounded-full px-3 lg:px-4 py-2.5 text-sm font-medium transition-all duration-300 ${active ? activeClass : inactiveClass}`}
               >
                 {link.label}
               </Link>
@@ -175,27 +172,20 @@ export function Navbar() {
           <div className="relative" ref={dropdownRef}>
             <button 
               onClick={() => setDiscoverOpen(!discoverOpen)}
-              className={`
-                flex items-center gap-1 rounded-full px-3 lg:px-4 py-2.5 text-sm font-medium transition-all duration-300
-                ${
-                  isDiscoverActive
-                    ? "bg-gradient-to-r from-orange-400 via-orange-500 to-green-600 text-white shadow-[0_6px_18px_rgba(226,110,40,0.25)] hover:shadow-[0_8px_24px_rgba(226,110,40,0.35)]"
-                    : "text-[#514638] hover:bg-white/35 hover:text-[#2f2419] hover:shadow-sm"
-                }
-              `}
+              className={`flex items-center gap-1 rounded-full px-3 lg:px-4 py-2.5 text-sm font-medium transition-all duration-300 ${isDiscoverActive ? activeClass : inactiveClass}`}
             >
               Discover 
               <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${discoverOpen ? "rotate-180" : ""}`} />
             </button>
             
-            {/* Dropdown Box */}
+            {/* Dropdown Box (Glassmorphism applied here) */}
             <div 
               className={`
                 absolute top-full left-1/2 -translate-x-1/2 pt-2 z-50 transition-all duration-300 origin-top
                 ${discoverOpen ? "opacity-100 visible scale-100 translate-y-0" : "opacity-0 invisible scale-95 translate-y-2"}
               `}
             >
-              <div className="flex flex-col min-w-[160px] p-2 bg-white/95 backdrop-blur-2xl backdrop-saturate-150 rounded-2xl shadow-xl border border-white/60">
+              <div className="flex flex-col min-w-[160px] p-2 bg-white/10 backdrop-blur-xl backdrop-saturate-150 rounded-2xl shadow-xl border border-white/20">
                 {dropdownLinks.map((link) => {
                   const active =
                     location.pathname === link.to ||
@@ -211,7 +201,7 @@ export function Navbar() {
                         ${
                           active
                             ? "bg-gradient-to-r from-orange-400 to-orange-500 text-white shadow-sm"
-                            : "text-[#514638] hover:bg-orange-500/10 hover:text-orange-600"
+                            : "text-white/80 hover:bg-white/20 hover:text-white"
                         }
                       `}
                     >
@@ -226,14 +216,7 @@ export function Navbar() {
           {/* Profile Link (Always Visible at the end) */}
           <Link
             to="/profile"
-            className={`
-              relative rounded-full px-3 lg:px-4 py-2.5 text-sm font-medium transition-all duration-300
-              ${
-                location.pathname.startsWith("/profile")
-                  ? "bg-gradient-to-r from-orange-400 via-orange-500 to-green-600 text-white shadow-[0_6px_18px_rgba(226,110,40,0.25)] hover:shadow-[0_8px_24px_rgba(226,110,40,0.35)]"
-                  : "text-[#514638] hover:bg-white/35 hover:text-[#2f2419] hover:shadow-sm"
-              }
-            `}
+            className={`relative rounded-full px-3 lg:px-4 py-2.5 text-sm font-medium transition-all duration-300 ${location.pathname.startsWith("/profile") ? activeClass : inactiveClass}`}
           >
             Profile
           </Link>
@@ -249,7 +232,7 @@ export function Navbar() {
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Open navigation menu"
           className="
-            flex h-11 w-11 items-center justify-center rounded-full border border-white/40 bg-white/25 text-[#403426] backdrop-blur-md transition-all duration-300 hover:bg-white/45 hover:shadow-md md:hidden
+            flex h-11 w-11 items-center justify-center rounded-full border border-white/40 bg-white/10 text-white backdrop-blur-md transition-all duration-300 hover:bg-white/20 hover:shadow-md md:hidden
           "
         >
           {mobileMenuOpen ? (
@@ -267,7 +250,7 @@ export function Navbar() {
       {mobileMenuOpen && (
         <div
           className="
-            absolute top-[84px] left-0 w-full rounded-[2rem] border border-white/40 bg-white/95 p-4 shadow-xl backdrop-blur-2xl backdrop-saturate-150 flex flex-col gap-2 md:hidden z-50
+            absolute top-[84px] left-0 w-full rounded-[2rem] border border-white/20 bg-white/10 p-4 shadow-xl backdrop-blur-xl backdrop-saturate-150 flex flex-col gap-2 md:hidden z-50
           "
         >
           {allLinks.map((link) => {
@@ -285,7 +268,7 @@ export function Navbar() {
                   ${
                     active
                       ? "bg-gradient-to-r from-orange-400 via-orange-500 to-green-600 text-white shadow-md"
-                      : "text-[#514638] hover:bg-orange-500/10 hover:text-[#2f2419]"
+                      : "text-white/80 hover:bg-white/20 hover:text-white"
                   }
                 `}
               >

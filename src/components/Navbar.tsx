@@ -1,308 +1,252 @@
-import { Link, useLocation } from "@tanstack/react-router";
-import { Leaf, Menu, X } from "lucide-react";
+import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { 
+  Map, Compass, Leaf, BookOpen, Utensils, 
+  Sprout, ChevronRight, MapPin
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-const links = [
-  { label: "Home", to: "/" },
-  { label: "Dashboard", to: "/dashboard" },
-  { label: "Nutrition", to: "/nutrition-plan" },
-  { label: "Swasthya", to: "/swasthya" },
-  { label: "Ayurveda", to: "/dosha" },
-  { label: "Quests", to: "/wellness-challenge" },
-  { label: "Profile", to: "/profile" },
-] as const;
+// ==========================================
+// DATA: REGIONAL NUTRITION KNOWLEDGE
+// ==========================================
 
-export function Navbar() {
-  const location = useLocation();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+const REGIONS = [
+  {
+    id: "north",
+    name: "North India",
+    tagline: "The Land of Winter Warmth & Rich Grains",
+    color: "from-orange-500 to-red-600",
+    traditionalFoods: ["Makki (Maize)", "Wheat", "Mustard Greens (Sarson)", "Desi Ghee", "Paneer"],
+    localIngredients: ["Makhana (Fox Nuts)", "Almonds", "Saffron", "Rajma (Kidney Beans)"],
+    healthyDishes: ["Sarson ka Saag (Rich in Iron & Calcium)", "Missi Roti (Besan & Wheat blend)", "Bajra Khichdi"],
+    medicinalPlants: ["Ashwagandha (Stress relief)", "Mulethi (Licorice for throat)", "Tulsi"],
+    culturalKnowledge: "Due to harsh winters, Northern diets historically focus on 'Ushna' (warming) foods and heavy grains to maintain body heat and build strength."
+  },
+  {
+    id: "south",
+    name: "South India",
+    tagline: "The Coastal Spice & Fermentation Hub",
+    color: "from-emerald-500 to-teal-600",
+    traditionalFoods: ["Red Matta Rice", "Coconut", "Tamarind", "Curry Leaves", "Lentils"],
+    localIngredients: ["Moringa (Drumsticks)", "Black Pepper", "Cardamom", "Kokum"],
+    healthyDishes: ["Idli & Dosa (Fermented for gut health)", "Avial (Mixed veg with coconut)", "Rasam (Digestive soup)"],
+    medicinalPlants: ["Brahmi (Brain tonic)", "Aloe Vera", "Curry Leaves (Iron rich)"],
+    culturalKnowledge: "South Indian cuisine relies heavily on fermentation, which pre-digests food and creates probiotics, perfectly suited for the hot and humid climate."
+  },
+  {
+    id: "west",
+    name: "West India",
+    tagline: "The Ancient Millet & Desert Oasis",
+    color: "from-amber-400 to-orange-500",
+    traditionalFoods: ["Jowar (Sorghum)", "Bajra (Pearl Millet)", "Peanuts", "Jaggery"],
+    localIngredients: ["Amla (Gooseberry)", "Sesame Seeds", "Besan (Gram Flour)"],
+    healthyDishes: ["Dhokla (Steamed & fermented)", "Thalipeeth (Multi-grain flatbread)", "Undhiyu (Winter root vegetables)"],
+    medicinalPlants: ["Neem (Skin & blood purifier)", "Guggul", "Shatavari"],
+    culturalKnowledge: "Adapted to arid climates, Western Indian diets beautifully utilize hardy millets and lentils. The traditional Gujarati Thali is perfectly balanced for all six Ayurvedic tastes (Shadrasa)."
+  },
+  {
+    id: "east",
+    name: "East India",
+    tagline: "The River Delta of Digestion",
+    color: "from-blue-400 to-indigo-600",
+    traditionalFoods: ["Rice", "Mustard Oil", "Panch Phoron (5-spice blend)", "Fish", "Poppy Seeds"],
+    localIngredients: ["Pointed Gourd (Parwal)", "Bamboo Shoot", "Raw Banana"],
+    healthyDishes: ["Shukto (Bitter stew to start meals)", "Dalma (Lentils with veggies)", "Macher Jhol (Light fish stew)"],
+    medicinalPlants: ["Kalmegh (Liver health)", "Turmeric", "Long Pepper (Pippali)"],
+    culturalKnowledge: "Meals in the East often start with something bitter (like Shukto) to activate digestive juices, a core Ayurvedic practice for strong Agni (digestion)."
+  },
+  {
+    id: "northeast",
+    name: "North-East India",
+    tagline: "The Herbal & Steamed Haven",
+    color: "from-green-500 to-emerald-700",
+    traditionalFoods: ["Black Rice", "Fermented Soybeans", "Bamboo Shoots", "Bhut Jolokia"],
+    localIngredients: ["Fiddlehead Ferns", "Perilla Seeds", "Roselle Leaves"],
+    healthyDishes: ["Iromba (Veggie mash)", "Apong (Rice beverage)", "Smoked Bamboo Stew"],
+    medicinalPlants: ["Gotu Kola", "Lakadong Turmeric (High Curcumin)", "Ginger"],
+    culturalKnowledge: "The North-East relies on steaming and fermenting rather than heavy frying. This preserves the maximum nutritional value of their incredibly diverse local flora."
+  }
+];
+
+// ==========================================
+// ROUTER EXPORT
+// ==========================================
+export const Route = createFileRoute("/regional-explorer")({
+  component: RegionalExplorerPage,
+});
+
+function RegionalExplorerPage() {
+  const [activeRegion, setActiveRegion] = useState(REGIONS[0]);
 
   return (
-    <header
-      className="
-        fixed
-        top-4
-        left-1/2
-        z-50
-        w-[calc(100%-2rem)]
-        max-w-5xl
-        -translate-x-1/2
-
-        rounded-[2rem]
-
-        border
-        border-white/40
-
-        bg-white/25
-        backdrop-blur-xl
-        backdrop-saturate-150
-
-        shadow-[0_12px_40px_rgba(60,45,20,0.15)]
-
-        transition-all
-        duration-300
-      "
-    >
-      <div
-        className="
-          flex
-          h-[72px]
-          items-center
-          justify-between
-          px-5
-          sm:px-7
-        "
-      >
-        {/* =====================================================
-            LOGO
-        ====================================================== */}
-
-        <Link
-          to="/"
-          className="
-            group
-            flex
-            items-center
-            gap-3
-            transition-transform
-            duration-300
-            hover:scale-[1.02]
-          "
-        >
-          {/* Logo icon */}
-
-          <div
-            className="
-              flex
-              h-12
-              w-12
-              items-center
-              justify-center
-
-              rounded-2xl
-
-              bg-gradient-to-br
-              from-orange-400
-              via-orange-500
-              to-green-600
-
-              shadow-[0_8px_20px_rgba(230,110,35,0.25)]
-
-              transition-all
-              duration-300
-
-              group-hover:shadow-[0_10px_28px_rgba(230,110,35,0.35)]
-            "
-          >
-            <Leaf className="h-6 w-6 text-white" />
+    <div className="min-h-screen pt-32 pb-20 px-4 sm:px-6">
+      <div className="mx-auto w-full max-w-5xl">
+        
+        {/* Header */}
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center p-3 bg-emerald-900/50 rounded-2xl mb-4 border border-emerald-500/30 shadow-lg">
+            <Compass className="h-8 w-8 text-amber-400" />
           </div>
-
-          {/* Logo text */}
-
-          <div className="hidden sm:block">
-            <p
-              className="
-                font-display
-                text-xl
-                font-bold
-                leading-none
-                tracking-tight
-                text-[#332719]
-              "
-            >
-              Ahaar Amrit
-            </p>
-
-            <p
-              className="
-                mt-1
-                font-hindi
-                text-[11px]
-                font-medium
-                text-[#665744]
-              "
-            >
-              आहार अमृत
-            </p>
-          </div>
-        </Link>
-
-        {/* =====================================================
-            DESKTOP NAVIGATION
-        ====================================================== */}
-
-        <nav
-          className="
-            hidden
-            items-center
-            gap-1
-            md:flex
-          "
-        >
-          {links.map((link) => {
-            const active =
-              location.pathname === link.to ||
-              (link.to !== "/" &&
-                location.pathname.startsWith(link.to));
-
-            return (
-              <Link
-                key={link.to}
-                to={link.to}
-                className={`
-                  relative
-                  rounded-full
-                  px-3
-                  lg:px-4
-                  py-2.5
-
-                  text-sm
-                  font-medium
-
-                  transition-all
-                  duration-300
-
-                  ${
-                    active
-                      ? `
-                        bg-gradient-to-r
-                        from-orange-400
-                        via-orange-500
-                        to-green-600
-
-                        text-white
-
-                        shadow-[0_6px_18px_rgba(226,110,40,0.25)]
-
-                        hover:shadow-[0_8px_24px_rgba(226,110,40,0.35)]
-                      `
-                      : `
-                        text-[#514638]
-
-                        hover:bg-white/35
-                        hover:text-[#2f2419]
-
-                        hover:shadow-sm
-                      `
-                  }
-                `}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
-        </nav>
-
-        {/* =====================================================
-            MOBILE MENU TOGGLE BUTTON
-        ====================================================== */}
-
-        <button
-          type="button"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Open navigation menu"
-          className="
-            flex
-            h-11
-            w-11
-            items-center
-            justify-center
-
-            rounded-full
-
-            border
-            border-white/40
-
-            bg-white/25
-
-            text-[#403426]
-
-            backdrop-blur-md
-
-            transition-all
-            duration-300
-
-            hover:bg-white/45
-            hover:shadow-md
-
-            md:hidden
-          "
-        >
-          {mobileMenuOpen ? (
-            <X className="h-5 w-5" />
-          ) : (
-            <Menu className="h-5 w-5" />
-          )}
-        </button>
-      </div>
-
-      {/* =====================================================
-          MOBILE DROPDOWN MENU
-      ====================================================== */}
-
-      {mobileMenuOpen && (
-        <div
-          className="
-            absolute
-            top-[84px]
-            left-0
-            w-full
-            rounded-[2rem]
-            border
-            border-white/40
-            bg-white/85
-            p-4
-            shadow-xl
-            backdrop-blur-2xl
-            backdrop-saturate-150
-            flex
-            flex-col
-            gap-2
-            md:hidden
-          "
-        >
-          {links.map((link) => {
-            const active =
-              location.pathname === link.to ||
-              (link.to !== "/" &&
-                location.pathname.startsWith(link.to));
-
-            return (
-              <Link
-                key={link.to}
-                to={link.to}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`
-                  rounded-xl
-                  px-4
-                  py-3
-                  text-base
-                  font-medium
-                  transition-all
-                  duration-200
-                  ${
-                    active
-                      ? `
-                        bg-gradient-to-r
-                        from-orange-400
-                        via-orange-500
-                        to-green-600
-                        text-white
-                        shadow-md
-                      `
-                      : `
-                        text-[#514638]
-                        hover:bg-white/60
-                        hover:text-[#2f2419]
-                      `
-                  }
-                `}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
+          <h1 className="text-3xl md:text-5xl font-display font-bold text-white mb-3">
+            Regional <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-amber-400">Nutrition Explorer</span>
+          </h1>
+          <p className="text-emerald-200/80 max-w-2xl mx-auto">
+            Discover the traditional foods, medicinal plants, and cultural wisdom from different corners of India.
+          </p>
         </div>
-      )}
-    </header>
+
+        <div className="grid lg:grid-cols-12 gap-6">
+          
+          {/* Left Column: Interactive Map/List (Col Span 4) */}
+          <div className="lg:col-span-4 flex flex-col gap-3">
+            <div className="bg-emerald-950/60 p-5 rounded-3xl border border-emerald-500/30 backdrop-blur-xl shadow-xl">
+              <h3 className="text-sm font-bold text-emerald-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                <MapPin className="h-4 w-4" /> Select Region
+              </h3>
+              <div className="flex flex-col gap-3">
+                {REGIONS.map((region) => (
+                  <button
+                    key={region.id}
+                    onClick={() => setActiveRegion(region)}
+                    className={`
+                      relative overflow-hidden flex items-center justify-between p-4 rounded-2xl transition-all duration-300
+                      ${activeRegion.id === region.id 
+                        ? `bg-gradient-to-r ${region.color} shadow-lg scale-[1.02] border-none` 
+                        : "bg-black/20 border border-white/10 hover:bg-black/40 text-emerald-100/70"
+                      }
+                    `}
+                  >
+                    <div className="flex flex-col items-start z-10">
+                      <span className={`font-bold text-lg ${activeRegion.id === region.id ? "text-white" : ""}`}>
+                        {region.name}
+                      </span>
+                    </div>
+                    {activeRegion.id === region.id && (
+                      <ChevronRight className="h-5 w-5 text-white/80 z-10" />
+                    )}
+                    {/* Background glow effect for active button */}
+                    {activeRegion.id === region.id && (
+                      <div className="absolute right-0 top-0 w-24 h-full bg-white/20 blur-2xl rounded-full translate-x-10" />
+                    )}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Detailed Data Cards (Col Span 8) */}
+          <div className="lg:col-span-8">
+            <div className="bg-emerald-950/60 p-6 sm:p-8 rounded-[2.5rem] border border-emerald-500/30 backdrop-blur-xl shadow-2xl h-full transition-all duration-500">
+              
+              {/* Region Header */}
+              <div className="mb-8 border-b border-white/10 pb-6">
+                <h2 className="text-3xl sm:text-4xl font-display font-bold text-white mb-2">
+                  {activeRegion.name}
+                </h2>
+                <p className={`text-transparent bg-clip-text bg-gradient-to-r ${activeRegion.color} font-medium text-lg`}>
+                  {activeRegion.tagline}
+                </p>
+              </div>
+
+              {/* Grid of Information */}
+              <div className="grid sm:grid-cols-2 gap-6">
+                
+                {/* Cultural Knowledge (Full Width) */}
+                <div className="sm:col-span-2 bg-black/30 p-5 rounded-3xl border border-white/5">
+                  <h4 className="flex items-center gap-2 text-amber-300 font-bold mb-3">
+                    <BookOpen className="h-5 w-5" /> Cultural Food Knowledge
+                  </h4>
+                  <p className="text-emerald-50/80 leading-relaxed text-sm sm:text-base">
+                    {activeRegion.culturalKnowledge}
+                  </p>
+                </div>
+
+                {/* Traditional Foods */}
+                <div className="bg-black/30 p-5 rounded-3xl border border-white/5">
+                  <h4 className="flex items-center gap-2 text-emerald-400 font-bold mb-3">
+                    <WheatIcon className="h-5 w-5" /> Traditional Foods
+                  </h4>
+                  <ul className="space-y-2">
+                    {activeRegion.traditionalFoods.map((item, idx) => (
+                      <li key={idx} className="flex items-start gap-2 text-sm text-emerald-100/70">
+                        <span className="text-emerald-500 mt-0.5">•</span> {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Healthy Dishes */}
+                <div className="bg-black/30 p-5 rounded-3xl border border-white/5">
+                  <h4 className="flex items-center gap-2 text-orange-400 font-bold mb-3">
+                    <Utensils className="h-5 w-5" /> Healthy Dishes
+                  </h4>
+                  <ul className="space-y-2">
+                    {activeRegion.healthyDishes.map((item, idx) => (
+                      <li key={idx} className="flex items-start gap-2 text-sm text-emerald-100/70">
+                        <span className="text-orange-500 mt-0.5">•</span> {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Local Ingredients */}
+                <div className="bg-black/30 p-5 rounded-3xl border border-white/5">
+                  <h4 className="flex items-center gap-2 text-blue-400 font-bold mb-3">
+                    <Sprout className="h-5 w-5" /> Local Ingredients
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {activeRegion.localIngredients.map((item, idx) => (
+                      <span key={idx} className="bg-blue-500/10 border border-blue-500/20 text-blue-300 px-3 py-1.5 rounded-full text-xs font-semibold">
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Medicinal Plants */}
+                <div className="bg-black/30 p-5 rounded-3xl border border-white/5">
+                  <h4 className="flex items-center gap-2 text-purple-400 font-bold mb-3">
+                    <Leaf className="h-5 w-5" /> Medicinal Plants
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {activeRegion.medicinalPlants.map((item, idx) => (
+                      <span key={idx} className="bg-purple-500/10 border border-purple-500/20 text-purple-300 px-3 py-1.5 rounded-full text-xs font-semibold">
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Simple custom icon for wheat/grains
+function WheatIcon(props: any) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M2 22 22 2" />
+      <path d="M12.9 8.1 9 12a3 3 0 0 0-4.2 4.2l-1.4 1.4a1 1 0 0 0 1.4 1.4l1.4-1.4A3 3 0 0 0 10.4 22l3.9-3.9" />
+      <path d="M15.9 5.1 12 9a3 3 0 0 0-4.2 4.2" />
+      <path d="M18.9 2.1 15 6a3 3 0 0 0-4.2 4.2" />
+      <path d="M18.9 11.9 15 15.8a3 3 0 0 0-4.2 4.2" />
+    </svg>
   );
 }

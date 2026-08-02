@@ -189,7 +189,7 @@ export function Navbar() {
                 ${discoverOpen ? "opacity-100 visible scale-100 translate-y-0" : "opacity-0 invisible scale-95 translate-y-2"}
               `}
             >
-              <div className="flex flex-col min-w-[160px] p-2 bg-white/10 backdrop-blur-xl backdrop-saturate-150 rounded-2xl shadow-xl border border-white/20">
+              <div className="flex flex-col min-w-[160px] p-2 bg-emerald-950/95 backdrop-blur-2xl backdrop-saturate-150 rounded-2xl shadow-xl border border-white/20">
                 {dropdownLinks.map((link) => {
                   const active =
                     location.pathname === link.to ||
@@ -248,13 +248,13 @@ export function Navbar() {
       </div>
 
       {/* =====================================================
-          MOBILE DROPDOWN MENU
+          MOBILE DROPDOWN MENU (Updated with solid translucent background)
       ====================================================== */}
 
       {mobileMenuOpen && (
         <div
           className="
-            absolute top-[84px] left-0 w-full rounded-[2rem] border border-white/20 bg-white/10 p-4 shadow-xl backdrop-blur-xl backdrop-saturate-150 flex flex-col gap-2 md:hidden z-50
+            absolute top-[84px] left-0 w-full rounded-[2rem] border border-white/20 bg-emerald-950/95 p-4 shadow-2xl backdrop-blur-2xl backdrop-saturate-150 flex flex-col gap-2 md:hidden z-50 animate-in fade-in slide-in-from-top-4 duration-300
           "
         >
           {allLinks.map((link) => {
@@ -272,7 +272,7 @@ export function Navbar() {
                   ${
                     active
                       ? "bg-gradient-to-r from-orange-400 via-orange-500 to-green-600 text-white shadow-md"
-                      : "text-white/80 hover:bg-white/20 hover:text-white"
+                      : "text-white/90 hover:bg-white/15 hover:text-white"
                   }
                 `}
               >

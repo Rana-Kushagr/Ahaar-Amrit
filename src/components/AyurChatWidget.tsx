@@ -1,5 +1,14 @@
-import { FormEvent, useEffect, useRef, useState } from "react";
-import { Leaf, MessageCircle, Send, X, User } from "lucide-react";
+import { createFileRoute } from "@tanstack/react-router";
+import { useState, useRef, useEffect } from "react";
+import { MessageCircle, X, Send, Sparkles, User, Leaf, Minimize2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+const title = "Ahaar Amrit — Ayurveda & Nutrition";
+const description = "Your personal Ayurvedic and nutrition AI assistant.";
+
+export const Route = createFileRoute("/__root")({
+  // Root route remains clean; we mount the widget here or via layout
+});
 
 type Message = {
   id: string;
@@ -7,237 +16,226 @@ type Message = {
   content: string;
 };
 
-const INITIAL_MESSAGE: Message = {
-  id: "welcome",
-  role: "assistant",
-  content:
-    "Namaste! 🙏 I'm Ayur, your Ahaar Amrit wellness guide. Ask me about Indian nutrition, Ayurveda, Doshas, healthy food swaps, or your daily wellness habits. How can I help you today?",
-};
+const initialMessages: Message[] = [
+  {
+    id: "welcome",
+    role: "assistant",
+    content: "Namaste! 🙏 I am Ayur, your personal Ahaar Amrit guide. Ask me about Doshas, healthy Indian food swaps, or nutrition tips!",
+  },
+];
+
+const AYUR_SYSTEM_PROMPT = `
+You are Ayur, the friendly AI wellness assistant for Ahaar Amrit.
+- Help teenagers learn about Indian nutrition, healthy eating, Ayurveda, and traditional Indian foods.
+- Explain Doshas (Vata, Pitta, Kapha) in a simple, educational way.
+- Suggest healthier alternatives to junk food and recommend balanced Indian meal ideas.
+- Be friendly, warm, encouraging, concise, and use occasional emojis.
+- Never diagnose medical conditions or recommend extreme diets.
+`;
 
 export function AyurChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
-  const [input, setInput] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([INITIAL_MESSAGE]);
-
+  const [messages, setMessages] = useState<Message[]>(initialMessages);
+  const [inputValue, setInputValue] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   useEffect(() => {
     if (isOpen) {
-      messagesEndRef.current?.scrollIntoView({
-        behavior: "smooth",
-      });
+      scrollToBottom();
     }
-  }, [messages, isLoading, isOpen]);
+  }, [messages, isTyping, isOpen]);
 
-  const sendMessage = async (event: FormEvent) => {
-    event.preventDefault();
+  const handleSendMessage = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!inputValue.trim() || isTyping) return;
 
-    const trimmedInput = input.trim();
+    const userText = inputValue.trim();
+    setInputValue("");
 
-    if (!trimmedInput || isLoading) {
-      return;
-    }
-
-    const userMessage: Message = {
-      id: `${Date.now()}-user`,
+    const newUserMsg: Message = {
+      id: Date.now().toString(),
       role: "user",
-      content: trimmedInput,
+      content: userText,
     };
 
-    const updatedMessages = [...messages, userMessage];
-
+    const updatedMessages = [...messages, newUserMsg];
     setMessages(updatedMessages);
-    setInput("");
-    setIsLoading(true);
+    setIsTyping(true);
 
     try {
-      const response = await fetch("/api/ayur", {
+      // Direct call to OpenRouter API
+      const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
         method: "POST",
         headers: {
+          "Authorization": `Bearer sk-or-v1-YOUR_OPENROUTER_API_KEY_HERE`, // Replace with your OpenRouter key if not using backend env
           "Content-Type": "application/json",
+          "HTTP-Referer": "https://ahaar-amrit.lovable.app",
+          "X-Title": "Ahaar Amrit - Ayur AI",
         },
         body: JSON.stringify({
-          messages: updatedMessages
-            .filter((message) => message.id !== "welcome")
-            .map((message) => ({
-              role: message.role,
-              content: message.content,
-            })),
+          model: "google/gemini-2.5-flash", // Reliable free-tier model on OpenRouter
+          messages: [
+            { role: "system", content: AYUR_SYSTEM_PROMPT },
+            ...updatedMessages
+              .filter((msg) => msg.id !== "welcome")
+              .map((msg) => ({
+                role: msg.role,
+                content: msg.content,
+              })),
+          ],
+          temperature: 0.7,
+          max_tokens: 500,
         }),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(
-          data?.error || "Ayur could not respond right now.",
-        );
+        throw new Error(data?.error?.message || `OpenRouter error: ${response.status}`);
       }
 
-      const assistantMessage: Message = {
-        id: `${Date.now()}-assistant`,
+      const assistantContent = data?.choices?.[0]?.message?.content;
+      if (!assistantContent) {
+        throw new Error("Received empty response from OpenRouter.");
+      }
+
+      const assistantMsg: Message = {
+        id: (Date.now() + 1).toString(),
         role: "assistant",
-        content: data.message,
+        content: assistantContent,
       };
 
-      setMessages((previousMessages) => [
-        ...previousMessages,
-        assistantMessage,
-      ]);
-    } catch (error) {
-      console.error("Ayur chat error:", error);
-
-      const errorMessage: Message = {
-        id: `${Date.now()}-error`,
+      setMessages((prev) => [...prev, assistantMsg]);
+    } catch (error: any) {
+      console.error("Ayur OpenRouter Chat Error:", error);
+      const errorMsg: Message = {
+        id: (Date.now() + 1).toString(),
         role: "assistant",
-        content:
-          "I'm sorry! 🌿 I couldn't connect right now. Please try sending your message again in a moment.",
+        content: `I'm sorry! 🌿 I couldn't connect right now. (${error.message || "Please check your OpenRouter key."})`,
       };
-
-      setMessages((previousMessages) => [
-        ...previousMessages,
-        errorMessage,
-      ]);
+      setMessages((prev) => [...prev, errorMsg]);
     } finally {
-      setIsLoading(false);
+      setIsTyping(false);
     }
   };
 
   return (
-    <>
-      {/* Floating Ayur Button */}
-      {!isOpen && (
-        <button
-          type="button"
-          onClick={() => setIsOpen(true)}
-          aria-label="Open Ayur AI chat"
-          className="fixed bottom-6 right-6 z-[9999] flex h-16 w-16 items-center justify-center rounded-full border-2 border-amber-300/70 bg-gradient-to-br from-emerald-700 to-emerald-950 text-white shadow-2xl shadow-emerald-950/40 transition-all duration-300 hover:scale-110 hover:shadow-emerald-900/60 focus:outline-none focus:ring-4 focus:ring-emerald-400/40"
-        >
-          <Leaf className="h-7 w-7" />
-
-          <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-amber-400 text-[10px] font-bold text-emerald-950">
-            AI
-          </span>
-        </button>
-      )}
-
-      {/* Chat Window */}
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
       {isOpen && (
-        <div className="fixed bottom-4 right-4 z-[9999] flex h-[min(680px,calc(100vh-32px))] w-[min(420px,calc(100vw-32px))] flex-col overflow-hidden rounded-[1.75rem] border border-emerald-300/20 bg-emerald-950 shadow-2xl shadow-black/40">
-          {/* Header */}
-          <div className="flex items-center justify-between border-b border-white/10 bg-gradient-to-r from-emerald-800 to-emerald-950 px-5 py-4">
-            <div className="flex items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-full border border-amber-300/40 bg-emerald-700 text-amber-200">
-                <Leaf className="h-6 w-6" />
+        <div className="mb-4 flex h-[500px] w-[360px] flex-col overflow-hidden rounded-[2rem] border border-emerald-500/30 bg-emerald-950/90 shadow-2xl backdrop-blur-2xl transition-all sm:w-[380px]">
+          <div className="flex items-center justify-between border-b border-white/10 bg-black/30 px-5 py-4 backdrop-blur-md">
+            <div className="flex items-center gap-2.5">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-600 text-white shadow-md">
+                <Leaf className="h-5 w-5" />
               </div>
-
               <div>
-                <h2 className="font-display text-lg font-bold text-white">
-                  Ayur
-                </h2>
-
-                <p className="text-xs text-emerald-200/70">
-                  Ahaar Amrit Wellness Guide
-                </p>
+                <h3 className="font-display text-sm font-bold text-emerald-100 flex items-center gap-1.5">
+                  Ayur AI <Sparkles className="h-3.5 w-3.5 text-amber-400" />
+                </h3>
+                <p className="text-[10px] text-emerald-300/80">OpenRouter Powered</p>
               </div>
             </div>
-
-            <button
-              type="button"
+            <Button
+              variant="ghost"
+              size="icon"
               onClick={() => setIsOpen(false)}
-              aria-label="Close Ayur AI chat"
-              className="flex h-9 w-9 items-center justify-center rounded-full text-emerald-100 transition-colors hover:bg-white/10 hover:text-white"
+              className="h-8 w-8 rounded-full text-emerald-200 hover:bg-white/10 hover:text-white"
             >
-              <X className="h-5 w-5" />
-            </button>
+              <Minimize2 className="h-4 w-4" />
+            </Button>
           </div>
 
-          {/* Messages */}
-          <div className="flex-1 space-y-4 overflow-y-auto bg-gradient-to-b from-emerald-950 to-emerald-900/90 p-4">
-            {messages.map((message) => {
-              const isUser = message.role === "user";
-
-              return (
-                <div
-                  key={message.id}
-                  className={`flex gap-2 ${
-                    isUser ? "justify-end" : "justify-start"
-                  }`}
-                >
-                  {!isUser && (
-                    <div className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-700 text-amber-200">
-                      <Leaf className="h-4 w-4" />
-                    </div>
-                  )}
-
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-emerald-700/50">
+            {messages.map((msg) => (
+              <div
+                key={msg.id}
+                className={`flex w-full ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+              >
+                <div className={`flex max-w-[85%] gap-2.5 ${msg.role === "user" ? "flex-row-reverse" : "flex-row"}`}>
                   <div
-                    className={`max-w-[82%] whitespace-pre-wrap rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-md ${
-                      isUser
-                        ? "rounded-tr-sm bg-amber-500 text-white"
-                        : "rounded-tl-sm border border-emerald-500/20 bg-black/20 text-emerald-50"
+                    className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border shadow-sm mt-0.5 ${
+                      msg.role === "user"
+                        ? "bg-amber-600 border-amber-400/40 text-white"
+                        : "bg-emerald-700 border-emerald-500/40 text-white"
                     }`}
                   >
-                    {message.content}
+                    {msg.role === "user" ? <User className="h-4 w-4" /> : <Leaf className="h-4 w-4" />}
                   </div>
 
-                  {isUser && (
-                    <div className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-amber-600 text-white">
-                      <User className="h-4 w-4" />
-                    </div>
-                  )}
+                  <div
+                    className={`rounded-2xl p-3.5 text-xs leading-relaxed shadow-md backdrop-blur-md whitespace-pre-wrap ${
+                      msg.role === "user"
+                        ? "rounded-tr-none bg-amber-600 text-white border border-amber-500/30"
+                        : "rounded-tl-none bg-black/40 text-emerald-50 border border-white/10"
+                    }`}
+                  >
+                    {msg.content}
+                  </div>
                 </div>
-              );
-            })}
+              </div>
+            ))}
 
-            {/* Typing indicator */}
-            {isLoading && (
-              <div className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-700 text-amber-200">
-                  <Leaf className="h-4 w-4" />
-                </div>
-
-                <div className="flex gap-1 rounded-2xl rounded-tl-sm bg-black/20 px-4 py-3">
-                  <span className="h-2 w-2 animate-bounce rounded-full bg-emerald-300" />
-                  <span className="h-2 w-2 animate-bounce rounded-full bg-emerald-300 [animation-delay:150ms]" />
-                  <span className="h-2 w-2 animate-bounce rounded-full bg-emerald-300 [animation-delay:300ms]" />
+            {isTyping && (
+              <div className="flex w-full justify-start">
+                <div className="flex max-w-[85%] flex-row gap-2.5">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-emerald-500/40 bg-emerald-700 text-white shadow-sm">
+                    <Leaf className="h-4 w-4" />
+                  </div>
+                  <div className="flex items-center gap-1.5 rounded-2xl rounded-tl-none border border-white/10 bg-black/40 p-3.5 shadow-md backdrop-blur-md">
+                    <div className="h-1.5 w-1.5 animate-bounce rounded-full bg-emerald-400 [animation-delay:-0.3s]"></div>
+                    <div className="h-1.5 w-1.5 animate-bounce rounded-full bg-emerald-400 [animation-delay:-0.15s]"></div>
+                    <div className="h-1.5 w-1.5 animate-bounce rounded-full bg-emerald-400"></div>
+                  </div>
                 </div>
               </div>
             )}
-
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input */}
-          <div className="border-t border-white/10 bg-emerald-950 p-3">
-            <form
-              onSubmit={sendMessage}
-              className="flex items-center gap-2"
-            >
+          <div className="border-t border-white/10 bg-black/30 p-3 backdrop-blur-md">
+            <form onSubmit={handleSendMessage} className="relative flex items-center">
               <input
-                value={input}
-                onChange={(event) => setInput(event.target.value)}
-                disabled={isLoading}
-                placeholder="Ask Ayur anything about wellness..."
-                className="min-w-0 flex-1 rounded-full border border-white/10 bg-white/10 px-4 py-3 text-sm text-white outline-none placeholder:text-emerald-100/40 focus:border-emerald-400/50 focus:bg-white/15 disabled:opacity-50"
+                type="text"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                placeholder="Ask about diet, doshas, or food swaps..."
+                className="w-full rounded-full border border-white/15 bg-black/40 py-3 pl-4 pr-12 text-xs text-white placeholder-emerald-200/40 shadow-inner outline-none backdrop-blur-md transition-all focus:border-emerald-400/50 focus:bg-black/60"
+                disabled={isTyping}
               />
-
-              <button
+              <Button
                 type="submit"
-                disabled={!input.trim() || isLoading}
-                aria-label="Send message"
-                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-amber-500 text-white transition-all hover:bg-amber-400 disabled:cursor-not-allowed disabled:opacity-40"
+                size="icon"
+                disabled={!inputValue.trim() || isTyping}
+                className="absolute right-1.5 h-8 w-8 rounded-full bg-amber-500 text-white shadow-md hover:bg-amber-400 disabled:opacity-40"
               >
-                <Send className="h-4 w-4" />
-              </button>
+                <Send className="h-3.5 w-3.5" />
+              </Button>
             </form>
-
-            <p className="mt-2 text-center text-[9px] uppercase tracking-wider text-emerald-200/40">
-              Ayur provides general wellness information, not medical advice.
-            </p>
+            <div className="mt-2 text-center text-[9px] text-emerald-200/40 uppercase tracking-widest">
+              Ahaar Amrit • OpenRouter AI
+            </div>
           </div>
         </div>
       )}
-    </>
+
+      <Button
+        onClick={() => setIsOpen(!isOpen)}
+        className="group relative flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-tr from-emerald-600 to-emerald-500 text-white shadow-2xl transition-all duration-300 hover:scale-105 hover:from-emerald-500 hover:to-emerald-400 focus:outline-none"
+        aria-label="Toggle Ayur Chat"
+      >
+        <span className="absolute -top-1 -right-1 flex h-4 w-4">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75"></span>
+          <span className="relative inline-flex h-4 w-4 rounded-full bg-amber-500 text-[9px] font-bold items-center justify-center text-white">
+            AI
+          </span>
+        </span>
+        {isOpen ? <X className="h-6 w-6 transition-transform group-hover:rotate-90" /> : <MessageCircle className="h-6 w-6" />}
+      </Button>
+    </div>
   );
 }

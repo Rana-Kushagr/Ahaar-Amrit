@@ -53,41 +53,28 @@ export function AyurChatWidget() {
     setIsTyping(true);
 
     try {
-      // Direct call to OpenRouter API
-      const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      // Secure server route — the OpenRouter key stays on the backend
+      const response = await fetch("/api/ayur", {
         method: "POST",
-        headers: {
-          "Authorization": `Bearer sk-or-v1-YOUR_OPENROUTER_API_KEY_HERE`, // Replace with your OpenRouter key if not using backend env
-          "Content-Type": "application/json",
-          "HTTP-Referer": "https://ahaar-amrit.lovable.app",
-          "X-Title": "Ahaar Amrit - Ayur AI",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          model: "google/gemini-2.5-flash", // Reliable free-tier model on OpenRouter
-          messages: [
-            { role: "system", content: AYUR_SYSTEM_PROMPT },
-            ...updatedMessages
-              .filter((msg) => msg.id !== "welcome")
-              .map((msg) => ({
-                role: msg.role,
-                content: msg.content,
-              })),
-          ],
-          temperature: 0.7,
-          max_tokens: 500,
+          messages: updatedMessages
+            .filter((msg) => msg.id !== "welcome")
+            .map((msg) => ({ role: msg.role, content: msg.content })),
         }),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data?.error?.message || `OpenRouter error: ${response.status}`);
+        throw new Error(data?.error || `Ayur service error: ${response.status}`);
       }
 
-      const assistantContent = data?.choices?.[0]?.message?.content;
+      const assistantContent = data?.message;
       if (!assistantContent) {
-        throw new Error("Received empty response from OpenRouter.");
+        throw new Error("Received an empty response.");
       }
+
 
       const assistantMsg: Message = {
         id: (Date.now() + 1).toString(),

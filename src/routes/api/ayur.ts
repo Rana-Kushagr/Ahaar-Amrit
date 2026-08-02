@@ -27,20 +27,12 @@ export const APIRoute = createAPIFileRoute("/api/ayur")({
   POST: async ({ request }) => {
     try {
       const body = await request.json();
-
-      const messages = Array.isArray(body?.messages)
-        ? body.messages
-        : [];
+      const messages = Array.isArray(body?.messages) ? body.messages : [];
 
       if (messages.length === 0) {
         return new Response(
           JSON.stringify({ error: "No messages provided." }),
-          {
-            status: 400,
-            headers: {
-              "Content-Type": "application/json",
-            },
-          },
+          { status: 400, headers: { "Content-Type": "application/json" } }
         );
       }
 
@@ -48,35 +40,24 @@ export const APIRoute = createAPIFileRoute("/api/ayur")({
 
       if (!apiKey) {
         console.error("OPENROUTER_API_KEY is not configured.");
-
         return new Response(
-          JSON.stringify({
-            error: "Ayur AI is not configured correctly on the server.",
-          }),
-          {
-            status: 500,
-            headers: {
-              "Content-Type": "application/json",
-            },
-          },
+          JSON.stringify({ error: "Ayur AI is not configured correctly on the server." }),
+          { status: 500, headers: { "Content-Type": "application/json" } }
         );
       }
 
       const openRouterMessages = [
-        {
-          role: "system",
-          content: AYUR_SYSTEM_PROMPT,
-        },
+        { role: "system", content: AYUR_SYSTEM_PROMPT },
         ...messages
           .filter(
-            (message: any) =>
-              message &&
-              (message.role === "user" || message.role === "assistant") &&
-              typeof message.content === "string",
+            (msg: any) =>
+              msg &&
+              (msg.role === "user" || msg.role === "assistant") &&
+              typeof msg.content === "string"
           )
-          .map((message: any) => ({
-            role: message.role,
-            content: message.content,
+          .map((msg: any) => ({
+            role: msg.role,
+            content: msg.content,
           })),
       ];
 
@@ -91,75 +72,44 @@ export const APIRoute = createAPIFileRoute("/api/ayur")({
             "X-Title": "Ahaar Amrit - Ayur AI",
           },
           body: JSON.stringify({
-            model: "openrouter/free",
+            // Using a specific free model reference to prevent routing errors
+            model: "google/gemini-2.5-flash",
             messages: openRouterMessages,
             temperature: 0.7,
             max_tokens: 500,
           }),
-        },
+        }
       );
 
+      const responseText = await response.text();
+
       if (!response.ok) {
-        const errorText = await response.text();
-
-        console.error("OpenRouter API error:", response.status, errorText);
-
+        console.error("OpenRouter API error status:", response.status, responseText);
         return new Response(
-          JSON.stringify({
-            error: "Ayur could not connect to the AI service.",
-          }),
-          {
-            status: response.status,
-            headers: {
-              "Content-Type": "application/json",
-            },
-          },
+          JSON.stringify({ error: `AI service error (${response.status}): ${responseText}` }),
+          { status: response.status, headers: { "Content-Type": "application/json" } }
         );
       }
 
-      const data = await response.json();
-
-      const content =
-        data?.choices?.[0]?.message?.content;
+      const data = JSON.parse(responseText);
+      const content = data?.choices?.[0]?.message?.content;
 
       if (!content) {
         return new Response(
-          JSON.stringify({
-            error: "Ayur received an empty response.",
-          }),
-          {
-            status: 502,
-            headers: {
-              "Content-Type": "application/json",
-            },
-          },
+          JSON.stringify({ error: "Ayur received an empty response from the AI." }),
+          { status: 502, headers: { "Content-Type": "application/json" } }
         );
       }
 
       return new Response(
-        JSON.stringify({
-          message: content,
-        }),
-        {
-          status: 200,
-          headers: {
-            "Content-Type": "application/json",
-          },
-        },
+        JSON.stringify({ message: content }),
+        { status: 200, headers: { "Content-Type": "application/json" } }
       );
-    } catch (error) {
-      console.error("Ayur API error:", error);
-
+    } catch (error: any) {
+      console.error("Ayur API error exception:", error);
       return new Response(
-        JSON.stringify({
-          error: "Something went wrong while connecting to Ayur.",
-        }),
-        {
-          status: 500,
-          headers: {
-            "Content-Type": "application/json",
-          },
-        },
+        JSON.stringify({ error: error?.message || "Something went wrong while connecting to Ayur." }),
+        { status: 500, headers: { "Content-Type": "application/json" } }
       );
     }
   },

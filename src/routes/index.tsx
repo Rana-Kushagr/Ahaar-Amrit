@@ -251,15 +251,19 @@ function Index() {
 
                 <div className="mt-8 flex items-center gap-3 text-sm font-medium text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
 
-                  <div className="flex -space-x-2">
+                 <div className="flex -space-x-2">
+  <div className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-amber-200/80 bg-gradient-to-br from-amber-300 via-orange-500 to-amber-700 shadow-lg shadow-amber-900/40">
+    <span className="text-sm text-white">✦</span>
+  </div>
 
-                    <div className="h-8 w-8 rounded-full border-2 border-white bg-orange-300" />
+  <div className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-emerald-100/80 bg-gradient-to-br from-emerald-400 via-emerald-700 to-emerald-950 shadow-lg shadow-emerald-950/50">
+    <Leaf className="h-4 w-4 text-amber-100" />
+  </div>
 
-                    <div className="h-8 w-8 rounded-full border-2 border-white bg-green-300" />
-
-                    <div className="h-8 w-8 rounded-full border-2 border-white bg-yellow-300" />
-
-                  </div>
+  <div className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-amber-200/80 bg-gradient-to-br from-yellow-200 via-amber-500 to-orange-700 shadow-lg shadow-amber-950/40">
+    <span className="text-sm text-white">✦</span>
+  </div>
+</div>
 
                   <span>
                     Built around Indian food, culture and everyday life.

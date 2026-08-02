@@ -1,5 +1,6 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { Leaf, Menu } from "lucide-react";
+import { Leaf, Menu, X } from "lucide-react";
+import { useState } from "react";
 
 const links = [
   { label: "Home", to: "/" },
@@ -7,12 +8,12 @@ const links = [
   { label: "Nutrition", to: "/nutrition-plan" },
   { label: "Swasthya", to: "/swasthya" },
   { label: "Ayurveda", to: "/dosha" },
-  
   { label: "Profile", to: "/profile" },
 ] as const;
 
 export function Navbar() {
   const location = useLocation();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <header
@@ -191,11 +192,12 @@ export function Navbar() {
         </nav>
 
         {/* =====================================================
-            MOBILE MENU
+            MOBILE MENU TOGGLE BUTTON
         ====================================================== */}
 
         <button
           type="button"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Open navigation menu"
           className="
             flex
@@ -224,9 +226,82 @@ export function Navbar() {
             md:hidden
           "
         >
-          <Menu className="h-5 w-5" />
+          {mobileMenuOpen ? (
+            <X className="h-5 w-5" />
+          ) : (
+            <Menu className="h-5 w-5" />
+          )}
         </button>
       </div>
+
+      {/* =====================================================
+          MOBILE DROPDOWN MENU
+      ====================================================== */}
+
+      {mobileMenuOpen && (
+        <div
+          className="
+            absolute
+            top-[84px]
+            left-0
+            w-full
+            rounded-[2rem]
+            border
+            border-white/40
+            bg-white/85
+            p-4
+            shadow-xl
+            backdrop-blur-2xl
+            backdrop-saturate-150
+            flex
+            flex-col
+            gap-2
+            md:hidden
+          "
+        >
+          {links.map((link) => {
+            const active =
+              location.pathname === link.to ||
+              (link.to !== "/" &&
+                location.pathname.startsWith(link.to));
+
+            return (
+              <Link
+                key={link.to}
+                to={link.to}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`
+                  rounded-xl
+                  px-4
+                  py-3
+                  text-base
+                  font-medium
+                  transition-all
+                  duration-200
+                  ${
+                    active
+                      ? `
+                        bg-gradient-to-r
+                        from-orange-400
+                        via-orange-500
+                        to-green-600
+                        text-white
+                        shadow-md
+                      `
+                      : `
+                        text-[#514638]
+                        hover:bg-white/60
+                        hover:text-[#2f2419]
+                      `
+                  }
+                `}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
+        </div>
+      )}
     </header>
   );
 }

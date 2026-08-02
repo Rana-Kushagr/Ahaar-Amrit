@@ -180,7 +180,7 @@ function RootComponent() {
         <Outlet />
       </main>
 
-      {/* Floating Ayur AI chat appears on every page */}
+      {/* Ayur floating AI chat appears on every page */}
       <AyurChatWidget />
     </QueryClientProvider>
   );

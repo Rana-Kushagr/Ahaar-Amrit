@@ -11,6 +11,7 @@ const allLinks = [
   { label: "Ayurveda", to: "/dosha" },
   { label: "Quests", to: "/wellness-challenge" },
   { label: "Explorer", to: "/regional-explorer" },
+  { label: "Recipes", to: "/recipe-studio" },
   { label: "Profile", to: "/profile" },
 ] as const;
 
@@ -27,6 +28,7 @@ const dropdownLinks = [
   { label: "Ayurveda", to: "/dosha" },
   { label: "Quests", to: "/wellness-challenge" },
   { label: "Explorer", to: "/regional-explorer" },
+  { label: "Recipes", to: "/recipe-studio" },
 ] as const;
 
 export function Navbar() {

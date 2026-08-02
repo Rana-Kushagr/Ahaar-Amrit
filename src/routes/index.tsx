@@ -1,794 +1,811 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
-  Heart,
-  Sparkles,
-  Utensils,
-  Wind,
-  Flame,
-  Leaf,
-  ArrowRight,
-  Info,
+  Heart,
+  Sparkles,
+  Utensils,
+  Wind,
+  Flame,
+  Leaf,
+  ArrowRight,
+  Info,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const title = "Ahaar Amrit — Personalized Indian Nutrition";
 
 const description =
-  "Personalized Indian nutrition powered by modern science, food culture and optional Ayurveda.";
+  "Personalized Indian nutrition powered by modern science, food culture and optional Ayurveda.";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      {
-        title,
-      },
-      {
-        name: "description",
-        content: description,
-      },
-    ],
-  }),
+  head: () => ({
+    meta: [
+      {
+        title,
+      },
+      {
+        name: "description",
+        content: description,
+      },
+    ],
+  }),
 
-  component: Index,
+  component: Index,
 });
 
 /* =========================================================
-   FEATURES
+   FEATURES
 ========================================================= */
 
 const features = [
-  {
-    icon: Utensils,
-    title: "Modern Nutrition",
-    hindi: "आधुनिक पोषण",
-    text: "Science-backed nutrition made for Indian lifestyles.",
-  },
-  {
-    icon: Heart,
-    title: "Indian Food Culture",
-    hindi: "भारतीय भोजन",
-    text: "Foods connected with your region, routine and culture.",
-  },
-  {
-    icon: Sparkles,
-    title: "Optional Ayurveda",
-    hindi: "आयुर्वेद",
-    text: "Traditional wellness insights when you choose.",
-  },
+  {
+    icon: Utensils,
+    title: "Modern Nutrition",
+    hindi: "आधुनिक पोषण",
+    text: "Science-backed nutrition made for Indian lifestyles.",
+  },
+  {
+    icon: Heart,
+    title: "Indian Food Culture",
+    hindi: "भारतीय भोजन",
+    text: "Foods connected with your region, routine and culture.",
+  },
+  {
+    icon: Sparkles,
+    title: "Optional Ayurveda",
+    hindi: "आयुर्वेद",
+    text: "Traditional wellness insights when you choose.",
+  },
 ];
 
 /* =========================================================
-   DOSHAS
+   DOSHAS
 ========================================================= */
 
 const doshas = [
-  {
-    icon: Wind,
-    name: "Vata",
-    hindi: "वात",
-    description:
-      "Traditionally associated with movement, creativity and adaptability.",
-    qualities: "Light • Mobile • Changeable",
-    gradient: "from-sky-400/20 via-blue-400/10 to-transparent",
-  },
-  {
-    icon: Flame,
-    name: "Pitta",
-    hindi: "पित्त",
-    description:
-      "Traditionally associated with transformation, focus and metabolism.",
-    qualities: "Warm • Sharp • Intense",
-    gradient: "from-orange-400/25 via-amber-300/10 to-transparent",
-  },
-  {
-    icon: Leaf,
-    name: "Kapha",
-    hindi: "कफ",
-    description:
-      "Traditionally associated with stability, calmness and nourishment.",
-    qualities: "Steady • Grounded • Calm",
-    gradient: "from-green-500/25 via-emerald-300/10 to-transparent",
-  },
+  {
+    icon: Wind,
+    name: "Vata",
+    hindi: "वात",
+    description:
+      "Traditionally associated with movement, creativity and adaptability.",
+    qualities: "Light • Mobile • Changeable",
+    gradient: "from-sky-400/20 via-blue-400/10 to-transparent",
+  },
+  {
+    icon: Flame,
+    name: "Pitta",
+    hindi: "पित्त",
+    description:
+      "Traditionally associated with transformation, focus and metabolism.",
+    qualities: "Warm • Sharp • Intense",
+    gradient: "from-orange-400/25 via-amber-300/10 to-transparent",
+  },
+  {
+    icon: Leaf,
+    name: "Kapha",
+    hindi: "कफ",
+    description:
+      "Traditionally associated with stability, calmness and nourishment.",
+    qualities: "Steady • Grounded • Calm",
+    gradient: "from-green-500/25 via-emerald-300/10 to-transparent",
+  },
 ];
 
 /* =========================================================
-   HOMEPAGE
+   HOMEPAGE
 ========================================================= */
 
 function Index() {
-  return (
-    <main
-      className="relative min-h-screen overflow-x-hidden bg-gradient-to-br from-emerald-950 via-teal-950 to-black"
-    >
+  return (
+    <main
+      className="relative min-h-screen overflow-x-hidden"
+      style={{
+        backgroundImage: "url('/ayurveda-hero-bg.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center center",
+        backgroundAttachment: "fixed",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
 
-      {/* =====================================================
-          GLOBAL BACKGROUND OVERLAY
-      ====================================================== */}
+      {/* =====================================================
+          GLOBAL BACKGROUND OVERLAY
 
-      <div className="pointer-events-none fixed inset-0 z-0 bg-black/20" />
+          This keeps the ORIGINAL image visible.
+          It does NOT replace the image with a solid color.
+      ===================================================== */}
 
+      <div className="pointer-events-none fixed inset-0 z-0 bg-black/10" />
 
-      {/* =====================================================
-          ALL SCROLLABLE CONTENT
-      ====================================================== */}
 
-      <div className="relative z-10">
+      {/* =====================================================
+          ALL SCROLLABLE CONTENT
+      ===================================================== */}
 
+      <div className="relative z-10">
 
-        {/* =====================================================
-            HERO SECTION
-        ====================================================== */}
 
-        <section className="relative isolate px-6 pb-24 pt-20 sm:pt-28">
+        {/* =====================================================
+            HERO SECTION
+        ===================================================== */}
 
-          {/* Decorative glows */}
+        <section className="relative isolate px-6 pb-24 pt-20 sm:pt-28">
 
-          <div className="pointer-events-none absolute -left-20 top-32 h-40 w-40 rounded-full bg-orange-400/20 blur-3xl" />
+          {/* Decorative glows */}
 
-          <div className="pointer-events-none absolute -right-24 top-48 h-56 w-56 rounded-full bg-green-400/20 blur-3xl" />
+          <div className="pointer-events-none absolute -left-20 top-32 h-40 w-40 rounded-full bg-orange-400/20 blur-3xl" />
 
-          <div className="pointer-events-none absolute left-1/2 top-24 h-72 w-72 -translate-x-1/2 rounded-full bg-orange-300/10 blur-3xl" />
+          <div className="pointer-events-none absolute -right-24 top-48 h-56 w-56 rounded-full bg-green-400/20 blur-3xl" />
 
+          <div className="pointer-events-none absolute left-1/2 top-24 h-72 w-72 -translate-x-1/2 rounded-full bg-orange-300/10 blur-3xl" />
 
-          {/* Hero content */}
 
-          <div className="relative z-10 mx-auto max-w-6xl">
+          {/* Hero content */}
 
-            <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="relative z-10 mx-auto max-w-6xl">
 
+            <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
 
-              {/* =================================================
-                  LEFT SIDE
-              ================================================= */}
 
-              <div className="max-w-3xl">
+              {/* =================================================
+                  LEFT SIDE
+              ================================================= */}
 
+              <div className="max-w-3xl">
 
-                {/* Badge */}
 
-                <div className="inline-flex items-center gap-3 rounded-full border border-white/25 bg-black/20 px-4 py-2 shadow-lg backdrop-blur-xl">
+                {/* Badge */}
 
-                  <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-green-400" />
+                <div className="inline-flex items-center gap-3 rounded-full border border-white/25 bg-black/20 px-4 py-2 shadow-lg backdrop-blur-xl">
 
-                  <span className="font-hindi text-sm font-medium text-white">
-                    स्वस्थ भारत, विकसित भारत
-                  </span>
+                  <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-green-400" />
 
-                  <span className="rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-xs font-semibold text-white">
-                    Wellness • Nutrition
-                  </span>
+                  <span className="font-hindi text-sm font-medium text-white">
+                    स्वस्थ भारत, विकसित भारत
+                  </span>
 
-                </div>
+                  <span className="rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-xs font-semibold text-white">
+                    Wellness • Nutrition
+                  </span>
 
+                </div>
 
-                {/* Main heading */}
 
-                <h1 className="mt-7 font-display text-6xl font-bold leading-[0.95] tracking-tight text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.7)] sm:text-7xl lg:text-8xl">
+                {/* Main heading */}
 
-                  आहार{" "}
+                <h1 className="mt-7 font-display text-6xl font-bold leading-[0.95] tracking-tight text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.7)] sm:text-7xl lg:text-8xl">
 
-                  <span className="text-gradient-saffron">
-                    अमृत
-                  </span>
+                  आहार{" "}
 
-                </h1>
+                  <span className="text-gradient-saffron">
+                    अमृत
+                  </span>
 
+                </h1>
 
-                {/* Brand */}
 
-                <h2 className="mt-5 font-display text-2xl font-bold text-white drop-shadow-[0_3px_10px_rgba(0,0,0,0.7)] sm:text-3xl">
+                {/* Brand */}
 
-                  Ahaar Amrit
+                <h2 className="mt-5 font-display text-2xl font-bold text-white drop-shadow-[0_3px_10px_rgba(0,0,0,0.7)] sm:text-3xl">
 
-                </h2>
+                  Ahaar Amrit
 
+                </h2>
 
-                {/* Description */}
 
-                <p className="mt-6 max-w-2xl text-lg font-medium leading-relaxed text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] sm:text-xl">
+                {/* Description */}
 
-                  Personalized nutrition for young India —
-                  combining modern science, Indian food wisdom,
-                  and optional Ayurvedic wellness.
+                <p className="mt-6 max-w-2xl text-lg font-medium leading-relaxed text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] sm:text-xl">
 
-                </p>
+                  Personalized nutrition for young India —
+                  combining modern science, Indian food wisdom,
+                  and optional Ayurvedic wellness.
 
+                </p>
 
-                {/* Buttons */}
 
-                <div className="mt-8 flex flex-wrap gap-4">
+                {/* Buttons */}
 
+                <div className="mt-8 flex flex-wrap gap-4">
 
-                  <Button
-                    asChild
-                    size="xl"
-                    variant="hero"
-                    className="hover-lift shadow-warm"
-                  >
 
-                    <Link to="/onboarding">
+                  <Button
+                    asChild
+                    size="xl"
+                    variant="hero"
+                    className="hover-lift shadow-warm"
+                  >
 
-                      <Sparkles className="mr-2 h-5 w-5" />
+                    <Link to="/onboarding">
 
-                      Create Your Profile
+                      <Sparkles className="mr-2 h-5 w-5" />
 
-                    </Link>
+                      Create Your Profile
 
-                  </Button>
+                    </Link>
 
+                  </Button>
 
-                  <Button
-                    asChild
-                    size="xl"
-                    variant="outline"
-                    className="border-white/40 bg-black/20 text-white shadow-lg backdrop-blur-xl hover:bg-white/20 hover:text-white"
-                  >
 
-                    <Link to="/dosha">
+                  <Button
+                    asChild
+                    size="xl"
+                    variant="outline"
+                    className="border-white/40 bg-black/20 text-white shadow-lg backdrop-blur-xl hover:bg-white/20 hover:text-white"
+                  >
 
-                      Explore Ayurveda
+                    <Link to="/dosha">
 
-                      <ArrowRight className="ml-2 h-4 w-4" />
+                      Explore Ayurveda
 
-                    </Link>
+                      <ArrowRight className="ml-2 h-4 w-4" />
 
-                  </Button>
+                    </Link>
 
-                </div>
+                  </Button>
 
+                </div>
 
-                {/* Trust message */}
 
-                <div className="mt-8 flex items-center gap-3 text-sm font-medium text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+                {/* Trust message */}
 
-                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-900/60 border border-emerald-500/40 backdrop-blur-md shadow-lg">
-                    <Leaf className="h-4 w-4 text-emerald-400 animate-pulse" />
-                    <span className="text-xs sm:text-sm font-bold tracking-wide text-emerald-200 uppercase">
-                      Featured • Built around Indian food, culture and everyday life 🌿
-                    </span>
-                  </div>
+                <div className="mt-8 flex items-center gap-3 text-sm font-medium text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
 
-                </div>
+                  <div className="flex -space-x-2">
 
-              </div>
+                    <div className="h-8 w-8 rounded-full border-2 border-white bg-orange-300" />
 
+                    <div className="h-8 w-8 rounded-full border-2 border-white bg-green-300" />
 
-              {/* =================================================
-                  RIGHT SIDE — 4 CARDS
-              ================================================= */}
+                    <div className="h-8 w-8 rounded-full border-2 border-white bg-yellow-300" />
 
-              <div className="relative hidden min-h-[480px] items-center justify-center lg:flex">
+                  </div>
 
-                <div className="absolute h-80 w-80 rounded-full bg-orange-300/20 blur-3xl" />
+                  <span>
+                    Built around Indian food, culture and everyday life.
+                  </span>
 
+                </div>
 
-                {/* Main panel */}
+              </div>
 
-                <div className="relative z-10 w-[360px] rounded-[2rem] border border-white/25 bg-black/25 p-7 shadow-2xl backdrop-blur-xl">
 
+              {/* =================================================
+                  RIGHT SIDE — 4 CARDS
+              ================================================= */}
 
-                  {/* Panel heading */}
+              <div className="relative hidden min-h-[480px] items-center justify-center lg:flex">
 
-                  <div className="flex items-center justify-between">
+                <div className="absolute h-80 w-80 rounded-full bg-orange-300/20 blur-3xl" />
 
-                    <div>
 
-                      <p className="text-sm font-medium text-white/80">
-                        Your wellness journey
-                      </p>
+                {/* Main panel */}
 
-                      <h3 className="mt-1 font-display text-2xl font-bold text-white">
-                        Starts with you.
-                      </h3>
+                <div className="relative z-10 w-[360px] rounded-[2rem] border border-white/25 bg-black/25 p-7 shadow-2xl backdrop-blur-xl">
 
-                    </div>
 
+                  {/* Panel heading */}
 
-                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-hero shadow-lg">
+                  <div className="flex items-center justify-between">
 
-                      <Leaf className="h-7 w-7 text-white" />
+                    <div>
 
-                    </div>
+                      <p className="text-sm font-medium text-white/80">
+                        Your wellness journey
+                      </p>
 
-                  </div>
+                      <h3 className="mt-1 font-display text-2xl font-bold text-white">
+                        Starts with you.
+                      </h3>
 
+                    </div>
 
-                  {/* 4 CARDS */}
 
-                  <div className="mt-7 space-y-4">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-hero shadow-lg">
 
+                      <Leaf className="h-7 w-7 text-white" />
 
-                    {/* CARD 1 */}
+                    </div>
 
-                    <div className="rounded-2xl border border-white/20 bg-white/10 p-4 backdrop-blur-xl transition-all duration-300 hover:bg-white/20">
+                  </div>
 
-                      <div className="flex items-center gap-3">
 
-                        <div className="rounded-xl bg-green-500/20 p-2">
+                  {/* 4 CARDS */}
 
-                          <Utensils className="h-5 w-5 text-green-200" />
+                  <div className="mt-7 space-y-4">
 
-                        </div>
 
-                        <div>
+                    {/* CARD 1 */}
 
-                          <p className="font-semibold text-white">
-                            Your Food
-                          </p>
+                    <div className="rounded-2xl border border-white/20 bg-white/10 p-4 backdrop-blur-xl transition-all duration-300 hover:bg-white/20">
 
-                          <p className="text-xs text-white/70">
-                            Indian • Personal • Practical
-                          </p>
+                      <div className="flex items-center gap-3">
 
-                        </div>
+                        <div className="rounded-xl bg-green-500/20 p-2">
 
-                      </div>
+                          <Utensils className="h-5 w-5 text-green-200" />
 
-                    </div>
+                        </div>
 
+                        <div>
 
-                    {/* CARD 2 */}
+                          <p className="font-semibold text-white">
+                            Your Food
+                          </p>
 
-                    <div className="rounded-2xl border border-white/20 bg-white/10 p-4 backdrop-blur-xl transition-all duration-300 hover:bg-white/20">
+                          <p className="text-xs text-white/70">
+                            Indian • Personal • Practical
+                          </p>
 
-                      <div className="flex items-center gap-3">
+                        </div>
 
-                        <div className="rounded-xl bg-orange-500/20 p-2">
+                      </div>
 
-                          <Sparkles className="h-5 w-5 text-orange-200" />
+                    </div>
 
-                        </div>
 
-                        <div>
+                    {/* CARD 2 */}
 
-                          <p className="font-semibold text-white">
-                            Your Nutrition
-                          </p>
+                    <div className="rounded-2xl border border-white/20 bg-white/10 p-4 backdrop-blur-xl transition-all duration-300 hover:bg-white/20">
 
-                          <p className="text-xs text-white/70">
-                            Modern science • Personalized
-                          </p>
+                      <div className="flex items-center gap-3">
 
-                        </div>
+                        <div className="rounded-xl bg-orange-500/20 p-2">
 
-                      </div>
+                          <Sparkles className="h-5 w-5 text-orange-200" />
 
-                    </div>
+                        </div>
 
+                        <div>
 
-                    {/* CARD 3 */}
+                          <p className="font-semibold text-white">
+                            Your Nutrition
+                          </p>
 
-                    <div className="rounded-2xl border border-white/20 bg-white/10 p-4 backdrop-blur-xl transition-all duration-300 hover:bg-white/20">
+                          <p className="text-xs text-white/70">
+                            Modern science • Personalized
+                          </p>
 
-                      <div className="flex items-center gap-3">
+                        </div>
 
-                        <div className="rounded-xl bg-yellow-500/20 p-2">
+                      </div>
 
-                          <Leaf className="h-5 w-5 text-yellow-200" />
+                    </div>
 
-                        </div>
 
-                        <div>
+                    {/* CARD 3 */}
 
-                          <p className="font-semibold text-white">
-                            Optional Ayurveda
-                          </p>
+                    <div className="rounded-2xl border border-white/20 bg-white/10 p-4 backdrop-blur-xl transition-all duration-300 hover:bg-white/20">
 
-                          <p className="text-xs text-white/70">
-                            Explore traditional wellness concepts
-                          </p>
+                      <div className="flex items-center gap-3">
 
-                        </div>
+                        <div className="rounded-xl bg-yellow-500/20 p-2">
 
-                      </div>
+                          <Leaf className="h-5 w-5 text-yellow-200" />
 
-                    </div>
+                        </div>
 
+                        <div>
 
-                    {/* CARD 4 */}
+                          <p className="font-semibold text-white">
+                            Optional Ayurveda
+                          </p>
 
-                    <div className="rounded-2xl border border-white/20 bg-white/10 p-4 backdrop-blur-xl transition-all duration-300 hover:bg-white/20">
+                          <p className="text-xs text-white/70">
+                            Explore traditional wellness concepts
+                          </p>
 
-                      <div className="flex items-center gap-3">
+                        </div>
 
-                        <div className="rounded-xl bg-rose-500/20 p-2">
+                      </div>
 
-                          <Heart className="h-5 w-5 text-rose-200" />
+                    </div>
 
-                        </div>
 
-                        <div>
+                    {/* CARD 4 */}
 
-                          <p className="font-semibold text-white">
-                            Indian Food Culture
-                          </p>
+                    <div className="rounded-2xl border border-white/20 bg-white/10 p-4 backdrop-blur-xl transition-all duration-300 hover:bg-white/20">
 
-                          <p className="text-xs text-white/70">
-                            Rooted in tradition • Made for you
-                          </p>
+                      <div className="flex items-center gap-3">
 
-                        </div>
+                        <div className="rounded-xl bg-rose-500/20 p-2">
 
-                      </div>
+                          <Heart className="h-5 w-5 text-rose-200" />
 
-                    </div>
+                        </div>
 
-                  </div>
+                        <div>
 
-                </div>
+                          <p className="font-semibold text-white">
+                            Indian Food Culture
+                          </p>
 
-              </div>
+                          <p className="text-xs text-white/70">
+                            Rooted in tradition • Made for you
+                          </p>
 
-            </div>
+                        </div>
 
-          </div>
+                      </div>
 
-        </section>
+                    </div>
 
+                  </div>
 
-        {/* =====================================================
-            FEATURES
-        ==================================================== */}
+                </div>
 
-        <section className="relative px-6 py-20">
+              </div>
 
-          <div className="mx-auto max-w-6xl">
+            </div>
 
+          </div>
 
-            {/* Heading */}
+        </section>
 
-            <div className="mx-auto max-w-2xl text-center">
 
-              <p className="font-hindi text-sm font-semibold text-white drop-shadow-md">
+        {/* =====================================================
+            FEATURES
+        ===================================================== */}
 
-                आपका स्वास्थ्य, आपकी संस्कृति
+        <section className="relative px-6 py-20">
 
-              </p>
+          <div className="mx-auto max-w-6xl">
 
-              <h2 className="mt-2 font-display text-4xl font-bold text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] sm:text-5xl">
 
-                Nutrition that feels like you.
+            {/* Heading */}
 
-              </h2>
+            <div className="mx-auto max-w-2xl text-center">
 
-              <p className="mt-4 font-medium leading-relaxed text-white/90 drop-shadow-md">
+              <p className="font-hindi text-sm font-semibold text-white drop-shadow-md">
 
-                Ahaar Amrit brings together evidence-based nutrition,
-                Indian food culture and optional traditional wellness.
+                आपका स्वास्थ्य, आपकी संस्कृति
 
-              </p>
+              </p>
 
-            </div>
+              <h2 className="mt-2 font-display text-4xl font-bold text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] sm:text-5xl">
 
+                Nutrition that feels like you.
 
-            {/* Feature cards */}
+              </h2>
 
-            <div className="mt-12 grid gap-6 md:grid-cols-3">
+              <p className="mt-4 font-medium leading-relaxed text-white/90 drop-shadow-md">
 
-              {features.map((feature) => {
+                Ahaar Amrit brings together evidence-based nutrition,
+                Indian food culture and optional traditional wellness.
 
-                const Icon = feature.icon;
+              </p>
 
-                return (
+            </div>
 
-                  <div
-                    key={feature.title}
-                    className="rounded-[2rem] border border-white/25 bg-black/25 p-7 text-center shadow-2xl backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 hover:bg-black/30"
-                  >
 
-                    <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-hero shadow-warm">
+            {/* Feature cards */}
 
-                      <Icon className="h-7 w-7 text-white" />
+            <div className="mt-12 grid gap-6 md:grid-cols-3">
 
-                    </div>
+              {features.map((feature) => {
 
+                const Icon = feature.icon;
 
-                    <h3 className="mt-5 font-display text-xl font-bold text-white drop-shadow-md">
+                return (
 
-                      {feature.title}
+                  <div
+                    key={feature.title}
+                    className="rounded-[2rem] border border-white/25 bg-black/25 p-7 text-center shadow-2xl backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 hover:bg-black/30"
+                  >
 
-                    </h3>
+                    <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-hero shadow-warm">
 
+                      <Icon className="h-7 w-7 text-white" />
 
-                    <p className="mt-1 font-hindi text-sm font-semibold text-white/90">
+                    </div>
 
-                      {feature.hindi}
 
-                    </p>
+                    <h3 className="mt-5 font-display text-xl font-bold text-white drop-shadow-md">
 
+                      {feature.title}
 
-                    <p className="mt-4 text-sm font-medium leading-relaxed text-white/85">
+                    </h3>
 
-                      {feature.text}
 
-                    </p>
+                    <p className="mt-1 font-hindi text-sm font-semibold text-white/90">
 
-                  </div>
+                      {feature.hindi}
 
-                );
+                    </p>
 
-              })}
 
-            </div>
+                    <p className="mt-4 text-sm font-medium leading-relaxed text-white/85">
 
-          </div>
+                      {feature.text}
 
-        </section>
+                    </p>
 
+                  </div>
 
-        {/* =====================================================
-            DOSHA SECTION
-        ==================================================== */}
+                );
 
-        <section className="relative overflow-hidden px-6 py-24">
+              })}
 
+            </div>
 
-          <div className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-green-400/10 blur-3xl" />
+          </div>
 
+        </section>
 
-          <div className="relative mx-auto max-w-6xl">
 
+        {/* =====================================================
+            DOSHA SECTION
+        ===================================================== */}
 
-            {/* Heading */}
+        <section className="relative overflow-hidden px-6 py-24">
 
-            <div className="mx-auto max-w-3xl text-center">
 
+          <div className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-green-400/10 blur-3xl" />
 
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-premium shadow-warm">
 
-                <Sparkles className="h-7 w-7 text-white" />
+          <div className="relative mx-auto max-w-6xl">
 
-              </div>
 
+            {/* Heading */}
 
-              <p className="mt-6 font-hindi text-sm font-semibold text-white">
+            <div className="mx-auto max-w-3xl text-center">
 
-                आयुर्वेद को सरलता से समझें
 
-              </p>
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-premium shadow-warm">
 
+                <Sparkles className="h-7 w-7 text-white" />
 
-              <h2 className="mt-2 font-display text-4xl font-bold text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] sm:text-5xl">
+              </div>
 
-                What is a Dosha?
 
-              </h2>
+              <p className="mt-6 font-hindi text-sm font-semibold text-white">
 
+                आयुर्वेद को सरलता से समझें
 
-              <p className="mt-5 text-base font-medium leading-relaxed text-white/90 drop-shadow-md sm:text-lg">
+              </p>
 
-                In traditional Ayurveda, a{" "}
-                <strong className="text-white">
-                  Dosha
-                </strong>{" "}
-                is a concept used to describe patterns of qualities
-                associated with the body and mind. Ayurveda traditionally
-                describes three main Doshas — Vata, Pitta and Kapha.
 
-              </p>
+              <h2 className="mt-2 font-display text-4xl font-bold text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] sm:text-5xl">
 
-            </div>
+                What is a Dosha?
 
+              </h2>
 
-            {/* Dosha cards */}
 
-            <div className="mt-14 grid gap-6 md:grid-cols-3">
+              <p className="mt-5 text-base font-medium leading-relaxed text-white/90 drop-shadow-md sm:text-lg">
 
-              {doshas.map((dosha) => {
+                In traditional Ayurveda, a{" "}
+                <strong className="text-white">
+                  Dosha
+                </strong>{" "}
+                is a concept used to describe patterns of qualities
+                associated with the body and mind. Ayurveda traditionally
+                describes three main Doshas — Vata, Pitta and Kapha.
 
-                const Icon = dosha.icon;
+              </p>
 
-                return (
+            </div>
 
-                  <div
-                    key={dosha.name}
-                    className={`group relative overflow-hidden rounded-[2rem] border border-white/25 bg-gradient-to-br ${dosha.gradient} p-7 shadow-2xl backdrop-blur-xl transition-all duration-500 hover:-translate-y-3`}
-                  >
 
-                    <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-white/10 blur-xl transition-transform duration-500 group-hover:scale-150" />
+            {/* Dosha cards */}
 
+            <div className="mt-14 grid gap-6 md:grid-cols-3">
 
-                    <div className="relative">
+              {doshas.map((dosha) => {
 
+                const Icon = dosha.icon;
 
-                      <div className="flex items-center justify-between">
+                return (
 
-                        <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/25 bg-black/20">
+                  <div
+                    key={dosha.name}
+                    className={`group relative overflow-hidden rounded-[2rem] border border-white/25 bg-gradient-to-br ${dosha.gradient} p-7 shadow-2xl backdrop-blur-xl transition-all duration-500 hover:-translate-y-3`}
+                  >
 
-                          <Icon className="h-7 w-7 text-white" />
+                    <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-white/10 blur-xl transition-transform duration-500 group-hover:scale-150" />
 
-                        </div>
 
+                    <div className="relative">
 
-                        <span className="font-hindi text-lg font-semibold text-white">
 
-                          {dosha.hindi}
+                      <div className="flex items-center justify-between">
 
-                        </span>
+                        <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/25 bg-black/20">
 
-                      </div>
+                          <Icon className="h-7 w-7 text-white" />
 
+                        </div>
 
-                      <h3 className="mt-7 font-display text-3xl font-bold text-white">
 
-                        {dosha.name}
+                        <span className="font-hindi text-lg font-semibold text-white">
 
-                      </h3>
+                          {dosha.hindi}
 
+                        </span>
 
-                      <p className="mt-3 text-sm font-semibold text-white">
+                      </div>
 
-                        {dosha.qualities}
 
-                      </p>
+                      <h3 className="mt-7 font-display text-3xl font-bold text-white">
 
+                        {dosha.name}
 
-                      <p className="mt-4 text-sm font-medium leading-relaxed text-white/85">
+                      </h3>
 
-                        {dosha.description}
 
-                      </p>
+                      <p className="mt-3 text-sm font-semibold text-white">
 
-                    </div>
+                        {dosha.qualities}
 
-                  </div>
+                      </p>
 
-                );
 
-              })}
+                      <p className="mt-4 text-sm font-medium leading-relaxed text-white/85">
 
-            </div>
+                        {dosha.description}
 
+                      </p>
 
-            {/* Explanation card */}
+                    </div>
 
-            <div className="mx-auto mt-10 max-w-4xl rounded-[2rem] border border-white/25 bg-black/25 p-7 shadow-2xl backdrop-blur-xl sm:p-9">
+                  </div>
 
-              <div className="flex flex-col gap-5 sm:flex-row">
+                );
 
+              })}
 
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-orange-500/20">
+            </div>
 
-                  <Info className="h-6 w-6 text-orange-200" />
 
-                </div>
+            {/* Explanation card */}
 
+            <div className="mx-auto mt-10 max-w-4xl rounded-[2rem] border border-white/25 bg-black/25 p-7 shadow-2xl backdrop-blur-xl sm:p-9">
 
-                <div>
+              <div className="flex flex-col gap-5 sm:flex-row">
 
-                  <h3 className="font-display text-xl font-bold text-white">
 
-                    A simple way to think about it
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-orange-500/20">
 
-                  </h3>
+                  <Info className="h-6 w-6 text-orange-200" />
 
+                </div>
 
-                  <p className="mt-3 text-sm font-medium leading-relaxed text-white/85">
 
-                    Dosha concepts come from the traditional Ayurvedic
-                    wellness system. They are best understood as a framework
-                    for exploring traditional ideas about individual patterns
-                    and tendencies — not as a medical diagnosis.
+                <div>
 
-                  </p>
+                  <h3 className="font-display text-xl font-bold text-white">
 
-                </div>
+                    A simple way to think about it
 
-              </div>
+                  </h3>
 
-            </div>
 
+                  <p className="mt-3 text-sm font-medium leading-relaxed text-white/85">
 
-            {/* CTA */}
+                    Dosha concepts come from the traditional Ayurvedic
+                    wellness system. They are best understood as a framework
+                    for exploring traditional ideas about individual patterns
+                    and tendencies — not as a medical diagnosis.
 
-            <div className="mt-12 text-center">
+                  </p>
 
-              <h3 className="font-display text-2xl font-bold text-white">
+                </div>
 
-                Curious about your Dosha?
+              </div>
 
-              </h3>
+            </div>
 
 
-              <p className="mx-auto mt-3 max-w-xl text-sm font-medium text-white/85">
+            {/* CTA */}
 
-                Take our short quiz to explore which traditional Ayurvedic
-                pattern may resonate with you.
+            <div className="mt-12 text-center">
 
-              </p>
+              <h3 className="font-display text-2xl font-bold text-white">
 
+                Curious about your Dosha?
 
-              <Button
-                asChild
-                size="xl"
-                variant="hero"
-                className="mt-6 shadow-warm"
-              >
+              </h3>
 
-                <Link to="/dosha">
 
-                  Explore Your Dosha
+              <p className="mx-auto mt-3 max-w-xl text-sm font-medium text-white/85">
 
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                Take our short quiz to explore which traditional Ayurvedic
+                pattern may resonate with you.
 
-                </Link>
+              </p>
 
-              </Button>
 
-            </div>
+              <Button
+                asChild
+                size="xl"
+                variant="hero"
+                className="mt-6 shadow-warm"
+              >
 
-          </div>
+                <Link to="/dosha">
 
-        </section>
+                  Explore Your Dosha
 
+                  <ArrowRight className="ml-2 h-5 w-5" />
 
-        {/* =====================================================
-            FOOTER CTA
-        ==================================================== */}
+                </Link>
 
-        <section className="relative px-6 pb-24 pt-10">
+              </Button>
 
-          <div className="mx-auto max-w-6xl">
+            </div>
 
+          </div>
 
-            <div className="relative overflow-hidden rounded-[2.5rem] border border-white/25 bg-black/30 p-10 text-center shadow-2xl backdrop-blur-xl sm:p-16">
+        </section>
 
 
-              <div className="absolute -left-20 -top-20 h-60 w-60 rounded-full bg-orange-400/10 blur-3xl" />
+        {/* =====================================================
+            FOOTER CTA
+        ===================================================== */}
 
-              <div className="absolute -bottom-20 -right-20 h-60 w-60 rounded-full bg-green-400/10 blur-3xl" />
+        <section className="relative px-6 pb-24 pt-10">
 
+          <div className="mx-auto max-w-6xl">
 
-              <div className="relative">
 
+            <div className="relative overflow-hidden rounded-[2.5rem] border border-white/25 bg-black/30 p-10 text-center shadow-2xl backdrop-blur-xl sm:p-16">
 
-                <p className="font-hindi text-sm font-semibold text-white">
 
-                  आपकी सेहत की यात्रा यहीं से शुरू होती है
+              <div className="absolute -left-20 -top-20 h-60 w-60 rounded-full bg-orange-400/10 blur-3xl" />
 
-                </p>
+              <div className="absolute -bottom-20 -right-20 h-60 w-60 rounded-full bg-green-400/10 blur-3xl" />
 
 
-                <h2 className="mt-3 font-display text-4xl font-bold text-white sm:text-5xl">
+              <div className="relative">
 
-                  Your food.
-                  <br />
 
-                  Your culture.
-                  <br />
+                <p className="font-hindi text-sm font-semibold text-white">
 
-                  Your journey.
+                  आपकी सेहत की यात्रा यहीं से शुरू होती है
 
-                </h2>
+                </p>
 
 
-                <Button
-                  asChild
-                  size="xl"
-                  variant="secondary"
-                  className="mt-8"
-                >
+                <h2 className="mt-3 font-display text-4xl font-bold text-white sm:text-5xl">
 
-                  <Link to="/onboarding">
+                  Your food.
+                  <br />
 
-                    Get Started
+                  Your culture.
+                  <br />
 
-                    <ArrowRight className="ml-2 h-5 w-5" />
+                  Your journey.
 
-                  </Link>
+                </h2>
 
-                </Button>
 
-              </div>
+                <Button
+                  asChild
+                  size="xl"
+                  variant="secondary"
+                  className="mt-8"
+                >
 
-            </div>
+                  <Link to="/onboarding">
 
-          </div>
+                    Get Started
 
-        </section>
+                    <ArrowRight className="ml-2 h-5 w-5" />
 
-      </div>
+                  </Link>
 
-    </main>
-  );
+                </Button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+      </div>
+
+    </main>
+  );
 }

@@ -1,6 +1,6 @@
 import { Link, useLocation } from "@tanstack/react-router";
 import { Leaf, Menu, X, ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 // All links for the mobile menu
 const allLinks = [
@@ -32,6 +32,24 @@ const dropdownLinks = [
 export function Navbar() {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [discoverOpen, setDiscoverOpen] = useState(false);
+  
+  // Close dropdown if user clicks outside of it
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDiscoverOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Check if any link inside the "Discover" dropdown is currently active
+  const isDiscoverActive = dropdownLinks.some(
+    (link) => location.pathname === link.to || (link.to !== "/" && location.pathname.startsWith(link.to))
+  );
 
   return (
     <header
@@ -154,17 +172,30 @@ export function Navbar() {
           })}
 
           {/* "Discover" Dropdown Menu */}
-          <div className="relative group">
+          <div className="relative" ref={dropdownRef}>
             <button 
-              className="flex items-center gap-1 rounded-full px-3 lg:px-4 py-2.5 text-sm font-medium text-[#514638] transition-all duration-300 hover:bg-white/35 hover:text-[#2f2419] hover:shadow-sm"
+              onClick={() => setDiscoverOpen(!discoverOpen)}
+              className={`
+                flex items-center gap-1 rounded-full px-3 lg:px-4 py-2.5 text-sm font-medium transition-all duration-300
+                ${
+                  isDiscoverActive
+                    ? "bg-gradient-to-r from-orange-400 via-orange-500 to-green-600 text-white shadow-[0_6px_18px_rgba(226,110,40,0.25)] hover:shadow-[0_8px_24px_rgba(226,110,40,0.35)]"
+                    : "text-[#514638] hover:bg-white/35 hover:text-[#2f2419] hover:shadow-sm"
+                }
+              `}
             >
               Discover 
-              <ChevronDown className="h-4 w-4 transition-transform duration-300 group-hover:rotate-180" />
+              <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${discoverOpen ? "rotate-180" : ""}`} />
             </button>
             
             {/* Dropdown Box */}
-            <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 z-50">
-              <div className="flex flex-col min-w-[160px] p-2 bg-white/85 backdrop-blur-2xl backdrop-saturate-150 rounded-2xl shadow-xl border border-white/40">
+            <div 
+              className={`
+                absolute top-full left-1/2 -translate-x-1/2 pt-2 z-50 transition-all duration-300 origin-top
+                ${discoverOpen ? "opacity-100 visible scale-100 translate-y-0" : "opacity-0 invisible scale-95 translate-y-2"}
+              `}
+            >
+              <div className="flex flex-col min-w-[160px] p-2 bg-white/95 backdrop-blur-2xl backdrop-saturate-150 rounded-2xl shadow-xl border border-white/60">
                 {dropdownLinks.map((link) => {
                   const active =
                     location.pathname === link.to ||
@@ -174,12 +205,13 @@ export function Navbar() {
                     <Link
                       key={link.to}
                       to={link.to}
+                      onClick={() => setDiscoverOpen(false)}
                       className={`
                         rounded-xl px-4 py-2.5 text-sm font-medium transition-all duration-200 mb-1 last:mb-0
                         ${
                           active
                             ? "bg-gradient-to-r from-orange-400 to-orange-500 text-white shadow-sm"
-                            : "text-[#514638] hover:bg-white/50 hover:text-orange-600"
+                            : "text-[#514638] hover:bg-orange-500/10 hover:text-orange-600"
                         }
                       `}
                     >
@@ -235,7 +267,7 @@ export function Navbar() {
       {mobileMenuOpen && (
         <div
           className="
-            absolute top-[84px] left-0 w-full rounded-[2rem] border border-white/40 bg-white/85 p-4 shadow-xl backdrop-blur-2xl backdrop-saturate-150 flex flex-col gap-2 md:hidden
+            absolute top-[84px] left-0 w-full rounded-[2rem] border border-white/40 bg-white/95 p-4 shadow-xl backdrop-blur-2xl backdrop-saturate-150 flex flex-col gap-2 md:hidden z-50
           "
         >
           {allLinks.map((link) => {
@@ -253,7 +285,7 @@ export function Navbar() {
                   ${
                     active
                       ? "bg-gradient-to-r from-orange-400 via-orange-500 to-green-600 text-white shadow-md"
-                      : "text-[#514638] hover:bg-white/60 hover:text-[#2f2419]"
+                      : "text-[#514638] hover:bg-orange-500/10 hover:text-[#2f2419]"
                   }
                 `}
               >

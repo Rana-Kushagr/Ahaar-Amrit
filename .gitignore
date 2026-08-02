@@ -7,13 +7,21 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependencies
 node_modules
+
+# Build output
 dist
 dist-ssr
 .output
 .vinxi
 .tanstack/**
 .nitro
+
+# Local environment files
+.env
+.env.local
+.env.*.local
 *.local
 
 # Wrangler / Cloudflare
@@ -24,9 +32,17 @@ dist-ssr
 .vscode/*
 !.vscode/extensions.json
 .idea
+
+# OS files
 .DS_Store
+
+# IDE / Visual Studio files
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# Temporary files
+*.tmp
+*.temp

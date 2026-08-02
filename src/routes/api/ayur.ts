@@ -1,1 +1,167 @@
+import { createAPIFileRoute } from "@tanstack/react-start/api";
 
+const AYUR_SYSTEM_PROMPT = `
+You are Ayur, the friendly AI wellness assistant for Ahaar Amrit.
+
+Your role:
+- Help teenagers learn about Indian nutrition, healthy eating, Ayurveda, and traditional Indian foods.
+- Explain Doshas (Vata, Pitta, Kapha) in a simple, educational way.
+- Suggest healthier alternatives to junk food.
+- Recommend nutritious Indian foods and balanced meal ideas.
+- Encourage healthy habits, hydration, sleep, movement, and mindful eating.
+- Be friendly, warm, encouraging, and concise.
+- Use simple language, occasional emojis, and clear formatting.
+
+Safety:
+- You are an educational wellness assistant, not a doctor.
+- Never diagnose diseases or medical conditions.
+- Never prescribe medicines or supplements.
+- Do not recommend extreme diets, fasting, restrictive eating, or unsafe weight-loss methods.
+- For serious symptoms or medical concerns, encourage the user to talk to a qualified healthcare professional.
+- Since many users are teenagers, avoid promoting body-image pressure or unhealthy dieting.
+
+Stay in character as Ayur and focus primarily on wellness, nutrition, Ayurveda, and healthy habits.
+`;
+
+export const APIRoute = createAPIFileRoute("/api/ayur")({
+  POST: async ({ request }) => {
+    try {
+      const body = await request.json();
+
+      const messages = Array.isArray(body?.messages)
+        ? body.messages
+        : [];
+
+      if (messages.length === 0) {
+        return new Response(
+          JSON.stringify({ error: "No messages provided." }),
+          {
+            status: 400,
+            headers: {
+              "Content-Type": "application/json",
+            },
+          },
+        );
+      }
+
+      const apiKey = process.env.OPENROUTER_API_KEY;
+
+      if (!apiKey) {
+        console.error("OPENROUTER_API_KEY is not configured.");
+
+        return new Response(
+          JSON.stringify({
+            error: "Ayur AI is not configured correctly on the server.",
+          }),
+          {
+            status: 500,
+            headers: {
+              "Content-Type": "application/json",
+            },
+          },
+        );
+      }
+
+      const openRouterMessages = [
+        {
+          role: "system",
+          content: AYUR_SYSTEM_PROMPT,
+        },
+        ...messages
+          .filter(
+            (message: any) =>
+              message &&
+              (message.role === "user" || message.role === "assistant") &&
+              typeof message.content === "string",
+          )
+          .map((message: any) => ({
+            role: message.role,
+            content: message.content,
+          })),
+      ];
+
+      const response = await fetch(
+        "https://openrouter.ai/api/v1/chat/completions",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+            "Content-Type": "application/json",
+            "HTTP-Referer": "https://ahaar-amrit.lovable.app",
+            "X-Title": "Ahaar Amrit - Ayur AI",
+          },
+          body: JSON.stringify({
+            // Free OpenRouter model
+            model: "openrouter/free",
+            messages: openRouterMessages,
+            temperature: 0.7,
+            max_tokens: 500,
+          }),
+        },
+      );
+
+      if (!response.ok) {
+        const errorText = await response.text();
+
+        console.error("OpenRouter API error:", response.status, errorText);
+
+        return new Response(
+          JSON.stringify({
+            error: "Ayur could not connect to the AI service.",
+          }),
+          {
+            status: response.status,
+            headers: {
+              "Content-Type": "application/json",
+            },
+          },
+        );
+      }
+
+      const data = await response.json();
+
+      const content =
+        data?.choices?.[0]?.message?.content;
+
+      if (!content) {
+        return new Response(
+          JSON.stringify({
+            error: "Ayur received an empty response.",
+          }),
+          {
+            status: 502,
+            headers: {
+              "Content-Type": "application/json",
+            },
+          },
+        );
+      }
+
+      return new Response(
+        JSON.stringify({
+          message: content,
+        }),
+        {
+          status: 200,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      );
+    } catch (error) {
+      console.error("Ayur API error:", error);
+
+      return new Response(
+        JSON.stringify({
+          error: "Something went wrong while connecting to Ayur.",
+        }),
+        {
+          status: 500,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      );
+    }
+  },
+});

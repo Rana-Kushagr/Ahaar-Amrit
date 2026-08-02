@@ -1,7 +1,8 @@
+import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { 
   CheckCircle2, Flame, Award, Sparkles, Trophy, 
-  Target, Lock, Unlock, Calendar, Star, BookOpen, Utensils
+  Target, Lock, Unlock, Calendar, Star 
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -59,10 +60,13 @@ const SECRET_BADGES = [
 ];
 
 // ==========================================
-// COMPONENT
+// ROUTER EXPORT
 // ==========================================
+export const Route = createFileRoute("/wellness-challenge")({
+  component: WellnessChallengePage,
+});
 
-export function WellnessChallengeWidget() {
+function WellnessChallengePage() {
   const [activeTab, setActiveTab] = useState<"daily" | "weekly" | "special" | "badges">("daily");
   
   // State
@@ -75,19 +79,15 @@ export function WellnessChallengeWidget() {
   useEffect(() => {
     const newBadges = new Set(unlockedBadges);
 
-    // 1. First quest completed
     if (completedQuests.length > 0) newBadges.add("First Sprout");
 
-    // 2. All rounder (All daily quests done)
     const dailyCompleted = DAILY_QUESTS.every(q => completedQuests.includes(q.id));
     if (dailyCompleted) newBadges.add("All Rounder");
 
-    // 3. Points thresholds
     POINT_THRESHOLDS.forEach(badge => {
       if (points >= badge.req) newBadges.add(badge.title);
     });
 
-    // 4. Streak thresholds
     STREAK_THRESHOLDS.forEach(badge => {
       if (streak >= badge.req) newBadges.add(badge.title);
     });
@@ -104,7 +104,6 @@ export function WellnessChallengeWidget() {
       if (badgeStr && !unlockedBadges.includes(badgeStr)) {
         setUnlockedBadges(prev => [...prev, badgeStr]);
       }
-      // Simple streak increment for demo purposes
       if (activeTab === "daily") setStreak(s => s + 1);
     }
   };
@@ -157,110 +156,112 @@ export function WellnessChallengeWidget() {
   );
 
   return (
-    <div className="mx-auto w-full max-w-2xl rounded-[2.5rem] border border-emerald-500/30 bg-emerald-950/60 p-6 shadow-2xl backdrop-blur-2xl">
-      
-      {/* Top Stats Bar */}
-      <div className="grid grid-cols-3 gap-3 mb-6 text-center">
-        <div className="flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-black/40 p-3 shadow-inner">
-          <div className="flex items-center gap-1.5 text-orange-400 font-bold text-lg">
-            <Flame className="h-5 w-5 fill-orange-400" />
-            <span>{streak}</span>
-          </div>
-          <span className="text-xs font-medium text-emerald-200/70">Day Streak</span>
-        </div>
-        <div className="flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-black/40 p-3 shadow-inner">
-          <div className="flex items-center gap-1.5 text-amber-300 font-bold text-lg">
-            <Sparkles className="h-5 w-5 fill-amber-300" />
-            <span>{points}</span>
-          </div>
-          <span className="text-xs font-medium text-emerald-200/70">Amrit Points</span>
-        </div>
-        <div className="flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-black/40 p-3 shadow-inner">
-          <div className="flex items-center gap-1.5 text-emerald-400 font-bold text-lg">
-            <Trophy className="h-5 w-5" />
-            <span>{unlockedBadges.length}</span>
-          </div>
-          <span className="text-xs font-medium text-emerald-200/70">Badges</span>
-        </div>
-      </div>
-
-      {/* Navigation Tabs */}
-      <div className="flex overflow-x-auto gap-2 pb-2 hide-scrollbar">
-        {[
-          { id: "daily", icon: Target, label: "Daily" },
-          { id: "weekly", icon: Calendar, label: "Weekly" },
-          { id: "special", icon: Star, label: "Special" },
-          { id: "badges", icon: Award, label: "Badges" },
-        ].map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id as any)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-all whitespace-nowrap ${
-              activeTab === tab.id
-                ? "bg-emerald-500 text-white shadow-md"
-                : "bg-white/5 text-emerald-200/70 hover:bg-white/10"
-            }`}
-          >
-            <tab.icon className="h-4 w-4" />
-            {tab.label}
-          </button>
-        ))}
-      </div>
-
-      {/* Tab Content */}
-      <div className="mt-2 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
-        {activeTab === "daily" && renderQuestList(DAILY_QUESTS)}
-        {activeTab === "weekly" && renderQuestList(WEEKLY_QUESTS)}
-        {activeTab === "special" && renderQuestList(SPECIAL_QUESTS)}
+    <div className="min-h-screen pt-32 pb-20 px-4 sm:px-6">
+      <div className="mx-auto w-full max-w-2xl rounded-[2.5rem] border border-emerald-500/30 bg-emerald-950/60 p-6 shadow-2xl backdrop-blur-2xl">
         
-        {activeTab === "badges" && (
-          <div className="space-y-6 mt-4">
-            
-            {/* Unlocked Badges Gallery */}
-            <div>
-              <h3 className="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-3 border-b border-emerald-500/20 pb-2">Unlocked</h3>
-              <div className="flex flex-wrap gap-2">
-                {unlockedBadges.length === 0 ? (
-                  <p className="text-sm text-emerald-200/50 italic">No badges yet. Start completing quests!</p>
-                ) : (
-                  unlockedBadges.map(badge => (
-                    <span key={badge} className="inline-flex items-center gap-1.5 bg-gradient-to-r from-orange-500/20 to-amber-500/20 border border-orange-500/30 text-amber-300 px-3 py-1.5 rounded-full text-xs font-bold shadow-sm">
-                      <Award className="h-3 w-3" /> {badge}
-                    </span>
-                  ))
-                )}
-              </div>
+        {/* Top Stats Bar */}
+        <div className="grid grid-cols-3 gap-3 mb-6 text-center">
+          <div className="flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-black/40 p-3 shadow-inner">
+            <div className="flex items-center gap-1.5 text-orange-400 font-bold text-lg">
+              <Flame className="h-5 w-5 fill-orange-400" />
+              <span>{streak}</span>
             </div>
-
-            {/* Secret Badges List */}
-            <div>
-              <h3 className="text-sm font-bold text-indigo-300 uppercase tracking-widest mb-3 border-b border-indigo-500/20 pb-2 flex items-center gap-2">
-                <Lock className="h-4 w-4" /> Secret Badges
-              </h3>
-              <div className="grid sm:grid-cols-2 gap-3">
-                {SECRET_BADGES.map(badge => {
-                  const isUnlocked = unlockedBadges.includes(badge.title);
-                  return (
-                    <div key={badge.id} className={`p-3 rounded-xl border ${isUnlocked ? 'bg-indigo-900/40 border-indigo-500/40' : 'bg-black/20 border-white/5'}`}>
-                      <div className="flex items-center gap-2 mb-1">
-                        {isUnlocked ? <Unlock className="h-4 w-4 text-indigo-400" /> : <Lock className="h-4 w-4 text-white/20" />}
-                        <span className={`font-bold text-sm ${isUnlocked ? 'text-indigo-300' : 'text-white/40 blur-[2px] select-none'}`}>
-                          {badge.title}
-                        </span>
-                      </div>
-                      <p className={`text-xs ${isUnlocked ? 'text-indigo-200/70' : 'text-white/20 blur-[2px] select-none'}`}>
-                        {badge.desc}
-                      </p>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
+            <span className="text-xs font-medium text-emerald-200/70">Day Streak</span>
           </div>
-        )}
-      </div>
+          <div className="flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-black/40 p-3 shadow-inner">
+            <div className="flex items-center gap-1.5 text-amber-300 font-bold text-lg">
+              <Sparkles className="h-5 w-5 fill-amber-300" />
+              <span>{points}</span>
+            </div>
+            <span className="text-xs font-medium text-emerald-200/70">Amrit Points</span>
+          </div>
+          <div className="flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-black/40 p-3 shadow-inner">
+            <div className="flex items-center gap-1.5 text-emerald-400 font-bold text-lg">
+              <Trophy className="h-5 w-5" />
+              <span>{unlockedBadges.length}</span>
+            </div>
+            <span className="text-xs font-medium text-emerald-200/70">Badges</span>
+          </div>
+        </div>
 
+        {/* Navigation Tabs */}
+        <div className="flex overflow-x-auto gap-2 pb-2 hide-scrollbar">
+          {[
+            { id: "daily", icon: Target, label: "Daily" },
+            { id: "weekly", icon: Calendar, label: "Weekly" },
+            { id: "special", icon: Star, label: "Special" },
+            { id: "badges", icon: Award, label: "Badges" },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id as any)}
+              className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-all whitespace-nowrap ${
+                activeTab === tab.id
+                  ? "bg-emerald-500 text-white shadow-md"
+                  : "bg-white/5 text-emerald-200/70 hover:bg-white/10"
+              }`}
+            >
+              <tab.icon className="h-4 w-4" />
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Tab Content */}
+        <div className="mt-4 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
+          {activeTab === "daily" && renderQuestList(DAILY_QUESTS)}
+          {activeTab === "weekly" && renderQuestList(WEEKLY_QUESTS)}
+          {activeTab === "special" && renderQuestList(SPECIAL_QUESTS)}
+          
+          {activeTab === "badges" && (
+            <div className="space-y-6 mt-4">
+              
+              {/* Unlocked Badges Gallery */}
+              <div>
+                <h3 className="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-3 border-b border-emerald-500/20 pb-2">Unlocked</h3>
+                <div className="flex flex-wrap gap-2">
+                  {unlockedBadges.length === 0 ? (
+                    <p className="text-sm text-emerald-200/50 italic">No badges yet. Start completing quests!</p>
+                  ) : (
+                    unlockedBadges.map(badge => (
+                      <span key={badge} className="inline-flex items-center gap-1.5 bg-gradient-to-r from-orange-500/20 to-amber-500/20 border border-orange-500/30 text-amber-300 px-3 py-1.5 rounded-full text-xs font-bold shadow-sm">
+                        <Award className="h-3 w-3" /> {badge}
+                      </span>
+                    ))
+                  )}
+                </div>
+              </div>
+
+              {/* Secret Badges List */}
+              <div>
+                <h3 className="text-sm font-bold text-indigo-300 uppercase tracking-widest mb-3 border-b border-indigo-500/20 pb-2 flex items-center gap-2">
+                  <Lock className="h-4 w-4" /> Secret Badges
+                </h3>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  {SECRET_BADGES.map(badge => {
+                    const isUnlocked = unlockedBadges.includes(badge.title);
+                    return (
+                      <div key={badge.id} className={`p-3 rounded-xl border ${isUnlocked ? 'bg-indigo-900/40 border-indigo-500/40' : 'bg-black/20 border-white/5'}`}>
+                        <div className="flex items-center gap-2 mb-1">
+                          {isUnlocked ? <Unlock className="h-4 w-4 text-indigo-400" /> : <Lock className="h-4 w-4 text-white/20" />}
+                          <span className={`font-bold text-sm ${isUnlocked ? 'text-indigo-300' : 'text-white/40 blur-[2px] select-none'}`}>
+                            {badge.title}
+                          </span>
+                        </div>
+                        <p className={`text-xs ${isUnlocked ? 'text-indigo-200/70' : 'text-white/20 blur-[2px] select-none'}`}>
+                          {badge.desc}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+            </div>
+          )}
+        </div>
+
+      </div>
     </div>
   );
 }

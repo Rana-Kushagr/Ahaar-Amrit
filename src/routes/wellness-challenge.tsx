@@ -3,8 +3,7 @@ import { useState, useEffect } from "react";
 import { 
   CheckCircle2, Flame, Award, Sparkles, Trophy, 
   Target, Lock, Unlock, Calendar, Star,
-  Wind, Droplets, Zap, Activity, Heart, Brain, Coffee, EyeOff, Sunrise, Smile, Crown, Shield, Hexagon, Octagon, Medal,
-  X
+  Droplets, Crown, Hexagon
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -124,14 +123,39 @@ export const Route = createFileRoute("/wellness-challenge")({
 function WellnessChallengePage() {
   const [activeTab, setActiveTab] = useState<"daily" | "weekly" | "special" | "badges">("daily");
   
-  // App State
-  const [points, setPoints] = useState(0);
-  const [streak, setStreak] = useState(0);
-  const [completedQuests, setCompletedQuests] = useState<string[]>([]);
-  const [unlockedBadges, setUnlockedBadges] = useState<string[]>([]);
+  // ==========================================
+  // PERSISTENT STATE WITH LOCALSTORAGE
+  // ==========================================
+  const [points, setPoints] = useState(() => {
+    const saved = localStorage.getItem("ahaar_points");
+    return saved ? parseInt(saved, 10) : 0;
+  });
   
-  // Celebration Queue
+  const [streak, setStreak] = useState(() => {
+    const saved = localStorage.getItem("ahaar_streak");
+    return saved ? parseInt(saved, 10) : 0;
+  });
+  
+  const [completedQuests, setCompletedQuests] = useState<string[]>(() => {
+    const saved = localStorage.getItem("ahaar_completed_quests");
+    return saved ? JSON.parse(saved) : [];
+  });
+  
+  const [unlockedBadges, setUnlockedBadges] = useState<string[]>(() => {
+    const saved = localStorage.getItem("ahaar_unlocked_badges");
+    return saved ? JSON.parse(saved) : [];
+  });
+  
+  // Celebration Queue (Does not need to persist on reload)
   const [celebrations, setCelebrations] = useState<Celebration[]>([]);
+
+  // Save to LocalStorage whenever state changes
+  useEffect(() => {
+    localStorage.setItem("ahaar_points", points.toString());
+    localStorage.setItem("ahaar_streak", streak.toString());
+    localStorage.setItem("ahaar_completed_quests", JSON.stringify(completedQuests));
+    localStorage.setItem("ahaar_unlocked_badges", JSON.stringify(unlockedBadges));
+  }, [points, streak, completedQuests, unlockedBadges]);
 
   const addCelebration = (celeb: Omit<Celebration, "id">) => {
     setCelebrations(prev => [...prev, { ...celeb, id: Math.random().toString() }]);
@@ -168,12 +192,12 @@ function WellnessChallengePage() {
     // 3. Streak Thresholds
     STREAK_THRESHOLDS.forEach(b => { if (streak >= b.req) checkAndAward(b.title); });
 
-    // 4. Secret Quests Check (Simplified triggers based on completed quest count for demo)
+    // 4. Secret Quests Check
     if (completedQuests.length >= 5) checkAndAward("The Carrot Collector", true);
     if (completedQuests.length >= 15) checkAndAward("The Golden Amrit", true);
     if (streak >= 7) checkAndAward("The Perfectionist", true);
 
-    // 5. Collector Thresholds (Check total badges unlocked so far)
+    // 5. Collector Thresholds
     COLLECTOR_THRESHOLDS.forEach(b => { 
       if (currentBadges.size >= b.req) checkAndAward(b.title, false, true); 
     });
@@ -206,6 +230,7 @@ function WellnessChallengePage() {
     }
   };
 
+  // Rest of the UI remains identical, ensuring everything looks the exact same
   const renderQuestList = (quests: any[], type: "daily"|"weekly"|"special") => (
     <div className="space-y-3 mt-4">
       {quests.map((quest) => {
@@ -258,30 +283,24 @@ function WellnessChallengePage() {
   return (
     <div className="min-h-screen pt-32 pb-20 px-4 sm:px-6 relative">
       
-      {/* ==========================================
-          CELEBRATION OVERLAY SYSTEM
-      ========================================== */}
+      {/* Celebration Overlay */}
       {activeCelebration && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-md transition-opacity animate-in fade-in duration-300">
           <div className={`relative w-[90%] max-w-sm rounded-3xl border-2 p-8 text-center shadow-2xl animate-in zoom-in-95 duration-300 ${
             activeCelebration.type === "daily" ? "bg-emerald-950 border-emerald-500 shadow-emerald-500/20" :
             activeCelebration.type === "weekly" ? "bg-amber-950 border-yellow-500 shadow-yellow-500/30" :
-            activeCelebration.type === "secret" ? "bg-gray-200 border-black shadow-black/50" : // Black font requires bright bg
+            activeCelebration.type === "secret" ? "bg-gray-200 border-black shadow-black/50" :
             activeCelebration.type === "collector" ? "bg-black border-purple-500 shadow-purple-500/40" :
             "bg-emerald-900 border-emerald-400 shadow-emerald-400/20"
           }`}>
             
-            {/* Celebration Content */}
             <div className="flex flex-col items-center gap-4">
-              
-              {/* Icon for Badges */}
               {activeCelebration.badgeName && (
                 <div className="h-20 w-20 rounded-full bg-black/30 flex items-center justify-center shadow-inner mb-2 animate-bounce">
                   {getBadgeIcon(activeCelebration.badgeName)}
                 </div>
               )}
 
-              {/* Title Rendering based on Type */}
               <h2 className={`text-3xl font-display font-black tracking-wider uppercase ${
                 activeCelebration.type === "daily" ? "text-emerald-400 drop-shadow-[0_0_12px_rgba(52,211,153,0.6)]" :
                 activeCelebration.type === "weekly" ? "text-yellow-400 drop-shadow-[0_0_12px_rgba(250,204,21,0.8)]" :
@@ -317,12 +336,9 @@ function WellnessChallengePage() {
         </div>
       )}
 
-      {/* ==========================================
-          MAIN DASHBOARD UI
-      ========================================== */}
+      {/* Main Dashboard UI */}
       <div className="mx-auto w-full max-w-2xl rounded-[2.5rem] border border-emerald-500/30 bg-emerald-950/60 p-6 shadow-2xl backdrop-blur-2xl">
         
-        {/* Top Stats Bar */}
         <div className="grid grid-cols-3 gap-3 mb-6 text-center">
           <div className="flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-black/40 p-3 shadow-inner">
             <div className="flex items-center gap-1.5 text-orange-400 font-bold text-lg">
@@ -347,7 +363,6 @@ function WellnessChallengePage() {
           </div>
         </div>
 
-        {/* Navigation Tabs */}
         <div className="flex overflow-x-auto gap-2 pb-2 hide-scrollbar">
           {[
             { id: "daily", icon: Target, label: "Daily" },
@@ -370,7 +385,6 @@ function WellnessChallengePage() {
           ))}
         </div>
 
-        {/* Tab Content */}
         <div className="mt-4 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
           {activeTab === "daily" && renderQuestList(DAILY_QUESTS, "daily")}
           {activeTab === "weekly" && renderQuestList(WEEKLY_QUESTS, "weekly")}
@@ -379,7 +393,6 @@ function WellnessChallengePage() {
           {activeTab === "badges" && (
             <div className="space-y-6 mt-4 pb-10">
               
-              {/* Unlocked Badges Gallery */}
               <div>
                 <h3 className="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-3 border-b border-emerald-500/20 pb-2">Unlocked ({unlockedBadges.length})</h3>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -398,7 +411,6 @@ function WellnessChallengePage() {
                 </div>
               </div>
 
-              {/* Secret Badges List */}
               <div>
                 <h3 className="text-sm font-bold text-indigo-300 uppercase tracking-widest mb-3 border-b border-indigo-500/20 pb-2 flex items-center gap-2">
                   <Lock className="h-4 w-4" /> Secret Badges

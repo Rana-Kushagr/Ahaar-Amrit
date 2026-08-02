@@ -11,7 +11,7 @@ const allLinks = [
   { label: "Ayurveda", to: "/dosha" },
   { label: "Quests", to: "/wellness-challenge" },
   { label: "Explorer", to: "/regional-explorer" },
-  { label: "Recipes", to: "/recipe-studio" },
+  { label: "Kitchen", to: "/recipe-studio" },
   { label: "Academy", to: "/ahaar-academy" },
   { label: "Profile", to: "/profile" },
 ] as const;
@@ -29,7 +29,7 @@ const dropdownLinks = [
   { label: "Ayurveda", to: "/dosha" },
   { label: "Quests", to: "/wellness-challenge" },
   { label: "Explorer", to: "/regional-explorer" },
-  { label: "Recipes", to: "/recipe-studio" },
+  { label: "Kitchen", to: "/recipe-studio" },
   { label: "Academy", to: "/ahaar-academy" },
 ] as const;
 

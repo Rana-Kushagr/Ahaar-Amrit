@@ -1,14 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useState, useRef, useEffect } from "react";
 import { MessageCircle, X, Send, Sparkles, User, Leaf, Minimize2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const title = "Ahaar Amrit — Ayurveda & Nutrition";
-const description = "Your personal Ayurvedic and nutrition AI assistant.";
-
-export const Route = createFileRoute("/__root")({
-  // Root route remains clean; we mount the widget here or via layout
-});
 
 type Message = {
   id: string;

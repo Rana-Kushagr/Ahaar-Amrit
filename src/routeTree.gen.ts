@@ -18,6 +18,7 @@ import { Route as NutritionPlanRouteImport } from './routes/nutrition-plan'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as SwasthyaRouteImport } from './routes/swasthya'
+import { Route as ApiAyurRouteImport } from './routes/api/ayur'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -64,6 +65,11 @@ const SwasthyaRoute = SwasthyaRouteImport.update({
   path: '/swasthya',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAyurRoute = ApiAyurRouteImport.update({
+  id: '/api/ayur',
+  path: '/api/ayur',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/onboarding': typeof OnboardingRoute
   '/profile': typeof ProfileRoute
   '/swasthya': typeof SwasthyaRoute
+  '/api/ayur': typeof ApiAyurRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -86,6 +93,7 @@ export interface FileRoutesByTo {
   '/onboarding': typeof OnboardingRoute
   '/profile': typeof ProfileRoute
   '/swasthya': typeof SwasthyaRoute
+  '/api/ayur': typeof ApiAyurRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -98,6 +106,7 @@ export interface FileRoutesById {
   '/onboarding': typeof OnboardingRoute
   '/profile': typeof ProfileRoute
   '/swasthya': typeof SwasthyaRoute
+  '/api/ayur': typeof ApiAyurRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -111,6 +120,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/profile'
     | '/swasthya'
+    | '/api/ayur'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -122,6 +132,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/profile'
     | '/swasthya'
+    | '/api/ayur'
   id:
     | '__root__'
     | '/'
@@ -133,6 +144,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/profile'
     | '/swasthya'
+    | '/api/ayur'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -145,6 +157,7 @@ export interface RootRouteChildren {
   OnboardingRoute: typeof OnboardingRoute
   ProfileRoute: typeof ProfileRoute
   SwasthyaRoute: typeof SwasthyaRoute
+  ApiAyurRoute: typeof ApiAyurRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -212,6 +225,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SwasthyaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/ayur': {
+      id: '/api/ayur'
+      path: '/api/ayur'
+      fullPath: '/api/ayur'
+      preLoaderRoute: typeof ApiAyurRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -225,6 +245,7 @@ const rootRouteChildren: RootRouteChildren = {
   OnboardingRoute: OnboardingRoute,
   ProfileRoute: ProfileRoute,
   SwasthyaRoute: SwasthyaRoute,
+  ApiAyurRoute: ApiAyurRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

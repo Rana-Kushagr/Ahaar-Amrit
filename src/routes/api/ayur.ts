@@ -1,4 +1,4 @@
-import { createAPIFileRoute } from "@tanstack/react-start/api";
+import { createFileRoute } from "@tanstack/react-router";
 
 const AYUR_SYSTEM_PROMPT = `
 You are Ayur, the friendly AI wellness assistant for Ahaar Amrit.
@@ -23,8 +23,10 @@ Safety:
 Stay in character as Ayur and focus primarily on wellness, nutrition, Ayurveda, and healthy habits.
 `;
 
-export const APIRoute = createAPIFileRoute("/api/ayur")({
-  POST: async ({ request }) => {
+export const Route = createFileRoute("/api/ayur")({
+  server: {
+    handlers: {
+      POST: async ({ request }) => {
     try {
       const body = await request.json();
       const messages = Array.isArray(body?.messages) ? body.messages : [];
@@ -72,7 +74,7 @@ export const APIRoute = createAPIFileRoute("/api/ayur")({
             "X-Title": "Ahaar Amrit - Ayur AI",
           },
           body: JSON.stringify({
-            model: "google/gemini-2.5-flash",
+            model: "openrouter/free",
             messages: openRouterMessages,
             temperature: 0.7,
             max_tokens: 500,
@@ -111,5 +113,7 @@ export const APIRoute = createAPIFileRoute("/api/ayur")({
         { status: 500, headers: { "Content-Type": "application/json" } }
       );
     }
+      },
+    },
   },
 });

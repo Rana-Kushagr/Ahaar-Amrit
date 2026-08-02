@@ -6,7 +6,7 @@ import {
 } from "lucide-react";
 
 // ==========================================
-// MOCK DATA (NOW WITH INGREDIENTS & STEPS)
+// DATA: CATEGORIES & CURATED RECIPES
 // ==========================================
 
 const CATEGORIES = [
@@ -19,6 +19,7 @@ const CATEGORIES = [
 ];
 
 const FEATURED_RECIPES = [
+  // --- 1. QUICK STUDENT MEALS ---
   {
     id: 1,
     title: "10-Min Masala Oats",
@@ -46,6 +47,58 @@ const FEATURED_RECIPES = [
   },
   {
     id: 2,
+    title: "One-Pot Veggie Khichdi",
+    category: "Quick Student Meals",
+    time: "20 mins",
+    type: "Tridoshic",
+    desc: "The ultimate Ayurvedic comfort food. Rice and lentils cooked together in one pot for easy cleanup.",
+    tags: ["Comfort Food", "Protein"],
+    ingredients: [
+      "1/2 cup Rice & 1/2 cup Moong Dal (washed)",
+      "1/2 cup chopped veggies (Potato, Carrot, Beans)",
+      "1 tsp Ghee",
+      "1/2 tsp Cumin seeds & a pinch of Asafoetida (Hing)",
+      "1/2 tsp Turmeric",
+      "Salt to taste"
+    ],
+    steps: [
+      "Heat ghee in a pressure cooker or deep pot. Add cumin and hing.",
+      "Add veggies and sauté for a minute.",
+      "Add the washed rice and dal, turmeric, and salt.",
+      "Add 3 to 4 cups of water (depending on how soupy you want it).",
+      "Cook for 3-4 whistles in a pressure cooker (or 15 mins in a covered pot).",
+      "Serve warm with a dollop of extra ghee!"
+    ]
+  },
+  {
+    id: 3,
+    title: "Microwave Mug Poha",
+    category: "Quick Student Meals",
+    time: "5 mins",
+    type: "Kapha Balancing",
+    desc: "No stove? No problem. A quick, savory flattened-rice meal made entirely in a microwave.",
+    tags: ["No Stove", "Hostel Friendly"],
+    ingredients: [
+      "1 cup Thick Poha (Flattened rice)",
+      "2 tbsp Roasted Peanuts",
+      "1/4 chopped Onion",
+      "1/4 tsp Turmeric, Salt, and Sugar",
+      "1 tsp Oil",
+      "A squeeze of Lemon"
+    ],
+    steps: [
+      "Wash the poha in a strainer until soft, drain water completely.",
+      "In a large microwave-safe mug, mix the oil, onions, peanuts, turmeric, and salt.",
+      "Microwave for 1 minute to soften the onions.",
+      "Add the softened poha to the mug, mix well gently.",
+      "Microwave for 1 more minute.",
+      "Add lemon juice, mix, and eat straight from the mug!"
+    ]
+  },
+
+  // --- 2. HEALTHY SWAPS ---
+  {
+    id: 4,
     title: "Roasted Makhana Bhel",
     category: "Healthy Swaps",
     time: "5 mins",
@@ -65,11 +118,58 @@ const FEATURED_RECIPES = [
       "Transfer the roasted makhana to a mixing bowl.",
       "Add the chopped onions, tomatoes, and green chilies.",
       "Sprinkle chaat masala and salt.",
-      "Squeeze lemon juice over the top, toss everything together quickly, and eat immediately so it stays crunchy!"
+      "Squeeze lemon juice, toss everything together quickly, and eat immediately!"
     ]
   },
   {
-    id: 3,
+    id: 5,
+    title: "Baked Sweet Potato Wedges",
+    category: "Healthy Swaps",
+    time: "30 mins",
+    type: "Vata Balancing",
+    desc: "Swap deep-fried French fries for these nutrient-dense, baked sweet potato wedges.",
+    tags: ["High Vitamin A", "Baked"],
+    ingredients: [
+      "2 medium Sweet Potatoes",
+      "1 tbsp Olive Oil or melted Ghee",
+      "1/2 tsp Black Pepper",
+      "1/2 tsp Roasted Cumin Powder",
+      "Pink Himalayan Salt to taste"
+    ],
+    steps: [
+      "Preheat your oven or air-fryer to 200°C (400°F).",
+      "Wash the sweet potatoes thoroughly and cut them into long wedges (keep the skin on for fiber!).",
+      "Toss the wedges in a bowl with oil, pepper, cumin, and salt.",
+      "Spread evenly on a baking tray.",
+      "Bake for 20-25 minutes, flipping halfway, until crispy on the outside and soft inside."
+    ]
+  },
+  {
+    id: 6,
+    title: "Cucumber Ribbon Pasta",
+    category: "Healthy Swaps",
+    time: "10 mins",
+    type: "Kapha Balancing",
+    desc: "Swap heavy refined-flour pasta for refreshing cucumber ribbons in a light yogurt-herb sauce.",
+    tags: ["Low Carb", "Cooling"],
+    ingredients: [
+      "2 large Cucumbers",
+      "3 tbsp thick Greek Yogurt or Hung Curd",
+      "1 clove Garlic (minced)",
+      "Fresh Mint or Coriander leaves",
+      "Salt and Pepper to taste"
+    ],
+    steps: [
+      "Use a vegetable peeler to slice the cucumbers lengthwise into long 'ribbons' (stop when you reach the watery seeds).",
+      "In a bowl, mix the yogurt, minced garlic, herbs, salt, and pepper to create a creamy sauce.",
+      "Toss the cucumber ribbons in the yogurt sauce.",
+      "Serve immediately as a refreshing, hydrating summer meal!"
+    ]
+  },
+
+  // --- 3. BREAKFAST IDEAS ---
+  {
+    id: 7,
     title: "Moong Dal Chilla",
     category: "Breakfast Ideas",
     time: "15 mins",
@@ -78,19 +178,278 @@ const FEATURED_RECIPES = [
     tags: ["Protein Rich", "Gluten-Free"],
     ingredients: [
       "1 cup Yellow Moong Dal (soaked overnight or for 2 hours)",
-      "1 inch piece of Ginger",
-      "1 Green Chili",
-      "1/4 tsp Turmeric",
-      "Salt to taste",
+      "1 inch piece of Ginger & 1 Green Chili",
+      "1/4 tsp Turmeric & Salt to taste",
       "Ghee for cooking"
     ],
     steps: [
-      "Drain the soaked moong dal and blend it with ginger, green chili, and a splash of water to form a smooth batter.",
-      "Transfer to a bowl, add turmeric and salt, and mix well.",
+      "Drain the soaked moong dal and blend it with ginger, chili, and a splash of water to form a smooth batter.",
+      "Add turmeric and salt, and mix well.",
       "Heat a flat pan (tawa) and lightly grease it with ghee.",
-      "Pour a ladle of batter into the center and spread it outward in a circular motion to make a thin pancake.",
-      "Cook for 2 minutes on medium heat until the edges lift, then flip and cook the other side.",
-      "Serve hot with green chutney or yogurt!"
+      "Pour a ladle of batter and spread it outward in a circular motion to make a thin pancake.",
+      "Cook for 2 minutes on medium heat, flip, and cook the other side.",
+      "Serve hot with green chutney!"
+    ]
+  },
+  {
+    id: 8,
+    title: "Sweet Ragi Porridge",
+    category: "Breakfast Ideas",
+    time: "10 mins",
+    type: "Vata Balancing",
+    desc: "A warm, calcium-rich porridge made from finger millet. Excellent for bone health and sustained energy.",
+    tags: ["Calcium", "Sweet"],
+    ingredients: [
+      "3 tbsp Ragi (Finger Millet) Flour",
+      "1.5 cups Milk (Dairy or Plant-based)",
+      "1 tbsp Jaggery powder",
+      "1/4 tsp Cardamom powder",
+      "Almonds or Walnuts for topping"
+    ],
+    steps: [
+      "In a pan, mix the ragi flour and milk thoroughly before turning on the heat to prevent lumps.",
+      "Turn on medium heat and stir continuously for 5-7 minutes until it thickens.",
+      "Turn off the heat and stir in the jaggery and cardamom powder.",
+      "Pour into a bowl, top with chopped nuts, and enjoy warm."
+    ]
+  },
+  {
+    id: 9,
+    title: "Upma with Veggies",
+    category: "Breakfast Ideas",
+    time: "15 mins",
+    type: "Tridoshic",
+    desc: "A savory semolina porridge packed with vegetables and tempered with curry leaves.",
+    tags: ["Filling", "Traditional"],
+    ingredients: [
+      "1/2 cup Suji (Semolina/Rava)",
+      "1/4 cup finely chopped veggies (Carrots, Peas)",
+      "1 tsp Mustard seeds & a few Curry leaves",
+      "1 Green Chili",
+      "1 tbsp Oil or Ghee",
+      "1.5 cups hot water & Salt to taste"
+    ],
+    steps: [
+      "Dry roast the suji in a pan for 3-4 minutes until it smells nutty, then set aside.",
+      "In the same pan, heat oil. Add mustard seeds, curry leaves, and green chili.",
+      "Add veggies and sauté for 2 minutes.",
+      "Carefully pour in the hot water and add salt. Let it boil.",
+      "Slowly pour in the roasted suji while stirring continuously to avoid lumps.",
+      "Cover and cook for 2 minutes on low heat until fluffy."
+    ]
+  },
+
+  // --- 4. REGIONAL RECIPES ---
+  {
+    id: 10,
+    title: "Kashmiri Kahwa",
+    category: "Regional Recipes",
+    time: "15 mins",
+    type: "Kapha Balancing",
+    desc: "A traditional green tea preparation from North India infused with saffron, cardamom, and almonds.",
+    tags: ["Immunity", "Beverage"],
+    ingredients: [
+      "2 cups Water",
+      "1 tsp Kashmiri Green Tea leaves",
+      "2 crushed Cardamom pods & 1 small Cinnamon stick",
+      "3-4 strands of Saffron",
+      "1 tbsp crushed Almonds",
+      "Honey to taste"
+    ],
+    steps: [
+      "Boil water in a pan with cardamom, cinnamon, and saffron. Let it simmer for 3-4 minutes.",
+      "Turn off the heat, add the green tea leaves, and cover for 2 minutes to steep.",
+      "Strain the tea into cups.",
+      "Add crushed almonds and honey to each cup.",
+      "Serve hot to soothe the throat and boost digestion."
+    ]
+  },
+  {
+    id: 11,
+    title: "Kerala Olan",
+    category: "Regional Recipes",
+    time: "25 mins",
+    type: "Pitta Balancing",
+    desc: "A mild, soothing South Indian stew made with ash gourd, black-eyed peas, and coconut milk.",
+    tags: ["Cooling", "Vegan"],
+    ingredients: [
+      "1 cup Ash Gourd (Winter Melon) cubed",
+      "1/2 cup cooked Black-eyed Peas (Lobia)",
+      "2 Green Chilies slit",
+      "1 cup thick Coconut Milk",
+      "1 tsp Coconut Oil & Curry leaves",
+      "Salt to taste"
+    ],
+    steps: [
+      "Cook the ash gourd cubes and green chilies in a pan with a little water and salt until soft.",
+      "Add the pre-cooked black-eyed peas to the pan.",
+      "Pour in the thick coconut milk and warm it gently on low heat (do not boil, or the milk will split).",
+      "Turn off the heat.",
+      "Drizzle fresh coconut oil over the top and garnish with curry leaves. Serve with rice."
+    ]
+  },
+  {
+    id: 12,
+    title: "Gujarati Dal Dhokli",
+    category: "Regional Recipes",
+    time: "40 mins",
+    type: "Vata Balancing",
+    desc: "Whole wheat spiced dumplings simmered in a sweet, spicy, and tangy lentil soup from West India.",
+    tags: ["One-Pot", "Protein"],
+    ingredients: [
+      "For Dal: 1/2 cup Toor Dal (boiled), Peanuts, Kokum or Lemon, Jaggery, Turmeric",
+      "For Dhokli: 1 cup Whole Wheat flour, Ajwain, Turmeric, Oil, Salt",
+      "Tempering: Ghee, Mustard seeds, Curry leaves"
+    ],
+    steps: [
+      "Knead the wheat flour with spices, oil, and water into a firm dough. Roll into flatbreads and cut into diamond shapes (Dhokli).",
+      "In a pot, bring the boiled dal to a rolling boil. Add peanuts, kokum (for tang), jaggery (for sweetness), and salt.",
+      "Drop the wheat diamond pieces (Dhokli) one by one into the boiling dal.",
+      "Simmer for 15 minutes until the dough pieces are cooked and float to the top.",
+      "Prepare a tempering of ghee, mustard seeds, and curry leaves, and pour over the dish. Serve hot!"
+    ]
+  },
+
+  // --- 5. SEASONAL FOODS ---
+  {
+    id: 13,
+    title: "Summer Aam Panna Cooler",
+    category: "Seasonal Foods",
+    time: "20 mins",
+    type: "Pitta Balancing",
+    desc: "A cooling summer drink made from raw green mangoes and mint. Perfect for preventing heatstroke.",
+    tags: ["Hydration", "Cooling"],
+    ingredients: [
+      "1 Raw Green Mango",
+      "A handful of fresh Mint leaves",
+      "1 tsp Roasted Cumin powder",
+      "Black Salt (Kala Namak) to taste",
+      "Jaggery or Mishri to sweeten"
+    ],
+    steps: [
+      "Boil or pressure cook the raw mango until soft.",
+      "Let it cool, peel the skin, and extract all the soft pulp.",
+      "In a blender, combine the mango pulp, mint leaves, cumin powder, black salt, and jaggery with a little water.",
+      "Blend to a smooth paste (this is your concentrate).",
+      "To serve, mix 2-3 tablespoons of concentrate in a glass of chilled water and stir well."
+    ]
+  },
+  {
+    id: 14,
+    title: "Winter Carrot Halwa (No Sugar)",
+    category: "Seasonal Foods",
+    time: "40 mins",
+    type: "Vata Balancing",
+    desc: "A healthy take on the classic winter dessert, using red seasonal carrots and jaggery.",
+    tags: ["Sweet", "Warming"],
+    ingredients: [
+      "3 cups Grated Red Carrots",
+      "2 cups Milk",
+      "2 tbsp Ghee",
+      "1/2 cup Jaggery powder",
+      "Almonds, Cashews, and Cardamom powder"
+    ],
+    steps: [
+      "Heat ghee in a heavy-bottomed pan and roast the grated carrots for 5 minutes.",
+      "Add the milk and let it cook on medium heat, stirring occasionally, until the milk completely evaporates and the carrots are soft.",
+      "Stir in the jaggery powder and cook for another 5 minutes until it caramelizes slightly.",
+      "Add cardamom powder and chopped nuts. Serve warm!"
+    ]
+  },
+  {
+    id: 15,
+    title: "Monsoon Corn & Spinach Soup",
+    category: "Seasonal Foods",
+    time: "15 mins",
+    type: "Kapha Balancing",
+    desc: "A light, warm, and peppery soup to boost immunity and clear congestion during the rainy season.",
+    tags: ["Immunity", "Light Dinner"],
+    ingredients: [
+      "1/2 cup Sweet Corn kernels (crushed slightly)",
+      "1 cup chopped Spinach leaves",
+      "1 tsp Ginger-Garlic paste",
+      "1/2 tsp Black Pepper powder",
+      "1 tsp Oil or Butter",
+      "Salt to taste"
+    ],
+    steps: [
+      "Heat oil in a pot and sauté ginger-garlic paste until fragrant.",
+      "Add the crushed corn and sauté for a minute.",
+      "Pour in 2 cups of water and bring to a boil.",
+      "Add the chopped spinach, salt, and black pepper. Simmer for 3-4 minutes.",
+      "Serve hot in a mug to warm up on a rainy evening."
+    ]
+  },
+
+  // --- 6. TIFFIN IDEAS ---
+  {
+    id: 16,
+    title: "Lemon Peanut Rice",
+    category: "Tiffin Ideas",
+    time: "15 mins",
+    type: "Pitta Balancing",
+    desc: "Tangy, zesty rice that stays fresh for hours in a lunchbox. Packed with peanuts for crunch and protein.",
+    tags: ["Lunchbox", "Travel Friendly"],
+    ingredients: [
+      "2 cups Cooked Rice (cooled)",
+      "2 tbsp Roasted Peanuts",
+      "Juice of 1 large Lemon",
+      "1 tsp Mustard seeds & Curry leaves",
+      "1/2 tsp Turmeric & Salt to taste",
+      "1 tbsp Oil"
+    ],
+    steps: [
+      "Heat oil in a pan. Add mustard seeds and let them splutter.",
+      "Add curry leaves, turmeric, and peanuts. Sauté for 30 seconds.",
+      "Turn off the heat completely (important so the lemon doesn't turn bitter).",
+      "Add the lemon juice, salt, and cooked rice.",
+      "Mix gently until the rice takes on a beautiful yellow color. Pack when cooled!"
+    ]
+  },
+  {
+    id: 17,
+    title: "Beetroot & Mint Paratha",
+    category: "Tiffin Ideas",
+    time: "25 mins",
+    type: "Tridoshic",
+    desc: "Vibrant pink flatbreads packed with iron. They stay incredibly soft in a tiffin box and don't need a side dish.",
+    tags: ["Iron Rich", "No Mess"],
+    ingredients: [
+      "1 cup Whole Wheat Flour",
+      "1/2 cup Grated Beetroot (raw or boiled)",
+      "1 tbsp finely chopped Mint leaves",
+      "1/2 tsp Carom seeds (Ajwain) & Salt",
+      "Ghee for cooking"
+    ],
+    steps: [
+      "In a large bowl, mix the flour, grated beetroot, mint, ajwain, and salt.",
+      "Add water slowly and knead into a soft dough (the moisture from the beetroots means you need very little water).",
+      "Pinch a small ball of dough and roll it out into a flat circle.",
+      "Cook on a hot tawa, flipping and applying a few drops of ghee on both sides until cooked.",
+      "Roll it up or fold it into your tiffin box!"
+    ]
+  },
+  {
+    id: 18,
+    title: "Paneer & Veggie Kathi Roll",
+    category: "Tiffin Ideas",
+    time: "20 mins",
+    type: "Vata Balancing",
+    desc: "A protein-packed wrap that is easy to eat on the go between college classes.",
+    tags: ["High Protein", "Grab & Go"],
+    ingredients: [
+      "2 Whole Wheat Roti/Chapati",
+      "1/2 cup Paneer cubes",
+      "1/2 cup thinly sliced Bell Peppers and Onions",
+      "1 tsp Chaat Masala & pinch of Turmeric",
+      "Mint Chutney as a spread"
+    ],
+    steps: [
+      "In a pan with a little oil, sauté the onions, bell peppers, and paneer with turmeric and chaat masala for 5 minutes.",
+      "Lay out a roti and spread a thin layer of mint chutney over it.",
+      "Place the paneer-veggie mixture in a line down the center.",
+      "Fold the bottom up, then roll the sides tightly to create a wrap.",
+      "Wrap the bottom half in foil or parchment paper to hold it together in the tiffin."
     ]
   }
 ];
@@ -146,9 +505,11 @@ function RecipeStudioPage() {
           "Season with salt and serve warm. Great for quick digestion!"
         ]
       });
-      // Don't clear input, so user knows what they searched!
     }, 1500);
   };
+
+  // Filter recipes based on the active category
+  const displayedRecipes = FEATURED_RECIPES.filter(r => r.category === CATEGORIES.find(c => c.id === activeCategory)?.title);
 
   return (
     <div className="min-h-screen pt-32 pb-20 px-4 sm:px-6 relative">
@@ -374,7 +735,7 @@ function RecipeStudioPage() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {FEATURED_RECIPES.map((recipe) => (
+            {displayedRecipes.map((recipe) => (
               <div 
                 key={recipe.id} 
                 onClick={() => setSelectedRecipe(recipe)}

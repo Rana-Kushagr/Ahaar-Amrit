@@ -39,9 +39,9 @@ export const APIRoute = createAPIFileRoute("/api/ayur")({
       const apiKey = process.env.OPENROUTER_API_KEY;
 
       if (!apiKey) {
-        console.error("OPENROUTER_API_KEY is not configured.");
+        console.error("OPENROUTER_API_KEY is missing from server environment.");
         return new Response(
-          JSON.stringify({ error: "Ayur AI is not configured correctly on the server." }),
+          JSON.stringify({ error: "Server API key is missing." }),
           { status: 500, headers: { "Content-Type": "application/json" } }
         );
       }
@@ -72,7 +72,6 @@ export const APIRoute = createAPIFileRoute("/api/ayur")({
             "X-Title": "Ahaar Amrit - Ayur AI",
           },
           body: JSON.stringify({
-            // Using a specific free model reference to prevent routing errors
             model: "google/gemini-2.5-flash",
             messages: openRouterMessages,
             temperature: 0.7,
@@ -84,10 +83,10 @@ export const APIRoute = createAPIFileRoute("/api/ayur")({
       const responseText = await response.text();
 
       if (!response.ok) {
-        console.error("OpenRouter API error status:", response.status, responseText);
+        console.error("OpenRouter error:", response.status, responseText);
         return new Response(
-          JSON.stringify({ error: `AI service error (${response.status}): ${responseText}` }),
-          { status: response.status, headers: { "Content-Type": "application/json" } }
+          JSON.stringify({ error: `OpenRouter error: ${response.status}` }),
+          { status: 502, headers: { "Content-Type": "application/json" } }
         );
       }
 
@@ -96,7 +95,7 @@ export const APIRoute = createAPIFileRoute("/api/ayur")({
 
       if (!content) {
         return new Response(
-          JSON.stringify({ error: "Ayur received an empty response from the AI." }),
+          JSON.stringify({ error: "Ayur received an empty response." }),
           { status: 502, headers: { "Content-Type": "application/json" } }
         );
       }
@@ -106,9 +105,9 @@ export const APIRoute = createAPIFileRoute("/api/ayur")({
         { status: 200, headers: { "Content-Type": "application/json" } }
       );
     } catch (error: any) {
-      console.error("Ayur API error exception:", error);
+      console.error("Ayur API error:", error);
       return new Response(
-        JSON.stringify({ error: error?.message || "Something went wrong while connecting to Ayur." }),
+        JSON.stringify({ error: error?.message || "Internal server error." }),
         { status: 500, headers: { "Content-Type": "application/json" } }
       );
     }

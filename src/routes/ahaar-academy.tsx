@@ -395,7 +395,7 @@ function AhaarAcademyPage() {
               <GraduationCap className="h-8 w-8 text-emerald-400" />
             </div>
             <h1 className="text-3xl md:text-5xl font-display font-bold text-white mb-3">
-              Ahaar <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">Academy</span>
+              My Ahaar <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">Academia</span>
             </h1>
             <p className="text-emerald-200/80 max-w-2xl mx-auto text-sm sm:text-base">
               Interactive short lessons on nutrition, seasonal foods, and Ayurveda. Learn, test your knowledge, and earn badges!
@@ -409,7 +409,7 @@ function AhaarAcademyPage() {
                 <Sparkles className="h-6 w-6 fill-amber-300" />
                 <span>{points}</span>
               </div>
-              <span className="text-xs font-medium text-emerald-200/70">Academy Points</span>
+              <span className="text-xs font-medium text-emerald-200/70">Academia Points</span>
             </div>
             <div className="flex flex-col items-center justify-center rounded-3xl border border-white/10 bg-emerald-950/60 p-4 shadow-inner backdrop-blur-xl">
               <div className="flex items-center gap-2 text-emerald-400 font-bold text-xl">

@@ -8,7 +8,7 @@ const links = [
   { label: "Nutrition", to: "/nutrition-plan" },
   { label: "Swasthya", to: "/swasthya" },
   { label: "Ayurveda", to: "/dosha" },
-  { label: "Challenges", to: "/wellness-challenge" },
+  { label: "Quests", to: "/wellness-challenge" },
   { label: "Profile", to: "/profile" },
 ] as const;
 

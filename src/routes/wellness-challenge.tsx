@@ -236,7 +236,7 @@ function WellnessChallengePage() {
       {quests.map((quest) => {
         const isDone = completedQuests.includes(quest.id);
         return (
-          <div key={quest.id} className="relative overflow-hidden rounded-2xl border border-emerald-500/20 bg-emerald-900/20 p-4 transition-all hover:bg-emerald-900/40">
+          <div key={quest.id} className="relative overflow-hidden rounded-2xl backdrop-blur-md border border-emerald-500/20 bg-emerald-900/20 p-4 transition-all hover:bg-emerald-900/20">
             <div className="flex justify-between items-start gap-4">
               <div className="flex-1">
                 <span className="text-[10px] uppercase tracking-wider text-emerald-400 font-bold bg-emerald-950 px-2 py-0.5 rounded-full border border-emerald-800">
@@ -303,7 +303,7 @@ function WellnessChallengePage() {
             
             <div className="flex flex-col items-center gap-4">
               {activeCelebration.badgeName && (
-                <div className="h-20 w-20 rounded-full bg-black/30 flex items-center justify-center shadow-inner mb-2 animate-bounce">
+                <div className="h-20 w-20 rounded-full bg-black/15 flex items-center justify-center shadow-inner mb-2 animate-bounce">
                   {getBadgeIcon(activeCelebration.badgeName)}
                 </div>
               )}
@@ -323,7 +323,7 @@ function WellnessChallengePage() {
               </p>
 
               {activeCelebration.rewardPreview && (
-                <div className="mt-2 bg-black/40 px-4 py-2 rounded-full border border-yellow-500/50">
+                <div className="mt-2 bg-black/10 px-4 py-2 rounded-full border border-yellow-500/50">
                   <span className="text-yellow-300 font-bold text-sm">Reward: {activeCelebration.rewardPreview}</span>
                 </div>
               )}
@@ -344,24 +344,24 @@ function WellnessChallengePage() {
       )}
 
       {/* Main Dashboard UI */}
-      <div className="mx-auto w-full max-w-2xl rounded-[2.5rem] border border-emerald-500/30 bg-emerald-950/60 p-6 shadow-2xl backdrop-blur-2xl">
+      <div className="mx-auto w-full max-w-2xl rounded-[2.5rem] border border-emerald-500/30 bg-emerald-950/30 p-6 shadow-2xl backdrop-blur-2xl">
         
         <div className="grid grid-cols-3 gap-3 mb-6 text-center">
-          <div className="flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-black/40 p-3 shadow-inner">
+          <div className="flex flex-col items-center justify-center rounded-2xl backdrop-blur-md border border-white/10 bg-black/10 p-3 shadow-inner">
             <div className="flex items-center gap-1.5 text-orange-400 font-bold text-lg">
               <Flame className="h-5 w-5 fill-orange-400" />
               <span>{streak}</span>
             </div>
             <span className="text-xs font-medium text-emerald-200/70">Day Streak</span>
           </div>
-          <div className="flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-black/40 p-3 shadow-inner">
+          <div className="flex flex-col items-center justify-center rounded-2xl backdrop-blur-md border border-white/10 bg-black/10 p-3 shadow-inner">
             <div className="flex items-center gap-1.5 text-amber-300 font-bold text-lg">
               <Sparkles className="h-5 w-5 fill-amber-300" />
               <span>{points}</span>
             </div>
             <span className="text-xs font-medium text-emerald-200/70">Amrit Points</span>
           </div>
-          <div className="flex flex-col items-center justify-center rounded-2xl border border-white/10 bg-black/40 p-3 shadow-inner">
+          <div className="flex flex-col items-center justify-center rounded-2xl backdrop-blur-md border border-white/10 bg-black/10 p-3 shadow-inner">
             <div className="flex items-center gap-1.5 text-emerald-400 font-bold text-lg">
               <Trophy className="h-5 w-5" />
               <span>{unlockedBadges.length} / 51</span>
@@ -408,7 +408,7 @@ function WellnessChallengePage() {
                   ) : (
                     unlockedBadges.map(badge => (
                       <div key={badge} className="flex flex-col items-center justify-center p-3 rounded-xl bg-gradient-to-b from-emerald-900/40 to-black/40 border border-emerald-500/30 text-center text-xs font-bold text-amber-300 shadow-md">
-                        <div className="mb-2 p-2 bg-black/50 rounded-full">
+                        <div className="mb-2 p-2 bg-black/25 rounded-full">
                            {getBadgeIcon(badge)}
                         </div>
                         {badge}
@@ -426,7 +426,7 @@ function WellnessChallengePage() {
                   {SECRET_BADGES.map(badge => {
                     const isUnlocked = unlockedBadges.includes(badge.title);
                     return (
-                      <div key={badge.id} className={`p-3 rounded-xl border ${isUnlocked ? 'bg-indigo-900/40 border-indigo-500/40' : 'bg-black/20 border-white/5'}`}>
+                      <div key={badge.id} className={`p-3 rounded-xl border ${isUnlocked ? 'bg-indigo-900/40 border-indigo-500/40' : 'bg-black/10 border-white/5'}`}>
                         <div className="flex items-center gap-2 mb-1">
                           {isUnlocked ? <Unlock className="h-4 w-4 text-indigo-400" /> : <Lock className="h-4 w-4 text-white/20" />}
                           <span className={`font-bold text-sm ${isUnlocked ? 'text-indigo-300' : 'text-white/40 blur-[2px] select-none'}`}>

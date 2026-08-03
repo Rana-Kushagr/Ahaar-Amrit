@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import nutritionBg from "@/assets/nutrition.png.asset.json";
 import { useState } from "react";
 import { 
   ChefHat, Search, Sparkles, MapPin, Sun, Zap, 

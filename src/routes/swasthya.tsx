@@ -381,7 +381,7 @@ function SwasthyaPage() {
         style={{ backgroundImage: `url('${nutritionBg.url}')` }}
         aria-hidden
       />
-      <div className="pointer-events-none fixed inset-0 z-0 bg-emerald-950/50" aria-hidden />
+      <div className="pointer-events-none fixed inset-0 z-0 bg-emerald-950/20" aria-hidden />
 
       <div className="relative z-10 mx-auto max-w-5xl space-y-10">
 
@@ -399,7 +399,7 @@ function SwasthyaPage() {
             rounded-full
             border
             border-white/20
-            bg-emerald-950/60
+            bg-emerald-950/30
             px-4
             py-2
             text-sm
@@ -426,7 +426,7 @@ function SwasthyaPage() {
             rounded-[2.5rem]
             border
             border-white/20
-            bg-emerald-950/40
+            bg-emerald-950/25
             p-8
             text-center
             shadow-2xl
@@ -473,7 +473,7 @@ function SwasthyaPage() {
             STREAK TRACKER WIDGET
         ===================================================== */}
 
-        <section className="space-y-4 rounded-[2rem] border border-white/20 bg-black/40 p-8 text-center shadow-xl backdrop-blur-xl transition-all hover:border-emerald-400/50">
+        <section className="space-y-4 rounded-[2rem] border border-white/20 bg-black/10 p-8 text-center shadow-xl backdrop-blur-xl transition-all hover:border-emerald-400/50">
 
           <h2 className="font-display text-2xl font-bold text-emerald-50 drop-shadow-md">
             My Junk-Free Streak
@@ -514,7 +514,7 @@ function SwasthyaPage() {
               disabled={loggedToday || failedToday}
               className={`rounded-full px-6 py-2 transition-all ${
                 loggedToday
-                  ? "border border-emerald-500/30 bg-emerald-950/60 text-emerald-300"
+                  ? "border border-emerald-500/30 bg-emerald-950/30 text-emerald-300"
                   : failedToday
                     ? "cursor-not-allowed border border-gray-600/30 bg-gray-800/50 text-gray-400 opacity-50"
                     : "bg-emerald-600 text-white hover:bg-emerald-500"
@@ -587,7 +587,7 @@ function SwasthyaPage() {
                 variant="ghost"
                 onClick={handlePrev}
                 disabled={isAnimating}
-                className="rounded-full border border-white/20 bg-black/40 text-emerald-100 hover:bg-emerald-900/60 disabled:opacity-50"
+                className="rounded-full border border-white/20 bg-black/10 text-emerald-100 hover:bg-emerald-900/15 disabled:opacity-50"
               >
                 <ChevronLeft className="h-5 w-5" />
               </Button>
@@ -596,7 +596,7 @@ function SwasthyaPage() {
                 variant="ghost"
                 onClick={handleNext}
                 disabled={isAnimating}
-                className="rounded-full border border-white/20 bg-black/40 text-emerald-100 hover:bg-emerald-900/60 disabled:opacity-50"
+                className="rounded-full border border-white/20 bg-black/10 text-emerald-100 hover:bg-emerald-900/15 disabled:opacity-50"
               >
                 <ChevronRight className="h-5 w-5" />
               </Button>
@@ -890,7 +890,7 @@ function SwasthyaPage() {
             SECTION 4: JUNK DETOX RECOVERY
         ===================================================== */}
 
-        <section className="space-y-4 rounded-[2rem] border border-amber-500/40 bg-amber-950/40 p-6 shadow-2xl backdrop-blur-xl sm:p-8">
+        <section className="space-y-4 rounded-[2rem] border border-amber-500/40 bg-amber-950/20 p-6 shadow-2xl backdrop-blur-xl sm:p-8">
 
           <div className="flex items-center gap-3">
 
@@ -943,7 +943,7 @@ function SwasthyaPage() {
 
           <Button
             variant="ghost"
-            className="text-emerald-100 backdrop-blur-md hover:bg-emerald-900/50"
+            className="text-emerald-100 backdrop-blur-md hover:bg-emerald-900/25"
             asChild
           >
             <Link to="/dashboard">
@@ -997,7 +997,7 @@ function FoodCard({
   food: (typeof junkFoods)[number];
 }) {
   return (
-    <div className="flex h-full min-h-[390px] flex-col space-y-4 rounded-[2rem] border border-white/20 bg-black/40 p-6 shadow-xl backdrop-blur-xl transition-all duration-300 hover:border-emerald-400/50 hover:shadow-emerald-950/30">
+    <div className="flex h-full min-h-[390px] flex-col space-y-4 rounded-[2rem] border border-white/20 bg-black/10 p-6 shadow-xl backdrop-blur-xl transition-all duration-300 hover:border-emerald-400/50 hover:shadow-emerald-950/30">
 
       <div className="text-lg font-bold text-emerald-300">
         {food.name}
@@ -1056,7 +1056,7 @@ function ImpactCard({
   text: React.ReactNode;
 }) {
   return (
-    <div className="space-y-3 rounded-[2rem] border border-white/20 bg-emerald-950/40 p-7 shadow-xl backdrop-blur-xl transition-all hover:border-emerald-400/50">
+    <div className="space-y-3 rounded-[2rem] border border-white/20 bg-emerald-950/25 p-7 shadow-xl backdrop-blur-xl transition-all hover:border-emerald-400/50">
 
       <h3 className="flex items-center gap-2 font-display text-xl font-bold text-amber-300">
         {title}
@@ -1086,7 +1086,7 @@ function SwapCard({
   result: string;
 }) {
   return (
-    <div className="space-y-4 rounded-[2rem] border border-white/20 bg-black/40 p-6 shadow-xl backdrop-blur-xl transition-all hover:border-emerald-400/50">
+    <div className="space-y-4 rounded-[2rem] border border-white/20 bg-black/10 p-6 shadow-xl backdrop-blur-xl transition-all hover:border-emerald-400/50">
 
       <div className="w-fit rounded-full border border-amber-500/30 bg-amber-950/60 px-3 py-1 text-xs font-bold uppercase tracking-wider text-amber-300">
         Swap: {swap}
@@ -1120,7 +1120,7 @@ function RecoveryCard({
   text: string;
 }) {
   return (
-    <div className="space-y-1 rounded-xl border border-white/20 bg-emerald-950/60 p-4 text-xs text-emerald-50 backdrop-blur-md">
+    <div className="space-y-1 rounded-xl border border-white/20 bg-emerald-950/30 p-4 text-xs text-emerald-50 backdrop-blur-md">
 
       <strong className="block text-sm text-amber-300">
         {title}

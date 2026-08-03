@@ -541,7 +541,7 @@ function RecipeStudioPage() {
         style={{ backgroundImage: `url('${nutritionBg.url}')` }}
         aria-hidden
       />
-      <div className="pointer-events-none fixed inset-0 -z-10 bg-emerald-950/50" aria-hidden />
+      <div className="pointer-events-none fixed inset-0 -z-10 bg-emerald-950/20" aria-hidden />
       
       
       {/* ==========================================
@@ -549,13 +549,13 @@ function RecipeStudioPage() {
       ========================================== */}
       {selectedRecipe && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-md p-4 animate-in fade-in duration-300">
-          <div className="relative w-full max-w-2xl rounded-[2rem] border border-emerald-500/40 bg-emerald-950/90 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300 flex flex-col max-h-[85vh]">
+          <div className="relative w-full max-w-2xl rounded-[2rem] backdrop-blur-md border border-emerald-500/40 bg-emerald-950/45 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300 flex flex-col max-h-[85vh]">
             
             {/* Modal Header Image Area */}
             <div className="h-32 w-full bg-gradient-to-r from-emerald-900 to-black relative flex items-center px-8 border-b border-white/10">
               <button 
                 onClick={() => setSelectedRecipe(null)}
-                className="absolute top-4 right-4 h-8 w-8 rounded-full bg-black/40 flex items-center justify-center text-white/70 hover:text-white hover:bg-black/60 transition-all"
+                className="absolute top-4 right-4 h-8 w-8 rounded-full bg-black/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-black/15 transition-all"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -583,7 +583,7 @@ function RecipeStudioPage() {
 
               <div className="grid md:grid-cols-2 gap-8">
                 {/* Ingredients List */}
-                <div className="bg-black/30 rounded-3xl p-5 border border-white/5">
+                <div className="bg-black/15 rounded-3xl backdrop-blur-md p-5 border border-white/5">
                   <h3 className="text-lg font-bold text-emerald-300 mb-4 flex items-center gap-2">
                     <Utensils className="h-5 w-5" /> Materials Required
                   </h3>
@@ -600,7 +600,7 @@ function RecipeStudioPage() {
                 </div>
 
                 {/* Instructions List */}
-                <div className="bg-black/30 rounded-3xl p-5 border border-white/5">
+                <div className="bg-black/15 rounded-3xl backdrop-blur-md p-5 border border-white/5">
                   <h3 className="text-lg font-bold text-orange-300 mb-4 flex items-center gap-2">
                     <ChefHat className="h-5 w-5" /> How to make it
                   </h3>
@@ -619,7 +619,7 @@ function RecipeStudioPage() {
             </div>
             
             {/* Modal Footer */}
-            <div className="p-4 border-t border-white/10 bg-black/40 text-center">
+            <div className="p-4 border-t border-white/10 bg-black/10 text-center">
                <button onClick={() => setSelectedRecipe(null)} className="text-emerald-400 text-sm font-bold hover:text-emerald-300">Close Recipe</button>
             </div>
           </div>
@@ -645,7 +645,7 @@ function RecipeStudioPage() {
         </div>
 
         {/* Top Section: What's in my kitchen? */}
-        <div className="mb-10 relative overflow-hidden rounded-[2.5rem] border border-emerald-500/30 bg-gradient-to-br from-emerald-950/80 to-black/80 p-6 sm:p-10 shadow-2xl backdrop-blur-2xl">
+        <div className="mb-10 relative overflow-hidden rounded-[2.5rem] border border-emerald-500/30 bg-gradient-to-br from-emerald-950/35 to-black/40 p-6 sm:p-10 shadow-2xl backdrop-blur-2xl">
           <div className="absolute top-0 right-0 -mt-10 -mr-10 h-40 w-40 rounded-full bg-orange-500/10 blur-3xl pointer-events-none" />
           
           <div className="max-w-2xl mx-auto text-center relative z-10">
@@ -663,7 +663,7 @@ function RecipeStudioPage() {
                   placeholder="e.g., Rice, Dal, Tomatoes..."
                   value={ingredients}
                   onChange={(e) => setIngredients(e.target.value)}
-                  className="w-full rounded-2xl border border-white/20 bg-black/40 px-5 py-4 text-white placeholder:text-white/30 focus:border-emerald-400 focus:outline-none focus:ring-1 focus:ring-emerald-400 transition-all"
+                  className="w-full rounded-2xl backdrop-blur-md border border-white/20 bg-black/10 px-5 py-4 text-white placeholder:text-white/30 focus:border-emerald-400 focus:outline-none focus:ring-1 focus:ring-emerald-400 transition-all"
                   onKeyDown={(e) => e.key === 'Enter' && handleGenerate()}
                 />
               </div>
@@ -673,7 +673,7 @@ function RecipeStudioPage() {
                 className={`
                   flex items-center justify-center gap-2 rounded-2xl px-6 py-4 font-bold transition-all duration-300
                   ${isGenerating || !ingredients.trim() 
-                    ? "bg-emerald-900/50 text-emerald-500 cursor-not-allowed" 
+                    ? "bg-emerald-900/25 text-emerald-500 cursor-not-allowed" 
                     : "bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-[0_0_20px_rgba(249,115,22,0.3)] hover:scale-[1.02]"
                   }
                 `}
@@ -689,14 +689,14 @@ function RecipeStudioPage() {
             </div>
 
             {generationError && (
-              <div className="mt-6 rounded-2xl border border-amber-500/40 bg-amber-950/40 px-5 py-4 text-sm text-amber-200">
+              <div className="mt-6 rounded-2xl backdrop-blur-md border border-amber-500/40 bg-amber-950/20 px-5 py-4 text-sm text-amber-200">
                 {generationError}
               </div>
             )}
 
             {/* Generated Output Display */}
             {generatedRecipe && (
-              <div className="mt-8 text-left bg-black/40 border border-emerald-500/30 p-6 rounded-3xl animate-in fade-in slide-in-from-top-4 duration-500 shadow-inner">
+              <div className="mt-8 text-left bg-black/10 border border-emerald-500/30 p-6 rounded-3xl backdrop-blur-md animate-in fade-in slide-in-from-top-4 duration-500 shadow-inner">
                 <div className="flex items-center gap-2 mb-2">
                    <Sparkles className="h-5 w-5 text-amber-400" />
                    <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-300">
@@ -749,7 +749,7 @@ function RecipeStudioPage() {
                   flex flex-col items-center justify-center p-4 rounded-3xl border transition-all duration-300
                   ${activeCategory === cat.id 
                     ? `${cat.bg} ${cat.border} ring-1 ring-inset ring-${cat.color.split('-')[1]}-500/50 scale-[1.02]` 
-                    : "bg-black/30 border-white/10 hover:bg-white/5"
+                    : "bg-black/15 border-white/10 hover:bg-white/5"
                   }
                 `}
               >
@@ -775,17 +775,17 @@ function RecipeStudioPage() {
               <div 
                 key={recipe.id} 
                 onClick={() => setSelectedRecipe(recipe)}
-                className="group relative overflow-hidden rounded-[2rem] bg-emerald-950/40 border border-white/10 p-1 hover:border-emerald-500/50 hover:bg-emerald-900/40 cursor-pointer transition-all duration-300 shadow-lg hover:shadow-emerald-500/20"
+                className="group relative overflow-hidden rounded-[2rem] backdrop-blur-md bg-emerald-950/25 border border-white/10 p-1 hover:border-emerald-500/50 hover:bg-emerald-900/20 cursor-pointer transition-all duration-300 shadow-lg hover:shadow-emerald-500/20"
               >
                 
                 {/* Image Placeholder */}
                 <div className="h-40 w-full rounded-[1.8rem] bg-gradient-to-br from-black/60 to-emerald-900/60 flex items-center justify-center overflow-hidden relative">
                    <ChefHat className="h-12 w-12 text-white/10 absolute group-hover:scale-110 transition-transform duration-500" />
-                   <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all duration-300" />
+                   <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-all duration-300" />
                    
                    {/* Tags */}
                    <div className="absolute top-3 left-3 flex gap-2">
-                     <span className="bg-black/60 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
+                     <span className="bg-black/15 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
                        <Clock className="h-3 w-3 text-emerald-400" /> {recipe.time}
                      </span>
                    </div>
@@ -803,7 +803,7 @@ function RecipeStudioPage() {
                   </p>
                   
                   <div className="flex items-center justify-between mt-auto">
-                    <span className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-200/80 bg-emerald-900/50 px-2 py-1 rounded-lg">
+                    <span className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-200/80 bg-emerald-900/25 px-2 py-1 rounded-lg">
                       <Flame className="h-3 w-3 text-amber-500" /> {recipe.type}
                     </span>
                     <button className="h-8 w-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center group-hover:bg-emerald-500 group-hover:text-white transition-colors">

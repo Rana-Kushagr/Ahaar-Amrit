@@ -99,7 +99,7 @@ function RegionalExplorerPage() {
         
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center p-3 bg-emerald-900/50 rounded-2xl mb-4 border border-emerald-500/30 shadow-lg">
+          <div className="inline-flex items-center justify-center p-3 bg-emerald-900/25 rounded-2xl backdrop-blur-md mb-4 border border-emerald-500/30 shadow-lg">
             <Compass className="h-8 w-8 text-amber-400" />
           </div>
           <h1 className="text-3xl md:text-5xl font-display font-bold text-white mb-3">
@@ -116,7 +116,7 @@ function RegionalExplorerPage() {
           <div className="lg:col-span-4 flex flex-col gap-4">
             
             {/* Interactive Custom Map */}
-            <div className="bg-emerald-950/60 p-6 rounded-3xl border border-emerald-500/30 backdrop-blur-xl shadow-xl flex flex-col items-center">
+            <div className="bg-emerald-950/30 p-6 rounded-3xl border border-emerald-500/30 backdrop-blur-xl shadow-xl flex flex-col items-center">
               <h3 className="text-sm font-bold text-emerald-400 uppercase tracking-widest mb-4 w-full flex items-center gap-2">
                 <MapPin className="h-4 w-4" /> Interactive Map
               </h3>
@@ -149,7 +149,7 @@ function RegionalExplorerPage() {
             </div>
 
             {/* Region Selection List */}
-            <div className="bg-emerald-950/60 p-5 rounded-3xl border border-emerald-500/30 backdrop-blur-xl shadow-xl">
+            <div className="bg-emerald-950/30 p-5 rounded-3xl border border-emerald-500/30 backdrop-blur-xl shadow-xl">
               <div className="flex flex-col gap-2">
                 {REGIONS.map((region) => (
                   <button
@@ -159,7 +159,7 @@ function RegionalExplorerPage() {
                       relative overflow-hidden flex items-center justify-between p-4 rounded-2xl transition-all duration-300
                       ${activeRegion.id === region.id 
                         ? `bg-gradient-to-r ${region.color} shadow-lg scale-[1.02] border-none` 
-                        : "bg-black/20 border border-white/10 hover:bg-black/40 text-emerald-100/70"
+                        : "bg-black/10 border border-white/10 hover:bg-black/10 text-emerald-100/70"
                       }
                     `}
                   >
@@ -182,7 +182,7 @@ function RegionalExplorerPage() {
 
           {/* Right Column: Detailed Data Cards (Col Span 8) */}
           <div className="lg:col-span-8">
-            <div className="bg-emerald-950/60 p-6 sm:p-8 rounded-[2.5rem] border border-emerald-500/30 backdrop-blur-xl shadow-2xl h-full transition-all duration-500">
+            <div className="bg-emerald-950/30 p-6 sm:p-8 rounded-[2.5rem] border border-emerald-500/30 backdrop-blur-xl shadow-2xl h-full transition-all duration-500">
               
               {/* Region Header */}
               <div className="mb-8 border-b border-white/10 pb-6">
@@ -198,7 +198,7 @@ function RegionalExplorerPage() {
               <div className="grid sm:grid-cols-2 gap-6">
                 
                 {/* Cultural Knowledge (Full Width) */}
-                <div className="sm:col-span-2 bg-black/30 p-5 rounded-3xl border border-white/5">
+                <div className="sm:col-span-2 bg-black/15 p-5 rounded-3xl backdrop-blur-md border border-white/5">
                   <h4 className="flex items-center gap-2 text-amber-300 font-bold mb-3">
                     <BookOpen className="h-5 w-5" /> Cultural Food Knowledge
                   </h4>
@@ -208,7 +208,7 @@ function RegionalExplorerPage() {
                 </div>
 
                 {/* Traditional Foods */}
-                <div className="bg-black/30 p-5 rounded-3xl border border-white/5 hover:bg-black/40 transition-colors">
+                <div className="bg-black/15 p-5 rounded-3xl backdrop-blur-md border border-white/5 hover:bg-black/10 transition-colors">
                   <h4 className="flex items-center gap-2 text-emerald-400 font-bold mb-3">
                     <WheatIcon className="h-5 w-5" /> Traditional Foods
                   </h4>
@@ -222,7 +222,7 @@ function RegionalExplorerPage() {
                 </div>
 
                 {/* Healthy Dishes */}
-                <div className="bg-black/30 p-5 rounded-3xl border border-white/5 hover:bg-black/40 transition-colors">
+                <div className="bg-black/15 p-5 rounded-3xl backdrop-blur-md border border-white/5 hover:bg-black/10 transition-colors">
                   <h4 className="flex items-center gap-2 text-orange-400 font-bold mb-3">
                     <Utensils className="h-5 w-5" /> Healthy Dishes
                   </h4>
@@ -236,7 +236,7 @@ function RegionalExplorerPage() {
                 </div>
 
                 {/* Local Ingredients */}
-                <div className="bg-black/30 p-5 rounded-3xl border border-white/5 hover:bg-black/40 transition-colors">
+                <div className="bg-black/15 p-5 rounded-3xl backdrop-blur-md border border-white/5 hover:bg-black/10 transition-colors">
                   <h4 className="flex items-center gap-2 text-blue-400 font-bold mb-3">
                     <Sprout className="h-5 w-5" /> Local Ingredients
                   </h4>
@@ -250,7 +250,7 @@ function RegionalExplorerPage() {
                 </div>
 
                 {/* Medicinal Plants */}
-                <div className="bg-black/30 p-5 rounded-3xl border border-white/5 hover:bg-black/40 transition-colors">
+                <div className="bg-black/15 p-5 rounded-3xl backdrop-blur-md border border-white/5 hover:bg-black/10 transition-colors">
                   <h4 className="flex items-center gap-2 text-purple-400 font-bold mb-3">
                     <Leaf className="h-5 w-5" /> Medicinal Plants
                   </h4>

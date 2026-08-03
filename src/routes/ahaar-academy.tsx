@@ -223,7 +223,7 @@ function AhaarAcademyPage() {
       ========================================== */}
       {successCelebration && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-md p-4 animate-in fade-in duration-300">
-          <div className="relative w-full max-w-sm rounded-[2.5rem] border-2 border-amber-500 bg-amber-950/95 p-8 text-center shadow-2xl animate-in zoom-in-95 duration-300">
+          <div className="relative w-full max-w-sm rounded-[2.5rem] backdrop-blur-md border-2 border-amber-500 bg-amber-950/95 p-8 text-center shadow-2xl animate-in zoom-in-95 duration-300">
             <div className="h-20 w-20 rounded-full bg-amber-500/20 mx-auto flex items-center justify-center mb-4 border border-amber-500/40 animate-bounce">
               <Trophy className="h-10 w-10 text-amber-400" />
             </div>
@@ -235,7 +235,7 @@ function AhaarAcademyPage() {
               You mastered <span className="font-bold text-white">"{successCelebration.title}"</span>
             </p>
 
-            <div className="bg-black/40 rounded-2xl p-4 border border-amber-500/30 mb-6 flex flex-col gap-2">
+            <div className="bg-black/10 rounded-2xl backdrop-blur-md p-4 border border-amber-500/30 mb-6 flex flex-col gap-2">
               <div className="flex items-center justify-center gap-1.5 text-amber-300 font-bold text-base">
                 <Sparkles className="h-5 w-5 fill-amber-300" />
                 <span>+{successCelebration.points} Amrit Points</span>
@@ -263,10 +263,10 @@ function AhaarAcademyPage() {
           ACTIVE LESSON / QUIZ VIEW
       ========================================== */}
       {activeLevelData && !successCelebration ? (
-        <div className="mx-auto w-full max-w-3xl rounded-[2.5rem] border border-emerald-500/30 bg-emerald-950/80 p-6 sm:p-10 shadow-2xl backdrop-blur-2xl animate-in fade-in zoom-in-95 duration-300">
+        <div className="mx-auto w-full max-w-3xl rounded-[2.5rem] border border-emerald-500/30 bg-emerald-950/35 p-6 sm:p-10 shadow-2xl backdrop-blur-2xl animate-in fade-in zoom-in-95 duration-300">
           
           <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/10">
-            <span className="text-xs uppercase tracking-widest font-bold text-emerald-400 bg-emerald-900/50 px-3 py-1 rounded-full border border-emerald-500/30">
+            <span className="text-xs uppercase tracking-widest font-bold text-emerald-400 bg-emerald-900/25 px-3 py-1 rounded-full border border-emerald-500/30">
               Level {activeLevelData.level} of 6
             </span>
             <button 
@@ -278,7 +278,7 @@ function AhaarAcademyPage() {
           </div>
 
           {/* Mode Switcher Tabs */}
-          <div className="flex gap-2 mb-6 bg-black/40 p-1.5 rounded-2xl border border-white/10">
+          <div className="flex gap-2 mb-6 bg-black/10 p-1.5 rounded-2xl backdrop-blur-md border border-white/10">
             <button 
               onClick={() => setMode("learn")}
               className={`flex-1 py-2.5 rounded-xl text-sm font-bold transition-all ${mode === "learn" ? "bg-emerald-500 text-white shadow-md" : "text-white/60 hover:text-white"}`}
@@ -299,7 +299,7 @@ function AhaarAcademyPage() {
                 {activeLevelData.title}
               </h2>
               
-              <div className="space-y-4 text-emerald-100/90 text-base leading-relaxed bg-black/30 p-6 rounded-3xl border border-white/5">
+              <div className="space-y-4 text-emerald-100/90 text-base leading-relaxed bg-black/15 p-6 rounded-3xl backdrop-blur-md border border-white/5">
                 {activeLevelData.content.map((paragraph, idx) => (
                   <p key={idx} className="flex gap-3">
                     <span className="text-emerald-400 font-bold">•</span>
@@ -323,7 +323,7 @@ function AhaarAcademyPage() {
                 Knowledge Check
               </h2>
               
-              <div className="bg-black/30 p-6 rounded-3xl border border-white/5">
+              <div className="bg-black/15 p-6 rounded-3xl backdrop-blur-md border border-white/5">
                 <p className="text-lg font-semibold text-white mb-6">
                   {activeLevelData.quiz.question}
                 </p>
@@ -398,7 +398,7 @@ function AhaarAcademyPage() {
           
           {/* Header */}
           <div className="text-center mb-10">
-            <div className="inline-flex items-center justify-center p-3 bg-emerald-900/50 rounded-2xl mb-4 border border-emerald-500/30 shadow-lg">
+            <div className="inline-flex items-center justify-center p-3 bg-emerald-900/25 rounded-2xl backdrop-blur-md mb-4 border border-emerald-500/30 shadow-lg">
               <GraduationCap className="h-8 w-8 text-emerald-400" />
             </div>
             <h1 className="text-3xl md:text-5xl font-display font-bold mb-3">
@@ -413,14 +413,14 @@ function AhaarAcademyPage() {
 
           {/* Stats Bar */}
           <div className="grid grid-cols-2 gap-4 mb-10 max-w-md mx-auto">
-            <div className="flex flex-col items-center justify-center rounded-3xl border border-white/10 bg-emerald-950/60 p-4 shadow-inner backdrop-blur-xl">
+            <div className="flex flex-col items-center justify-center rounded-3xl border border-white/10 bg-emerald-950/30 p-4 shadow-inner backdrop-blur-xl">
               <div className="flex items-center gap-2 text-amber-300 font-bold text-xl">
                 <Sparkles className="h-6 w-6 fill-amber-300" />
                 <span>{points}</span>
               </div>
               <span className="text-xs font-medium text-emerald-200/70">Academia Points</span>
             </div>
-            <div className="flex flex-col items-center justify-center rounded-3xl border border-white/10 bg-emerald-950/60 p-4 shadow-inner backdrop-blur-xl">
+            <div className="flex flex-col items-center justify-center rounded-3xl border border-white/10 bg-emerald-950/30 p-4 shadow-inner backdrop-blur-xl">
               <div className="flex items-center gap-2 text-emerald-400 font-bold text-xl">
                 <Trophy className="h-6 w-6" />
                 <span>{completedLevels.length} / 6</span>
@@ -439,8 +439,8 @@ function AhaarAcademyPage() {
                   className={`
                     relative overflow-hidden rounded-[2.5rem] border p-6 flex flex-col justify-between transition-all duration-300 backdrop-blur-xl shadow-xl
                     ${isDone 
-                      ? "bg-emerald-950/80 border-emerald-500/50 shadow-emerald-500/10" 
-                      : "bg-emerald-950/40 border-white/10 hover:border-emerald-500/30 hover:bg-emerald-900/30"
+                      ? "bg-emerald-950/35 border-emerald-500/50 shadow-emerald-500/10" 
+                      : "bg-emerald-950/25 border-white/10 hover:border-emerald-500/30 hover:bg-emerald-900/15"
                     }
                   `}
                 >
@@ -479,7 +479,7 @@ function AhaarAcademyPage() {
                       className={`
                         w-full rounded-2xl py-5 font-bold transition-all shadow-md flex items-center justify-center gap-2
                         ${isDone 
-                          ? "bg-emerald-900/40 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-900/60" 
+                          ? "bg-emerald-900/20 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-900/15" 
                           : "bg-emerald-500 text-white hover:bg-emerald-400"
                         }
                       `}

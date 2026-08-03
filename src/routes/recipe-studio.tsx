@@ -476,36 +476,58 @@ function RecipeStudioPage() {
   const [activeCategory, setActiveCategory] = useState("quick");
   const [selectedRecipe, setSelectedRecipe] = useState<typeof FEATURED_RECIPES[0] | null>(null);
 
-  // Simulated AI Generation Logic
-  const handleGenerate = () => {
-    if (!ingredients.trim()) return;
+  const [generationError, setGenerationError] = useState<string | null>(null);
+
+  // Ayur AI recipe generation
+  const handleGenerate = async () => {
+    if (!ingredients.trim() || isGenerating) return;
     setIsGenerating(true);
-    setGeneratedRecipe(null); // Clear previous result
-    
-    // Simulate a 1.5s delay to mimic an API call
-    setTimeout(() => {
-      setIsGenerating(false);
-      
-      const userIngredients = ingredients.split(',').map(i => i.trim()).filter(i => i);
-      
-      setGeneratedRecipe({
-        title: "Kitchen Magic Bowl",
-        desc: "A quick, wholesome meal utilizing exactly what you have on hand, balanced with basic pantry spices.",
-        ingredients: [
-          ...userIngredients,
-          "1 tsp Ghee or cooking oil",
-          "Basic spices (Salt, Turmeric, Cumin)",
-          "Splash of water as needed"
-        ],
-        steps: [
-          "Wash and prep all your main ingredients.",
-          "Heat ghee in a pan over medium heat and add cumin seeds.",
-          `Add your ${userIngredients[0] || 'ingredients'} and toss well with a pinch of turmeric.`,
-          "Cover and cook until tender, stirring occasionally.",
-          "Season with salt and serve warm. Great for quick digestion!"
-        ]
+    setGeneratedRecipe(null);
+    setGenerationError(null);
+
+    try {
+      const response = await fetch("/api/ayur", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: [
+            {
+              role: "user",
+              content:
+                `I have these ingredients in my kitchen: ${ingredients}. ` +
+                `Create ONE quick, healthy Indian recipe a teenager can cook. ` +
+                `Reply with ONLY raw JSON (no markdown, no code fences) in exactly this shape: ` +
+                `{"title": string, "desc": string, "ingredients": string[], "steps": string[]}. ` +
+                `Keep desc under 30 words, 4-8 ingredients, 4-6 steps.`,
+            },
+          ],
+        }),
       });
-    }, 1500);
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data?.error || "Ayur AI could not respond right now.");
+      }
+
+      const raw: string = data?.reply ?? data?.message ?? data?.content ?? "";
+      const match = raw.match(/\{[\s\S]*\}/);
+      if (!match) throw new Error("Ayur AI sent an unexpected response. Please try again.");
+
+      const parsed = JSON.parse(match[0]) as Partial<GeneratedRecipe>;
+      setGeneratedRecipe({
+        title: parsed.title?.trim() || "Kitchen Magic Bowl",
+        desc: parsed.desc?.trim() || "A quick, wholesome meal from what you already have.",
+        ingredients: Array.isArray(parsed.ingredients) ? parsed.ingredients.map(String) : [],
+        steps: Array.isArray(parsed.steps) ? parsed.steps.map(String) : [],
+      });
+    } catch (error) {
+      setGenerationError(
+        error instanceof Error ? error.message : "Something went wrong. Please try again."
+      );
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   // Filter recipes based on the active category
@@ -513,6 +535,13 @@ function RecipeStudioPage() {
 
   return (
     <div className="min-h-screen pt-32 pb-20 px-4 sm:px-6 relative">
+      <div
+        className="pointer-events-none fixed inset-0 -z-10 bg-emerald-950 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url('${nutritionBg.url}')` }}
+        aria-hidden
+      />
+      <div className="pointer-events-none fixed inset-0 -z-10 bg-emerald-950/50" aria-hidden />
+      
       
       {/* ==========================================
           RECIPE DETAILS MODAL OVERLAY

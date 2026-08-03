@@ -210,6 +210,13 @@ function AhaarAcademyPage() {
 
   return (
     <div className="min-h-screen pt-32 pb-20 px-4 sm:px-6 relative">
+      <div
+        className="pointer-events-none fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/ayurveda-hero-bg.png')" }}
+        aria-hidden
+      />
+      <div className="pointer-events-none fixed inset-0 -z-10 bg-black/10" aria-hidden />
+      
       
       {/* ==========================================
           SUCCESS MODAL CELEBRATION

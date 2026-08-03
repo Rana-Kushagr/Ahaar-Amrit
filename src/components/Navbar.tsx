@@ -51,8 +51,8 @@ export function Navbar() {
   }, []);
 
   // Check if any link inside the "Discover" dropdown is currently active
-  const isDiscoverActive = dropdownLinks.some(
-    (link) => location.pathname === link.to || (link.to !== "/" && location.pathname.startsWith(link.to))
+  const isDiscoverActive = dropdownLinks.some((link) =>
+    location.pathname.startsWith(link.to)
   );
 
   // Reusable style variables to ensure 100% exact matching across all buttons and links

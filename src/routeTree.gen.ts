@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AhaarAcademyRouteImport } from './routes/ahaar-academy'
 import { Route as AyurRouteImport } from './routes/ayur'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as DoshaRouteImport } from './routes/dosha'
@@ -17,12 +18,20 @@ import { Route as DoshaQuizRouteImport } from './routes/dosha-quiz'
 import { Route as NutritionPlanRouteImport } from './routes/nutrition-plan'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as RecipeStudioRouteImport } from './routes/recipe-studio'
+import { Route as RegionalExplorerRouteImport } from './routes/regional-explorer'
 import { Route as SwasthyaRouteImport } from './routes/swasthya'
+import { Route as WellnessChallengeRouteImport } from './routes/wellness-challenge'
 import { Route as ApiAyurRouteImport } from './routes/api/ayur'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AhaarAcademyRoute = AhaarAcademyRouteImport.update({
+  id: '/ahaar-academy',
+  path: '/ahaar-academy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AyurRoute = AyurRouteImport.update({
@@ -60,9 +69,24 @@ const ProfileRoute = ProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RecipeStudioRoute = RecipeStudioRouteImport.update({
+  id: '/recipe-studio',
+  path: '/recipe-studio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegionalExplorerRoute = RegionalExplorerRouteImport.update({
+  id: '/regional-explorer',
+  path: '/regional-explorer',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SwasthyaRoute = SwasthyaRouteImport.update({
   id: '/swasthya',
   path: '/swasthya',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WellnessChallengeRoute = WellnessChallengeRouteImport.update({
+  id: '/wellness-challenge',
+  path: '/wellness-challenge',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiAyurRoute = ApiAyurRouteImport.update({
@@ -73,6 +97,7 @@ const ApiAyurRoute = ApiAyurRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ahaar-academy': typeof AhaarAcademyRoute
   '/ayur': typeof AyurRoute
   '/dashboard': typeof DashboardRoute
   '/dosha': typeof DoshaRoute
@@ -80,11 +105,15 @@ export interface FileRoutesByFullPath {
   '/nutrition-plan': typeof NutritionPlanRoute
   '/onboarding': typeof OnboardingRoute
   '/profile': typeof ProfileRoute
+  '/recipe-studio': typeof RecipeStudioRoute
+  '/regional-explorer': typeof RegionalExplorerRoute
   '/swasthya': typeof SwasthyaRoute
+  '/wellness-challenge': typeof WellnessChallengeRoute
   '/api/ayur': typeof ApiAyurRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ahaar-academy': typeof AhaarAcademyRoute
   '/ayur': typeof AyurRoute
   '/dashboard': typeof DashboardRoute
   '/dosha': typeof DoshaRoute
@@ -92,12 +121,16 @@ export interface FileRoutesByTo {
   '/nutrition-plan': typeof NutritionPlanRoute
   '/onboarding': typeof OnboardingRoute
   '/profile': typeof ProfileRoute
+  '/recipe-studio': typeof RecipeStudioRoute
+  '/regional-explorer': typeof RegionalExplorerRoute
   '/swasthya': typeof SwasthyaRoute
+  '/wellness-challenge': typeof WellnessChallengeRoute
   '/api/ayur': typeof ApiAyurRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/ahaar-academy': typeof AhaarAcademyRoute
   '/ayur': typeof AyurRoute
   '/dashboard': typeof DashboardRoute
   '/dosha': typeof DoshaRoute
@@ -105,13 +138,17 @@ export interface FileRoutesById {
   '/nutrition-plan': typeof NutritionPlanRoute
   '/onboarding': typeof OnboardingRoute
   '/profile': typeof ProfileRoute
+  '/recipe-studio': typeof RecipeStudioRoute
+  '/regional-explorer': typeof RegionalExplorerRoute
   '/swasthya': typeof SwasthyaRoute
+  '/wellness-challenge': typeof WellnessChallengeRoute
   '/api/ayur': typeof ApiAyurRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/ahaar-academy'
     | '/ayur'
     | '/dashboard'
     | '/dosha'
@@ -119,11 +156,15 @@ export interface FileRouteTypes {
     | '/nutrition-plan'
     | '/onboarding'
     | '/profile'
+    | '/recipe-studio'
+    | '/regional-explorer'
     | '/swasthya'
+    | '/wellness-challenge'
     | '/api/ayur'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/ahaar-academy'
     | '/ayur'
     | '/dashboard'
     | '/dosha'
@@ -131,11 +172,15 @@ export interface FileRouteTypes {
     | '/nutrition-plan'
     | '/onboarding'
     | '/profile'
+    | '/recipe-studio'
+    | '/regional-explorer'
     | '/swasthya'
+    | '/wellness-challenge'
     | '/api/ayur'
   id:
     | '__root__'
     | '/'
+    | '/ahaar-academy'
     | '/ayur'
     | '/dashboard'
     | '/dosha'
@@ -143,12 +188,16 @@ export interface FileRouteTypes {
     | '/nutrition-plan'
     | '/onboarding'
     | '/profile'
+    | '/recipe-studio'
+    | '/regional-explorer'
     | '/swasthya'
+    | '/wellness-challenge'
     | '/api/ayur'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AhaarAcademyRoute: typeof AhaarAcademyRoute
   AyurRoute: typeof AyurRoute
   DashboardRoute: typeof DashboardRoute
   DoshaRoute: typeof DoshaRoute
@@ -156,7 +205,10 @@ export interface RootRouteChildren {
   NutritionPlanRoute: typeof NutritionPlanRoute
   OnboardingRoute: typeof OnboardingRoute
   ProfileRoute: typeof ProfileRoute
+  RecipeStudioRoute: typeof RecipeStudioRoute
+  RegionalExplorerRoute: typeof RegionalExplorerRoute
   SwasthyaRoute: typeof SwasthyaRoute
+  WellnessChallengeRoute: typeof WellnessChallengeRoute
   ApiAyurRoute: typeof ApiAyurRoute
 }
 
@@ -167,6 +219,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ahaar-academy': {
+      id: '/ahaar-academy'
+      path: '/ahaar-academy'
+      fullPath: '/ahaar-academy'
+      preLoaderRoute: typeof AhaarAcademyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ayur': {
@@ -218,11 +277,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/recipe-studio': {
+      id: '/recipe-studio'
+      path: '/recipe-studio'
+      fullPath: '/recipe-studio'
+      preLoaderRoute: typeof RecipeStudioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/regional-explorer': {
+      id: '/regional-explorer'
+      path: '/regional-explorer'
+      fullPath: '/regional-explorer'
+      preLoaderRoute: typeof RegionalExplorerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/swasthya': {
       id: '/swasthya'
       path: '/swasthya'
       fullPath: '/swasthya'
       preLoaderRoute: typeof SwasthyaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/wellness-challenge': {
+      id: '/wellness-challenge'
+      path: '/wellness-challenge'
+      fullPath: '/wellness-challenge'
+      preLoaderRoute: typeof WellnessChallengeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/ayur': {
@@ -237,6 +317,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AhaarAcademyRoute: AhaarAcademyRoute,
   AyurRoute: AyurRoute,
   DashboardRoute: DashboardRoute,
   DoshaRoute: DoshaRoute,
@@ -244,9 +325,22 @@ const rootRouteChildren: RootRouteChildren = {
   NutritionPlanRoute: NutritionPlanRoute,
   OnboardingRoute: OnboardingRoute,
   ProfileRoute: ProfileRoute,
+  RecipeStudioRoute: RecipeStudioRoute,
+  RegionalExplorerRoute: RegionalExplorerRoute,
   SwasthyaRoute: SwasthyaRoute,
+  WellnessChallengeRoute: WellnessChallengeRoute,
   ApiAyurRoute: ApiAyurRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

@@ -51,8 +51,8 @@ export function Navbar() {
   }, []);
 
   // Check if any link inside the "Discover" dropdown is currently active
-  const isDiscoverActive = dropdownLinks.some(
-    (link) => location.pathname === link.to || (link.to !== "/" && location.pathname.startsWith(link.to))
+  const isDiscoverActive = dropdownLinks.some((link) =>
+    location.pathname.startsWith(link.to)
   );
 
   // Reusable style variables to ensure 100% exact matching across all buttons and links
@@ -191,9 +191,7 @@ export function Navbar() {
             >
               <div className="flex flex-col min-w-[160px] p-2 bg-emerald-950/95 backdrop-blur-2xl backdrop-saturate-150 rounded-2xl shadow-xl border border-white/20">
                 {dropdownLinks.map((link) => {
-                  const active =
-                    location.pathname === link.to ||
-                    (link.to !== "/" && location.pathname.startsWith(link.to));
+                  const active = location.pathname.startsWith(link.to);
 
                   return (
                     <Link

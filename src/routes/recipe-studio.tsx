@@ -688,6 +688,12 @@ function RecipeStudioPage() {
               </button>
             </div>
 
+            {generationError && (
+              <div className="mt-6 rounded-2xl border border-amber-500/40 bg-amber-950/40 px-5 py-4 text-sm text-amber-200">
+                {generationError}
+              </div>
+            )}
+
             {/* Generated Output Display */}
             {generatedRecipe && (
               <div className="mt-8 text-left bg-black/40 border border-emerald-500/30 p-6 rounded-3xl animate-in fade-in slide-in-from-top-4 duration-500 shadow-inner">

@@ -124,46 +124,14 @@ Ahaar-Amrit/
 ```
 
 ---
-
-## 💻 Getting Started Locally
-
-### Prerequisites
-- **Node.js**: v18.0.0 or higher
-- **npm** or **pnpm** / **yarn**
-
-### 1. Clone the Repository
-```bash
-git clone https://github.com/Rana-Kushagr/Ahaar-Amrit.git
-cd Ahaar-Amrit
-```
-
-### 2. Install Dependencies
-```bash
-npm install
-```
-
-### 3. Run Development Server
-```bash
-npm run dev
-```
-Open your browser and navigate to `http://localhost:3000` (or the port indicated in your terminal).
-
-### 4. Build for Production
-```bash
-npm run build
-```
-
-To preview the production build locally:
-```bash
-npm run preview
-```
+ 
 
 ---
 
 ## 🌐 Live Deployment & Lovable Integration
 
-- **Live Web App**: [https://id-preview--c5d1c522-5bb9-4d58-a073-ba2daad0a6d4.lovable.app](https://id-preview--c5d1c522-5bb9-4d58-a073-ba2daad0a6d4.lovable.app)
-- **Lovable Workspace**: Connected and continuously synchronized with repository branch `main`.
+- **Live Web App**:  https://ahaar-amrit.lovable.app
+- 
 
 ---
 

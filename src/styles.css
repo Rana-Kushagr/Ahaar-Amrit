@@ -4,19 +4,16 @@
 
 @custom-variant dark (&:is(.dark *));
 
-
 /* =========================================================
    AHAAR AMRIT — PREMIUM AYURVEDIC DESIGN SYSTEM
    DARK GREEN • GOLD • SAFFRON • TRANSLUCENT GLASS
 ========================================================= */
-
 
 /* =========================================================
    THEME
 ========================================================= */
 
 @theme inline {
-
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -43,207 +40,111 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  --font-display:
-    "Fraunces",
-    Georgia,
-    serif;
+  --font-display: "Fraunces", Georgia, serif;
 
-  --font-body:
-    "Karla",
-    system-ui,
-    sans-serif;
+  --font-body: "Karla", system-ui, sans-serif;
 
-  --font-hindi:
-    "Noto Sans Devanagari",
-    "Nirmala UI",
-    sans-serif;
+  --font-hindi: "Noto Sans Devanagari", "Nirmala UI", sans-serif;
 }
-
 
 /* =========================================================
    CORE COLORS
 ========================================================= */
 
 :root {
-
   --radius: 1.2rem;
 
   /* Main page colors */
 
-  --background:
-    #092c1d;
+  --background: #092c1d;
 
-  --foreground:
-    #f8f2df;
-
+  --foreground: #f8f2df;
 
   /* Saffron / orange */
 
-  --primary:
-    #ff7a2f;
+  --primary: #ff7a2f;
 
-  --primary-foreground:
-    #ffffff;
-
+  --primary-foreground: #ffffff;
 
   /* Ayurvedic green */
 
-  --secondary:
-    #9bd58a;
+  --secondary: #9bd58a;
 
-  --secondary-foreground:
-    #092c1d;
-
+  --secondary-foreground: #092c1d;
 
   /* Gold */
 
-  --accent:
-    #e5bd68;
+  --accent: #e5bd68;
 
-  --accent-foreground:
-    #1b2619;
-
+  --accent-foreground: #1b2619;
 
   /* Text */
 
-  --muted:
-    rgba(255, 255, 255, 0.10);
+  --muted: rgba(255, 255, 255, 0.1);
 
-  --muted-foreground:
-    rgba(248, 242, 223, 0.78);
-
+  --muted-foreground: rgba(248, 242, 223, 0.78);
 
   /* Borders */
 
-  --border:
-    rgba(255, 255, 255, 0.20);
+  --border: rgba(255, 255, 255, 0.2);
 
-  --input:
-    rgba(255, 255, 255, 0.16);
+  --input: rgba(255, 255, 255, 0.16);
 
-  --ring:
-    #ff8b3d;
+  --ring: #ff8b3d;
 }
-
 
 /* =========================================================
    GLOBAL GRADIENTS
 ========================================================= */
 
 :root {
-
   /* Main brand gradient */
 
-  --gradient-hero:
-    linear-gradient(
-      135deg,
-      #ff7a2f 0%,
-      #e96b35 42%,
-      #7b8e3f 100%
-    );
-
+  --gradient-hero: linear-gradient(135deg, #ff7a2f 0%, #e96b35 42%, #7b8e3f 100%);
 
   /* Premium gold-green */
 
-  --gradient-premium:
-    linear-gradient(
-      135deg,
-      #ff8b3d 0%,
-      #c8893f 42%,
-      #3d7b4c 100%
-    );
-
+  --gradient-premium: linear-gradient(135deg, #ff8b3d 0%, #c8893f 42%, #3d7b4c 100%);
 
   /* Saffron text */
 
-  --gradient-saffron:
-    linear-gradient(
-      90deg,
-      #ffb347 0%,
-      #ff7135 50%,
-      #ff9a52 100%
-    );
-
+  --gradient-saffron: linear-gradient(90deg, #ffb347 0%, #ff7135 50%, #ff9a52 100%);
 
   /* Dark Ayurvedic background */
 
   --gradient-ayurveda:
-    radial-gradient(
-      circle at 15% 20%,
-      rgba(193, 145, 50, 0.22),
-      transparent 28%
-    ),
-    radial-gradient(
-      circle at 85% 15%,
-      rgba(40, 130, 74, 0.32),
-      transparent 32%
-    ),
-    radial-gradient(
-      circle at 50% 100%,
-      rgba(190, 125, 42, 0.14),
-      transparent 35%
-    ),
-    linear-gradient(
-      135deg,
-      #071f15 0%,
-      #0a3824 45%,
-      #06291c 100%
-    );
+    radial-gradient(circle at 15% 20%, rgba(193, 145, 50, 0.22), transparent 28%),
+    radial-gradient(circle at 85% 15%, rgba(40, 130, 74, 0.32), transparent 32%),
+    radial-gradient(circle at 50% 100%, rgba(190, 125, 42, 0.14), transparent 35%),
+    linear-gradient(135deg, #071f15 0%, #0a3824 45%, #06291c 100%);
 }
-
 
 /* =========================================================
    BASE
 ========================================================= */
 
 @layer base {
-
   * {
     border-color: var(--border);
   }
-
 
   html {
     scroll-behavior: smooth;
     background: #071f15;
   }
 
-
   body {
-
     min-height: 100vh;
 
     background:
-      radial-gradient(
-        circle at 10% 15%,
-        rgba(210, 155, 55, 0.22),
-        transparent 25%
-      ),
+      radial-gradient(circle at 10% 15%, rgba(210, 155, 55, 0.22), transparent 25%),
+      radial-gradient(circle at 90% 15%, rgba(38, 135, 74, 0.25), transparent 28%),
+      radial-gradient(circle at 50% 100%, rgba(185, 120, 40, 0.12), transparent 35%),
+      linear-gradient(135deg, #061d13, #0a3322 45%, #06271a);
 
-      radial-gradient(
-        circle at 90% 15%,
-        rgba(38, 135, 74, 0.25),
-        transparent 28%
-      ),
+    color: var(--foreground);
 
-      radial-gradient(
-        circle at 50% 100%,
-        rgba(185, 120, 40, 0.12),
-        transparent 35%
-      ),
-
-      linear-gradient(
-        135deg,
-        #061d13,
-        #0a3322 45%,
-        #06271a
-      );
-
-    color:
-      var(--foreground);
-
-    font-family:
-      var(--font-body);
+    font-family: var(--font-body);
 
     overflow-x: hidden;
 
@@ -251,9 +152,7 @@
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-
   }
-
 
   /* =====================================================
      HEADINGS
@@ -265,118 +164,76 @@
   h4,
   h5,
   h6 {
+    font-family: var(--font-display);
 
-    font-family:
-      var(--font-display);
+    color: #fff7df;
 
-    color:
-      #fff7df;
+    letter-spacing: -0.03em;
 
-    letter-spacing:
-      -0.03em;
-
-    text-shadow:
-      0 2px 18px rgba(0, 0, 0, 0.35);
-
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.35);
   }
-
 
   /* =====================================================
      NORMAL TEXT
   ===================================================== */
 
   p {
-
-    color:
-      rgba(248, 242, 223, 0.86);
-
+    color: rgba(248, 242, 223, 0.86);
   }
-
 
   /* =====================================================
      LINKS
   ===================================================== */
 
   a {
-
     transition:
       color 0.25s ease,
       background 0.25s ease,
       transform 0.25s ease;
-
   }
-
 
   /* =====================================================
      BUTTONS
   ===================================================== */
 
   button {
-
-    font-family:
-      var(--font-body);
-
+    font-family: var(--font-body);
   }
-
 }
-
 
 /* =========================================================
    UTILITY — FONTS
 ========================================================= */
 
 @utility font-display {
-
-  font-family:
-    var(--font-display);
-
+  font-family: var(--font-display);
 }
-
 
 @utility font-hindi {
-
-  font-family:
-    var(--font-hindi);
-
+  font-family: var(--font-hindi);
 }
-
 
 /* =========================================================
    GRADIENT UTILITIES
 ========================================================= */
 
 @utility bg-gradient-hero {
-
-  background:
-    var(--gradient-hero);
-
+  background: var(--gradient-hero);
 }
-
 
 @utility bg-gradient-premium {
-
-  background:
-    var(--gradient-premium);
-
+  background: var(--gradient-premium);
 }
-
 
 @utility text-gradient-saffron {
+  background: var(--gradient-saffron);
 
-  background:
-    var(--gradient-saffron);
+  background-clip: text;
 
-  background-clip:
-    text;
+  -webkit-background-clip: text;
 
-  -webkit-background-clip:
-    text;
-
-  color:
-    transparent;
-
+  color: transparent;
 }
-
 
 /* =========================================================
    MAIN GLASS SYSTEM
@@ -385,248 +242,137 @@
 ========================================================= */
 
 @utility glass {
-
   /* Translucent dark glass */
 
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.13),
-      rgba(255, 255, 255, 0.055)
-    );
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.055));
 
-  border:
-    1px solid
-    rgba(255, 245, 210, 0.28);
+  border: 1px solid rgba(255, 245, 210, 0.28);
 
-  backdrop-filter:
-    blur(22px)
-    saturate(130%);
+  backdrop-filter: blur(22px) saturate(130%);
 
-  -webkit-backdrop-filter:
-    blur(22px)
-    saturate(130%);
+  -webkit-backdrop-filter: blur(22px) saturate(130%);
 
   box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
 
-    0 20px 60px
-    rgba(0, 0, 0, 0.25),
-
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.15);
-
-  color:
-    #fff7df;
-
+  color: #fff7df;
 }
-
 
 /* =========================================================
    GLASS HOVER
 ========================================================= */
 
 @utility glass-hover {
-
   transition:
     transform 0.35s ease,
     background 0.35s ease,
     box-shadow 0.35s ease;
 
   &:hover {
+    transform: translateY(-6px);
 
-    transform:
-      translateY(-6px);
-
-    background:
-      linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.18),
-        rgba(255, 255, 255, 0.075)
-      );
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.075));
 
     box-shadow:
-
-      0 30px 80px
-      rgba(0, 0, 0, 0.32),
-
-      inset 0 1px 0
-      rgba(255, 255, 255, 0.20);
-
+      0 30px 80px rgba(0, 0, 0, 0.32),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
   }
-
 }
-
 
 /* =========================================================
    TEXT READABILITY
 ========================================================= */
 
 @utility text-readable {
+  color: #fff7df;
 
-  color:
-    #fff7df;
-
-  text-shadow:
-    0 2px 12px
-    rgba(0, 0, 0, 0.45);
-
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
 }
-
 
 @utility text-readable-muted {
+  color: rgba(255, 248, 225, 0.78);
 
-  color:
-    rgba(255, 248, 225, 0.78);
-
-  text-shadow:
-    0 1px 8px
-    rgba(0, 0, 0, 0.35);
-
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
 }
-
 
 /* =========================================================
    OVERRIDE COMMON MUTED TEXT
 ========================================================= */
 
 .text-muted-foreground {
-
-  color:
-    rgba(255, 248, 225, 0.78) !important;
-
+  color: rgba(255, 248, 225, 0.78) !important;
 }
-
 
 .text-secondary {
-
-  color:
-    #b7e09b !important;
-
+  color: #b7e09b !important;
 }
-
 
 .text-primary {
-
-  color:
-    #ff9a52 !important;
-
+  color: #ff9a52 !important;
 }
-
 
 /* =========================================================
    SHADOWS
 ========================================================= */
 
 @utility shadow-warm {
-
   box-shadow:
-
-    0 25px 70px
-    rgba(0, 0, 0, 0.28),
-
-    0 10px 35px
-    rgba(255, 130, 45, 0.14);
-
+    0 25px 70px rgba(0, 0, 0, 0.28),
+    0 10px 35px rgba(255, 130, 45, 0.14);
 }
-
 
 @utility shadow-glow {
-
-  box-shadow:
-
-    0 0 60px
-    rgba(255, 135, 45, 0.35);
-
+  box-shadow: 0 0 60px rgba(255, 135, 45, 0.35);
 }
-
 
 /* =========================================================
    NAVBAR
 ========================================================= */
 
 header {
+  background: rgba(8, 31, 20, 0.68) !important;
 
-  background:
-    rgba(8, 31, 20, 0.68) !important;
+  border: 1px solid rgba(255, 244, 210, 0.25) !important;
 
-  border:
-    1px solid
-    rgba(255, 244, 210, 0.25) !important;
+  backdrop-filter: blur(24px) saturate(140%);
 
-  backdrop-filter:
-    blur(24px)
-    saturate(140%);
-
-  -webkit-backdrop-filter:
-    blur(24px)
-    saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
 
   box-shadow:
-
-    0 18px 50px
-    rgba(0, 0, 0, 0.25),
-
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.12);
-
+    0 18px 50px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
-
 
 /* Navbar brand */
 
 header p {
-
-  color:
-    #fff4d8;
-
+  color: #fff4d8;
 }
-
 
 /* Navbar navigation */
 
 header nav a {
+  color: rgba(255, 248, 225, 0.78);
 
-  color:
-    rgba(255, 248, 225, 0.78);
-
-  text-shadow:
-    0 1px 8px
-    rgba(0, 0, 0, 0.3);
-
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
 }
-
 
 header nav a:hover {
+  color: #ffffff;
 
-  color:
-    #ffffff;
-
-  background:
-    rgba(255, 255, 255, 0.10);
-
+  background: rgba(255, 255, 255, 0.1);
 }
-
 
 /* Active navbar item */
 
 header nav a.bg-primary {
+  color: #ffffff !important;
 
-  color:
-    #ffffff !important;
+  background: linear-gradient(135deg, #ff8135, #6e8843) !important;
 
-  background:
-    linear-gradient(
-      135deg,
-      #ff8135,
-      #6e8843
-    ) !important;
-
-  box-shadow:
-    0 8px 25px
-    rgba(255, 120, 40, 0.25);
-
+  box-shadow: 0 8px 25px rgba(255, 120, 40, 0.25);
 }
-
 
 /* =========================================================
    FORM ELEMENTS
@@ -635,45 +381,27 @@ header nav a.bg-primary {
 input,
 textarea,
 select {
+  background: rgba(255, 255, 255, 0.09) !important;
 
-  background:
-    rgba(255, 255, 255, 0.09) !important;
+  color: #fff7df !important;
 
-  color:
-    #fff7df !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
 
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.22) !important;
-
-  backdrop-filter:
-    blur(12px);
-
+  backdrop-filter: blur(12px);
 }
-
 
 input::placeholder,
 textarea::placeholder {
-
-  color:
-    rgba(255, 248, 225, 0.55) !important;
-
+  color: rgba(255, 248, 225, 0.55) !important;
 }
-
 
 input:focus,
 textarea:focus,
 select:focus {
+  border-color: rgba(255, 150, 70, 0.8) !important;
 
-  border-color:
-    rgba(255, 150, 70, 0.8) !important;
-
-  box-shadow:
-    0 0 0 3px
-    rgba(255, 130, 50, 0.15);
-
+  box-shadow: 0 0 0 3px rgba(255, 130, 50, 0.15);
 }
-
 
 /* =========================================================
    CARD TEXT
@@ -683,20 +411,12 @@ select:focus {
 .glass h2,
 .glass h3,
 .glass h4 {
-
-  color:
-    #fff7df;
-
+  color: #fff7df;
 }
-
 
 .glass p {
-
-  color:
-    rgba(255, 248, 225, 0.80);
-
+  color: rgba(255, 248, 225, 0.8);
 }
-
 
 /* =========================================================
    WHITE BACKGROUND OVERRIDE
@@ -704,47 +424,26 @@ select:focus {
 ========================================================= */
 
 .bg-white {
+  background: rgba(255, 255, 255, 0.1) !important;
 
-  background:
-    rgba(255, 255, 255, 0.10) !important;
-
-  color:
-    #fff7df !important;
-
+  color: #fff7df !important;
 }
-
 
 .bg-white\/60 {
-
-  background:
-    rgba(255, 255, 255, 0.10) !important;
-
+  background: rgba(255, 255, 255, 0.1) !important;
 }
-
 
 .bg-white\/65 {
-
-  background:
-    rgba(255, 255, 255, 0.11) !important;
-
+  background: rgba(255, 255, 255, 0.11) !important;
 }
-
 
 .bg-white\/70 {
-
-  background:
-    rgba(255, 255, 255, 0.13) !important;
-
+  background: rgba(255, 255, 255, 0.13) !important;
 }
-
 
 .bg-white\/80 {
-
-  background:
-    rgba(255, 255, 255, 0.15) !important;
-
+  background: rgba(255, 255, 255, 0.15) !important;
 }
-
 
 /* =========================================================
    LIGHT BACKGROUND COLORS
@@ -752,28 +451,16 @@ select:focus {
 ========================================================= */
 
 .bg-orange-100 {
-
-  background:
-    rgba(255, 150, 70, 0.16) !important;
-
+  background: rgba(255, 150, 70, 0.16) !important;
 }
-
 
 .bg-green-100 {
-
-  background:
-    rgba(90, 180, 100, 0.16) !important;
-
+  background: rgba(90, 180, 100, 0.16) !important;
 }
-
 
 .bg-yellow-100 {
-
-  background:
-    rgba(235, 190, 70, 0.16) !important;
-
+  background: rgba(235, 190, 70, 0.16) !important;
 }
-
 
 /* =========================================================
    COMMON DARK TEXT OVERRIDES
@@ -788,44 +475,26 @@ select:focus {
 .text-\[\#6b5a4b\],
 .text-\[\#735f4d\],
 .text-\[\#765c43\] {
+  color: #fff4d8 !important;
 
-  color:
-    #fff4d8 !important;
-
-  text-shadow:
-    0 2px 10px
-    rgba(0, 0, 0, 0.38);
-
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.38);
 }
-
 
 /* =========================================================
    DARK GREEN TEXT OVERRIDE
 ========================================================= */
 
 .text-green-700 {
-
-  color:
-    #b9e69c !important;
-
+  color: #b9e69c !important;
 }
-
 
 .text-orange-600 {
-
-  color:
-    #ffad68 !important;
-
+  color: #ffad68 !important;
 }
-
 
 .text-yellow-700 {
-
-  color:
-    #f2d27b !important;
-
+  color: #f2d27b !important;
 }
-
 
 /* =========================================================
    BUTTON SYSTEM
@@ -833,37 +502,22 @@ select:focus {
 
 button,
 [role="button"] {
-
   transition:
     transform 0.25s ease,
     box-shadow 0.25s ease,
     filter 0.25s ease;
-
 }
-
 
 button:hover,
 [role="button"]:hover {
-
-  filter:
-    brightness(1.08);
-
+  filter: brightness(1.08);
 }
-
 
 /* Primary CTA */
 
 .bg-primary {
-
-  background:
-    linear-gradient(
-      135deg,
-      #ff8135,
-      #e76b38
-    ) !important;
-
+  background: linear-gradient(135deg, #ff8135, #e76b38) !important;
 }
-
 
 /* =========================================================
    OUTLINE BUTTONS
@@ -871,361 +525,528 @@ button:hover,
 
 button.border,
 a.border {
+  border-color: rgba(255, 244, 210, 0.3) !important;
 
-  border-color:
-    rgba(255, 244, 210, 0.30) !important;
+  color: #fff4d8 !important;
 
-  color:
-    #fff4d8 !important;
+  background: rgba(255, 255, 255, 0.07);
 
-  background:
-    rgba(255, 255, 255, 0.07);
-
-  backdrop-filter:
-    blur(12px);
-
+  backdrop-filter: blur(12px);
 }
-
 
 button.border:hover,
 a.border:hover {
-
-  background:
-    rgba(255, 255, 255, 0.14);
-
+  background: rgba(255, 255, 255, 0.14);
 }
-
 
 /* =========================================================
    3D ORBS
 ========================================================= */
 
 @utility orb-saffron {
-
-  background:
-
-    radial-gradient(
-      circle at 30% 30%,
-      #ffd27a,
-      #ff8135 45%,
-      #b94725
-    );
+  background: radial-gradient(circle at 30% 30%, #ffd27a, #ff8135 45%, #b94725);
 
   box-shadow:
-
-    inset -20px -20px 40px
-    rgba(0, 0, 0, 0.25),
-
-    0 30px 70px
-    rgba(255, 120, 30, 0.30);
-
+    inset -20px -20px 40px rgba(0, 0, 0, 0.25),
+    0 30px 70px rgba(255, 120, 30, 0.3);
 }
-
 
 @utility orb-green {
-
-  background:
-
-    radial-gradient(
-      circle at 30% 30%,
-      #9be89c,
-      #3d914b 50%,
-      #14582b
-    );
+  background: radial-gradient(circle at 30% 30%, #9be89c, #3d914b 50%, #14582b);
 
   box-shadow:
-
-    inset -20px -20px 40px
-    rgba(0, 0, 0, 0.25),
-
-    0 30px 70px
-    rgba(40, 150, 70, 0.30);
-
+    inset -20px -20px 40px rgba(0, 0, 0, 0.25),
+    0 30px 70px rgba(40, 150, 70, 0.3);
 }
-
 
 /* =========================================================
    HOVER LIFT
 ========================================================= */
 
 @utility hover-lift {
-
   transition:
     transform 0.35s ease,
     box-shadow 0.35s ease;
 
   &:hover {
+    transform: translateY(-8px) scale(1.015);
 
-    transform:
-      translateY(-8px)
-      scale(1.015);
-
-    box-shadow:
-
-      0 35px 80px
-      rgba(0, 0, 0, 0.30);
-
+    box-shadow: 0 35px 80px rgba(0, 0, 0, 0.3);
   }
-
 }
-
 
 /* =========================================================
    ANIMATIONS
 ========================================================= */
 
 @keyframes float {
-
   0%,
   100% {
-
-    transform:
-      translateY(0);
-
+    transform: translateY(0);
   }
 
   50% {
-
-    transform:
-      translateY(-15px);
-
+    transform: translateY(-15px);
   }
-
 }
-
 
 @keyframes floatSlow {
-
   0%,
   100% {
-
-    transform:
-      translateY(0);
-
+    transform: translateY(0);
   }
 
   50% {
-
-    transform:
-      translateY(-30px);
-
+    transform: translateY(-30px);
   }
-
 }
-
 
 @keyframes pulseGlow {
-
   0%,
   100% {
+    opacity: 0.25;
 
-    opacity:
-      0.25;
-
-    transform:
-      scale(1);
-
+    transform: scale(1);
   }
 
   50% {
+    opacity: 0.65;
 
-    opacity:
-      0.65;
-
-    transform:
-      scale(1.15);
-
+    transform: scale(1.15);
   }
-
 }
-
 
 @utility animate-float {
-
-  animation:
-    float 4s ease-in-out infinite;
-
+  animation: float 4s ease-in-out infinite;
 }
-
 
 @utility animate-float-slow {
-
-  animation:
-    floatSlow 8s ease-in-out infinite;
-
+  animation: floatSlow 8s ease-in-out infinite;
 }
-
 
 @utility animate-pulse-glow {
-
-  animation:
-    pulseGlow 3s ease-in-out infinite;
-
+  animation: pulseGlow 3s ease-in-out infinite;
 }
-
 
 /* =========================================================
    BACKGROUND IMAGE READABILITY
 ========================================================= */
 
 main {
-
-  color:
-    #fff7df;
-
+  color: #fff7df;
 }
-
 
 /* Sections should not paint cream over the background */
 
 main.bg-\[\#f7f1df\] {
-
-  background:
-    transparent !important;
-
+  background: transparent !important;
 }
-
 
 /* Remove old cream backgrounds */
 
 .bg-\[\#f7f1df\] {
-
-  background:
-    transparent !important;
-
+  background: transparent !important;
 }
-
 
 .bg-\[\#fff8e9\] {
-
-  background:
-    transparent !important;
-
+  background: transparent !important;
 }
-
 
 /* =========================================================
    SECTION CONTENT
 ========================================================= */
 
 section {
-
-  position:
-    relative;
-
+  position: relative;
 }
-
 
 /* =========================================================
    SCROLLBAR
 ========================================================= */
 
 ::-webkit-scrollbar {
-
-  width:
-    10px;
-
+  width: 10px;
 }
-
 
 ::-webkit-scrollbar-track {
-
-  background:
-    #061d13;
-
+  background: #061d13;
 }
-
 
 ::-webkit-scrollbar-thumb {
+  background: linear-gradient(#ff8135, #5f8846);
 
-  background:
-    linear-gradient(
-      #ff8135,
-      #5f8846
-    );
-
-  border-radius:
-    999px;
-
+  border-radius: 999px;
 }
-
 
 ::-webkit-scrollbar-thumb:hover {
-
-  background:
-    #ff9a52;
-
+  background: #ff9a52;
 }
-
 
 /* =========================================================
    MOBILE
 ========================================================= */
 
 @media (max-width: 768px) {
-
   h1 {
-
-    font-size:
-      3rem;
-
+    font-size: 3rem;
   }
-
 
   h2 {
-
-    font-size:
-      2.2rem;
-
+    font-size: 2.2rem;
   }
-
 
   .glass {
+    backdrop-filter: blur(18px);
 
-    backdrop-filter:
-      blur(18px);
-
-    -webkit-backdrop-filter:
-      blur(18px);
-
+    -webkit-backdrop-filter: blur(18px);
   }
-
 }
-
 
 /* =========================================================
    ACCESSIBILITY / READABILITY
 ========================================================= */
 
 ::selection {
+  background: rgba(255, 130, 50, 0.55);
 
-  background:
-    rgba(255, 130, 50, 0.55);
-
-  color:
-    #ffffff;
-
+  color: #ffffff;
 }
-
 
 /* Make strong text clearly visible */
 
 strong {
-
-  color:
-    #fff4d2;
-
+  color: #fff4d2;
 }
-
 
 /* Icons inside cards */
 
 .glass svg {
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.25));
+}
 
-  filter:
-    drop-shadow(
-      0 2px 5px
-      rgba(0, 0, 0, 0.25)
-    );
+/* =========================================================
+   AHAAR AMRIT — ORGANIC AYURVEDIC ANIMATIONS (ULTRA-SMOOTH)
+   ========================================================= */
 
+/* 1. Organic Breathing Auras */
+@keyframes aura-drift-warm {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.22;
+  }
+  33% {
+    transform: translate3d(24px, -18px, 0) scale(1.1);
+    opacity: 0.32;
+  }
+  66% {
+    transform: translate3d(-18px, 14px, 0) scale(0.95);
+    opacity: 0.26;
+  }
+}
+
+@keyframes aura-drift-emerald {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.2;
+  }
+  33% {
+    transform: translate3d(-20px, 22px, 0) scale(1.14);
+    opacity: 0.34;
+  }
+  66% {
+    transform: translate3d(16px, -12px, 0) scale(0.92);
+    opacity: 0.22;
+  }
+}
+
+.animate-aura-warm {
+  animation: aura-drift-warm 14s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.animate-aura-emerald {
+  animation: aura-drift-emerald 16s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.animate-aura-center {
+  animation: aura-drift-warm 20s ease-in-out infinite reverse;
+  will-change: transform, opacity;
+}
+
+/* 2. Liquid Gold / Saffron Text Shimmer */
+@keyframes shimmer-saffron-gold {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* =========================================================
+   CALMING GOLDEN LIGHT BEHIND "आहार अमृत"
+   Subtle, ambient golden warmth positioned softly behind both words.
+   Not too big, soothing and visible without harsh glowing edges.
+========================================================= */
+.calm-golden-light-behind {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 112%;
+  height: 95%;
+  transform: translate3d(-50%, -50%, 0);
+  background: radial-gradient(
+    ellipse 65% 55% at 50% 50%,
+    rgba(251, 191, 36, 0.32) 0%,
+    rgba(245, 158, 11, 0.16) 48%,
+    rgba(217, 119, 6, 0) 78%
+  );
+  filter: blur(28px);
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 9999px;
+}
+
+/* =========================================================
+   IDEA 3: CINEMATIC ENTRANCE REVEAL (Hero Brand & Title)
+   Silky, high-production-value fade-and-glide load animation.
+   Uses cubic-bezier(0.16, 1, 0.3, 1) & translate3d for 60fps buttery smoothness.
+   NO pixelation, NO layout thrashing.
+========================================================= */
+@keyframes hero-title-reveal {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-hero-reveal {
+  animation: hero-title-reveal 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.animate-hero-reveal-delay-1 {
+  animation: hero-title-reveal 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.16s both;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.animate-hero-reveal-delay-2 {
+  animation: hero-title-reveal 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.32s both;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.animate-hero-reveal-delay-3 {
+  animation: hero-title-reveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.48s both;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.animate-hero-reveal-delay-4 {
+  animation: hero-title-reveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.64s both;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+/* Reduced motion accessibility check */
+@media (prefers-reduced-motion: reduce) {
+  .animate-hero-reveal,
+  .animate-hero-reveal-delay-1,
+  .animate-hero-reveal-delay-2,
+  .animate-hero-reveal-delay-3,
+  .animate-hero-reveal-delay-4 {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* =========================================================
+   SCROLL-DRIVEN PARALLAX & AMBIENT DEPTH
+   Native hardware-accelerated parallax for modern browsers
+   with zero CPU/layout overhead
+========================================================= */
+@supports (animation-timeline: scroll()) {
+  @keyframes parallax-float-slow {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(0, 80px, 0);
+    }
+  }
+
+  @keyframes parallax-float-reverse {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(0, -60px, 0);
+    }
+  }
+
+  .parallax-slow {
+    animation: parallax-float-slow linear both;
+    animation-timeline: scroll();
+  }
+
+  .parallax-reverse {
+    animation: parallax-float-reverse linear both;
+    animation-timeline: scroll();
+  }
+}
+
+/* 3. Hero Glass Panel Levitation */
+@keyframes levitate-hero {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+
+.animate-levitate-hero {
+  animation: levitate-hero 7s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* 4. Living Dosha Animations */
+@keyframes vata-sway {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  30% {
+    transform: translate3d(2px, -3px, 0) rotate(3deg);
+  }
+  70% {
+    transform: translate3d(-3px, 1px, 0) rotate(-2deg);
+  }
+}
+
+.animate-vata-element {
+  animation: vata-sway 5.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes pitta-glow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 5px rgba(251, 146, 60, 0.45));
+    transform: scale(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 16px rgba(251, 146, 60, 0.9));
+    transform: scale(1.05);
+  }
+}
+
+.animate-pitta-element {
+  animation: pitta-glow 3.5s ease-in-out infinite;
+  will-change: transform, filter;
+}
+
+@keyframes kapha-breathe {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 4px rgba(52, 211, 153, 0.4));
+    transform: scale(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 14px rgba(52, 211, 153, 0.8));
+    transform: scale(1.06);
+  }
+}
+
+.animate-kapha-element {
+  animation: kapha-breathe 4.5s ease-in-out infinite;
+  will-change: transform, filter;
+}
+
+/* 5. Luxury Button Gloss Shine */
+.button-gloss-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.button-gloss-effect::before {
+  content: "";
+  position: absolute;
+  top: -60%;
+  left: -80%;
+  width: 45%;
+  height: 220%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 100%
+  );
+  transform: rotate(25deg);
+  pointer-events: none;
+  transition: none;
+}
+
+.button-gloss-effect:hover::before {
+  left: 135%;
+  transition: left 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 6. Card Aurora Hover Glow */
+.card-aurora {
+  transition:
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.4s ease,
+    background-color 0.4s ease;
+}
+
+.card-aurora:hover {
+  transform: translate3d(0, -6px, 0);
+  border-color: rgba(255, 185, 80, 0.45);
+  box-shadow:
+    0 18px 36px -10px rgba(0, 0, 0, 0.45),
+    0 0 25px rgba(255, 150, 50, 0.16);
+}
+
+/* 7. Subtle floating particles */
+@keyframes particle-drift {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate3d(15px, -25px, 0) rotate(15deg);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate3d(-10px, -50px, 0) rotate(30deg);
+    opacity: 0.2;
+  }
+}
+
+.animate-particle-1 {
+  animation: particle-drift 9s ease-in-out infinite alternate;
+}
+
+.animate-particle-2 {
+  animation: particle-drift 12s ease-in-out infinite alternate-reverse;
+}
+
+.animate-particle-3 {
+  animation: particle-drift 8s ease-in-out infinite alternate;
 }

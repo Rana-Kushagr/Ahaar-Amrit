@@ -1,25 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import {
-  ArrowLeft,
-  Leaf,
-  Sparkles,
-  Utensils,
-  Info,
-  Clock,
-} from "lucide-react";
+import { ArrowLeft, Leaf, Sparkles, Utensils, Info, Clock } from "lucide-react";
 
 import nutritionBg from "@/assets/nutrition.png.asset.json";
 import { Button } from "@/components/ui/button";
 import { useAhaarProfile } from "@/hooks/use-ahaar-profile";
 import { doshaProfiles } from "@/lib/dosha";
 
-import {
-  ageGroupOptions,
-  dietOptions,
-  goalOptions,
-  labelFor,
-  regionOptions,
-} from "@/lib/profile";
+import { ageGroupOptions, dietOptions, goalOptions, labelFor, regionOptions } from "@/lib/profile";
 
 import {
   ALLERGY_NOTE,
@@ -31,7 +18,7 @@ import {
 const title = "My Nutrition Plan — Ahaar Amrit";
 
 const description =
-  "A personalized one-day Indian meal plan built from your Ahaar Profile: region, food preference, goals and optional Ayurvedic insight.";
+  "A personalized one-day Indian meal plan built from your Ahaar Profile: region, food preference, goals and Ayurvedic insight.";
 
 export const Route = createFileRoute("/nutrition-plan")({
   head: () => ({
@@ -52,9 +39,7 @@ function NutritionPlanPage() {
   const { profile, hydrated } = useAhaarProfile();
 
   if (!hydrated) {
-    return (
-      <div className="min-h-screen bg-transparent" aria-hidden />
-    );
+    return <div className="min-h-screen bg-transparent" aria-hidden />;
   }
 
   const plan = buildNutritionPlan(profile);
@@ -63,7 +48,6 @@ function NutritionPlanPage() {
 
   return (
     <main className="relative min-h-screen px-4 pb-16 pt-32 sm:px-6">
-
       {/* Fixed full-screen background image */}
       <div
         className="pointer-events-none fixed inset-0 z-0 bg-emerald-950 bg-cover bg-center bg-no-repeat"
@@ -77,8 +61,6 @@ function NutritionPlanPage() {
       ===================================================== */}
 
       <div className="relative z-10 mx-auto max-w-5xl space-y-8">
-
-
         {/* =====================================================
             BACK BUTTON
         ===================================================== */}
@@ -108,7 +90,6 @@ function NutritionPlanPage() {
           Back to dashboard
         </Link>
 
-
         {/* =====================================================
             HERO HEADER
         ===================================================== */}
@@ -128,7 +109,6 @@ function NutritionPlanPage() {
             sm:p-12
           "
         >
-
           {/* Icon */}
           <div className="relative mb-5 flex justify-center">
             <div
@@ -147,7 +127,6 @@ function NutritionPlanPage() {
             </div>
           </div>
 
-
           {/* Heading */}
           <h1
             className="
@@ -161,16 +140,12 @@ function NutritionPlanPage() {
             "
           >
             Your Personalized
-            <span className="text-emerald-400">
-              {" "}Nutrition Plan
-            </span>
+            <span className="text-emerald-400"> Nutrition Plan</span>
           </h1>
-
 
           <p className="relative mt-3 font-hindi text-base text-emerald-200/80">
             आपकी व्यक्तिगत पोषण योजना
           </p>
-
 
           <p
             className="
@@ -184,12 +159,10 @@ function NutritionPlanPage() {
               sm:text-base
             "
           >
-            A one-day Indian meal plan created around your food preferences,
-            region, goals and lifestyle.
+            A one-day Indian meal plan created around your food preferences, region, goals and
+            lifestyle.
           </p>
-
         </header>
-
 
         {/* =====================================================
             PROFILE SUMMARY
@@ -207,7 +180,6 @@ function NutritionPlanPage() {
             sm:p-8
           "
         >
-
           <div className="mb-6 flex items-center gap-3">
             <div
               className="
@@ -228,42 +200,31 @@ function NutritionPlanPage() {
               <h2 className="font-display text-xl font-bold text-emerald-50">
                 Your plan is based on
               </h2>
-              <p className="font-hindi text-sm text-emerald-200/70">
-                आपकी जानकारी
-              </p>
+              <p className="font-hindi text-sm text-emerald-200/70">आपकी जानकारी</p>
             </div>
           </div>
 
-
           {/* Profile stats */}
           <div className="grid gap-4 sm:grid-cols-3">
-            <Stat
-              label="Age group"
-              value={labelFor(ageGroupOptions, profile.ageGroup)}
-            />
-            <Stat
-              label="Region"
-              value={labelFor(regionOptions, profile.region)}
-            />
+            <Stat label="Age group" value={labelFor(ageGroupOptions, profile.ageGroup)} />
+            <Stat label="Region" value={labelFor(regionOptions, profile.region)} />
             <Stat
               label="Food preference"
-              value={labelFor(
-                dietOptions,
-                profile.dietaryPreference
-              )}
+              value={labelFor(dietOptions, profile.dietaryPreference)}
             />
           </div>
 
-
           {/* Goals */}
           <div className="mt-6">
-            <p className="
+            <p
+              className="
               text-xs
               font-semibold
               uppercase
               tracking-[0.15em]
               text-emerald-300/80
-            ">
+            "
+            >
               Your goals
             </p>
 
@@ -290,13 +251,10 @@ function NutritionPlanPage() {
                   </li>
                 ))
               ) : (
-                <li className="text-sm text-emerald-200/60">
-                  No goals selected
-                </li>
+                <li className="text-sm text-emerald-200/60">No goals selected</li>
               )}
             </ul>
           </div>
-
 
           {/* Focus notes */}
           {notes.length > 0 && (
@@ -310,14 +268,16 @@ function NutritionPlanPage() {
                 p-5
               "
             >
-              <p className="
+              <p
+                className="
                 mb-3
                 text-xs
                 font-semibold
                 uppercase
                 tracking-[0.15em]
                 text-emerald-300
-              ">
+              "
+              >
                 Your nutrition focus
               </p>
 
@@ -333,25 +293,20 @@ function NutritionPlanPage() {
                       text-emerald-100/90
                     "
                   >
-                    <span className="mt-1 text-emerald-400">
-                      •
-                    </span>
+                    <span className="mt-1 text-emerald-400">•</span>
                     {note}
                   </li>
                 ))}
               </ul>
             </div>
           )}
-
         </section>
-
 
         {/* =====================================================
             MEAL PLAN
         ===================================================== */}
 
         <section className="space-y-5">
-
           <div className="flex items-center gap-3">
             <div
               className="
@@ -370,20 +325,19 @@ function NutritionPlanPage() {
             </div>
 
             <div>
-              <h2 className="
+              <h2
+                className="
                 font-display
                 text-2xl
                 font-bold
                 text-emerald-50
-              ">
+              "
+              >
                 Your Day of Meals
               </h2>
-              <p className="font-hindi text-sm text-emerald-200/70">
-                आज का आहार
-              </p>
+              <p className="font-hindi text-sm text-emerald-200/70">आज का आहार</p>
             </div>
           </div>
-
 
           {/* Meals */}
           <div className="grid gap-5">
@@ -408,7 +362,6 @@ function NutritionPlanPage() {
                   sm:p-7
                 "
               >
-
                 {/* Number */}
                 <div
                   className="
@@ -430,26 +383,23 @@ function NutritionPlanPage() {
                   {index + 1}
                 </div>
 
-
                 {/* Meal time */}
                 <div className="flex items-center gap-2">
                   <Clock className="h-4 w-4 text-emerald-400" />
-                  <p className="
+                  <p
+                    className="
                     text-xs
                     font-semibold
                     uppercase
                     tracking-[0.15em]
                     text-emerald-300/90
-                  ">
+                  "
+                  >
                     {section.title}
                   </p>
                 </div>
 
-
-                <p className="mt-1 font-hindi text-sm text-emerald-200/60">
-                  {section.hindi}
-                </p>
-
+                <p className="mt-1 font-hindi text-sm text-emerald-200/60">{section.hindi}</p>
 
                 {/* Meal name */}
                 <h3
@@ -467,11 +417,7 @@ function NutritionPlanPage() {
                   {section.item.name}
                 </h3>
 
-
-                <p className="mt-1 font-hindi text-sm text-emerald-200/80">
-                  {section.item.hindi}
-                </p>
-
+                <p className="mt-1 font-hindi text-sm text-emerald-200/80">{section.item.hindi}</p>
 
                 {/* Description */}
                 <p
@@ -486,7 +432,6 @@ function NutritionPlanPage() {
                   {section.item.description}
                 </p>
 
-
                 {/* Benefit */}
                 <div
                   className="
@@ -498,22 +443,20 @@ function NutritionPlanPage() {
                     p-4
                   "
                 >
-                  <p className="
+                  <p
+                    className="
                     text-sm
                     leading-relaxed
                     text-emerald-50
-                  ">
-                    <span className="font-semibold text-emerald-300">
-                      Why it helps:
-                    </span>{" "}
+                  "
+                  >
+                    <span className="font-semibold text-emerald-300">Why it helps:</span>{" "}
                     {section.item.benefit}
                   </p>
                 </div>
-
               </article>
             ))}
           </div>
-
 
           {/* Allergy note */}
           <div
@@ -529,14 +472,9 @@ function NutritionPlanPage() {
               backdrop-blur-xl
             "
           >
-            <span className="font-semibold text-amber-300">
-              Allergy note:
-            </span>{" "}
-            {ALLERGY_NOTE}
+            <span className="font-semibold text-amber-300">Allergy note:</span> {ALLERGY_NOTE}
           </div>
-
         </section>
-
 
         {/* =====================================================
             AYURVEDA
@@ -554,7 +492,6 @@ function NutritionPlanPage() {
             sm:p-8
           "
         >
-
           <div className="flex items-start gap-4">
             <div
               className="
@@ -574,23 +511,20 @@ function NutritionPlanPage() {
             </div>
 
             <div>
-              <h2 className="
+              <h2
+                className="
                 font-display
                 text-2xl
                 font-bold
                 text-purple-100
-              ">
-                {dosha
-                  ? "Your Ayurvedic Insight"
-                  : "Explore Ayurveda"}
+              "
+              >
+                {dosha ? "Your Ayurvedic Insight" : "Explore Ayurveda"}
               </h2>
 
-              <p className="font-hindi text-sm text-purple-200/70">
-                आपकी आयुर्वेदिक जानकारी
-              </p>
+              <p className="font-hindi text-sm text-purple-200/70">आपकी आयुर्वेदिक जानकारी</p>
             </div>
           </div>
-
 
           {dosha ? (
             <div className="mt-6">
@@ -604,34 +538,26 @@ function NutritionPlanPage() {
                 "
               >
                 <p className="text-sm text-purple-50">
-                  <span className="font-bold text-purple-300">
-                    {dosha.name}
-                  </span>{" "}
-
-                  <span className="font-hindi text-purple-200">
-                    {dosha.hindi}
-                  </span>{" "}
-
-                  · {dosha.elements}
+                  <span className="font-bold text-purple-300">{dosha.name}</span>{" "}
+                  <span className="font-hindi text-purple-200">{dosha.hindi}</span> ·{" "}
+                  {dosha.elements}
                 </p>
 
-                <p className="mt-3 text-sm leading-relaxed text-purple-100/90">
-                  {dosha.summary}
-                </p>
+                <p className="mt-3 text-sm leading-relaxed text-purple-100/90">{dosha.summary}</p>
               </div>
 
-
-              <p className="
+              <p
+                className="
                 mt-6
                 text-xs
                 font-semibold
                 uppercase
                 tracking-[0.15em]
                 text-purple-300/90
-              ">
+              "
+              >
                 Gentle suggestions
               </p>
-
 
               <ul className="mt-3 space-y-3">
                 {dosha.eat.slice(0, 2).map((tip) => (
@@ -645,9 +571,7 @@ function NutritionPlanPage() {
                       text-purple-50
                     "
                   >
-                    <span className="text-purple-400">
-                      ✦
-                    </span>
+                    <span className="text-purple-400">✦</span>
                     {tip}
                   </li>
                 ))}
@@ -663,35 +587,31 @@ function NutritionPlanPage() {
                       text-purple-50
                     "
                   >
-                    <span className="text-purple-400">
-                      ✦
-                    </span>
+                    <span className="text-purple-400">✦</span>
                     {tip}
                   </li>
                 ))}
               </ul>
-
 
               <Button
                 variant="soft"
                 className="mt-6 bg-purple-800/60 text-purple-50 hover:bg-purple-700 border border-purple-500/30"
                 asChild
               >
-                <Link to="/dosha">
-                  View full dosha guidance
-                </Link>
+                <Link to="/dosha">View full dosha guidance</Link>
               </Button>
             </div>
           ) : (
             <div className="mt-6">
-              <p className="
+              <p
+                className="
                 text-sm
                 leading-relaxed
                 text-purple-100/90
-              ">
-                You can optionally explore your Ayurvedic body type
-                for a gentle traditional perspective alongside this
-                plan. It is completely optional.
+              "
+              >
+                Explore your Ayurvedic body type to receive deeper personalized wisdom that
+                complements your daily nutrition plan.
               </p>
 
               <Button
@@ -699,15 +619,13 @@ function NutritionPlanPage() {
                 className="mt-5 bg-purple-600 hover:bg-purple-700 text-white"
                 asChild
               >
-                <Link to="/dosha">
-                  Take Dosha Quiz
-                </Link>
+                <Link to="/dosha">Take Dosha Quiz</Link>
               </Button>
             </div>
           )}
 
-
-          <p className="
+          <p
+            className="
             mt-6
             border-t
             border-purple-500/30
@@ -715,62 +633,43 @@ function NutritionPlanPage() {
             text-xs
             leading-relaxed
             text-purple-200/70
-          ">
+          "
+          >
             {AYURVEDA_DISCLAIMER}
           </p>
-
         </section>
-
 
         {/* =====================================================
             BOTTOM ACTIONS
         ===================================================== */}
 
-        <div className="
+        <div
+          className="
           flex
           flex-wrap
           justify-center
           gap-3
           pb-6
-        ">
-          <Button
-            variant="hero"
-            asChild
-          >
-            <Link to="/dashboard">
-              Back to dashboard
-            </Link>
+        "
+        >
+          <Button variant="hero" asChild>
+            <Link to="/dashboard">Back to dashboard</Link>
           </Button>
 
-          <Button
-            variant="ghost"
-            className="text-emerald-100 hover:bg-emerald-900/50"
-            asChild
-          >
-            <Link to="/profile">
-              Edit my profile
-            </Link>
+          <Button variant="ghost" className="text-emerald-100 hover:bg-emerald-900/50" asChild>
+            <Link to="/profile">Edit my profile</Link>
           </Button>
         </div>
-
       </div>
-
     </main>
   );
 }
-
 
 /* =========================================================
    STAT COMPONENT
 ========================================================= */
 
-function Stat({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
+function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div
       className="
@@ -784,23 +683,27 @@ function Stat({
         hover:bg-emerald-800/50
       "
     >
-      <p className="
+      <p
+        className="
         text-xs
         font-semibold
         uppercase
         tracking-[0.15em]
         text-emerald-300/90
-      ">
+      "
+      >
         {label}
       </p>
 
-      <p className="
+      <p
+        className="
         mt-2
         font-display
         text-lg
         font-bold
         text-emerald-50
-      ">
+      "
+      >
         {value}
       </p>
     </div>

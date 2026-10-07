@@ -37,7 +37,7 @@ export function Navbar() {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [discoverOpen, setDiscoverOpen] = useState(false);
-  
+
   // Close dropdown if user clicks outside of it
   const dropdownRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -51,12 +51,11 @@ export function Navbar() {
   }, []);
 
   // Check if any link inside the "Discover" dropdown is currently active
-  const isDiscoverActive = dropdownLinks.some((link) =>
-    location.pathname.startsWith(link.to)
-  );
+  const isDiscoverActive = dropdownLinks.some((link) => location.pathname.startsWith(link.to));
 
   // Reusable style variables to ensure 100% exact matching across all buttons and links
-  const activeClass = "bg-gradient-to-r from-orange-400 via-orange-500 to-green-600 text-white shadow-[0_6px_18px_rgba(226,110,40,0.25)] hover:shadow-[0_8px_24px_rgba(226,110,40,0.35)]";
+  const activeClass =
+    "bg-gradient-to-r from-orange-400 via-orange-500 to-green-600 text-white shadow-[0_6px_18px_rgba(226,110,40,0.25)] hover:shadow-[0_8px_24px_rgba(226,110,40,0.35)]";
   const inactiveClass = "text-white/90 hover:bg-white/20 hover:text-white hover:shadow-sm";
 
   return (
@@ -141,10 +140,10 @@ export function Navbar() {
           {/* Logo text */}
           <div className="hidden sm:block">
             <p className="font-display text-xl font-bold leading-none tracking-tight text-white">
-              Ahaar Amrit
+              Ahaar <span className="text-amber-400 font-extrabold">Amrit</span>
             </p>
-            <p className="mt-1 font-hindi text-[11px] font-medium text-white/70">
-              आहार अमृत
+            <p className="mt-1 font-hindi text-[11px] font-semibold text-white/90">
+              आहार <span className="text-amber-300 font-bold">अमृत</span>
             </p>
           </div>
         </Link>
@@ -154,7 +153,6 @@ export function Navbar() {
         ====================================================== */}
 
         <nav className="hidden items-center gap-1 md:flex">
-          
           {/* Main Links */}
           {mainLinks.map((link) => {
             const active =
@@ -174,16 +172,18 @@ export function Navbar() {
 
           {/* "Discover" Dropdown Menu */}
           <div className="relative" ref={dropdownRef}>
-            <button 
+            <button
               onClick={() => setDiscoverOpen(!discoverOpen)}
               className={`flex items-center gap-1 rounded-full px-3 lg:px-4 py-2.5 text-sm font-medium transition-all duration-300 ${isDiscoverActive ? activeClass : inactiveClass}`}
             >
-              Discover 
-              <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${discoverOpen ? "rotate-180" : ""}`} />
+              Discover
+              <ChevronDown
+                className={`h-4 w-4 transition-transform duration-300 ${discoverOpen ? "rotate-180" : ""}`}
+              />
             </button>
-            
+
             {/* Dropdown Box (Glassmorphism applied here) */}
-            <div 
+            <div
               className={`
                 absolute top-full left-1/2 -translate-x-1/2 pt-2 z-50 transition-all duration-300 origin-top
                 ${discoverOpen ? "opacity-100 visible scale-100 translate-y-0" : "opacity-0 invisible scale-95 translate-y-2"}
@@ -222,7 +222,6 @@ export function Navbar() {
           >
             Profile
           </Link>
-
         </nav>
 
         {/* =====================================================
@@ -237,11 +236,7 @@ export function Navbar() {
             flex h-11 w-11 items-center justify-center rounded-full border border-white/40 bg-white/10 text-white backdrop-blur-md transition-all duration-300 hover:bg-white/20 hover:shadow-md md:hidden
           "
         >
-          {mobileMenuOpen ? (
-            <X className="h-5 w-5" />
-          ) : (
-            <Menu className="h-5 w-5" />
-          )}
+          {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>
 

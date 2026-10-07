@@ -1,20 +1,11 @@
 import type { Dosha } from "@/lib/dosha";
 
 export type AgeGroup = "13-15" | "16-18" | "18+";
-export type Region =
-  | "north"
-  | "south"
-  | "east"
-  | "west"
-  | "northeast";
+export type Region = "north" | "south" | "east" | "west" | "northeast";
 export type DietaryPreference = "vegetarian" | "non-vegetarian" | "eggetarian";
 export type Allergy = "dairy" | "nuts" | "gluten" | "soy" | "fish" | "other" | "none";
 export type Goal =
-  | "balanced-diet"
-  | "everyday-habits"
-  | "discover-indian-foods"
-  | "ayurvedic-wellness"
-  | "other";
+  "balanced-diet" | "everyday-habits" | "discover-indian-foods" | "ayurvedic-wellness" | "other";
 
 export interface AhaarProfile {
   ageGroup?: AgeGroup;
@@ -25,7 +16,7 @@ export interface AhaarProfile {
   goals: Goal[];
   otherGoal?: string;
   wantsAyurveda?: boolean;
-  /** Optional — only set if the user chose to explore Ayurveda and finished the quiz. */
+  /** Set when user completes the Ayurvedic dosha quiz. */
   dosha?: Dosha;
   completedAt?: string;
 }
@@ -70,8 +61,16 @@ export const allergyOptions: Choice<Allergy>[] = [
 export const goalOptions: Choice<Goal>[] = [
   { value: "balanced-diet", label: "Eat a more balanced diet", hindi: "संतुलित आहार" },
   { value: "everyday-habits", label: "Improve my everyday eating habits", hindi: "बेहतर आदतें" },
-  { value: "discover-indian-foods", label: "Discover nutritious Indian foods", hindi: "भारतीय पौष्टिक भोजन" },
-  { value: "ayurvedic-wellness", label: "Explore Ayurvedic wellness", hindi: "आयुर्वेदिक जीवनशैली" },
+  {
+    value: "discover-indian-foods",
+    label: "Discover nutritious Indian foods",
+    hindi: "भारतीय पौष्टिक भोजन",
+  },
+  {
+    value: "ayurvedic-wellness",
+    label: "Explore Ayurvedic wellness",
+    hindi: "आयुर्वेदिक जीवनशैली",
+  },
   { value: "other", label: "Other", hindi: "अन्य" },
 ];
 

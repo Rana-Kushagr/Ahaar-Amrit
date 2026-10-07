@@ -118,6 +118,14 @@ type Celebration = {
 };
 
 export const Route = createFileRoute("/wellness-challenge")({
+  head: () => ({ meta: [
+    { title: "Wellness Quests — Ahaar Amrit" },
+    { name: "description", content: "Daily wellness quests, nutrition habits, and earned badges." },
+    { property: "og:title", content: "Wellness Quests — Ahaar Amrit" },
+    { property: "og:description", content: "Daily wellness quests, nutrition habits, and earned badges." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
   component: WellnessChallengePage,
 });
 

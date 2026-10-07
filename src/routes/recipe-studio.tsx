@@ -459,6 +459,14 @@ const FEATURED_RECIPES = [
 // ROUTER EXPORT
 // ==========================================
 export const Route = createFileRoute("/recipe-studio")({
+  head: () => ({ meta: [
+    { title: "Recipe Studio — Ahaar Amrit" },
+    { name: "description", content: "Explore Indian recipes and kitchen inspiration for everyday meals." },
+    { property: "og:title", content: "Recipe Studio — Ahaar Amrit" },
+    { property: "og:description", content: "Explore Indian recipes and kitchen inspiration for everyday meals." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
   component: RecipeStudioPage,
 });
 

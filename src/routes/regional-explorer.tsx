@@ -82,6 +82,14 @@ const REGIONS = [
 // ROUTER EXPORT
 // ==========================================
 export const Route = createFileRoute("/regional-explorer")({
+  head: () => ({ meta: [
+    { title: "Regional Nutrition Explorer — Ahaar Amrit" },
+    { name: "description", content: "Explore Indian regional foods, ingredients, and cultural food traditions." },
+    { property: "og:title", content: "Regional Nutrition Explorer — Ahaar Amrit" },
+    { property: "og:description", content: "Explore Indian regional foods, ingredients, and cultural food traditions." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
   component: RegionalExplorerPage,
 });
 

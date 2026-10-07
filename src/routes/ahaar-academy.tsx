@@ -156,6 +156,14 @@ const ACADEMY_LEVELS = [
 // ROUTER EXPORT
 // ==========================================
 export const Route = createFileRoute("/ahaar-academy")({
+  head: () => ({ meta: [
+    { title: "My Ahaar Academia — Ahaar Amrit" },
+    { name: "description", content: "Learn about balanced meals, Indian foods, and nutrition through short lessons." },
+    { property: "og:title", content: "My Ahaar Academia — Ahaar Amrit" },
+    { property: "og:description", content: "Learn about balanced meals, Indian foods, and nutrition through short lessons." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
   component: AhaarAcademyPage,
 });
 

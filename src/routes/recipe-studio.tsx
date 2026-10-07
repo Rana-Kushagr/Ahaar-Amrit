@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import nutritionBg from "@/assets/nutrition.png.asset.json";
+import { PageWallpaper } from "@/components/PageWallpaper";
 import { useState } from "react";
 import { 
   ChefHat, Search, Sparkles, MapPin, Sun, Zap, 
@@ -535,13 +535,8 @@ function RecipeStudioPage() {
   const displayedRecipes = FEATURED_RECIPES.filter(r => r.category === CATEGORIES.find(c => c.id === activeCategory)?.title);
 
   return (
-    <div className="min-h-screen pt-32 pb-20 px-4 sm:px-6 relative">
-      <div
-        className="pointer-events-none fixed inset-0 -z-10 bg-emerald-950 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url('${nutritionBg.url}')` }}
-        aria-hidden
-      />
-      <div className="pointer-events-none fixed inset-0 -z-10 bg-emerald-950/20" aria-hidden />
+    <div className="min-h-screen pt-32 pb-20 px-4 sm:px-6 relative isolate">
+      <PageWallpaper variant="nutrition" />
       
       
       {/* ==========================================

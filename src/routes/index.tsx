@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAhaarProfile } from "@/hooks/use-ahaar-profile";
-import { ScrollProgress } from "@/components/ScrollProgress";
+import { PageWallpaper } from "@/components/PageWallpaper";
 import { ScrollReveal } from "@/components/ScrollReveal";
 
 const title = "Ahaar Amrit — Personalized Indian Nutrition";
@@ -31,6 +31,10 @@ export const Route = createFileRoute("/")({
         name: "description",
         content: description,
       },
+      { property: "og:title", content: title },
+      { property: "og:description", content: description },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
 
@@ -105,18 +109,8 @@ function Index() {
     Boolean(profile.completedAt || profile.ageGroup || profile.region || profile.dietaryPreference);
 
   return (
-    <main
-      className="relative min-h-screen overflow-x-hidden"
-      style={{
-        backgroundImage: "url('/ayurveda-hero-bg.png')",
-        backgroundSize: "cover",
-        backgroundPosition: "center center",
-        backgroundAttachment: "fixed",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
-      {/* Sleek Golden-Emerald Scroll Progress Bar */}
-      <ScrollProgress />
+    <main className="relative isolate min-h-screen overflow-x-hidden">
+      <PageWallpaper />
 
       {/* =====================================================
           GLOBAL BACKGROUND OVERLAY

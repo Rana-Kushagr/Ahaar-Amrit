@@ -11,7 +11,7 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-import nutritionBg from "@/assets/nutrition.png.asset.json";
+import { PageWallpaper } from "@/components/PageWallpaper";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect, useRef } from "react";
 
@@ -370,18 +370,13 @@ function SwasthyaPage() {
   };
 
   return (
-    <main className="relative min-h-screen px-4 pb-16 pt-28 sm:px-6 sm:pt-36">
+    <main className="relative isolate min-h-screen px-4 pb-16 pt-28 sm:px-6 sm:pt-36">
 
       {/* =====================================================
           FIXED FULL-SCREEN BACKGROUND (same as nutrition plan)
       ===================================================== */}
 
-      <div
-        className="pointer-events-none fixed inset-0 z-0 bg-emerald-950 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url('${nutritionBg.url}')` }}
-        aria-hidden
-      />
-      <div className="pointer-events-none fixed inset-0 z-0 bg-emerald-950/20" aria-hidden />
+      <PageWallpaper variant="nutrition" />
 
       <div className="relative z-10 mx-auto max-w-5xl space-y-10">
 

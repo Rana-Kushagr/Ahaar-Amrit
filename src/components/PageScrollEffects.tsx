@@ -1,9 +1,9 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { useRouterState } from "@tanstack/react-router";
 import { ScrollProgress } from "@/components/ScrollProgress";
 
 /** Enhance existing sections in-place, preserving grid tracks and fixed layers. */
-export function PageScrollEffects() {
+export function PageScrollEffects({ children }: { children: ReactNode }) {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const ref = useRef<HTMLDivElement>(null);
 
@@ -78,5 +78,5 @@ export function PageScrollEffects() {
     };
   }, [pathname]);
 
-  return <div ref={ref} className="contents" data-page-scroll-effects><ScrollProgress /></div>;
+  return <div ref={ref} className="contents" data-page-scroll-effects><ScrollProgress />{children}</div>;
 }

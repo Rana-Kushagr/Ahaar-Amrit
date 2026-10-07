@@ -135,36 +135,41 @@ function WellnessChallengePage() {
   // ==========================================
   // PERSISTENT STATE WITH LOCALSTORAGE
   // ==========================================
-  const [points, setPoints] = useState(() => {
-    const saved = localStorage.getItem("ahaar_points");
-    return saved ? parseInt(saved, 10) : 0;
-  });
-  
-  const [streak, setStreak] = useState(() => {
-    const saved = localStorage.getItem("ahaar_streak");
-    return saved ? parseInt(saved, 10) : 0;
-  });
-  
-  const [completedQuests, setCompletedQuests] = useState<string[]>(() => {
-    const saved = localStorage.getItem("ahaar_completed_quests");
-    return saved ? JSON.parse(saved) : [];
-  });
-  
-  const [unlockedBadges, setUnlockedBadges] = useState<string[]>(() => {
-    const saved = localStorage.getItem("ahaar_unlocked_badges");
-    return saved ? JSON.parse(saved) : [];
-  });
+  const [points, setPoints] = useState(0);
+  const [streak, setStreak] = useState(0);
+  const [completedQuests, setCompletedQuests] = useState<string[]>([]);
+  const [unlockedBadges, setUnlockedBadges] = useState<string[]>([]);
+  const [storageReady, setStorageReady] = useState(false);
+
+  useEffect(() => {
+    try {
+      const readList = (key: string): string[] => {
+        try {
+          const value: unknown = JSON.parse(localStorage.getItem(key) || "[]");
+          return Array.isArray(value) ? value.filter((item): item is string => typeof item === "string") : [];
+        } catch { return []; }
+      };
+      setPoints(Number.parseInt(localStorage.getItem("ahaar_points") || "0", 10) || 0);
+      setStreak(Number.parseInt(localStorage.getItem("ahaar_streak") || "0", 10) || 0);
+      setCompletedQuests(readList("ahaar_completed_quests"));
+      setUnlockedBadges(readList("ahaar_unlocked_badges"));
+    } catch { /* Storage may be unavailable in private browsing. */ }
+    setStorageReady(true);
+  }, []);
   
   // Celebration Queue (Does not need to persist on reload)
   const [celebrations, setCelebrations] = useState<Celebration[]>([]);
 
   // Save to LocalStorage whenever state changes
   useEffect(() => {
-    localStorage.setItem("ahaar_points", points.toString());
-    localStorage.setItem("ahaar_streak", streak.toString());
-    localStorage.setItem("ahaar_completed_quests", JSON.stringify(completedQuests));
-    localStorage.setItem("ahaar_unlocked_badges", JSON.stringify(unlockedBadges));
-  }, [points, streak, completedQuests, unlockedBadges]);
+    if (!storageReady) return;
+    try {
+      localStorage.setItem("ahaar_points", points.toString());
+      localStorage.setItem("ahaar_streak", streak.toString());
+      localStorage.setItem("ahaar_completed_quests", JSON.stringify(completedQuests));
+      localStorage.setItem("ahaar_unlocked_badges", JSON.stringify(unlockedBadges));
+    } catch { /* Keep quests usable when storage is unavailable. */ }
+  }, [points, streak, completedQuests, unlockedBadges, storageReady]);
 
   const addCelebration = (celeb: Omit<Celebration, "id">) => {
     setCelebrations(prev => [...prev, { ...celeb, id: Math.random().toString() }]);
@@ -172,6 +177,7 @@ function WellnessChallengePage() {
 
   // Logic: Check for newly unlocked achievements when state changes
   useEffect(() => {
+    if (!storageReady) return;
     const newlyUnlocked: string[] = [];
     const currentBadges = new Set(unlockedBadges);
 
@@ -214,7 +220,7 @@ function WellnessChallengePage() {
     if (newlyUnlocked.length > 0) {
       setUnlockedBadges(Array.from(currentBadges));
     }
-  }, [points, streak, completedQuests]);
+  }, [points, streak, completedQuests, storageReady]);
 
   const handleCompleteQuest = (questType: "daily" | "weekly" | "special", id: string, pts: number, badgeStr?: string) => {
     if (!completedQuests.includes(id)) {

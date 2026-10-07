@@ -26,10 +26,10 @@ export function PageScrollEffects({ children }: { children: ReactNode }) {
       const candidates = root.querySelectorAll<HTMLElement>(
         'section, article, .glass, [class*="rounded"][class*="border"], [data-slot="card"]'
       );
-      for (const el of candidates) {
+      for (const el of Array.from(candidates).reverse()) {
         if (targets.has(el) || el.matches("button, a, input, select, textarea") ||
           el.closest('[data-scroll-reveal], [role="dialog"], .fixed, .sticky') ||
-          el.querySelector('.fixed, .sticky, [role="dialog"]')) continue;
+          el.querySelector('.fixed, .sticky, [role="dialog"], [data-scroll-reveal]')) continue;
         const rect = el.getBoundingClientRect();
         if (rect.height < 70 || rect.height > window.innerHeight * 1.2 || rect.width < 120) continue;
         targets.add(el);

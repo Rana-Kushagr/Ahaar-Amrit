@@ -169,15 +169,18 @@ export const Route = createFileRoute("/ahaar-academy")({
 
 function AhaarAcademyPage() {
   // Persistent user state via localStorage
-  const [completedLevels, setCompletedLevels] = useState<number[]>(() => {
-    const saved = localStorage.getItem("ahaar_academy_completed");
-    return saved ? JSON.parse(saved) : [];
-  });
-  
-  const [points, setPoints] = useState<number>(() => {
-    const saved = localStorage.getItem("ahaar_academy_points");
-    return saved ? parseInt(saved, 10) : 0;
-  });
+  const [completedLevels, setCompletedLevels] = useState<number[]>([]);
+  const [points, setPoints] = useState(0);
+  const [storageReady, setStorageReady] = useState(false);
+
+  useEffect(() => {
+    try {
+      const saved: unknown = JSON.parse(localStorage.getItem("ahaar_academy_completed") || "[]");
+      if (Array.isArray(saved)) setCompletedLevels(saved.filter((item): item is number => typeof item === "number"));
+      setPoints(Number.parseInt(localStorage.getItem("ahaar_academy_points") || "0", 10) || 0);
+    } catch { /* Keep lessons usable if saved data is unavailable. */ }
+    setStorageReady(true);
+  }, []);
 
   const [activeLevelId, setActiveLevelId] = useState<number | null>(null);
   const [mode, setMode] = useState<"learn" | "quiz">("learn");
@@ -186,9 +189,12 @@ function AhaarAcademyPage() {
   const [successCelebration, setSuccessCelebration] = useState<{ title: string; points: number; badge: string } | null>(null);
 
   useEffect(() => {
-    localStorage.setItem("ahaar_academy_completed", JSON.stringify(completedLevels));
-    localStorage.setItem("ahaar_academy_points", points.toString());
-  }, [completedLevels, points]);
+    if (!storageReady) return;
+    try {
+      localStorage.setItem("ahaar_academy_completed", JSON.stringify(completedLevels));
+      localStorage.setItem("ahaar_academy_points", points.toString());
+    } catch { /* Keep lessons usable when storage is unavailable. */ }
+  }, [completedLevels, points, storageReady]);
 
   const activeLevelData = ACADEMY_LEVELS.find(l => l.id === activeLevelId);
 

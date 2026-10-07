@@ -16,6 +16,7 @@
 **Ahaar Amrit (आहार अमृत)** is an advanced holistic nutrition and wellness platform specifically crafted for Indian dietary habits, lifestyles, and bodies. While Western diet charts often overlook Indian staples, spices, and cooking traditions, Ahaar Amrit bridges the gap by uniting **evidence-based modern nutritional science** with **authentic Ayurvedic wellness principles** (*Ahara*, *Vihara*, and *Prakriti*).
 
 Whether your goal is muscle building, metabolic wellness, fat loss, digestive harmony, or exploring regional culinary heritage, Ahaar Amrit provides personalized, sustainable, and culturally resonant wellness guidance.
+https://ahaar-amrit.lovable.app
 
 ---
 

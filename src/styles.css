@@ -1050,3 +1050,44 @@ strong {
 .animate-particle-3 {
   animation: particle-drift 8s ease-in-out infinite alternate;
 }
+
+/* Fixed wallpaper is deliberately outside all animated content layers. */
+:root {
+  --scroll-progress-track: rgba(255, 255, 255, 0.05);
+  --scroll-progress-gradient: linear-gradient(90deg, #fbbf24, #f97316, #34d399);
+  --scroll-progress-glow: 0 0 12px rgba(251, 191, 36, 0.6);
+}
+
+.page-wallpaper {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  pointer-events: none;
+  background-color: var(--background);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.scroll-progress-track { background: var(--scroll-progress-track); }
+.scroll-progress-fill {
+  background: var(--scroll-progress-gradient);
+  box-shadow: var(--scroll-progress-glow);
+}
+
+@keyframes page-scroll-reveal {
+  from { opacity: 0; translate: 0 28px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-scroll-reveal="pending"] { opacity: 0; }
+  [data-scroll-reveal="visible"] {
+    animation: page-scroll-reveal 850ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  [data-scroll-reveal] { opacity: 1; animation: none; translate: none; }
+}

@@ -3,6 +3,14 @@ import { ArrowRight, Flame, Leaf, Wind, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/dosha")({
+  head: () => ({ meta: [
+    { title: "Ayurvedic Doshas — Ahaar Amrit" },
+    { name: "description", content: "Explore Vata, Pitta, and Kapha as an optional educational wellness layer." },
+    { property: "og:title", content: "Ayurvedic Doshas — Ahaar Amrit" },
+    { property: "og:description", content: "Explore Vata, Pitta, and Kapha as an optional educational wellness layer." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
   component: DoshaPage,
 });
 

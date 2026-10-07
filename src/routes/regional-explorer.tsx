@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { PageWallpaper } from "@/components/PageWallpaper";
 import { 
   Compass, Leaf, BookOpen, Utensils, 
   Sprout, ChevronRight, MapPin
@@ -81,6 +82,14 @@ const REGIONS = [
 // ROUTER EXPORT
 // ==========================================
 export const Route = createFileRoute("/regional-explorer")({
+  head: () => ({ meta: [
+    { title: "Regional Nutrition Explorer — Ahaar Amrit" },
+    { name: "description", content: "Explore Indian regional foods, ingredients, and cultural food traditions." },
+    { property: "og:title", content: "Regional Nutrition Explorer — Ahaar Amrit" },
+    { property: "og:description", content: "Explore Indian regional foods, ingredients, and cultural food traditions." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
   component: RegionalExplorerPage,
 });
 
@@ -88,13 +97,8 @@ function RegionalExplorerPage() {
   const [activeRegion, setActiveRegion] = useState(REGIONS[0]);
 
   return (
-    <div className="min-h-screen pt-32 pb-20 px-4 sm:px-6 relative">
-      <div
-        className="pointer-events-none fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('/ayurveda-hero-bg.png')" }}
-        aria-hidden
-      />
-      <div className="pointer-events-none fixed inset-0 -z-10 bg-black/10" aria-hidden />
+    <div className="min-h-screen pt-32 pb-20 px-4 sm:px-6 relative isolate">
+      <PageWallpaper variant="nutrition" />
       <div className="mx-auto w-full max-w-6xl">
         
         {/* Header */}

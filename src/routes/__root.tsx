@@ -14,6 +14,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Navbar } from "../components/Navbar";
 import { AyurChatWidget } from "../components/AyurChatWidget";
+import { PageScrollEffects } from "../components/PageScrollEffects";
 
 function NotFoundComponent() {
   return (
@@ -175,7 +176,7 @@ function RootComponent() {
 
       {/* All page content appears below the Navbar */}
       <main>
-        <Outlet />
+        <PageScrollEffects><Outlet /></PageScrollEffects>
       </main>
 
       {/* Ayur floating AI chat appears on every page */}

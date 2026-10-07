@@ -5,6 +5,7 @@ import {
   ArrowRight, RotateCcw, BookOpen, Award
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { PageWallpaper } from "@/components/PageWallpaper";
 
 // ==========================================
 // DATA: 6 ACADEMY LEVELS & LESSONS
@@ -155,20 +156,31 @@ const ACADEMY_LEVELS = [
 // ROUTER EXPORT
 // ==========================================
 export const Route = createFileRoute("/ahaar-academy")({
+  head: () => ({ meta: [
+    { title: "My Ahaar Academia — Ahaar Amrit" },
+    { name: "description", content: "Learn about balanced meals, Indian foods, and nutrition through short lessons." },
+    { property: "og:title", content: "My Ahaar Academia — Ahaar Amrit" },
+    { property: "og:description", content: "Learn about balanced meals, Indian foods, and nutrition through short lessons." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
   component: AhaarAcademyPage,
 });
 
 function AhaarAcademyPage() {
   // Persistent user state via localStorage
-  const [completedLevels, setCompletedLevels] = useState<number[]>(() => {
-    const saved = localStorage.getItem("ahaar_academy_completed");
-    return saved ? JSON.parse(saved) : [];
-  });
-  
-  const [points, setPoints] = useState<number>(() => {
-    const saved = localStorage.getItem("ahaar_academy_points");
-    return saved ? parseInt(saved, 10) : 0;
-  });
+  const [completedLevels, setCompletedLevels] = useState<number[]>([]);
+  const [points, setPoints] = useState(0);
+  const [storageReady, setStorageReady] = useState(false);
+
+  useEffect(() => {
+    try {
+      const saved: unknown = JSON.parse(localStorage.getItem("ahaar_academy_completed") || "[]");
+      if (Array.isArray(saved)) setCompletedLevels(saved.filter((item): item is number => typeof item === "number"));
+      setPoints(Number.parseInt(localStorage.getItem("ahaar_academy_points") || "0", 10) || 0);
+    } catch { /* Keep lessons usable if saved data is unavailable. */ }
+    setStorageReady(true);
+  }, []);
 
   const [activeLevelId, setActiveLevelId] = useState<number | null>(null);
   const [mode, setMode] = useState<"learn" | "quiz">("learn");
@@ -177,9 +189,12 @@ function AhaarAcademyPage() {
   const [successCelebration, setSuccessCelebration] = useState<{ title: string; points: number; badge: string } | null>(null);
 
   useEffect(() => {
-    localStorage.setItem("ahaar_academy_completed", JSON.stringify(completedLevels));
-    localStorage.setItem("ahaar_academy_points", points.toString());
-  }, [completedLevels, points]);
+    if (!storageReady) return;
+    try {
+      localStorage.setItem("ahaar_academy_completed", JSON.stringify(completedLevels));
+      localStorage.setItem("ahaar_academy_points", points.toString());
+    } catch { /* Keep lessons usable when storage is unavailable. */ }
+  }, [completedLevels, points, storageReady]);
 
   const activeLevelData = ACADEMY_LEVELS.find(l => l.id === activeLevelId);
 
@@ -209,13 +224,8 @@ function AhaarAcademyPage() {
   };
 
   return (
-    <div className="min-h-screen pt-32 pb-20 px-4 sm:px-6 relative">
-      <div
-        className="pointer-events-none fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('/ayurveda-hero-bg.png')" }}
-        aria-hidden
-      />
-      <div className="pointer-events-none fixed inset-0 -z-10 bg-black/10" aria-hidden />
+    <div className="min-h-screen pt-32 pb-20 px-4 sm:px-6 relative isolate">
+      <PageWallpaper />
       
       
       {/* ==========================================

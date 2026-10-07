@@ -10,6 +10,14 @@ import { Button } from "@/components/ui/button";
 import { useAhaarProfile } from "@/hooks/use-ahaar-profile";
 
 export const Route = createFileRoute("/dosha-quiz")({
+  head: () => ({ meta: [
+    { title: "Dosha Quiz — Ahaar Amrit" },
+    { name: "description", content: "Discover your Ayurvedic dosha through an educational questionnaire." },
+    { property: "og:title", content: "Dosha Quiz — Ahaar Amrit" },
+    { property: "og:description", content: "Discover your Ayurvedic dosha through an educational questionnaire." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
   component: DoshaQuiz,
 });
 

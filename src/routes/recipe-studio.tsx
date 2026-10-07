@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import nutritionBg from "@/assets/nutrition.png.asset.json";
+import { PageWallpaper } from "@/components/PageWallpaper";
 import { useState } from "react";
 import { 
   ChefHat, Search, Sparkles, MapPin, Sun, Zap, 
@@ -459,6 +459,14 @@ const FEATURED_RECIPES = [
 // ROUTER EXPORT
 // ==========================================
 export const Route = createFileRoute("/recipe-studio")({
+  head: () => ({ meta: [
+    { title: "Recipe Studio — Ahaar Amrit" },
+    { name: "description", content: "Explore Indian recipes and kitchen inspiration for everyday meals." },
+    { property: "og:title", content: "Recipe Studio — Ahaar Amrit" },
+    { property: "og:description", content: "Explore Indian recipes and kitchen inspiration for everyday meals." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
   component: RecipeStudioPage,
 });
 
@@ -535,13 +543,8 @@ function RecipeStudioPage() {
   const displayedRecipes = FEATURED_RECIPES.filter(r => r.category === CATEGORIES.find(c => c.id === activeCategory)?.title);
 
   return (
-    <div className="min-h-screen pt-32 pb-20 px-4 sm:px-6 relative">
-      <div
-        className="pointer-events-none fixed inset-0 -z-10 bg-emerald-950 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url('${nutritionBg.url}')` }}
-        aria-hidden
-      />
-      <div className="pointer-events-none fixed inset-0 -z-10 bg-emerald-950/20" aria-hidden />
+    <div className="min-h-screen pt-32 pb-20 px-4 sm:px-6 relative isolate">
+      <PageWallpaper variant="nutrition" />
       
       
       {/* ==========================================
